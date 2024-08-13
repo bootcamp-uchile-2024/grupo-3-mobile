@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gdlnBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95" />
+        app:layout_constraintGuide_percent="0.97" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gdlnStart"
@@ -75,8 +75,8 @@
 
     <EditText
         android:id="@+id/txtboxEmail"
-        android:layout_width="329dp"
-        android:layout_height="33dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/rounded_edittext"
         android:hint="example@gmail.com"
         android:inputType="textEmailAddress"
@@ -85,7 +85,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/gdlnBottom"
         app:layout_constraintEnd_toEndOf="@id/gdlnEnd"
-        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintHorizontal_bias="0.35"
         app:layout_constraintStart_toStartOf="@id/gdlnStart"
         app:layout_constraintTop_toBottomOf="@id/txtEmail"
         app:layout_constraintVertical_bias="0.02" />
@@ -105,8 +105,8 @@
 
     <EditText
         android:id="@+id/txtboxPass"
-        android:layout_width="329dp"
-        android:layout_height="33dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/rounded_edittext"
         android:hint="*******************"
         android:inputType="textEmailAddress"

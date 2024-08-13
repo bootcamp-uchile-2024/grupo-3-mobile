@@ -13,9 +13,6 @@
         android:theme="@style/Theme.AppCompat.Light"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
             android:name=".SignInActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light" />
