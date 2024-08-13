@@ -75,7 +75,7 @@
 
     <EditText
         android:id="@+id/txtboxEmail"
-        android:layout_width="289dp"
+        android:layout_width="329dp"
         android:layout_height="33dp"
         android:background="@drawable/rounded_edittext"
         android:hint="example@gmail.com"
@@ -105,7 +105,7 @@
 
     <EditText
         android:id="@+id/txtboxPass"
-        android:layout_width="289dp"
+        android:layout_width="329dp"
         android:layout_height="33dp"
         android:background="@drawable/rounded_edittext"
         android:hint="*******************"

@@ -1,13 +1,15 @@
 package com.cotiledon.mobilApp
-import android.content.Intent
+
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
-class SingInActivity(intent: Intent) : AppCompatActivity() {
+
+class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_sing_in)
+        setContentView(R.layout.activity_login)
     }
 }
