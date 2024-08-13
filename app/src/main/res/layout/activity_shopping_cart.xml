@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignInActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlnTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlnBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.97" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlnStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.07" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlnEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.92" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlProductEnd1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.36" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlProductTop1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlProductBottom1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <ImageView
+        android:id="@+id/photoProduct1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/photoproduct"
+        app:layout_constraintBottom_toBottomOf="@id/gdlProductBottom1"
+        app:layout_constraintEnd_toEndOf="@id/gdlProductEnd1"
+        app:layout_constraintStart_toStartOf="@id/gdlnStart"
+        app:layout_constraintTop_toTopOf="@id/gdlProductTop1" />
+
+    <TextView
+        android:id="@+id/txtMyOrders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mis Compras"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/gdlnBottom"
+        app:layout_constraintEnd_toEndOf="@id/gdlnEnd"
+        app:layout_constraintStart_toStartOf="@id/gdlnStart"
+        app:layout_constraintTop_toTopOf="@id/gdlnTop"
+        app:layout_constraintVertical_bias="0.011" />
+
+    <ImageButton
+        android:id="@+id/imgbtnApple"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/round_arrow"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/backarrow"
+        app:layout_constraintEnd_toStartOf="@id/txtMyOrders"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/gdlnStart"
+        app:layout_constraintTop_toTopOf="@id/gdlnTop" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlnText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="180dp" />
+
+    <TextView
+        android:id="@+id/txtSeals1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Producto 1"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/gdlProductBottom1"
+        app:layout_constraintEnd_toEndOf="@id/gdlnEnd"
+        app:layout_constraintStart_toStartOf="@id/gdlnText"
+        app:layout_constraintTop_toTopOf="@id/gdlProductTop1"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <TextView
+        android:id="@+id/txtSeals2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Tamaño:"
+        android:textColor="#C5C5C5"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/gdlProductBottom1"
+        app:layout_constraintEnd_toEndOf="@id/gdlnEnd"
+        app:layout_constraintStart_toStartOf="@id/gdlnText"
+        app:layout_constraintTop_toBottomOf="@id/txtSeals1"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/txtSeals3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="$12.000"
+        android:textColor="#171615"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/gdlProductBottom1"
+        app:layout_constraintEnd_toEndOf="@id/gdlnEnd"
+        app:layout_constraintStart_toStartOf="@id/gdlnText"
+        app:layout_constraintTop_toBottomOf="@id/txtSeals2"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gidelineMoreLessStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="279dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMoreLessBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="215dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMoreLessTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="174dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

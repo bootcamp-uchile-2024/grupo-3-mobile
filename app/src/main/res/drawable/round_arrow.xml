@@ -4,6 +4,6 @@
     <size android:width="150dp" android:height="150dp"/>
     <!-- Borde del botón -->
     <stroke
-        android:width="0.2dp"
+        android:width="0.8dp"
         android:color="#B2B1B1" />
 </shape>
