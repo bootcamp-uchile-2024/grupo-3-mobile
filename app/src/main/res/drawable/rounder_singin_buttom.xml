@@ -1,0 +1,7 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo de la caja de texto -->
+    <solid android:color="#404040" />
+
+    <!-- Bordes redondeados -->
+    <corners android:radius="30dp" />
+</shape>
