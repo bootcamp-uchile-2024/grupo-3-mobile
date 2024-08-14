@@ -12,7 +12,7 @@ class MainActivity : ComponentActivity() {
 
         val btnStart = findViewById<Button>(R.id.btnStart)
         btnStart.setOnClickListener {
-            val intent = Intent(this, ShoppingCartActivity::class.java)
+            val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
         }
     }

@@ -135,8 +135,8 @@
 
     <Button
         android:id="@+id/btnSingIn"
-        android:layout_width="312dp"
-        android:layout_height="46dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/rounder_singin_buttom"
         android:padding="12dp"
         android:text="Sing In"
