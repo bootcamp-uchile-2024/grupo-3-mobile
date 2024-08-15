@@ -44,7 +44,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="#E4F5D9"
-        android:foregroundTint="#000000"
+        android:tint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gdHomeTop"
         app:srcCompat="@drawable/shopping_cart_24" />
@@ -82,8 +82,8 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="68dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="36dp"
                     android:text="Suculenta"
                     android:textAlignment="viewStart"
                     android:textSize="24sp"
@@ -97,12 +97,12 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
-                    android:background="#E4F5D9"
-                    android:backgroundTint="#E4F5D9"
+                    android:background="#FFFFFF"
+                    android:backgroundTint="#FFFFFF"
                     android:clickable="true"
                     android:innerRadius="0dp"
                     android:shape="ring"
-                    app:cardBackgroundColor="#8B3E8A41"
+                    app:cardBackgroundColor="#FFFFFF"
                     app:cardCornerRadius="75dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -139,12 +139,12 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="24dp"
-                    android:background="#E4F5D9"
-                    android:backgroundTint="#E4F5D9"
+                    android:background="#FFFFFF"
+                    android:backgroundTint="#FFFFFF"
                     android:clickable="true"
                     android:innerRadius="0dp"
                     android:shape="ring"
-                    app:cardBackgroundColor="#8B3E8A41"
+                    app:cardBackgroundColor="#FFFFFF"
                     app:cardCornerRadius="75dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/frameLayout">
@@ -186,6 +186,18 @@
                     android:text="Añadir al carrito"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="32dp"
+                    android:text="$15.000"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
