@@ -46,10 +46,10 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="#E4F5D9"
-        android:tint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gdHomeTop"
-        app:srcCompat="@drawable/shopping_cart_24" />
+        app:srcCompat="@drawable/shopping_cart_24"
+        app:tint="#000000" />
 
     <ScrollView
         android:id="@+id/verticalScroll_home"
