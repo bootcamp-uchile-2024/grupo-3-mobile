@@ -8,11 +8,11 @@
     tools:context=".SignInActivity">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gdlnTop"
+        android:id="@+id/gdHomeTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+        app:layout_constraintGuide_percent="0.051983584" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gdlnBottom"
@@ -45,7 +45,7 @@
         app:layout_constraintBottom_toBottomOf="@id/gdlnBottom"
         app:layout_constraintEnd_toEndOf="@id/gdlnEnd"
         app:layout_constraintStart_toStartOf="@id/gdlnStart"
-        app:layout_constraintTop_toTopOf="@id/gdlnTop"
+        app:layout_constraintTop_toTopOf="@id/gdHomeTop"
         app:layout_constraintVertical_bias="0.01" />
 
     <TextView
@@ -139,7 +139,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rounder_singin_buttom"
         android:padding="12dp"
-        android:text="Sing In"
+        android:text="Sign In"
         android:textColor="#ffff"
         app:layout_constraintBottom_toBottomOf="@id/gdlnBottom"
         app:layout_constraintEnd_toEndOf="@id/gdlnEnd"

@@ -5,69 +5,59 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:backgroundTint="#FFFFFF"
-    tools:context=".Home">
+    android:background="#E4F5D9"
+    android:backgroundTint="#E4F5D9"
+    tools:context=".HomeActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/heading_home"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdHomeTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <ImageButton
+        android:id="@+id/burger_menu_product"
+        android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="#8B3E8A41"
-        android:backgroundTint="#8B3E8A41"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="#E4F5D9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/gdHomeTop"
+        app:srcCompat="@drawable/ic_fas_bars" />
 
-        <ImageButton
-            android:id="@+id/burger_menu_home"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="#8B3E8A41"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_fas_bars" />
+    <SearchView
+        android:id="@+id/search_product"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/cart_product"
+        app:layout_constraintStart_toEndOf="@+id/burger_menu_product"
+        app:layout_constraintTop_toTopOf="@+id/gdHomeTop">
 
-        <SearchView
-            android:id="@+id/search_home"
-            android:layout_width="0dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="12.5dp"
-            android:layout_marginEnd="12.5dp"
-            android:layout_weight="1"
-            android:background="#F2F2F2"
-            android:backgroundTint="#F2F2F2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cart_home"
-            app:layout_constraintStart_toEndOf="@id/burger_menu_home"
-            app:layout_constraintTop_toTopOf="parent">
+    </SearchView>
 
-        </SearchView>
-
-        <ImageButton
-            android:id="@+id/cart_home"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="#8B3E8A41"
-            android:foregroundTint="#000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/shopping_cart_24" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/cart_product"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="#E4F5D9"
+        android:foregroundTint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gdHomeTop"
+        app:srcCompat="@drawable/shopping_cart_24" />
 
     <ScrollView
         android:id="@+id/verticalScroll_home"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/heading_home"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@id/search_product">
 
         <LinearLayout
             android:id="@+id/linealLayout_verticalScroll"
@@ -127,11 +117,11 @@
                                 android:id="@+id/category1_categoryView"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:background="#8B3E8A41"
-                                android:backgroundTint="#8B3E8A41"
+                                android:background="#FFFFFF"
+                                android:backgroundTint="#FFFFFF"
                                 android:innerRadius="0dp"
                                 android:shape="ring"
-                                app:cardBackgroundColor="#8B3E8A41"
+                                app:cardBackgroundColor="#FFFFFF"
                                 app:cardCornerRadius="75dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -173,11 +163,11 @@
                                 android:id="@+id/category2_categoryView"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:background="#8B3E8A41"
-                                android:backgroundTint="#8B3E8A41"
+                                android:background="#FFFFFF"
+                                android:backgroundTint="#FFFFFF"
                                 android:innerRadius="0dp"
                                 android:shape="ring"
-                                app:cardBackgroundColor="#8B3E8A41"
+                                app:cardBackgroundColor="#FFFFFF"
                                 app:cardCornerRadius="75dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -218,11 +208,11 @@
                                 android:id="@+id/category3_categoryView"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:background="#8B3E8A41"
-                                android:backgroundTint="#8B3E8A41"
+                                android:background="#FFFFFF"
+                                android:backgroundTint="#FFFFFF"
                                 android:innerRadius="0dp"
                                 android:shape="ring"
-                                app:cardBackgroundColor="#8B3E8A41"
+                                app:cardBackgroundColor="#FFFFFF"
                                 app:cardCornerRadius="75dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -262,11 +252,11 @@
                                 android:id="@+id/category4_categoryView"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:background="#8B3E8A41"
-                                android:backgroundTint="#8B3E8A41"
+                                android:background="#FFFFFF"
+                                android:backgroundTint="#FFFFFF"
                                 android:innerRadius="0dp"
                                 android:shape="ring"
-                                app:cardBackgroundColor="#8B3E8A41"
+                                app:cardBackgroundColor="#FFFFFF"
                                 app:cardCornerRadius="75dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -307,11 +297,11 @@
                                 android:id="@+id/category5_categoryView"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:background="#8B3E8A41"
-                                android:backgroundTint="#8B3E8A41"
+                                android:background="#FFFFFF"
+                                android:backgroundTint="#FFFFFF"
                                 android:innerRadius="0dp"
                                 android:shape="ring"
-                                app:cardBackgroundColor="#8B3E8A41"
+                                app:cardBackgroundColor="#FFFFFF"
                                 app:cardCornerRadius="75dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -353,11 +343,11 @@
                                 android:id="@+id/category6_categoryView"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:background="#8B3E8A41"
-                                android:backgroundTint="#8B3E8A41"
+                                android:background="#FFFFFF"
+                                android:backgroundTint="#FFFFFF"
                                 android:innerRadius="0dp"
                                 android:shape="ring"
-                                app:cardBackgroundColor="#8B3E8A41"
+                                app:cardBackgroundColor="#FFFFFF"
                                 app:cardCornerRadius="75dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -769,8 +759,7 @@
                         android:id="@+id/title_recommendation1"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
-                        android:background="#8B3E8A41"
-                        android:backgroundTint="#8B3E8A41"
+                        android:background="#FFFFFF"
                         android:text="Escogidas para ti en la categoría Pet-Friendly"
                         android:textAlignment="viewStart"
                         android:textSize="14sp"
@@ -789,14 +778,12 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <TextView
-                                android:id="@+id/producto1_frame"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:text="PLANTA"
-                                android:textAlignment="center"
-                                android:textSize="20sp" />
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/photoproduct" />
+
                         </FrameLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -808,19 +795,16 @@
                             android:id="@+id/frame2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="#F2F2F2"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <TextView
-                                android:id="@+id/textView20"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="#F2F2F2"
-                                android:gravity="center"
-                                android:text="PLANTA"
-                                android:textAlignment="center"
-                                android:textSize="20sp" />
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/photoproduct" />
                         </FrameLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -836,15 +820,12 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <TextView
-                                android:id="@+id/textView21"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:background="#F2F2F2"
-                                android:gravity="center"
-                                android:text="PLANTA"
-                                android:textAlignment="center"
-                                android:textSize="20sp" />
+                                app:srcCompat="@drawable/photoproduct" />
                         </FrameLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -860,15 +841,12 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <TextView
-                                android:id="@+id/textView22"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:background="#F2F2F2"
-                                android:gravity="center"
-                                android:text="PLANTA"
-                                android:textAlignment="center"
-                                android:textSize="20sp" />
+                                app:srcCompat="@drawable/photoproduct" />
                         </FrameLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

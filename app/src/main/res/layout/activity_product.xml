@@ -5,68 +5,62 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:elevation="5dp"
-    tools:context=".Product">
+    android:background="#E4F5D9"
+    tools:context=".ProductActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/heading_home"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdHomeTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <ImageButton
+        android:id="@+id/burger_menu_product"
+        android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="#8B3E8A41"
-        android:backgroundTint="#8B3E8A41"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="#E4F5D9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/gdHomeTop"
+        app:srcCompat="@drawable/ic_fas_bars" />
 
-        <ImageButton
-            android:id="@+id/burger_menu_home"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="#8B3E8A41"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_fas_bars" />
+    <SearchView
+        android:id="@+id/search_product"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:background="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/cart_product"
+        app:layout_constraintStart_toStartOf="@+id/burger_menu_product"
+        app:layout_constraintTop_toTopOf="@+id/gdHomeTop">
 
-        <SearchView
-            android:id="@+id/search_home"
-            android:layout_width="0dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="12.5dp"
-            android:layout_marginEnd="12.5dp"
-            android:layout_weight="1"
-            android:background="#F2F2F2"
-            android:backgroundTint="#F2F2F2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cart_home"
-            app:layout_constraintStart_toEndOf="@id/burger_menu_home"
-            app:layout_constraintTop_toTopOf="parent">
+    </SearchView>
 
-        </SearchView>
-
-        <ImageButton
-            android:id="@+id/cart_home"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="#8B3E8A41"
-            android:foregroundTint="#000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/shopping_cart_24" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/cart_product"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="#E4F5D9"
+        android:foregroundTint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gdHomeTop"
+        app:srcCompat="@drawable/shopping_cart_24" />
 
     <Button
         android:id="@+id/adress_product"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#F2F2F2"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FFFFFF"
         android:backgroundTintMode="src_over"
         android:text="Dirección de envío"
         android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heading_home" />
+        app:layout_constraintTop_toBottomOf="@id/search_product" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -81,50 +75,37 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="250dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:scaleX="0.5"
-                    android:scaleY="0.5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="68dp"
                     android:text="Suculenta"
                     android:textAlignment="viewStart"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="64dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
-                    android:background="#8B3E8A41"
-                    android:backgroundTint="#8B3E8A41"
+                    android:background="#E4F5D9"
+                    android:backgroundTint="#E4F5D9"
                     android:clickable="true"
                     android:innerRadius="0dp"
                     android:shape="ring"
                     app:cardBackgroundColor="#8B3E8A41"
                     app:cardCornerRadius="75dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ratingBar">
+                    app:layout_constraintTop_toBottomOf="@+id/textView">
 
                     <ImageView
                         android:id="@+id/imageView"
@@ -158,8 +139,8 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="24dp"
-                    android:background="#8B3E8A41"
-                    android:backgroundTint="#8B3E8A41"
+                    android:background="#E4F5D9"
+                    android:backgroundTint="#E4F5D9"
                     android:clickable="true"
                     android:innerRadius="0dp"
                     android:shape="ring"
@@ -180,25 +161,26 @@
                     android:id="@+id/frameLayout2"
                     android:layout_width="375dp"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="32dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView2">
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView2"
+                    tools:layout_editor_absoluteX="11dp">
 
                     <TextView
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed nisi purus. Cras bibendum neque diam, at rutrum augue dignissim vel. Sed rutrum ex non purus egestas facilisis. Aliquam erat volutpat. Duis vitae leo vel est ultricies sodales. Etiam ornare sapien feugiat magna iaculis euismod sed id tortor. Duis rhoncus pellentesque metus. Cras luctus semper leo ac venenatis. Curabitur tellus dui, euismod vel elit ut, consequat feugiat ligula. Sed efficitur id nisi ac cursus. Morbi ut lectus ut elit dignissim accumsan. Phasellus quam lorem, eleifend porta mattis et, gravida quis libero. Cras maximus porta tortor, ac posuere lorem pharetra vitae. Duis tincidunt vel mi non laoreet." />
+                        android:text="  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed nisi purus. Cras bibendum neque diam, at rutrum augue dignissim vel. Sed rutrum ex non purus egestas facilisis. Aliquam erat volutpat. Duis vitae leo vel est ultricies sodales. Etiam ornare sapien feugiat magna iaculis euismod sed id tortor. Duis rhoncus pellentesque metus. Cras luctus semper leo ac venenatis. Curabitur tellus dui, euismod vel elit ut, consequat feugiat ligula. Sed efficitur id nisi ac cursus. Morbi ut lectus ut elit dignissim accumsan. Phasellus quam lorem, eleifend porta mattis et, gravida quis libero. Cras maximus porta tortor, ac posuere lorem pharetra vitae. Duis tincidunt vel mi non laoreet."
+                        android:textAlignment="viewStart" />
+
                 </FrameLayout>
 
                 <Button
                     android:id="@+id/button5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="24dp"
-                    android:backgroundTint="#8B3E8A41"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="#8BFFFFFF"
                     android:backgroundTintMode="src_over"
                     android:text="Añadir al carrito"
                     app:layout_constraintEnd_toEndOf="parent"

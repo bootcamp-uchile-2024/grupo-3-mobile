@@ -5,10 +5,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E4F5D9"
     tools:context=".SignInActivity">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gdlnTop"
+        android:id="@+id/gdHomeTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -78,7 +79,7 @@
         app:layout_constraintBottom_toBottomOf="@id/gdlnBottom"
         app:layout_constraintEnd_toEndOf="@id/gdlnEnd"
         app:layout_constraintStart_toStartOf="@id/gdlnStart"
-        app:layout_constraintTop_toTopOf="@id/gdlnTop"
+        app:layout_constraintTop_toTopOf="@id/gdHomeTop"
         app:layout_constraintVertical_bias="0.011" />
 
     <ImageButton
@@ -86,13 +87,14 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/round_arrow"
+        android:backgroundTint="#FFFFFF"
         android:padding="8dp"
         android:scaleType="fitCenter"
         android:src="@drawable/backarrow"
         app:layout_constraintEnd_toStartOf="@id/txtMyOrders"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@id/gdlnStart"
-        app:layout_constraintTop_toTopOf="@id/gdlnTop" />
+        app:layout_constraintTop_toTopOf="@id/gdHomeTop" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTextStart"
@@ -538,17 +540,17 @@
             android:id="@+id/SealButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@id/guideline2End"
-            app:layout_constraintStart_toStartOf="@id/guideline2Start"
-            app:layout_constraintTop_toTopOf="@id/guidelineTopBuy2"
-            app:layout_constraintBottom_toBottomOf="@+id/guideline2Bottom"
+            android:layout_margin="3dp"
             android:background="@drawable/rounder_singin_buttom"
             android:text="Comprar"
             android:textColor="#ffff"
-            android:layout_margin="3dp"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline2Bottom"
+            app:layout_constraintEnd_toEndOf="@id/guideline2End"
+            app:layout_constraintStart_toStartOf="@id/guideline2Start"
+            app:layout_constraintTop_toTopOf="@id/guidelineTopBuy2"
             app:layout_constraintVertical_bias="0.6" />
 
-            />
+        />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
