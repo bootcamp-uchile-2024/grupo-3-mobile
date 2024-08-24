@@ -1,13 +1,12 @@
-package com.cotiledon.mobilApp
+package com.cotiledon.mobilApp.ui.activities
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.cotiledon.mobilApp.R
 
 
 class SignInActivity : AppCompatActivity() {
@@ -23,7 +22,7 @@ class SignInActivity : AppCompatActivity() {
 
         signin_btn.setOnClickListener{
             if (txt_username.text.toString() == "admin" && txt_password.text.toString() == "1234"){
-                val intent2 = Intent(this,HomeActivity::class.java)
+                val intent2 = Intent(this, HomeActivity::class.java)
                 startActivity(intent2)
             }
         }

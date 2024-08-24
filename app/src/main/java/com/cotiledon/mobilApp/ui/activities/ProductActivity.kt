@@ -1,11 +1,11 @@
-package com.cotiledon.mobilApp
+package com.cotiledon.mobilApp.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
+import com.cotiledon.mobilApp.R
 
 class ProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +15,7 @@ class ProductActivity : AppCompatActivity() {
         setContentView(R.layout.activity_product)
         val cart = findViewById<ImageView>(R.id.cart_product)
         cart.setOnClickListener{
-            val intent4 = Intent(this,ShoppingCartActivity::class.java)
+            val intent4 = Intent(this, ShoppingCartActivity::class.java)
             startActivity(intent4)
     }
 }
