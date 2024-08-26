@@ -153,7 +153,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/CatalogImgPrd1"
+                        android:id="@+id/CatalogImgPrd2"
                         android:layout_width="128dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -165,7 +165,7 @@
                         app:srcCompat="@drawable/suculenta" />
 
                     <TextView
-                        android:id="@+id/CatalogNmPrd1"
+                        android:id="@+id/CatalogNmPrd2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -173,11 +173,11 @@
                         android:layout_marginEnd="16dp"
                         android:text="Suculenta"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd1"
+                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd2"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/CatalogPrcPrd1"
+                        android:id="@+id/CatalogPrcPrd2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -186,8 +186,8 @@
                         android:text="$15.000"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd1"
-                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd1" />
+                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd2"
+                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd2" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -205,7 +205,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/CatalogImgPrd1"
+                        android:id="@+id/CatalogImgPrd3"
                         android:layout_width="128dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -217,7 +217,7 @@
                         app:srcCompat="@drawable/suculenta" />
 
                     <TextView
-                        android:id="@+id/CatalogNmPrd1"
+                        android:id="@+id/CatalogNmPrd3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -225,11 +225,11 @@
                         android:layout_marginEnd="16dp"
                         android:text="Suculenta"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd1"
+                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd3"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/CatalogPrcPrd1"
+                        android:id="@+id/CatalogPrcPrd3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -238,8 +238,8 @@
                         android:text="$15.000"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd1"
-                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd1" />
+                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd3"
+                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd3" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -257,7 +257,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/CatalogImgPrd1"
+                        android:id="@+id/CatalogImgPrd4"
                         android:layout_width="128dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -269,7 +269,7 @@
                         app:srcCompat="@drawable/suculenta" />
 
                     <TextView
-                        android:id="@+id/CatalogNmPrd1"
+                        android:id="@+id/CatalogNmPrd4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -277,11 +277,11 @@
                         android:layout_marginEnd="16dp"
                         android:text="Suculenta"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd1"
+                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd4"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/CatalogPrcPrd1"
+                        android:id="@+id/CatalogPrcPrd4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -290,8 +290,8 @@
                         android:text="$15.000"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd1"
-                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd1" />
+                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd4"
+                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd4" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -309,7 +309,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/CatalogImgPrd1"
+                        android:id="@+id/CatalogImgPrd5"
                         android:layout_width="128dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -321,7 +321,7 @@
                         app:srcCompat="@drawable/suculenta" />
 
                     <TextView
-                        android:id="@+id/CatalogNmPrd1"
+                        android:id="@+id/CatalogNmPrd5"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -329,11 +329,11 @@
                         android:layout_marginEnd="16dp"
                         android:text="Suculenta"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd1"
+                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd5"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/CatalogPrcPrd1"
+                        android:id="@+id/CatalogPrcPrd5"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -342,8 +342,8 @@
                         android:text="$15.000"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd1"
-                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd1" />
+                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd5"
+                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd5" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -361,7 +361,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/CatalogImgPrd1"
+                        android:id="@+id/CatalogImgPrd6"
                         android:layout_width="128dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -373,7 +373,7 @@
                         app:srcCompat="@drawable/suculenta" />
 
                     <TextView
-                        android:id="@+id/CatalogNmPrd1"
+                        android:id="@+id/CatalogNmPrd6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -381,11 +381,11 @@
                         android:layout_marginEnd="16dp"
                         android:text="Suculenta"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd1"
+                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd6"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/CatalogPrcPrd1"
+                        android:id="@+id/CatalogPrcPrd6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -394,8 +394,8 @@
                         android:text="$15.000"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd1"
-                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd1" />
+                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd6"
+                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd6" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -413,7 +413,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/CatalogImgPrd1"
+                        android:id="@+id/CatalogImgPrd7"
                         android:layout_width="128dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -425,7 +425,7 @@
                         app:srcCompat="@drawable/suculenta" />
 
                     <TextView
-                        android:id="@+id/CatalogNmPrd1"
+                        android:id="@+id/CatalogNmPrd7"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -433,11 +433,11 @@
                         android:layout_marginEnd="16dp"
                         android:text="Suculenta"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd1"
+                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd7"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/CatalogPrcPrd1"
+                        android:id="@+id/CatalogPrcPrd7"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -446,8 +446,8 @@
                         android:text="$15.000"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd1"
-                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd1" />
+                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd7"
+                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd7" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -465,7 +465,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/CatalogImgPrd1"
+                        android:id="@+id/CatalogImgPrd8"
                         android:layout_width="128dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -477,7 +477,7 @@
                         app:srcCompat="@drawable/suculenta" />
 
                     <TextView
-                        android:id="@+id/CatalogNmPrd1"
+                        android:id="@+id/CatalogNmPrd8"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -485,11 +485,11 @@
                         android:layout_marginEnd="16dp"
                         android:text="Suculenta"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd1"
+                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd8"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/CatalogPrcPrd1"
+                        android:id="@+id/CatalogPrcPrd8"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -498,8 +498,8 @@
                         android:text="$15.000"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd1"
-                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd1" />
+                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd8"
+                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd8" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -517,7 +517,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/CatalogImgPrd1"
+                        android:id="@+id/CatalogImgPrd9"
                         android:layout_width="128dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -529,7 +529,7 @@
                         app:srcCompat="@drawable/suculenta" />
 
                     <TextView
-                        android:id="@+id/CatalogNmPrd1"
+                        android:id="@+id/CatalogNmPrd9"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -537,11 +537,11 @@
                         android:layout_marginEnd="16dp"
                         android:text="Suculenta"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd1"
+                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd9"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/CatalogPrcPrd1"
+                        android:id="@+id/CatalogPrcPrd9"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -550,8 +550,8 @@
                         android:text="$15.000"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd1"
-                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd1" />
+                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd9"
+                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd9" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -569,7 +569,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/CatalogImgPrd1"
+                        android:id="@+id/CatalogImgPrd10"
                         android:layout_width="128dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -581,7 +581,7 @@
                         app:srcCompat="@drawable/suculenta" />
 
                     <TextView
-                        android:id="@+id/CatalogNmPrd1"
+                        android:id="@+id/CatalogNmPrd10"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -589,11 +589,11 @@
                         android:layout_marginEnd="16dp"
                         android:text="Suculenta"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd1"
+                        app:layout_constraintStart_toEndOf="@id/CatalogImgPrd10"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/CatalogPrcPrd1"
+                        android:id="@+id/CatalogPrcPrd10"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -602,8 +602,8 @@
                         android:text="$15.000"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd1"
-                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd1" />
+                        app:layout_constraintStart_toEndOf="@+id/CatalogImgPrd10"
+                        app:layout_constraintTop_toBottomOf="@+id/CatalogNmPrd10" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
