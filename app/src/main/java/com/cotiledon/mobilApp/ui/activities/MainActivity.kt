@@ -1,9 +1,10 @@
-package com.cotiledon.mobilApp
+package com.cotiledon.mobilApp.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.ComponentActivity
+import com.cotiledon.mobilApp.R
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

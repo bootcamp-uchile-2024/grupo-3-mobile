@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#E4F5D9"
     android:backgroundTint="#E4F5D9"
-    tools:context=".HomeActivity">
+    tools:context=".ui.activities.HomeActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gdHomeTop"

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "0000001",
+    "name": "Suculenta",
+    "desc": "Las suculentas son plantas resistentes a la sequía, ya que las hojas, tallo y raíces se han vuelto más \"carnosos\" debido al desarrollo de tejido de almacenamiento de agua.La adaptación de las suculentas les permite colonizar entornos áridos o en los que la captación de agua es limitada, aquellos que reciben poca competencia por parte de otras especies vegetales y en los que los herbívoros son escasos. \n\n Cuidados de las suculentas: \n Poca agua: será suficiente regarlas una vez al mes en invierno, y una vez cada dos semanas en verano. \n Mucha luz: son parientes de los cactus, por lo que aman recibir luz. Colócalas en un lugar donde reciban luz directa y durante 8 o 10 horas al día mínimo. \n Drenaje: son plantas que almacenan agua en sus hojas, por lo que será necesario que tengan un buen drenaje. La acumulación de agua puede hacer que sus raíces se pudran. \n Sustrato: utiliza sustrato arenoso y que no retenga humedad. Un sustrato específico para cactus puede ser ideal para las suculentas. Maceta: ya hemos visto la importancia del drenaje y del sustrato, así que es también importante elegir una maceta adecuada para tus suculentas. Asegúrate de que tenga buena capacidad de drenaje y de que sea redonda, para que las raíces puedan crecer de manera uniforme." ,
+    "price":  "$15.000",
+    "stock": "5",
+    "cat": "Desértica",
+    "pics": ["suculenta.jpeg"]
+  },
+  {
+    "id": "0000002",
+    "name": "Monstera",
+    "desc": "De hoja perenne, crece hasta los 20 m de altura en los árboles, subiendo por medio de raíces aéreas que actúan como ganchos sobre las ramas, estas raíces también crecen en el suelo para ayudar a sostener la planta. Las hojas son alternas, coriáceas, de color verde oscuro, muy grandes, 25-90 cm de largo (hasta 130 cm de largo en M. dubia) y 15-75 cm de ancho, a menudo con los agujeros en el limbo de la hoja. \n\n Son comúnmente cultivadas como plantas de interior. La más conocida representante del género, Monstera deliciosa, también es cultivada por su fruto comestible que sabe como una combinación de plátano y piña.",
+    "price": "$30.000",
+    "stock": "3",
+    "cat": "Perenne",
+    "pics": ["monstera.jpg"]
+  },
+  {
+    "id": "0000003",
+    "name": "Lengua de Suegra",
+    "desc": "Es una planta semisuculenta que crece en rosetas basales y verticales, las hojas son erectas, lanceoladas, agudas y rígidas, de 40 a 140 cm de largo y unos 4 a 10 cm de ancho. De diferentes colores y patrones según la variedad, siendo la más común de color verde oscuro con líneas transversales de verde más pálido, los márgenes enteros, verdes o a veces amarillos.",
+    "price": "$20.000",
+    "stock": "7",
+    "cat": "Desértica",
+    "pics": ["lengua_de_suegra.jpg"]
+  },
+  {
+    "id": "0000004",
+    "name": "Manto de Eva",
+    "desc": "Las hojas son cordadas o sagitadas, creciendo de 2 a 9 dm sobre un largo peciolo. Sus hermosas flores son apenas visibles, ya que se encuentran ocultas entre las hojas.\n\nLos tallos son comestibles, pero contienen ácido oxálico que puede paralizar la lengua y faringe. Para su consumo debe ser hervido prolongadamente.",
+    "price": "$30.000",
+    "stock": "2",
+    "cat": "Perenne",
+    "pics": ["manto_de_eva.jpg"]
+  },
+  {
+    "id": "0000005",
+    "name": "Pata de Elefante",
+    "desc": "Es una planta rosetófila arborescente dioica, cuya altura puede variar de 6 a 12 m alto. Tallos de base muy ensanchada, de 1,5 a 2,5 m diámetro, globosa, corteza gruesa, de color gris a parda, con formas geométricas rectangulares a poligonales; ramas delgadas, muy ramificadas. Hojas en rosetas apicales, en forma de cono invertido, haz y envés con papilas dispuestas en surcos. Inflorescencias 0,6 a 1 m largo, de forma ovoides, anaranjadas a amarillo pálido; pedúnculos 15 a 20 cm largo; ramas primarias 16 a 20 cm largo, las secundarias 4 a 8 cm largo, escasas; brácteas verde-pálido a blancas. \n\n Especie endémica de México, en los estados de Oaxaca y Puebla, específicamente del Valle de Tehuacán-Cuicatlán, se ha registrado en los poblados de Coixtlahuaca, Tepelmeme Villa de Morelos, Cuicatlán, San José del Chilar, San Pedro Jocotipac, Tomellín, Santiago Chazumba y Tehuacán.",
+    "price": "$100.000",
+    "stock": "3",
+    "cat": "Exótica",
+    "pics": ["pata_de_elefante.jpg"]
+  },
+  {
+  "id": "0000006",
+  "name": "Girasol",
+  "desc": "Los girasoles son plantas anuales (como lo indica su nombre específico latín: annuus) que pueden medir tres metros de alto. Los tallos son generalmente erectos e hispidos. La mayoría de las hojas son caulinares, alternas, pecioladas, con base cordiforme y bordes aserrados. \n\n La época de siembra para el cultivo de secano varía según la latitud, pero dura aproximadamente un mes a contar del inicio del verano. La siembra se debe efectuar en hileras separadas a 0,70 m, con una densidad de siembra de cuatro plantas por metro lineal.",
+  "price": "$5.000",
+  "stock": "30",
+  "cat": "Flores",
+  "pics": ["girasol.jpg"]
+  },
+  {
+  "id": "0000007",
+  "name": "Yuca",
+  "desc": "La mandioca o yuca es un arbusto perenne que alcanza los dos metros de altura. Está adaptada a condiciones de la zona intertropical, por lo que no resiste las heladas. Requiere altos niveles de humedad (aunque no anegamiento) y de sol para crecer.\n\nLa yuca se utiliza extensamente en la cocina latinoamericana. Las variedades dulces se consumen ampliamente hervidas, o fritas como sustituto de las papas.\n\nPara su preparación en alimentos, la yuca se somete a varios procesos de escaldado, ebullición, y/o fermentación. Ejemplos de productos alimenticios a base de yuca incluyen el garri (tostadas las raíces de la yuca), fufu (similar a la avena para desayuno), la masa de agbelima y la harina de yuca.",
+  "price": "$2.000",
+  "stock": "54",
+  "cat": "Perenne",
+  "pics": ["yuca.jpg"]
+  },
+  {
+  "id": "0000008",
+  "name": "Helecho Paragua",
+  "desc": "Precioso helecho nativo de amplio uso ornamental por sus hojas verde claro especial para parques y jardines grandes. En medicina popular se utiliza para curar quemaduras.",
+  "price": "$10.000",
+  "stock": "10",
+  "cat": "Perenne",
+  "pics": ["helecho_paragua.jpg"]
+  },
+  {
+  "id": "0000009",
+  "name": "Canelo",
+  "desc": "El canelo es el árbol sagrado de los mapuche, es nativo y perenne, por lo que no bota sus hojas, éstas son de gran tamaño y toman tonos plateados. Además este árbol nativo es de crecimiento rápido, pero requiere constante humedad en la tierra. Ideal para poner cerca de algún flujo de agua o considerar regarlo constantemente. Para mejor crecimiento agrega en la casilla de plantación tierra orgánica. Puedes combinarlo con otro árbol nativo como el arrayán o el maitén, con características similares. \n\nPuedes encontrarlo en formato de 100 cm. y cuenta solo con despacho en Región Metropolitana.\n\nEste árbol nativo prefiere los lugares de semi sombra, es muy resistente a los fríos y heladas.\n\nSu floración es en primavera y tiene pequeñas flores de color blanco muy perfumadas que atraen polinizadores.",
+  "price": "$24.990",
+  "stock": "5",
+  "cat": "Perenne",
+  "pics": ["canelo.jpg"]
+  },
+  {
+  "id": "0000010",
+  "name": "Menta",
+  "desc": "¡La Menta es una planta increíble para tener en tu jardín! Su refrescante aroma y sabor la convierten en una opción perfecta para infusiones, postres y platos salados. Además, su fácil propagación y su resistencia a diferentes condiciones la hacen ideal para cualquier tipo de cultivo.",
+  "price": "$1.000",
+  "stock": "30",
+  "cat": "Hierbas",
+  "pics": ["menta.jpg"]
+  }
+]

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E4F5D9"
-    tools:context=".SignInActivity">
+    tools:context=".ui.activities.SignInActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gdHomeTop"
