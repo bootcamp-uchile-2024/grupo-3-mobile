@@ -1,13 +1,13 @@
 package com.cotiledon.mobilApp.ui.activities
 
-class Plant(plantName: String, plantPrice: String, plantDesc: String, plantID: Int, plantStock: Int, plantCat: String, plantImage: Array<String>)
+class Plant(plantName: String, plantPrice: String, plantDesc: String, plantID: String, plantStock: String, plantCat: String, plantImage: Int)
      {
          var plantName: String = "";
          var plantPrice: String = "";
          var plantDesc: String = "";
-         var plantID: Int = 0;
-         var plantStock: Int = 0;
+         var plantID: String = "";
+         var plantStock: String = "";
          var plantCat: String = "";
-         var plantImage: Array<String> = emptyArray();
+         var plantImage: Int = 0;
 
      }

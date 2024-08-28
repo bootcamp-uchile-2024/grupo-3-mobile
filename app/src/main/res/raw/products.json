@@ -6,7 +6,7 @@
     "price":  "$15.000",
     "stock": "5",
     "cat": "Desértica",
-    "pics": ["suculenta.jpeg"]
+    "pics": ["R.drawable.suculenta"]
   },
   {
     "id": "0000002",
@@ -15,7 +15,7 @@
     "price": "$30.000",
     "stock": "3",
     "cat": "Perenne",
-    "pics": ["monstera.jpg"]
+    "pics": ["R.drawable.monstera"]
   },
   {
     "id": "0000003",
@@ -24,7 +24,7 @@
     "price": "$20.000",
     "stock": "7",
     "cat": "Desértica",
-    "pics": ["lengua_de_suegra.jpg"]
+    "pics": ["R.drawable.lengua_de_suegra"]
   },
   {
     "id": "0000004",
@@ -33,7 +33,7 @@
     "price": "$30.000",
     "stock": "2",
     "cat": "Perenne",
-    "pics": ["manto_de_eva.jpg"]
+    "pics": ["R.drawable.manto_de_eva"]
   },
   {
     "id": "0000005",
@@ -42,7 +42,7 @@
     "price": "$100.000",
     "stock": "3",
     "cat": "Exótica",
-    "pics": ["pata_de_elefante.jpg"]
+    "pics": ["R.drawable.pata_de_elefante"]
   },
   {
   "id": "0000006",
@@ -51,7 +51,7 @@
   "price": "$5.000",
   "stock": "30",
   "cat": "Flores",
-  "pics": ["girasol.jpg"]
+  "pics": ["R.drawable.girasol"]
   },
   {
   "id": "0000007",
@@ -60,7 +60,7 @@
   "price": "$2.000",
   "stock": "54",
   "cat": "Perenne",
-  "pics": ["yuca.jpg"]
+  "pics": ["R.drawable.yuca"]
   },
   {
   "id": "0000008",
@@ -69,7 +69,7 @@
   "price": "$10.000",
   "stock": "10",
   "cat": "Perenne",
-  "pics": ["helecho_paragua.jpg"]
+  "pics": ["R.drawable.helecho_paragua"]
   },
   {
   "id": "0000009",
@@ -78,7 +78,7 @@
   "price": "$24.990",
   "stock": "5",
   "cat": "Perenne",
-  "pics": ["canelo.jpg"]
+  "pics": ["R.drawable.canelo"]
   },
   {
   "id": "0000010",
@@ -87,6 +87,6 @@
   "price": "$1.000",
   "stock": "30",
   "cat": "Hierbas",
-  "pics": ["menta.jpg"]
+  "pics": ["R.drawable.menta"]
   }
 ]
