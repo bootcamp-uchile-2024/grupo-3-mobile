@@ -2,6 +2,7 @@ package com.cotiledon.mobilApp.ui.activities
 
 import android.content.res.Resources
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import java.io.File
 
 class CatalogActivity : AppCompatActivity() {
 
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var adaptador: PlantRecyclerViewAdapter
     private var Plantas = mutableListOf<Plant>()
@@ -27,6 +29,11 @@ class CatalogActivity : AppCompatActivity() {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog)
+
+        val bundle = intent.extras
+        val catTitle = bundle?.getString("tituloCat")
+        val tituloCat= findViewById<TextView>(R.id.CatalogName)
+        tituloCat.text = catTitle
 
         recyclerView = findViewById(R.id.catalogRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
