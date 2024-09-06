@@ -14,7 +14,7 @@ import org.json.JSONObject
 import com.google.gson.Gson
 import java.io.File
 
-/*class CatalogActivity : AppCompatActivity() {
+class CatalogActivity : AppCompatActivity() {
 
     var Plantas = mutableListOf<Plant>()
     val ImagesPlantas = arrayOf(R.drawable.suculenta, R.drawable.monstera, R.drawable.lengua_de_suegra, R.drawable.manto_de_eva, R.drawable.pata_de_elefante, R.drawable.girasol,
@@ -47,4 +47,4 @@ import java.io.File
         }
     }
 
-}*/
+}
