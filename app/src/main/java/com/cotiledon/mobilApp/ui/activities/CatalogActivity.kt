@@ -3,6 +3,7 @@ package com.cotiledon.mobilApp.ui.activities
 import android.content.res.Resources
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import com.cotiledon.mobilApp.databinding.ActivityMainBinding
 import org.json.JSONArray
 import org.json.JSONObject
 import com.google.gson.Gson
+import org.json.JSONException
 import java.io.File
 
 class CatalogActivity : AppCompatActivity() {
@@ -25,10 +27,19 @@ class CatalogActivity : AppCompatActivity() {
     val ImagesPlantas = arrayOf(R.drawable.suculenta, R.drawable.monstera, R.drawable.lengua_de_suegra, R.drawable.manto_de_eva, R.drawable.pata_de_elefante, R.drawable.girasol,
         R.drawable.yuca, R.drawable.helecho_paragua, R.drawable.canelo, R.drawable.menta)
 
+    private lateinit var objetosPlantas: JSONArray
+
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog)
+
+        try {
+            objetosPlantas = JSONArray(resources.openRawResource(R.raw.products).bufferedReader().use { it.readText() })
+        } catch (e: JSONException) {
+            e.printStackTrace()
+            Toast.makeText(this, "Error al cargar el catálogo", Toast.LENGTH_SHORT).show()
+        }
 
         val bundle = intent.extras
         val catTitle = bundle?.getString("tituloCat")
@@ -46,8 +57,6 @@ class CatalogActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
     }
-
-    private val objetosPlantas: JSONArray = JSONArray(resources.openRawResource((R.raw.products)).bufferedReader().use{it.readLine()})
 
     private fun setUpPlants(){
         for (i in 0 ..< objetosPlantas.length()){
