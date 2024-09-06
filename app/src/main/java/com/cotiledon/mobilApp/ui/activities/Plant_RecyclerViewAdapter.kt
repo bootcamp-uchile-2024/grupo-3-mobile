@@ -15,10 +15,8 @@ import com.cotiledon.mobilApp.R
 class PlantRecyclerViewAdapter( private val plants: List<Plant>) : RecyclerView.Adapter<PlantRecyclerViewAdapter.PlantViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
-            val inflater: LayoutInflater = LayoutInflater.from(parent.context)
-            val view: View = inflater.inflate(R.layout.catalog_view_card, parent, false)
-
-            return PlantViewHolder(view)
+            val inflater = LayoutInflater.from(parent.context).inflate(R.layout.catalog_view_card, parent, false)
+            return PlantViewHolder(inflater)
         }
 
         override fun onBindViewHolder(holder: PlantViewHolder, position: Int) {
