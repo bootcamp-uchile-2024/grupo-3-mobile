@@ -11,7 +11,6 @@ class ProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_product)
         val cart = findViewById<ImageView>(R.id.cart_product)
         cart.setOnClickListener{

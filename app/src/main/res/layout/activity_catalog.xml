@@ -11,7 +11,6 @@
         android:id="@+id/CatalogTopFrmBanner"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:layout_marginTop="16dp"
         android:background="#E4F5D9"
         android:elevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,14 +47,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="31dp" />
+        app:layout_constraintGuide_begin="16dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/CatalogTopHrzGdln2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="670dp" />
+        app:layout_constraintGuide_begin="46dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/CatalogEndVrtGdln"

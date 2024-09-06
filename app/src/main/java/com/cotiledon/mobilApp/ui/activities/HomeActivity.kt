@@ -13,7 +13,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_home)
 
         val producto1 = findViewById<CardView>(R.id.product1_carouselView)
@@ -21,5 +20,15 @@ class HomeActivity : AppCompatActivity() {
             val intent3 = Intent(this,ProductActivity::class.java)
             startActivity(intent3)
         }
+
+        val tituloCarousel = findViewById<TextView>(R.id.carouselView_title)
+
+        val irCatalogo = findViewById<Button>(R.id.goToCatlg)
+        irCatalogo.setOnClickListener{
+            val intentcat = Intent(this,CatalogActivity::class.java)
+            intentcat.putExtra("tituloCat",tituloCarousel.text.toString())
+            startActivity(intentcat)
+        }
+
         }
 }
