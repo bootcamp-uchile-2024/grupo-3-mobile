@@ -20,9 +20,10 @@ class PlantRecyclerViewAdapter( private val plants: List<Plant>) : RecyclerView.
         }
 
         override fun onBindViewHolder(holder: PlantViewHolder, position: Int) {
-            holder.tvName.text = plants[position].plantName
-            holder.tvPrice.text = plants[position].plantPrice
-            holder.imageView.setImageResource(plants[position].plantImage)
+            val planta = plants[position]
+            holder.tvName.text = planta.plantName
+            holder.tvPrice.text = planta.plantPrice
+            holder.imageView.setImageResource(planta.plantImage)
         }
 
         override fun getItemCount(): Int = plants.size
