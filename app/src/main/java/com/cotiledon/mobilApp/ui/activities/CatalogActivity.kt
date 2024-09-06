@@ -59,7 +59,7 @@ class CatalogActivity : AppCompatActivity() {
     }
 
     private fun setUpPlants(){
-        for (i in 0 ..< objetosPlantas.length()){
+        for (i in 0 until objetosPlantas.length()){
             val Planta = JSONObject(objetosPlantas.getJSONObject(i).toString())
             val instance = Plant(Planta.get("name").toString(),Planta.get("price").toString(),Planta.get("desc").toString(),
                 Planta.get("id").toString(), Planta.get("stock").toString(), Planta.get("cat").toString(),ImagesPlantas[i])
