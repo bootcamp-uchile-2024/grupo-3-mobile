@@ -8,20 +8,13 @@
     android:background="#E4F5D9"
     tools:context=".ui.activities.ProductActivity">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gdHomeTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
-
     <ImageButton
         android:id="@+id/burger_menu_product"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="#E4F5D9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gdHomeTop"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_fas_bars" />
 
     <SearchView
@@ -29,13 +22,13 @@
         android:layout_width="0dp"
         android:layout_height="25dp"
         android:layout_marginStart="63dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
         app:layout_constraintEnd_toStartOf="@+id/cart_product"
         app:layout_constraintStart_toStartOf="@+id/burger_menu_product"
-        app:layout_constraintTop_toTopOf="@+id/gdHomeTop">
+        app:layout_constraintTop_toTopOf="parent">
 
     </SearchView>
 
@@ -45,7 +38,7 @@
         android:layout_height="50dp"
         android:background="#E4F5D9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gdHomeTop"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/shopping_cart_24"
         app:tint="#000000" />
 
@@ -53,7 +46,9 @@
         android:id="@+id/adress_product"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="#FFFFFF"
         android:backgroundTintMode="src_over"
         android:text="Dirección de envío"
@@ -65,6 +60,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/adress_product">
@@ -79,7 +75,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/productViewName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -105,7 +101,7 @@
                     app:cardBackgroundColor="#FFFFFF"
                     app:cardCornerRadius="75dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView">
+                    app:layout_constraintTop_toBottomOf="@+id/productViewName">
 
                     <ImageView
                         android:id="@+id/imageView"
@@ -127,7 +123,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/cardView">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/productViewImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:srcCompat="@drawable/suculenta" />
@@ -167,7 +163,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/cardView2">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/productViewDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed nisi purus. Cras bibendum neque diam, at rutrum augue dignissim vel. Sed rutrum ex non purus egestas facilisis. Aliquam erat volutpat. Duis vitae leo vel est ultricies sodales. Etiam ornare sapien feugiat magna iaculis euismod sed id tortor. Duis rhoncus pellentesque metus. Cras luctus semper leo ac venenatis. Curabitur tellus dui, euismod vel elit ut, consequat feugiat ligula. Sed efficitur id nisi ac cursus. Morbi ut lectus ut elit dignissim accumsan. Phasellus quam lorem, eleifend porta mattis et, gravida quis libero. Cras maximus porta tortor, ac posuere lorem pharetra vitae. Duis tincidunt vel mi non laoreet."
@@ -179,16 +175,18 @@
                     android:id="@+id/button5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
                     android:backgroundTint="#8BFFFFFF"
                     android:backgroundTintMode="src_over"
                     android:text="Añadir al carrito"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/productViewPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"

@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 
-class PlantRecyclerViewAdapter( private val plants: List<Plant>) : RecyclerView.Adapter<PlantRecyclerViewAdapter.PlantViewHolder>() {
+class PlantRecyclerViewAdapter( private val plants: List<Plant>, private val onItemClick: (Plant) -> Unit) : RecyclerView.Adapter<PlantRecyclerViewAdapter.PlantViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
             val inflater = LayoutInflater.from(parent.context).inflate(R.layout.catalog_view_card, parent, false)
@@ -20,6 +20,11 @@ class PlantRecyclerViewAdapter( private val plants: List<Plant>) : RecyclerView.
             holder.tvName.text = planta.plantName
             holder.tvPrice.text = planta.plantPrice
             holder.imageView.setImageResource(planta.plantImage)
+
+            holder.itemView.setOnClickListener{
+                onItemClick(planta)
+            }
+
         }
 
         override fun getItemCount(): Int = plants.size
