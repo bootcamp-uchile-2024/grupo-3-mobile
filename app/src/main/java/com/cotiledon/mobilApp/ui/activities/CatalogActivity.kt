@@ -24,7 +24,7 @@ class CatalogActivity : AppCompatActivity() {
     private lateinit var adaptador: PlantRecyclerViewAdapter
     private var Plantas = mutableListOf<Plant>()
 
-    val ImagesPlantas = arrayOf(R.drawable.suculenta, R.drawable.monstera, R.drawable.lengua_de_suegra, R.drawable.manto_de_eva, R.drawable.pata_de_elefante, R.drawable.girasol,
+    private val ImagesPlantas = arrayOf(R.drawable.suculenta, R.drawable.monstera, R.drawable.lengua_de_suegra, R.drawable.manto_de_eva, R.drawable.pata_de_elefante, R.drawable.girasol,
         R.drawable.yuca, R.drawable.helecho_paragua, R.drawable.canelo, R.drawable.menta)
 
     private lateinit var objetosPlantas: JSONArray
@@ -38,7 +38,8 @@ class CatalogActivity : AppCompatActivity() {
             objetosPlantas = JSONArray(resources.openRawResource(R.raw.products).bufferedReader().use { it.readText() })
         } catch (e: JSONException) {
             e.printStackTrace()
-            Toast.makeText(this, "Error al cargar el catálogo", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error al cargar el catálogo", Toast.LENGTH_LONG).show()
+            return
         }
 
         val bundle = intent.extras
@@ -52,17 +53,31 @@ class CatalogActivity : AppCompatActivity() {
         setUpPlants()
 
         adaptador = PlantRecyclerViewAdapter(Plantas)
-
         recyclerView.adapter = adaptador
-        recyclerView.layoutManager = LinearLayoutManager(this)
 
     }
 
     private fun setUpPlants(){
+
+        Plantas.clear()
+
+        val maxImages = ImagesPlantas.size
+
         for (i in 0 until objetosPlantas.length()){
-            val Planta = JSONObject(objetosPlantas.getJSONObject(i).toString())
-            val instance = Plant(Planta.get("name").toString(),Planta.get("price").toString(),Planta.get("desc").toString(),
-                Planta.get("id").toString(), Planta.get("stock").toString(), Planta.get("cat").toString(),ImagesPlantas[i])
+            val plantaJson = objetosPlantas.getJSONObject(i)
+
+            val imageRes = if (i < maxImages) ImagesPlantas[i] else R.drawable.suculenta
+
+            val instance = Plant(
+                plantaJson.getString("name"),
+                plantaJson.getString("price"),
+                plantaJson.getString("desc"),
+                plantaJson.getString("id"),
+                plantaJson.getString("stock"),
+                plantaJson.getString("cat"),
+                imageRes
+            )
+
             Plantas.add(instance)
         }
     }
