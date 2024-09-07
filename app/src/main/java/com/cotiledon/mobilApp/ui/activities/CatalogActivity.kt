@@ -1,5 +1,6 @@
 package com.cotiledon.mobilApp.ui.activities
 
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.widget.TextView
@@ -52,7 +53,16 @@ class CatalogActivity : AppCompatActivity() {
 
         setUpPlants()
 
-        adaptador = PlantRecyclerViewAdapter(Plantas)
+        adaptador = PlantRecyclerViewAdapter(Plantas) { planta ->
+
+            val intent = Intent(this, ProductActivity::class.java)
+            intent.putExtra("plantName", planta.plantName)
+            intent.putExtra("plantPrice", planta.plantPrice)
+            intent.putExtra("plantDesc", planta.plantDesc)
+            intent.putExtra("plantImage", planta.plantImage)
+            startActivity(intent)
+        }
+
         recyclerView.adapter = adaptador
 
     }
