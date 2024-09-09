@@ -13,7 +13,6 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_signin)
 
         val signin_btn = findViewById<Button>(R.id.btnSingIn)
