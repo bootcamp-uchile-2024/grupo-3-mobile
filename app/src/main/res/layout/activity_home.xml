@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#E4F5D9"
     android:backgroundTint="#E4F5D9"
-    tools:context=".HomeActivity">
+    tools:context=".ui.activities.HomeActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gdHomeTop"
@@ -383,6 +383,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:clickable="true"
+                    android:focusable="auto"
+                    android:focusableInTouchMode="false"
                     android:text="Plantas recomendadas para ti!"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -902,6 +905,18 @@
                         android:textColor="#7485F0"
                         android:textSize="12sp" />
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/goToCatlg"
+                    android:layout_width="63dp"
+                    android:layout_height="31dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Ir"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toTopOf="@+id/carouselView_products"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/carouselView_title"
+                    app:layout_constraintTop_toBottomOf="@+id/categoryCarousel" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
