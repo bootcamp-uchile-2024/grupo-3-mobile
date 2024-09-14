@@ -29,11 +29,11 @@
         android:id="@+id/search_product"
         android:layout_width="0dp"
         android:layout_height="25dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="1dp"
         android:layout_weight="1"
-        android:background="#FFFFFF"
+        android:background="@drawable/rounded_searchview"
         android:backgroundTint="#FFFFFF"
         app:layout_constraintEnd_toStartOf="@+id/cart_product"
         app:layout_constraintStart_toEndOf="@+id/burger_menu_product"
@@ -874,7 +874,8 @@
                         android:text="¿Necesitas ayuda?"
                         android:textAlignment="viewStart"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        />
 
                     <Button
                         android:id="@+id/button"
@@ -882,9 +883,15 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="#FFFFFF"
                         android:elevation="0dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/rounded_button_layout"
+                        android:paddingStart="16dp"
                         android:text="Términos y condiciones"
                         android:textAlignment="viewStart"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                       />
 
                     <Button
                         android:id="@+id/button2"
@@ -893,7 +900,12 @@
                         android:backgroundTint="#FFFFFF"
                         android:text="Promociones"
                         android:textAlignment="viewStart"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rounded_button_layout"
+                        android:paddingStart="16dp"/>
 
                     <Button
                         android:id="@+id/button3"
@@ -903,7 +915,13 @@
                         android:text="Conocer más"
                         android:textAlignment="viewStart"
                         android:textColor="#7485F0"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/rounded_button_layout"
+                        android:paddingStart="16dp"/>
                 </LinearLayout>
 
                 <Button

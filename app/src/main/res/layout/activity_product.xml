@@ -20,14 +20,14 @@
     <SearchView
         android:id="@+id/search_product"
         android:layout_width="0dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="63dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="#FFFFFF"
+        android:layout_marginEnd="1dp"
+        android:background="@drawable/rounded_searchview"
         android:backgroundTint="#FFFFFF"
         app:layout_constraintEnd_toStartOf="@+id/cart_product"
-        app:layout_constraintStart_toStartOf="@+id/burger_menu_product"
+        app:layout_constraintStart_toEndOf="@+id/burger_menu_product"
         app:layout_constraintTop_toTopOf="parent">
 
     </SearchView>
@@ -49,13 +49,16 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:paddingStart="16dp"
+        android:background="@drawable/rounded_button_layout"
         android:backgroundTint="#FFFFFF"
         android:backgroundTintMode="src_over"
         android:text="Dirección de envío"
-        android:textAlignment="viewStart"
+        android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_product" />
+        app:layout_constraintTop_toBottomOf="@id/search_product"
+        tools:ignore="RtlSymmetry" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -126,7 +129,10 @@
                         android:id="@+id/productViewImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@drawable/round_image"
+                        android:visibility="visible"
                         app:srcCompat="@drawable/suculenta" />
+
                 </FrameLayout>
 
                 <androidx.cardview.widget.CardView
@@ -178,6 +184,9 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:background="@drawable/rounded_button_layout"
                     android:backgroundTint="#8BFFFFFF"
                     android:backgroundTintMode="src_over"
                     android:text="Añadir al carrito"
