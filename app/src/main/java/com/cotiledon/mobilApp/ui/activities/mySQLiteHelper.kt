@@ -9,13 +9,13 @@ class mySQLiteHelper(context: Context) : SQLiteOpenHelper(
     context, "preferencias.db", null, 1) {
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val orderCreation = "CREATE TABLE favoritos" + "(_id INTEGER PRIMARY KEY, plant name TEXT, plant price DOUBLE)"
-        db!!.execSQL(orderCreation)
+        val orderCreation = "CREATE TABLE favoritos(_id int PRIMARY KEY, nombre varchar(30), precio double)"
+        db?.execSQL(orderCreation)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         val orderDelete = "DROP TABLE IF EXISTS favoritos"
-        db!!.execSQL(orderDelete)
+        db?.execSQL(orderDelete)
         onCreate(db)
     }
 
