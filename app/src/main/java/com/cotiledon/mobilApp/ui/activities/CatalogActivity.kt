@@ -1,22 +1,15 @@
 package com.cotiledon.mobilApp.ui.activities
 
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.databinding.ActivityCatalogBinding
-import com.cotiledon.mobilApp.databinding.ActivityMainBinding
 import org.json.JSONArray
-import org.json.JSONObject
-import com.google.gson.Gson
 import org.json.JSONException
-import java.io.File
 
 class CatalogActivity : AppCompatActivity() {
 
