@@ -58,6 +58,7 @@ class CatalogActivity : AppCompatActivity() {
         adaptador = PlantRecyclerViewAdapter(Plantas) { planta ->
 
             val intent = Intent(this, ProductActivity::class.java)
+            intent.putExtra("source", "CatalogActivity")
             intent.putExtra("plantName", planta.plantName)
             intent.putExtra("plantPrice", planta.plantPrice)
             intent.putExtra("plantDesc", planta.plantDesc)

@@ -35,10 +35,10 @@
     <string name="mis_compras">Mis Compras</string>
     <string name="product_size">Tamaño:</string>
     <string name="recommended1_qty">1</string>
-    <string name="codigo_de_promocion">Codigo de promocion</string>
+    <string name="codigo_de_promocion">Codigo de promoción</string>
     <string name="aplicar">Aplicar</string>
     <string name="sub_total">Sub-Total</string>
-    <string name="total_envio">Total Envio</string>
+    <string name="total_envio">Total Envío</string>
     <string name="descuento">Descuento</string>
     <string name="sub_total_price">$17.990</string>
     <string name="total_envio_price">$3.500</string>
@@ -52,10 +52,10 @@
     <string name="hint_email">example@gmail.com</string>
     <string name="password">Password</string>
     <string name="password_hint">*******************</string>
-    <string name="password_reset">Olvidasate tu clave?</string>
+    <string name="password_reset">¿Olvidasate tu clave?</string>
     <string name="sign_in">Ingresar</string>
     <string name="ingreso_alternativo">Entra con tu cuenta:</string>
-    <string name="crear_cuenta">Aun no tienes cuenta?</string>
+    <string name="crear_cuenta">¿Aun no tienes cuenta?</string>
     <string name="crear_cuenta_button">Crea una cuenta</string>
     <string name="catalogcvname">CatalogCVName</string>
     <string name="catalogcvprice">CatalogCVPrice</string>
