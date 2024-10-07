@@ -11,6 +11,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Splash screen
         val btnStart = findViewById<Button>(R.id.btnStart)
         btnStart.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
