@@ -59,4 +59,5 @@
     <string name="crear_cuenta_button">Crea una cuenta</string>
     <string name="catalogcvname">CatalogCVName</string>
     <string name="catalogcvprice">CatalogCVPrice</string>
+    <string name="wellcomeSplash">Bienvenido</string>
 </resources>
