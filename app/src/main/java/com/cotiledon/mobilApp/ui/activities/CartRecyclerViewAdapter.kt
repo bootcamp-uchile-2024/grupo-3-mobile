@@ -16,7 +16,7 @@ class CartRecyclerViewAdapter (private val plants: List<CartPlant>) : RecyclerVi
     }
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
-        var planta = plants[position]
+        val planta = plants[position]
         holder.productImage.setImageResource(planta.plantImage)
         holder.productName.text = planta.plantName
         holder.productQuantity.text = planta.plantQuantity
