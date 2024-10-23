@@ -8,10 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 
-class CartRecyclerViewAdapter (private val cartPlants: List<CartPlant>) : RecyclerView.Adapter<CartRecyclerViewAdapter.CartViewHolder>(){
+class CartRecyclerViewAdapter (private val cartPlants: List<CartPlant>) :
+    RecyclerView.Adapter<CartRecyclerViewAdapter.CartViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
-        val inflater = LayoutInflater.from(parent.context).inflate(R.layout.shopping_cart_item_layout, parent, false)
+        val inflater = LayoutInflater.from(parent.context).inflate(R.layout.shopping_cart_item_layout,
+            parent, false)
         return CartViewHolder(inflater)
     }
 

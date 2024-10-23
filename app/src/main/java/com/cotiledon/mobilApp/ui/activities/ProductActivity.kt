@@ -16,7 +16,8 @@ class ProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
 
-        //Define la fuente del intent desde el que se inicia la actividad. Este es generalizado buscando modificarlo según el activity que inicie la vista de producto
+        //Define la fuente del intent desde el que se inicia la actividad. Este es generalizado
+        // buscando modificarlo según el activity que inicie la vista de producto
         val source = intent.getStringExtra("source")
 
         //Obtener las vistas del activity_product.xml
@@ -42,6 +43,7 @@ class ProductActivity : AppCompatActivity() {
                 val decreaseQuantityButton: Button = findViewById(R.id.productQuantityDecrease)
                 val quantityDisplay: TextView = findViewById(R.id.productQuantityDisplay)
 
+                //Crear el objeto de la planta en el carrito
                 val cartPlant = CartPlant(
                     plantName.toString(), plantPrice.toString(),
                     plantID.toString(), plantStock.toString(), 1, plantImage
@@ -49,12 +51,13 @@ class ProductActivity : AppCompatActivity() {
 
                 cartStorage = CartStorage(this)
 
-                //Definir el comportamiento de los botones
+                //Incrementar la cantidad de producto
                 increaseQuantityButton.setOnClickListener {
                     cartPlant.plantQuantity++
                     quantityDisplay.text = cartPlant.plantQuantity.toString()
                 }
 
+                //Decrecer la cantidad de producto
                 decreaseQuantityButton.setOnClickListener {
                     if (cartPlant.plantQuantity > 1) {
                         cartPlant.plantQuantity--
@@ -62,6 +65,7 @@ class ProductActivity : AppCompatActivity() {
                     }
                 }
 
+                //Agregar el producto al carrito
                 addToCartButton.setOnClickListener {
                     cartStorage.saveProductToCart(cartPlant)
                 }
@@ -72,7 +76,7 @@ class ProductActivity : AppCompatActivity() {
                 descView.text = plantDesc
                 priceView.text = plantPrice
             }
-            //Iniciado desde el home
+            //Iniciado desde el Home
             "HomeActivity" -> {
                 //Recibir los datos
                 val plantNameHome = intent.getStringExtra("plantName")

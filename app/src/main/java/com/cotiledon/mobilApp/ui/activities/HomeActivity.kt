@@ -65,6 +65,7 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
+    //Al cerrar la actividad, vaciar el carrito
     override fun onDestroy() {
         super.onDestroy()
         cartStorage.clearCart()
