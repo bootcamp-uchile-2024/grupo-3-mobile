@@ -21,7 +21,7 @@ class ShoppingCartActivity : AppCompatActivity() {
         setContentView(R.layout.activity_shopping_cart)
 
         cartStorage = CartStorage(this)
-        val recyclerView = findViewById<RecyclerView>(R.id.shoppingCartRecyclerView)
+        recyclerView = findViewById<RecyclerView>(R.id.shoppingCartRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val cartPlants = cartStorage.loadCartItems()
