@@ -5,9 +5,12 @@ import android.util.Log
 import org.json.JSONArray
 import org.json.JSONObject
 
+//Clase de archivo de guardado de productos en el carrito
 class CartStorage (private val context: Context) {
+    //Archivo JSON para guardar los productos del carrito
     private val filename = "cart_data.json"
 
+    //Función para guardar un producto en el carrito
     fun saveProductToCart(cartPlant: CartPlant){
     try {
         val productJson = JSONObject().apply {
@@ -19,9 +22,11 @@ class CartStorage (private val context: Context) {
             put("plantImage", cartPlant.plantImage)
         }
 
+        //Leer los datos existentes del archivo JSON
         val existingData = readCartData()
         existingData.put(productJson)
 
+        //Escribir los datos actualizados en el archivo JSON
         context.openFileOutput(filename, Context.MODE_PRIVATE).use { output ->
             output.write(existingData.toString().toByteArray())
         }
@@ -30,6 +35,7 @@ class CartStorage (private val context: Context) {
     }
     }
 
+    //Función para leer los datos del archivo JSON
     private fun readCartData(): JSONArray {
         return try {
             if (context.fileList().contains(filename)) {
@@ -49,10 +55,12 @@ class CartStorage (private val context: Context) {
             }
             }
 
+    //Función para cargar los productos del carrito
     fun loadCartItems(): List<CartPlant> {
         val cartItems = mutableListOf<CartPlant>()
         try{
             val jsonArray = readCartData()
+            //Leer los datos del archivo JSON y agregarlos a la lista de productos del carrito
             for (i in 0 until jsonArray.length()){
                 val item = jsonArray.getJSONObject(i)
                 cartItems.add(
@@ -72,10 +80,12 @@ class CartStorage (private val context: Context) {
         return cartItems
     }
 
+    //Función para limpiar el carrito
     fun clearCart() {
         context.deleteFile(filename)
     }
 
+    //Función para obtener los precios de los productos en el carrito
     private fun getCartPrices(): List<Double> {
         val prices = mutableListOf<Double>()
         try {
@@ -95,6 +105,7 @@ class CartStorage (private val context: Context) {
         return prices
     }
 
+    //Función para obtener el precio total de los productos en el carrito
     fun getTotalCartPrice(): Double {
         return getCartPrices().sum()
     }

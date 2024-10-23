@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 
 
-//Adaptador para la vista de catálogo que creamos ya que esta es un RecyclerView. Se le entrega la lista con objetos Plant y una variable que permitirá clickear en cada tarjeta
+//Adaptador para la vista de catálogo que creamos ya que esta es un RecyclerView. Se le entrega la
+// lista con objetos Plant y una variable que permitirá clickear en cada tarjeta
 
-class PlantRecyclerViewAdapter( private val plants: List<Plant>, private val onItemClick: (Plant) -> Unit) : RecyclerView.Adapter<PlantRecyclerViewAdapter.PlantViewHolder>() {
+class PlantRecyclerViewAdapter( private val plants: List<Plant>, private val onItemClick: (Plant) -> Unit) :
+    RecyclerView.Adapter<PlantRecyclerViewAdapter.PlantViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
             val inflater = LayoutInflater.from(parent.context).inflate(R.layout.catalog_view_card, parent, false)
