@@ -62,6 +62,8 @@ class CatalogActivity : AppCompatActivity() {
             intent.putExtra("plantName", planta.plantName)
             intent.putExtra("plantPrice", planta.plantPrice)
             intent.putExtra("plantDesc", planta.plantDesc)
+            intent.putExtra("plantId", planta.plantID)
+            intent.putExtra("plantStock", planta.plantStock)
             intent.putExtra("plantImage", planta.plantImage)
             startActivity(intent)
         }
