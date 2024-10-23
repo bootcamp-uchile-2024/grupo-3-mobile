@@ -53,6 +53,15 @@ class ProductActivity : AppCompatActivity() {
             }
         }
 
+        val productQuantity = findViewById<TextView>(R.id.productQuantityDisplay)
+        val productIncrease = findViewById<ImageView>(R.id.productQuantityIncrease)
+        val productDecrease = findViewById<ImageView>(R.id.productQuantityDecrease)
+
+
+        fun onProductIncrease(){
+
+        }
+
 
         //Ir a al vista de carrito
         val cart = findViewById<ImageView>(R.id.cart_product)
