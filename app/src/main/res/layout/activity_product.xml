@@ -12,7 +12,7 @@
         android:id="@+id/burger_menu_product"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="#E4F5D9"
+        android:background="@color/main_green"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_fas_bars" />
@@ -20,14 +20,14 @@
     <SearchView
         android:id="@+id/search_product"
         android:layout_width="0dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="63dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
+        android:layout_marginEnd="1dp"
+        android:background="@drawable/rounded_searchview"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/cart_product"
-        app:layout_constraintStart_toStartOf="@+id/burger_menu_product"
+        app:layout_constraintStart_toEndOf="@+id/burger_menu_product"
         app:layout_constraintTop_toTopOf="parent">
 
     </SearchView>
@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/shopping_cart_24"
-        app:tint="#000000" />
+        app:tint="@color/black" />
 
     <Button
         android:id="@+id/adress_product"
@@ -49,13 +49,16 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="#FFFFFF"
+        android:paddingStart="16dp"
+        android:background="@drawable/rounded_button_layout"
+        android:backgroundTint="@color/white"
         android:backgroundTintMode="src_over"
-        android:text="Dirección de envío"
-        android:textAlignment="viewStart"
+        android:text="@string/direccion_envio"
+        android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_product" />
+        app:layout_constraintTop_toBottomOf="@id/search_product"
+        tools:ignore="RtlSymmetry" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -80,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="36dp"
-                    android:text="Suculenta"
+                    android:text="@string/recommended1_product1"
                     android:textAlignment="viewStart"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -88,23 +91,23 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView"
+                    android:id="@+id/favourite_view"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
-                    android:background="#FFFFFF"
-                    android:backgroundTint="#FFFFFF"
+                    android:background="@color/white"
+                    android:backgroundTint="@color/white"
                     android:clickable="true"
                     android:innerRadius="0dp"
                     android:shape="ring"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="75dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/productViewName">
 
                     <ImageView
-                        android:id="@+id/imageView"
+                        android:id="@+id/favourite_view_heart"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="10dp"
@@ -113,40 +116,43 @@
                 </androidx.cardview.widget.CardView>
 
                 <FrameLayout
-                    android:id="@+id/frameLayout"
+                    android:id="@+id/detail_frame_image"
                     android:layout_width="300dp"
                     android:layout_height="200dp"
                     android:layout_marginTop="32dp"
                     android:elevation="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView">
+                    app:layout_constraintTop_toBottomOf="@+id/favourite_view">
 
                     <ImageView
                         android:id="@+id/productViewImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@drawable/round_image"
+                        android:visibility="visible"
                         app:srcCompat="@drawable/suculenta" />
+
                 </FrameLayout>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView2"
+                    android:id="@+id/share_view"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="24dp"
-                    android:background="#FFFFFF"
-                    android:backgroundTint="#FFFFFF"
+                    android:background="@color/white"
+                    android:backgroundTint="@color/white"
                     android:clickable="true"
                     android:innerRadius="0dp"
                     android:shape="ring"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="75dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+                    app:layout_constraintTop_toBottomOf="@+id/detail_frame_image">
 
                     <ImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/share_view_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="10dp"
@@ -154,36 +160,39 @@
                 </androidx.cardview.widget.CardView>
 
                 <FrameLayout
-                    android:id="@+id/frameLayout2"
+                    android:id="@+id/product_description"
                     android:layout_width="375dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView2">
+                    app:layout_constraintTop_toBottomOf="@+id/share_view">
 
                     <TextView
                         android:id="@+id/productViewDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed nisi purus. Cras bibendum neque diam, at rutrum augue dignissim vel. Sed rutrum ex non purus egestas facilisis. Aliquam erat volutpat. Duis vitae leo vel est ultricies sodales. Etiam ornare sapien feugiat magna iaculis euismod sed id tortor. Duis rhoncus pellentesque metus. Cras luctus semper leo ac venenatis. Curabitur tellus dui, euismod vel elit ut, consequat feugiat ligula. Sed efficitur id nisi ac cursus. Morbi ut lectus ut elit dignissim accumsan. Phasellus quam lorem, eleifend porta mattis et, gravida quis libero. Cras maximus porta tortor, ac posuere lorem pharetra vitae. Duis tincidunt vel mi non laoreet."
+                        android:text="@string/product_description_example"
                         android:textAlignment="viewStart" />
 
                 </FrameLayout>
 
                 <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/addToCartButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
-                    android:backgroundTint="#8BFFFFFF"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:background="@drawable/rounded_button_layout"
+                    android:backgroundTint="@color/white"
                     android:backgroundTintMode="src_over"
-                    android:text="Añadir al carrito"
+                    android:text="@string/add_to_cart"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+                    app:layout_constraintTop_toBottomOf="@+id/product_description" />
 
                 <TextView
                     android:id="@+id/productViewPrice"
@@ -191,11 +200,47 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="32dp"
-                    android:text="$15.000"
+                    android:text="@string/recommended1_product1_price"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+                    app:layout_constraintTop_toBottomOf="@+id/detail_frame_image" />
+
+                <TextView
+                    android:id="@+id/productQuantityDisplay"
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center"
+                    android:text="@string/product_quantity"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@+id/productQuantityDecrease"
+                    app:layout_constraintTop_toBottomOf="@+id/product_description" />
+
+                <Button
+                    android:id="@+id/productQuantityIncrease"
+                    android:layout_width="42dp"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/white"
+                    android:text="@string/plus_sign"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@+id/productQuantityDisplay"
+                    app:layout_constraintTop_toBottomOf="@+id/product_description" />
+
+                <Button
+                    android:id="@+id/productQuantityDecrease"
+                    android:layout_width="42dp"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/white"
+                    android:text="@string/minus_sign"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/product_description" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
