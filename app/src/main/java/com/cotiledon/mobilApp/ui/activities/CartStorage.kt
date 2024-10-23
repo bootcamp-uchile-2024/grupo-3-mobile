@@ -1,6 +1,7 @@
 package com.cotiledon.mobilApp.ui.activities
 
 import android.content.Context
+import android.util.Log
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -60,7 +61,7 @@ class CartStorage (private val context: Context) {
                         plantPrice = item.getString("plantPrice"),
                         plantID = item.getString("plantID"),
                         plantStock = item.getString("plantStock"),
-                        plantQuantity = item.getString("plantQuantity"),
+                        plantQuantity = item.getInt("plantQuantity"),
                         plantImage = item.getInt("plantImage")
                     )
                 )
@@ -70,4 +71,32 @@ class CartStorage (private val context: Context) {
         }
         return cartItems
     }
+
+    fun clearCart() {
+        context.deleteFile(filename)
+    }
+
+    private fun getCartPrices(): List<Double> {
+        val prices = mutableListOf<Double>()
+        try {
+            val jsonArray = readCartData()
+            for (i in 0 until jsonArray.length()) {
+                val item = jsonArray.getJSONObject(i)
+                val priceQuantity = item.getInt("plantQuantity")
+                val priceString = item.getString("plantPrice")
+                    .replace("$", "")
+                    .replace(".", "")
+                    .trim()
+                prices.add(priceString.toDouble()*priceQuantity)
+            }
+        } catch (e: Exception) {
+            Log.e("CartStorage", "Error extracting prices", e)
+        }
+        return prices
+    }
+
+    fun getTotalCartPrice(): Double {
+        return getCartPrices().sum()
+    }
+
 }

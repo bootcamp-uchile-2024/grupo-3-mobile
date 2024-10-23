@@ -19,7 +19,7 @@ class CartRecyclerViewAdapter (private val cartPlants: List<CartPlant>) : Recycl
         val planta = cartPlants[position]
         holder.productImage.setImageResource(planta.plantImage)
         holder.productName.text = planta.plantName
-        holder.productQuantity.text = planta.plantQuantity
+        holder.productQuantity.text = planta.plantQuantity.toString()
         holder.productPrice.text = planta.plantPrice
     }
 

@@ -42,17 +42,20 @@
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHalfTop"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMyOrders" />
+        app:layout_constraintTop_toBottomOf="@+id/txtMyOrders"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
-        android:id="@+id/imgbtnApple"
+        android:id="@+id/cartBackButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/round_arrow"
         android:backgroundTint="@color/white"
+        android:clickable="true"
         android:padding="8dp"
         android:scaleType="fitCenter"
         android:src="@drawable/backarrow"
@@ -87,13 +90,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="213dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelinePriceStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.76642334" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2Bottom"
@@ -208,7 +204,7 @@
 
 
         <TextView
-            android:id="@+id/PriceText1"
+            android:id="@+id/cartSubTotal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/sub_total_price"
@@ -217,13 +213,12 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/SealText1"
             app:layout_constraintEnd_toEndOf="@id/guideline2End"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/guidelinePriceStart"
+            app:layout_constraintStart_toEndOf="@+id/SealText1"
             app:layout_constraintTop_toTopOf="@id/SealText1"
             app:layout_constraintVertical_bias="0.33" />
 
         <TextView
-            android:id="@+id/PriceText2"
+            android:id="@+id/cartShipment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/total_envio_price"
@@ -232,13 +227,12 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/SealText2"
             app:layout_constraintEnd_toEndOf="@id/guideline2End"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/guidelinePriceStart"
+            app:layout_constraintStart_toEndOf="@+id/SealText2"
             app:layout_constraintTop_toTopOf="@id/SealText2"
             app:layout_constraintVertical_bias="0.33" />
 
         <TextView
-            android:id="@+id/PriceText3"
+            android:id="@+id/cartDiscount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/descuentos_price"
@@ -247,8 +241,7 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/SealText3"
             app:layout_constraintEnd_toEndOf="@id/guideline2End"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/guidelinePriceStart"
+            app:layout_constraintStart_toEndOf="@+id/SealText3"
             app:layout_constraintTop_toTopOf="@id/SealText3"
             app:layout_constraintVertical_bias="0.33" />
 
@@ -268,7 +261,7 @@
             app:layout_constraintVertical_bias="0.56" />
 
         <TextView
-            android:id="@+id/PriceText8"
+            android:id="@+id/cartTotal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/total_price"
@@ -277,13 +270,12 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/SealText4"
             app:layout_constraintEnd_toEndOf="@id/guideline2End"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/guidelinePriceStart"
+            app:layout_constraintStart_toEndOf="@+id/SealText4"
             app:layout_constraintTop_toTopOf="@id/SealText4"
             app:layout_constraintVertical_bias="0.33" />
 
         <Button
-            android:id="@+id/SealButton"
+            android:id="@+id/cartBuyButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
