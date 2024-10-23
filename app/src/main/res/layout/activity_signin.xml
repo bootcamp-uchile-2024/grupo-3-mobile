@@ -160,7 +160,7 @@
         app:layout_constraintVertical_bias="0.20" />
 
     <ImageButton
-        android:id="@+id/imgbtnApple"
+        android:id="@+id/cartBackButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="16dp"
@@ -186,7 +186,7 @@
         android:src="@drawable/g"
         app:layout_constraintBottom_toBottomOf="@id/gdlnBottom"
         app:layout_constraintEnd_toStartOf="@id/imgbtnFacebook"
-        app:layout_constraintStart_toEndOf="@+id/imgbtnApple"
+        app:layout_constraintStart_toEndOf="@+id/cartBackButton"
         app:layout_constraintTop_toBottomOf="@id/btnSingIn" />
 
     <ImageButton

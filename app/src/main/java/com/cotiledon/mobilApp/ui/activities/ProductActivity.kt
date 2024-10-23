@@ -35,14 +35,17 @@ class ProductActivity : AppCompatActivity() {
                 val plantImage = intent.getIntExtra("plantImage", 0)
                 val plantID = intent.getStringExtra("plantID")
                 val plantStock = intent.getStringExtra("plantStock")
-                val cartPlant = CartPlant(plantName.toString(), plantPrice.toString(),
-                    plantID.toString(), plantStock.toString(), 1, plantImage)
 
                 //Boton para agregar al carrito y modificadores de cantidad
                 val addToCartButton: Button = findViewById(R.id.addToCartButton)
                 val increaseQuantityButton: Button = findViewById(R.id.productQuantityIncrease)
                 val decreaseQuantityButton: Button = findViewById(R.id.productQuantityDecrease)
                 val quantityDisplay: TextView = findViewById(R.id.productQuantityDisplay)
+
+                val cartPlant = CartPlant(
+                    plantName.toString(), plantPrice.toString(),
+                    plantID.toString(), plantStock.toString(), 1, plantImage
+                )
 
                 cartStorage = CartStorage(this)
 
@@ -57,19 +60,18 @@ class ProductActivity : AppCompatActivity() {
                         cartPlant.plantQuantity--
                         quantityDisplay.text = cartPlant.plantQuantity.toString()
                     }
+                }
 
-                    addToCartButton.setOnClickListener {
-                        cartStorage.saveProductToCart(cartPlant)
-                    }
+                addToCartButton.setOnClickListener {
+                    cartStorage.saveProductToCart(cartPlant)
+                }
 
                 //Definir los datos que se mostrarán en la actividad
                 imageView.setImageResource(plantImage)
                 nameView.text = plantName
                 descView.text = plantDesc
                 priceView.text = plantPrice
-                }
             }
-
             //Iniciado desde el home
             "HomeActivity" -> {
                 //Recibir los datos
@@ -84,14 +86,13 @@ class ProductActivity : AppCompatActivity() {
             }
         }
 
-
-
-
         //Ir a al vista de carrito
         val cart = findViewById<ImageView>(R.id.cart_product)
         cart.setOnClickListener{
             val intent4 = Intent(this, ShoppingCartActivity::class.java)
             startActivity(intent4)
+        }
     }
 }
-}
+
+

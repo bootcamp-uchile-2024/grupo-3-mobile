@@ -56,5 +56,18 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intentcat)
         }
 
+        //Ir a al vista de carrito
+        val cart = findViewById<ImageView>(R.id.cart_product)
+        cart.setOnClickListener{
+            val intent = Intent(this, ShoppingCartActivity::class.java)
+            startActivity(intent)
         }
+
+        }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cartStorage.clearCart()
+    }
+
 }
