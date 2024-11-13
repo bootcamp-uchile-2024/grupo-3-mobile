@@ -2,6 +2,7 @@ package com.cotiledon.mobilApp.ui.activities
 
 import android.content.Context
 import android.util.Log
+import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
 import org.json.JSONArray
 import org.json.JSONObject
 

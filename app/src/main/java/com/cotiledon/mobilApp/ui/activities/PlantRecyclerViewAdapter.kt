@@ -7,12 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.dataClasses.Plant
 
 
 //Adaptador para la vista de catálogo que creamos ya que esta es un RecyclerView. Se le entrega la
 // lista con objetos Plant y una variable que permitirá clickear en cada tarjeta
 
-class PlantRecyclerViewAdapter( private val plants: List<Plant>, private val onItemClick: (Plant) -> Unit) :
+class PlantRecyclerViewAdapter(private val plants: List<Plant>, private val onItemClick: (Plant) -> Unit) :
     RecyclerView.Adapter<PlantRecyclerViewAdapter.PlantViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {

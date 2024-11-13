@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
 
 class ProductActivity : AppCompatActivity() {
     private lateinit var cartStorage: CartStorage

@@ -1,4 +1,4 @@
-package com.cotiledon.mobilApp.ui.activities
+package com.cotiledon.mobilApp.ui.dataClasses
 
 data class CartPlant(val plantName: String,
                      val plantPrice: String,

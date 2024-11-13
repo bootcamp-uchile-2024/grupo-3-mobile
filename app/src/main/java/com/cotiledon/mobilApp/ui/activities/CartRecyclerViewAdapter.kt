@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
 
 class CartRecyclerViewAdapter (private val cartPlants: List<CartPlant>) :
     RecyclerView.Adapter<CartRecyclerViewAdapter.CartViewHolder>(){
