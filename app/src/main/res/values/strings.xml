@@ -60,4 +60,12 @@
     <string name="catalogcvname">CatalogCVName</string>
     <string name="catalogcvprice">CatalogCVPrice</string>
     <string name="wellcomeSplash">Bienvenido</string>
+    <string name="shopping_cart_product_name">Planta Ejemplo</string>
+    <string name="shopping_cart_product_quantity">1</string>
+    <string name="shopping_cart_product_price">$xxxxx</string>
+    <string name="shopping_cart_product_image_descr">Imágen del producto agregado al carrito</string>
+    <string name="plus_sign">+</string>
+    <string name="minus_sign">-</string>
+    <string name="product_quantity">1</string>
+    <string name="cart_quantity_string">"Cantidad: "</string>
 </resources>
