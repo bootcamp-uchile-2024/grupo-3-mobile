@@ -1,4 +1,4 @@
-package com.cotiledon.mobilApp.ui.activities
+package com.cotiledon.mobilApp.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View

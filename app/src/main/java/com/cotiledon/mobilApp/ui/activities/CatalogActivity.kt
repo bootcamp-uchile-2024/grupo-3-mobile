@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.adapters.PlantRecyclerViewAdapter
 import com.cotiledon.mobilApp.ui.dataClasses.Plant
 import org.json.JSONArray
 import org.json.JSONException

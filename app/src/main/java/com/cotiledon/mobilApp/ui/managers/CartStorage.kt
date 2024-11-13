@@ -1,4 +1,4 @@
-package com.cotiledon.mobilApp.ui.activities
+package com.cotiledon.mobilApp.ui.managers
 
 import android.content.Context
 import android.util.Log

@@ -10,9 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.managers.CartStorage
+import com.cotiledon.mobilApp.ui.adapters.CartRecyclerViewAdapter
 import java.text.NumberFormat
 import java.util.Locale
-import kotlin.math.roundToInt
 
 
 private lateinit var recyclerView: RecyclerView
