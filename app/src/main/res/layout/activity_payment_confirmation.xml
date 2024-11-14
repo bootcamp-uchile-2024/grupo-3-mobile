@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -12,34 +13,64 @@
 
         <!-- Header -->
         <TextView
+            android:id="@+id/orderConfirmationTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#000000"
+            android:background="@color/main_green"
             android:padding="16dp"
-            android:text="Gracias por tu pedido"
-            android:textColor="#FFFFFF"
+            android:text="@string/payment_confirmation_title"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <!-- Order Info Text -->
         <TextView
+            android:id="@+id/orderConfirmationCommonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Tu pedido se ha recibido y se está procesando. Para tu información, los detalles del pedido son los siguientes."
-            android:textColor="#000000" />
+            android:gravity="left|center_vertical"
+            android:maxLines="2"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/payment_confirmation_message"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black" />
 
         <!-- Order Number -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Pedido #990"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
 
-        <!-- Order Details Table -->
+        <!-- Dynamic Order Details Table -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:id="@+id/orderNumberPrefix"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center|start"
+                android:text="@string/order_number_prefix"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/orderNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="24dp"
+                android:gravity="center"
+                android:text="@string/order_number"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/orderNumberPrefix"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TableLayout
+            android:id="@+id/productsTableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -51,82 +82,30 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:text="Producto"
+                    android:id="@+id/orderProductTitle"
+                    android:text="@string/order_product_title"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:text="Cantidad"
+                    android:id="@+id/orderQuantityTitle"
+                    android:text="@string/order_quantity_title"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:text="Precio"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <!-- Product Row -->
-            <TableRow android:padding="8dp">
-                <TextView android:text="Flour" />
-                <TextView android:text="1" />
-                <TextView android:text="0,83 € (IVA no incluido)" />
-            </TableRow>
-
-            <!-- Subtotal Row -->
-            <TableRow android:padding="8dp">
-                <TextView
-                    android:text="Subtotal:"
-                    android:textStyle="bold" />
-                <TextView />
-                <TextView android:text="0,83 € (IVA no incluido)" />
-            </TableRow>
-
-            <!-- Shipping Row -->
-            <TableRow android:padding="8dp">
-                <TextView
-                    android:text="Envío:"
-                    android:textStyle="bold" />
-                <TextView />
-                <TextView android:text="5 € vía Spain (1 day)" />
-            </TableRow>
-
-            <!-- IVA Row -->
-            <TableRow android:padding="8dp">
-                <TextView
-                    android:text="IVA:"
-                    android:textStyle="bold" />
-                <TextView />
-                <TextView android:text="0,17 €" />
-            </TableRow>
-
-            <!-- Payment Method Row -->
-            <TableRow android:padding="8dp">
-                <TextView
-                    android:text="Método de pago:"
-                    android:textStyle="bold" />
-                <TextView />
-                <TextView android:text="PayPal" />
-            </TableRow>
-
-            <!-- Total Row -->
-            <TableRow
-                android:padding="8dp"
-                android:background="#F5F5F5">
-                <TextView
-                    android:text="Total:"
-                    android:textStyle="bold" />
-                <TextView />
-                <TextView
-                    android:text="6 €"
+                    android:id="@+id/orderPriceTitle"
+                    android:text="@string/order_price_title"
                     android:textStyle="bold" />
             </TableRow>
         </TableLayout>
 
         <!-- Customer Data Section -->
         <TextView
+            android:id="@+id/orderClientData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Datos de cliente"
-            android:textColor="#000000"
+            android:text="@string/order_client_data"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -138,14 +117,14 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/customerEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Correo electrónico: [Email]" />
+                android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/customerPhone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tel: [Phone]" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <!-- Addresses Section -->
@@ -163,26 +142,27 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/orderBillingAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dirección de facturación"
+                    android:text="@string/order_billing_address"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/billingName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="[Name]" />
+                    android:layout_marginTop="8dp" />
 
                 <TextView
+                    android:id="@+id/billingZipCode"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="[Company]" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/billingAddress"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="[Address]" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <!-- Shipping Address -->
@@ -193,26 +173,27 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/orderShippingAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dirección de envío"
+                    android:text="@string/order_shipping_address"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/shippingName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="[Name]" />
+                    android:layout_marginTop="8dp" />
 
                 <TextView
+                    android:id="@+id/shippingZipCode"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="[Company]" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/shippingAddress"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="[Address]" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

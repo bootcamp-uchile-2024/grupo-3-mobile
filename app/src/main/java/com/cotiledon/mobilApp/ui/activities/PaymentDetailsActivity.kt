@@ -11,12 +11,16 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.PaymentDetails
+import com.cotiledon.mobilApp.ui.managers.OrderManager
+import java.io.Serializable
 
 class PaymentDetailsActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment_details)
+
+        // Obtiene los detalles de envío de la actividad anterior
+        val shippingDetails = intent.getStringExtra("shippingDetails")
 
         val paymentMethodInput = findViewById<EditText>(R.id.inputPaymentMethod)
         val cardNumberInput = findViewById<EditText>(R.id.inputCardNumber)
@@ -24,13 +28,32 @@ class PaymentDetailsActivity : AppCompatActivity() {
         val expiryDateInput = findViewById<EditText>(R.id.inputExpiryDate)
         val securityCodeInput = findViewById<EditText>(R.id.inputSecurityCode)
 
+        fun savePaymentDetails() {
+            // Guarda los detalles de pago en OrderManager
+                OrderManager.paymentDetails = PaymentDetails(
+                    paymentMethod = paymentMethodInput.text.toString(),
+                    cardNumber = cardNumberInput.text.toString(),
+                    carHolderName = cardHolderNameInput.text.toString(),
+                    expiryDate = expiryDateInput.text.toString(),
+                    securityCode = securityCodeInput.text.toString()
+                )
+            }
+
+        fun continueToPaymentConfirmation() {
+            // Paso de datos a ConfirmationActivity
+            val intent = Intent(this, PaymentConfirmationActivity::class.java)
+            startActivity(intent)
+        }
+
         val continueButton = findViewById<Button>(R.id.buttonContinue)
         continueButton.setOnClickListener {
             // Validación de campos vacíos
             if (paymentMethodInput.text.isBlank() || cardNumberInput.text.isBlank() ||
                 cardHolderNameInput.text.isBlank() || expiryDateInput.text.isBlank() ||
-                securityCodeInput.text.isBlank()) {
-                Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+                securityCodeInput.text.isBlank()
+            ) {
+                Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
 
@@ -53,18 +76,11 @@ class PaymentDetailsActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val paymentDetails = PaymentDetails(
-                paymentMethod = paymentMethodInput.text.toString(),
-                cardNumber = cardNumberInput.text.toString(),
-                carHolderName = cardHolderNameInput.text.toString(),
-                expiryDate = expiryDateInput.text.toString(),
-                securityCode = securityCodeInput.text.toString()
-            )
+            savePaymentDetails()
+            continueToPaymentConfirmation()
 
-            // Paso de datos a ConfirmationActivity
-            val intent = Intent(this, PaymentConfirmationActivity::class.java)
-            intent.putExtra("paymentDetails", paymentDetails)
-            startActivity(intent)
         }
+
+
     }
 }

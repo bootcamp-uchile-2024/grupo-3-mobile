@@ -18,10 +18,10 @@ import java.util.Locale
 
 private lateinit var recyclerView: RecyclerView
 private lateinit var adaptador: CartRecyclerViewAdapter
-@SuppressLint("StaticFieldLeak")
-lateinit var cartStorage: CartStorage
+
 
 class ShoppingCartActivity : AppCompatActivity() {
+    private lateinit var cartStorage: CartStorage
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)

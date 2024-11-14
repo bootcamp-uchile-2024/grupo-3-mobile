@@ -68,4 +68,14 @@
     <string name="minus_sign">-</string>
     <string name="product_quantity">1</string>
     <string name="cart_quantity_string">"Cantidad: "</string>
+    <string name="payment_confirmation_message">Tu pedido se ha recibido y se está procesando. Para tu información, los detalles del pedido son los siguientes.</string>
+    <string name="payment_confirmation_title">Gracias por tu pedido</string>
+    <string name="order_number_prefix">Pedido</string>
+    <string name="order_number">1</string>
+    <string name="order_product_title">Producto</string>
+    <string name="order_quantity_title">Cantidad</string>
+    <string name="order_price_title">Precio</string>
+    <string name="order_client_data">Datos del Cliente</string>
+    <string name="order_billing_address">Dirección de Facturación</string>
+    <string name="order_shipping_address">Dirección de Envío</string>
 </resources>

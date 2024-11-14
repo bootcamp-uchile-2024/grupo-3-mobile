@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
+import com.cotiledon.mobilApp.ui.managers.CartStorage
 
 class ProductActivity : AppCompatActivity() {
     private lateinit var cartStorage: CartStorage

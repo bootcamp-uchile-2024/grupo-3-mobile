@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.ShippingDetails
+import com.cotiledon.mobilApp.ui.managers.OrderManager
 
 class ShippingDetailsActivity : AppCompatActivity() {
 
@@ -26,13 +27,34 @@ class ShippingDetailsActivity : AppCompatActivity() {
         val phoneInput = findViewById<EditText>(R.id.inputPhone)
         val emailInput = findViewById<EditText>(R.id.inputEmail)
 
+        //Guardar detalles de envío en OrderManager
+        fun saveShippingDetails() {
+            OrderManager.shippingDetails = ShippingDetails(
+                name = nameInput.text.toString(),
+                address = addressInput.text.toString(),
+                city = cityInput.text.toString(),
+                region = regionInput.text.toString(),
+                zipCode = zipCodeInput.text.toString(),
+                phone = phoneInput.text.toString(),
+                email = emailInput.text.toString()
+            )
+        }
+
+        //Paso a la siguiente actividad
+        fun continueToPaymentDetails() {
+            val intent = Intent(this, PaymentDetailsActivity::class.java)
+            startActivity(intent)
+        }
+
         val continueButton = findViewById<Button>(R.id.buttonContinue)
         continueButton.setOnClickListener {
             // Validación de los campos
             if (nameInput.text.isBlank() || addressInput.text.isBlank() ||
                 cityInput.text.isBlank() || regionInput.text.isBlank() ||
-                zipCodeInput.text.isBlank() || phoneInput.text.isBlank() || emailInput.text.isBlank()) {
-                Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+                zipCodeInput.text.isBlank() || phoneInput.text.isBlank() || emailInput.text.isBlank()
+            ) {
+                Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
 
@@ -47,21 +69,10 @@ class ShippingDetailsActivity : AppCompatActivity() {
                 phoneInput.error = "Número de teléfono no válido"
                 return@setOnClickListener
             }
-
-            val shippingDetails = ShippingDetails(
-                name = nameInput.text.toString(),
-                address = addressInput.text.toString(),
-                city = cityInput.text.toString(),
-                region = regionInput.text.toString(),
-                zipCode = zipCodeInput.text.toString(),
-                phone = phoneInput.text.toString(),
-                email = emailInput.text.toString()
-            )
-
-            // Paso de datos a la siguiente actividad
-            val intent = Intent(this, PaymentDetailsActivity::class.java)
-            intent.putExtra("shippingDetails", shippingDetails)
-            startActivity(intent)
+            saveShippingDetails()
+            continueToPaymentDetails()
         }
+
     }
 }
+
