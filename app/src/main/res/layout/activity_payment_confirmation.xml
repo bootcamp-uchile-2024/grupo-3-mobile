@@ -1,10 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.PaymentConfirmationActivity">
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:padding="16dp"
+            android:text="Gracias por tu pedido"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <!-- Order Info Text -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Tu pedido se ha recibido y se está procesando. Para tu información, los detalles del pedido son los siguientes."
+            android:textColor="#000000" />
+
+        <!-- Order Number -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Pedido #990"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Order Details Table -->
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:stretchColumns="1">
+
+            <!-- Table Header -->
+            <TableRow
+                android:background="#F5F5F5"
+                android:padding="8dp">
+
+                <TextView
+                    android:text="Producto"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:text="Cantidad"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:text="Precio"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <!-- Product Row -->
+            <TableRow android:padding="8dp">
+                <TextView android:text="Flour" />
+                <TextView android:text="1" />
+                <TextView android:text="0,83 € (IVA no incluido)" />
+            </TableRow>
+
+            <!-- Subtotal Row -->
+            <TableRow android:padding="8dp">
+                <TextView
+                    android:text="Subtotal:"
+                    android:textStyle="bold" />
+                <TextView />
+                <TextView android:text="0,83 € (IVA no incluido)" />
+            </TableRow>
+
+            <!-- Shipping Row -->
+            <TableRow android:padding="8dp">
+                <TextView
+                    android:text="Envío:"
+                    android:textStyle="bold" />
+                <TextView />
+                <TextView android:text="5 € vía Spain (1 day)" />
+            </TableRow>
+
+            <!-- IVA Row -->
+            <TableRow android:padding="8dp">
+                <TextView
+                    android:text="IVA:"
+                    android:textStyle="bold" />
+                <TextView />
+                <TextView android:text="0,17 €" />
+            </TableRow>
+
+            <!-- Payment Method Row -->
+            <TableRow android:padding="8dp">
+                <TextView
+                    android:text="Método de pago:"
+                    android:textStyle="bold" />
+                <TextView />
+                <TextView android:text="PayPal" />
+            </TableRow>
+
+            <!-- Total Row -->
+            <TableRow
+                android:padding="8dp"
+                android:background="#F5F5F5">
+                <TextView
+                    android:text="Total:"
+                    android:textStyle="bold" />
+                <TextView />
+                <TextView
+                    android:text="6 €"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableLayout>
+
+        <!-- Customer Data Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Datos de cliente"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Client Info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Correo electrónico: [Email]" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tel: [Phone]" />
+        </LinearLayout>
+
+        <!-- Addresses Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <!-- Billing Address -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dirección de facturación"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="[Name]" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="[Company]" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="[Address]" />
+            </LinearLayout>
+
+            <!-- Shipping Address -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dirección de envío"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="[Name]" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="[Company]" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="[Address]" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
