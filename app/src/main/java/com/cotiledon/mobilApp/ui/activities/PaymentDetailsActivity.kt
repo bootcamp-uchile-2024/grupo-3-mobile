@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +24,7 @@ class PaymentDetailsActivity : AppCompatActivity() {
         // Obtiene los detalles de envío de la actividad anterior
         val shippingDetails = intent.getStringExtra("shippingDetails")
 
-        val paymentMethodInput = findViewById<EditText>(R.id.inputPaymentMethod)
+        val paymentMethodInput = findViewById<RadioButton>(R.id.creditCardOption)
         val cardNumberInput = findViewById<EditText>(R.id.inputCardNumber)
         val cardHolderNameInput = findViewById<EditText>(R.id.inputCardHolderName)
         val expiryDateInput = findViewById<EditText>(R.id.inputExpiryDate)

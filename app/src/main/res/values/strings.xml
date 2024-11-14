@@ -68,6 +68,35 @@
     <string name="minus_sign">-</string>
     <string name="product_quantity">1</string>
     <string name="cart_quantity_string">"Cantidad: "</string>
+    <string name="invitado">Invitado</string>
+    <string name="name">Nombre: </string>
+    <string name="direccion">Direccion: </string>
+    <string name="hint_name">Juan Pereira Gonzalez</string>
+    <string name="hint_direction">Las Mercedes #5112</string>
+    <string name="city">Ciudad: </string>
+    <string name="hint_city">Punta Arenas</string>
+    <string name="region">"Región: "</string>
+    <string name="hint_region">Region de Magallanes</string>
+    <string name="zip">"Zip: "</string>
+    <string name="hint_zip">6200018</string>
+    <string name="phone">"Telefono: "</string>
+    <string name="hint_phone">+569XXXXXXXX</string>
+    <string name="email_shipping">Email :</string>
+    <string name="hint_email_shipping">nombre@ejemplo.com</string>
+    <string name="shipping_information">Datos de Envío</string>
+    <string name="place_order">Realizar Pedido</string>
+    <string name="thanks">Gracias por tu pedido</string>
+    <string name="gratitude1">Tu pedido se ha recibido y se esta procesando.</string>
+    <string name="gratitude2">Para tu informacion, los detalles del pedido son los siguientes.</string>
+    <string name="Pay">Pago</string>
+    <string name="payment_method">Seleccionar método de pago</string>
+    <string name="credit_car">Tarjeta</string>
+    <string name="paypal">PayPal</string>
+    <string name="card_selector">Seleccionar tarjeta</string>
+    <string name="hint_card_number">XXXX-XXXX-XXXX-XXXX</string>
+    <string name="hint_cvv_number">CVV</string>
+    <string name="hint_card">XXXX-XXXX-XXXX-XXXX</string>
+    <string name="hintCVV">CVV</string>
     <string name="payment_confirmation_message">Tu pedido se ha recibido y se está procesando. Para tu información, los detalles del pedido son los siguientes.</string>
     <string name="payment_confirmation_title">Gracias por tu pedido</string>
     <string name="order_number_prefix">Pedido</string>
@@ -78,4 +107,6 @@
     <string name="order_client_data">Datos del Cliente</string>
     <string name="order_billing_address">Dirección de Facturación</string>
     <string name="order_shipping_address">Dirección de Envío</string>
+    <string name="card_date_hint">MM/YY</string>
+
 </resources>

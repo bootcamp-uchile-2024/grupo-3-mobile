@@ -35,13 +35,7 @@
         android:id="@+id/shoppingCartProductQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/shopping_cart_product_quantity"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/shoppingCartProductImage"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
         android:gravity="center"
         android:text="@string/shopping_cart_product_quantity"
@@ -61,9 +55,6 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shoppingCartProductName" />
 
     <TextView
         android:id="@+id/textView"

@@ -77,10 +77,8 @@ class ShoppingCartActivity : AppCompatActivity() {
         //Botón para finalizar la compra
         val buyButton = findViewById<Button>(R.id.cartBuyButton)
         buyButton.setOnClickListener {
-            cartStorage.clearCart()
-            intent = Intent(this, HomeActivity::class.java)
+            intent = Intent(this, ShippingDetailsActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
     }

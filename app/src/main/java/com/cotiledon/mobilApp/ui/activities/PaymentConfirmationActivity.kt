@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
+import android.view.Gravity
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -21,6 +23,7 @@ import com.cotiledon.mobilApp.ui.managers.CartStorage
 import com.cotiledon.mobilApp.ui.managers.OrderManager
 
 class PaymentConfirmationActivity : AppCompatActivity() {
+
     private lateinit var productsTableLayout: TableLayout
     private lateinit var cartStorage: CartStorage
 
@@ -32,6 +35,7 @@ class PaymentConfirmationActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment_confirmation)
 
@@ -74,6 +78,11 @@ class PaymentConfirmationActivity : AppCompatActivity() {
         //Sumar valores de las plantas
         val total = cartStorage.getTotalCartPrice()
 
+        //Agregar filas de productos
+        cartItems.forEach { plant ->
+            addProductRow(plant)
+        }
+
         //Calcular IVA
         val iva = total * IVA_RATE
 
@@ -81,12 +90,12 @@ class PaymentConfirmationActivity : AppCompatActivity() {
         val subtotal = total - iva
 
         //Agregar filas de resumen
-        addSummaryRow("Subtotal: $", "${String.format("%.2f", subtotal)} (IVA no incluido)")
+        addSummaryRow("Subtotal: ", formatPrice(subtotal))
         //Costo de envío a ser modificado desde el backend
-        addSummaryRow("Envío: $", "0" + "(envío a domicilio en ${SHIPPING_TIME})")
-        addSummaryRow("IVA: $", String.format("%.2f", iva))
+        addSummaryRow("Envío: ", formatPrice(0.0))
+        addSummaryRow("IVA: ", formatPrice(iva))
         addSummaryRow("Método de pago:", paymentDetails.paymentMethod)
-        addTotalRow("Total: $", String.format("%.2f", total))
+        addTotalRow("Total: ", formatPrice(total))
 
         // Update customer information
         updateCustomerInformation(paymentDetails, shippingDetails)
@@ -96,10 +105,52 @@ class PaymentConfirmationActivity : AppCompatActivity() {
         val row = createTableRow()
 
         row.addView(createTextView(plant.plantName))
-        row.addView(createTextView(plant.plantQuantity.toString()))
-        row.addView(createTextView("$ ${String.format("%.2f", plant.plantPrice)}"))
+        row.addView(createCenteredTextView(plant.plantQuantity.toString()))
+        row.addView(createMultiLineTextView(plant.plantPrice))
 
         productsTableLayout.addView(row)
+    }
+
+    private fun createTextView(text: String, bold: Boolean = false): TextView {
+        return TextView(this).apply {
+            this.text = text
+            if (bold) {
+                setTypeface(null, Typeface.BOLD)
+            }
+            layoutParams = TableRow.LayoutParams(
+                TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.WRAP_CONTENT
+            )
+        }
+    }
+
+    private fun createCenteredTextView(text: String): TextView {
+        return TextView(this).apply {
+            this.text = text
+            gravity = Gravity.CENTER
+            layoutParams = TableRow.LayoutParams(
+                TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.WRAP_CONTENT
+            )
+        }
+    }
+
+    private fun createMultiLineTextView(text: String): TextView {
+        return TextView(this).apply {
+            this.text = text
+            maxLines = 2
+            layoutParams = TableRow.LayoutParams(
+                TableRow.LayoutParams.MATCH_PARENT,
+                TableRow.LayoutParams.WRAP_CONTENT
+            )
+            TextUtils.TruncateAt.END
+            setPadding(dpToPx(8), dpToPx(8), dpToPx(8), dpToPx(8))
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private fun formatPrice(price: Double): String {
+        return "$ ${String.format("%.0f", price).replace(",", ".")}"
     }
 
     private fun updateCustomerInformation(
@@ -113,7 +164,7 @@ class PaymentConfirmationActivity : AppCompatActivity() {
         //Actualizar dirección de facturación
         findViewById<TextView>(R.id.billingName).text = shippingDetails.name
         findViewById<TextView>(R.id.billingZipCode).text = shippingDetails.zipCode
-        findViewById<TextView>(R.id.billingAddress).text = "${shippingDetails.address} + ${shippingDetails.city} + ${shippingDetails.region}"
+        findViewById<TextView>(R.id.billingAddress).text = "${shippingDetails.address}, ${shippingDetails.city}, ${shippingDetails.region}"
 
         //Actualizar dirección de envío
         findViewById<TextView>(R.id.shippingName).text = shippingDetails.name
@@ -150,19 +201,6 @@ class PaymentConfirmationActivity : AppCompatActivity() {
                 TableRow.LayoutParams.WRAP_CONTENT
             )
             setPadding(dpToPx(8), dpToPx(8), dpToPx(8), dpToPx(8))
-        }
-    }
-
-    private fun createTextView(text: String, bold: Boolean = false): TextView {
-        return TextView(this).apply {
-            this.text = text
-            if (bold) {
-                setTypeface(null, Typeface.BOLD)
-            }
-            layoutParams = TableRow.LayoutParams(
-                TableRow.LayoutParams.WRAP_CONTENT,
-                TableRow.LayoutParams.WRAP_CONTENT
-            )
         }
     }
 

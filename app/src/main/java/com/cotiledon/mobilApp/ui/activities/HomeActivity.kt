@@ -9,8 +9,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.managers.CartStorage
 
 class HomeActivity : AppCompatActivity() {
+
+    private lateinit var cartStorage: CartStorage
+
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)

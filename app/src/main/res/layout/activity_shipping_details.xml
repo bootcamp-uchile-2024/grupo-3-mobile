@@ -65,7 +65,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/inputName_textView"
+                android:id="@+id/inputNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
@@ -85,7 +85,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/inputAdress_textView"
+                android:id="@+id/inputAdressLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
@@ -106,7 +106,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/inputCity_textView"
+                android:id="@+id/inputCityLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
@@ -127,7 +127,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/inputRegion_textView"
+                android:id="@+id/inputRegionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
@@ -148,7 +148,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/inputZipCode_textView"
+                android:id="@+id/inputZipCodeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
@@ -169,7 +169,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/inputphone_textView"
+                android:id="@+id/inputPhoneLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
@@ -178,7 +178,7 @@
                 android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/inputphone"
+                android:id="@+id/inputPhone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="9dp"
@@ -190,7 +190,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/inputEmail"
+                android:id="@+id/inputEmailLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"

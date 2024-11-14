@@ -167,7 +167,8 @@
                 <TextView
                     android:id="@+id/billingAddress"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:maxLines="2" />
             </LinearLayout>
 
             <!-- Shipping Address -->
@@ -198,7 +199,8 @@
                 <TextView
                     android:id="@+id/shippingAddress"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:maxLines="2" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
