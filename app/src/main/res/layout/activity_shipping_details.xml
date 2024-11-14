@@ -5,6 +5,224 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.ShippingDetailsActivity">
+    tools:context=".ui.activities.SignInActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdHomeTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.051983584" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlnBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.97" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlnStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlnEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <TextView
+        android:id="@+id/txtSingInTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shipping_information"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@id/gdlnBottom"
+        app:layout_constraintEnd_toEndOf="@id/gdlnEnd"
+        app:layout_constraintStart_toStartOf="@id/gdlnStart"
+        app:layout_constraintTop_toTopOf="@id/gdHomeTop"
+        app:layout_constraintVertical_bias="0.01" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="590dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/gdlnBottom"
+        app:layout_constraintEnd_toStartOf="@+id/gdlnEnd"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/gdlnStart"
+        app:layout_constraintTop_toBottomOf="@+id/txtSingInTop"
+        app:layout_constraintVertical_bias="0.73">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/inputName_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:text="@string/name"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/inputName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="9dp"
+                android:background="@drawable/rounded_edittext"
+                android:hint="@string/hint_name"
+                android:inputType="text"
+                android:padding="9dp"
+                android:textColorHint="@color/terciary_grey"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/inputAdress_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="9dp"
+                android:text="@string/direccion"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/inputAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="9dp"
+                android:background="@drawable/rounded_edittext"
+                android:hint="@string/hint_direction"
+                android:inputType="text"
+                android:padding="9dp"
+                android:textColorHint="@color/terciary_grey"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/inputCity_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="9dp"
+                android:text="@string/city"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/inputCity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="9dp"
+                android:background="@drawable/rounded_edittext"
+                android:hint="@string/hint_city"
+                android:inputType="text"
+                android:padding="9dp"
+                android:textColorHint="@color/terciary_grey"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/inputRegion_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="9dp"
+                android:text="@string/region"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/inputRegion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="9dp"
+                android:background="@drawable/rounded_edittext"
+                android:hint="@string/hint_region"
+                android:inputType="text"
+                android:padding="9dp"
+                android:textColorHint="@color/terciary_grey"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/inputZipCode_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="9dp"
+                android:text="@string/zip"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/inputZipCode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="9dp"
+                android:background="@drawable/rounded_edittext"
+                android:hint="@string/hint_zip"
+                android:inputType="number"
+                android:padding="9dp"
+                android:textColorHint="@color/terciary_grey"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/inputphone_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="9dp"
+                android:text="@string/phone"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/inputphone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="9dp"
+                android:background="@drawable/rounded_edittext"
+                android:hint="@string/hint_phone"
+                android:inputType="phone"
+                android:padding="9dp"
+                android:textColorHint="@color/terciary_grey"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/inputEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="9dp"
+                android:text="@string/email_shipping"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/inputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="9dp"
+                android:background="@drawable/rounded_edittext"
+                android:hint="@string/hint_email_shipping"
+                android:inputType="textEmailAddress"
+                android:padding="9dp"
+                android:textColorHint="@color/terciary_grey"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/buttonContinue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/rounder_singin_buttom"
+                android:text="@string/place_order"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -68,4 +68,21 @@
     <string name="minus_sign">-</string>
     <string name="product_quantity">1</string>
     <string name="cart_quantity_string">"Cantidad: "</string>
+    <string name="invitado">Invitado</string>
+    <string name="name">Nombre: </string>
+    <string name="direccion">Direccion: </string>
+    <string name="hint_name">Juan Pereira</string>
+    <string name="hint_direction">Las Mercedes #5112</string>
+    <string name="city">Ciudad: </string>
+    <string name="hint_city">Punta Arenas</string>
+    <string name="region">"Región: "</string>
+    <string name="hint_region">Region de Magallanes</string>
+    <string name="zip">"Zip: "</string>
+    <string name="hint_zip">6200018</string>
+    <string name="phone">"Telefono: "</string>
+    <string name="hint_phone">+569XXXXXXXX</string>
+    <string name="email_shipping">Email :</string>
+    <string name="hint_email_shipping">nombre@ejemplo.com</string>
+    <string name="shipping_information">Datos de Envío</string>
+    <string name="place_order">Realizar Pedido</string>
 </resources>
