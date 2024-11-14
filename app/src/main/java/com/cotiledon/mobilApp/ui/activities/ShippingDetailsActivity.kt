@@ -16,6 +16,7 @@ import com.cotiledon.mobilApp.ui.managers.OrderManager
 class ShippingDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shipping_details)
 
