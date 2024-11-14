@@ -1,0 +1,5 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+        <scale
+            android:drawable="@drawable/paypal"/>
+
+</layer-list>

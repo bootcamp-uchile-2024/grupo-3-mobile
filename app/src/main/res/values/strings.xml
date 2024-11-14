@@ -85,4 +85,16 @@
     <string name="hint_email_shipping">nombre@ejemplo.com</string>
     <string name="shipping_information">Datos de Envío</string>
     <string name="place_order">Realizar Pedido</string>
+    <string name="thanks">Gracias por tu pedido</string>
+    <string name="gratitude1">Tu pedido se ha recibido y se esta procesando.</string>
+    <string name="gratitude2">Para tu informacion, los detalles del pedido son los siguientes.</string>
+    <string name="Pay">Pago</string>
+    <string name="payment_method">Seleccionar método de pago</string>
+    <string name="credit_car">Tarjeta de crédito</string>
+    <string name="paypal">PayPal</string>
+    <string name="card_selector">Seleccionar tarjeta</string>
+    <string name="hint_card_number">XXXX-XXXX-XXXX-XXXX</string>
+    <string name="hint_cvv_number">CVV</string>
+    <string name="hint_card">XXXX-XXXX-XXXX-XXXX</string>
+    <string name="hintCVV">CVV</string>
 </resources>
