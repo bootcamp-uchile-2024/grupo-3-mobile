@@ -78,9 +78,8 @@ class PaymentDetailsActivity : AppCompatActivity() {
 
             savePaymentDetails()
             continueToPaymentConfirmation()
+            finish()
 
         }
-
-
     }
 }

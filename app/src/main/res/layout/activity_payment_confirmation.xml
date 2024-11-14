@@ -17,10 +17,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/main_green"
+            android:gravity="center"
             android:padding="16dp"
             android:text="@string/payment_confirmation_title"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
 
         <!-- Order Info Text -->
         <TextView
@@ -28,20 +29,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:gravity="left|center_vertical"
+            android:gravity="start"
             android:maxLines="2"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="@string/payment_confirmation_message"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black" />
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
         <!-- Order Number -->
 
         <!-- Dynamic Order Details Table -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp">
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
             <TextView
                 android:id="@+id/orderNumberPrefix"
@@ -78,7 +82,7 @@
 
             <!-- Table Header -->
             <TableRow
-                android:background="#F5F5F5"
+                android:background="@color/product_grey"
                 android:padding="8dp">
 
                 <TextView
@@ -88,6 +92,7 @@
 
                 <TextView
                     android:id="@+id/orderQuantityTitle"
+                    android:layout_width="wrap_content"
                     android:text="@string/order_quantity_title"
                     android:textStyle="bold" />
 
