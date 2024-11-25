@@ -8,4 +8,5 @@
     <color name="secondary_green">#5A8378</color>
     <color name="secondary_grey">#C5C5C5</color>
     <color name="terciary_grey">#848484</color>
+    <color name="main_app"> #1A4756</color>
 </resources>

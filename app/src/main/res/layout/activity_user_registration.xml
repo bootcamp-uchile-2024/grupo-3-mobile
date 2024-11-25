@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.UserRegistrationActivity">
+
+    <View
+        android:id="@+id/app_upper_banner"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:background="#1A4756"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/register_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_upper_banner"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/innerconstraintlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/register_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="center_horizontal|center_vertical"
+                android:lineSpacingExtra="0sp"
+                android:text="@string/eres_nuevo_"
+                android:textAppearance="@style/eres_nuevo_"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/register_desc"
+                android:layout_width="222dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="center_horizontal|center_vertical"
+                android:lineSpacingExtra="-4sp"
+                android:text="@string/registrate_"
+                android:textAppearance="@style/registrate_"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_title" />
+
+            <EditText
+                android:id="@+id/register_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:autofillHints="name"
+                android:background="@drawable/frame_1412"
+                android:ems="10"
+                android:fontFamily="@font/quicksand_medium"
+                android:foregroundGravity="center_vertical"
+                android:gravity="center_vertical"
+                android:hint="@string/register_name_hint"
+                android:inputType="text"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textAlignment="gravity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_desc" />
+
+            <EditText
+                android:id="@+id/register_surname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:autofillHints="surname"
+                android:background="@drawable/frame_1412"
+                android:ems="10"
+                android:fontFamily="@font/quicksand_medium"
+                android:foregroundGravity="center_vertical"
+                android:gravity="center_vertical"
+                android:hint="@string/register_surname_hint"
+                android:inputType="text"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textAlignment="gravity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_name" />
+
+            <EditText
+                android:id="@+id/register_rut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/frame_1412"
+                android:ems="10"
+                android:fontFamily="@font/quicksand_medium"
+                android:foregroundGravity="center_vertical"
+                android:gravity="center_vertical"
+                android:hint="@string/register_rut_hint"
+                android:inputType="text"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textAlignment="gravity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_surname" />
+
+            <EditText
+                android:id="@+id/register_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:autofillHints="phone"
+                android:background="@drawable/frame_1412"
+                android:ems="10"
+                android:fontFamily="@font/quicksand_medium"
+                android:foregroundGravity="center_vertical"
+                android:gravity="center_vertical"
+                android:hint="@string/register_phone_hint"
+                android:inputType="phone"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textAlignment="gravity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_rut" />
+
+            <EditText
+                android:id="@+id/register_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:autofillHints="phone"
+                android:background="@drawable/frame_1412"
+                android:ems="10"
+                android:fontFamily="@font/quicksand_medium"
+                android:foregroundGravity="center_vertical"
+                android:gravity="center_vertical"
+                android:hint="@string/register_email"
+                android:inputType="textEmailAddress"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textAlignment="gravity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_phone" />
+
+            <EditText
+                android:id="@+id/register_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:autofillHints="phone"
+                android:background="@drawable/frame_1412"
+                android:ems="10"
+                android:fontFamily="@font/quicksand_medium"
+                android:foregroundGravity="center_vertical"
+                android:gravity="center_vertical"
+                android:hint="@string/register_password"
+                android:inputType="textPassword"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textAlignment="gravity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_email" />
+
+            <CheckBox
+                android:id="@+id/register_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:buttonTint="#1A4756"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/register_terms_n_conditions"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_password" />
+
+            <Button
+                android:id="@+id/register_create_btn"
+                android:layout_width="153dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/button_rounded"
+                android:backgroundTint="#1A4756"
+                android:backgroundTintMode="src_in"
+                android:fontFamily="@font/quicksand_medium"
+                android:includeFontPadding="false"
+                android:padding="0dp"
+                android:text="@string/register_create_account"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_checkbox" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

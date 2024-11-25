@@ -108,5 +108,15 @@
     <string name="order_billing_address">Dirección de Facturación</string>
     <string name="order_shipping_address">Dirección de Envío</string>
     <string name="card_date_hint">MM/YY</string>
+    <string name="eres_nuevo_">¿Eres nuevo en Plant AI?</string>
+    <string name="registrate_">Registrate y disfruta de nuestros productos y beneficios</string>
+    <string name="register_name_hint">Nombre*</string>
+    <string name="register_surname_hint">Apellido*</string>
+    <string name="register_rut_hint">RUT*</string>
+    <string name="register_phone_hint">Número de Teléfono*</string>
+    <string name="register_email">Correo Electrónico*</string>
+    <string name="register_password">Contraseña*</string>
+    <string name="register_terms_n_conditions">Acepto Los Términos Y Condiciones</string>
+    <string name="register_create_account">Crear Cuenta</string>
 
 </resources>
