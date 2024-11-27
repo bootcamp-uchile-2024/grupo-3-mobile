@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.cotiledon.mobilApp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.cotiledon.mobilApp"

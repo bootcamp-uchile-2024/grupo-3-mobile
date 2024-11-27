@@ -1,4 +1,4 @@
-package com.cotiledon.mobilApp.ui.interfaces
+package com.cotiledon.mobilApp.ui.retrofit
 
 import com.cotiledon.mobilApp.ui.dataClasses.UserRegistration
 import retrofit2.Response
