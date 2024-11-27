@@ -16,7 +16,6 @@ cardview = "1.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -34,6 +33,10 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat"}
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity"}
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout"}
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version = "2.9.0" }
+gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gson" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version = "2.8.7" }
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version = "2.8.7" }
 
 androidx-cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
 
