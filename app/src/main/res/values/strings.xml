@@ -118,5 +118,7 @@
     <string name="register_password">Contraseña*</string>
     <string name="register_terms_n_conditions">Acepto Los Términos Y Condiciones</string>
     <string name="register_create_account">Crear Cuenta</string>
+    <string name="register_password_again_hint">Repite la Contraseña*</string>
+    <string name="birth_date_buttn">Fecha de Nacimiento*</string>
 
 </resources>
