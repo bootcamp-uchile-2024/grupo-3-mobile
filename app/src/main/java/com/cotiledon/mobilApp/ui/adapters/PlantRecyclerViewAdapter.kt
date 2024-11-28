@@ -9,39 +9,42 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.Plant
 
+class PlantRecyclerViewAdapter(
+    private val plantsList: List<Plant>, // Lista de plantas
+    private val onClick: (Plant) -> Unit // Callback para manejar clics en los ítems
+) : RecyclerView.Adapter<PlantRecyclerViewAdapter.PlantViewHolder>() {
 
-//Adaptador para la vista de catálogo que creamos ya que esta es un RecyclerView. Se le entrega la
-// lista con objetos Plant y una variable que permitirá clickear en cada tarjeta
+    // Clase ViewHolder que representa cada elemento del RecyclerView
+    inner class PlantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val plantImage: ImageView = itemView.findViewById(R.id.catalogCVImage)
+        val plantName: TextView = itemView.findViewById(R.id.catalogCVName)
+        val plantPrice: TextView = itemView.findViewById(R.id.catalogCVPrice)
 
-class PlantRecyclerViewAdapter(private val plants: List<Plant>, private val onItemClick: (Plant) -> Unit) :
-    RecyclerView.Adapter<PlantRecyclerViewAdapter.PlantViewHolder>() {
+        // Método para vincular los datos del modelo a las vistas
+        fun bind(plant: Plant) {
+            plantImage.setImageResource(plant.plantImage) // Imagen de la planta
+            plantName.text = plant.plantName // Nombre de la planta
+            plantPrice.text = "$${plant.plantPrice}" // Precio de la planta
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
-            val inflater = LayoutInflater.from(parent.context).inflate(R.layout.catalog_view_card, parent, false)
-            return PlantViewHolder(inflater)
-        }
-        //ViewHolder para la clase planta. Se poblan los datos de cada tarjeta y se define el onClickListener
-        override fun onBindViewHolder(holder: PlantViewHolder, position: Int) {
-            val planta = plants[position]
-            holder.tvName.text = planta.plantName
-            holder.tvPrice.text = planta.plantPrice
-            holder.imageView.setImageResource(planta.plantImage)
-
-            holder.itemView.setOnClickListener{
-                onItemClick(planta)
+            // Configurar el clic en el elemento
+            itemView.setOnClickListener {
+                onClick(plant)
             }
-
         }
-
-        override fun getItemCount(): Int = plants.size
-
-    //Clase interna ViewHolder
-    class PlantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val imageView: ImageView = itemView.findViewById(R.id.catalogCVImage)
-        val tvName: TextView = itemView.findViewById(R.id.catalogCVName)
-        val tvPrice: TextView = itemView.findViewById(R.id.catalogCVPrice)
-
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.activity_catalog, parent, false) // Infla tu layout
+        return PlantViewHolder(itemView)
+    }
+
+    override fun onBindViewHolder(holder: PlantViewHolder, position: Int) {
+        val plant = plantsList[position]
+        holder.bind(plant) // Llama al método para vincular datos
+    }
+
+    override fun getItemCount(): Int {
+        return plantsList.size // Devuelve el tamaño de la lista
+    }
 }
