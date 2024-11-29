@@ -120,5 +120,6 @@
     <string name="register_create_account">Crear Cuenta</string>
     <string name="register_password_again_hint">Repite la Contraseña*</string>
     <string name="birth_date_buttn">Fecha de Nacimiento*</string>
+    <string name="register_username_hint">Nombre de Usuario*</string>
 
 </resources>
