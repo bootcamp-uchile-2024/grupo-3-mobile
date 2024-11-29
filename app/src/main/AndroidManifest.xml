@@ -14,10 +14,10 @@
         android:theme="@style/Theme.AppCompat.Light"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.PaymentConfirmationActivity"
+            android:name=".ui.activities.UserRegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.PurchaseConfirmation"
+            android:name=".ui.activities.PaymentConfirmationActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.PaymentDetailsActivity"
@@ -51,6 +51,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

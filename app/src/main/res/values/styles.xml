@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="eres_nuevo_">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/main_app</item>
+    </style>
+
+    <style name="registrate_">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/main_app</item>
+    </style>
+
+    <style name="opci_n_1">
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:textColor">@color/main_app</item>
+    </style>
+
+</resources>
