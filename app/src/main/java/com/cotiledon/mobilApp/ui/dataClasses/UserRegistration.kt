@@ -6,8 +6,8 @@ data class UserRegistration (
     val apellido: String,
     val nombreUsuario: String,
     val email: String,
-    val telefono: String,
-    val genero: String,
+    val telefono: String? = null,
+    val genero: String? = null,
     val rut: String,
     val fechaNacimiento: String,
-    val tipoUsuarioId: Int = 3)
+    val idRol: Int = 3)

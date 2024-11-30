@@ -1,7 +1,10 @@
 package com.cotiledon.mobilApp.ui.activities
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -14,8 +17,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.UserRegistration
+import com.cotiledon.mobilApp.ui.retrofit.GlobalValues
+import com.cotiledon.mobilApp.ui.retrofit.RetrofitUserClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class UserRegistrationActivity : AppCompatActivity() {
 
@@ -33,6 +42,9 @@ class UserRegistrationActivity : AppCompatActivity() {
     private lateinit var birthDateButton: TextView
     private lateinit var birthDate: DatePicker
 
+    private lateinit var  retrofitUserClient: RetrofitUserClient
+
+    @SuppressLint("DefaultLocale")
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
@@ -52,6 +64,9 @@ class UserRegistrationActivity : AppCompatActivity() {
         buttonregister = findViewById(R.id.register_create_btn)
         birthDateButton = findViewById(R.id.birth_date_bttn)
         birthDate = findViewById(R.id.birth_date)
+
+        //Inicializar Retrofit Client
+        retrofitUserClient = RetrofitUserClient.createUserClient()
 
         // Validación de Pass
         fun isValidPassword(password: String): Boolean {
@@ -110,22 +125,23 @@ class UserRegistrationActivity : AppCompatActivity() {
             return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
         }
 
-        // Validación Fecha de Nacimiento
+        // Validación Fecha de Nacimiento en formato ISO 8601
         fun isValidBirthDate(date: String): Boolean {
-            val dateRegex = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$".toRegex()
+            // Regex para formato ISO 8601: YYYY-MM-DD
+            val dateRegex = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$".toRegex()
 
             if (!date.matches(dateRegex)) return false
 
-            // Parseo de la fecha
             try {
-                val parts = date.split("/")
-                val day = parts[0].toInt()
+                val parts = date.split("-")
+                val year = parts[0].toInt()
                 val month = parts[1].toInt()
-                val year = parts[2].toInt()
+                val day = parts[2].toInt()
 
-                // Checkeo de meses y días
+                // Validación de mes
                 if (month < 1 || month > 12) return false
 
+                // Validación de días según el mes
                 val daysInMonth = when (month) {
                     1, 3, 5, 7, 8, 10, 12 -> 31
                     4, 6, 9, 11 -> 30
@@ -133,7 +149,11 @@ class UserRegistrationActivity : AppCompatActivity() {
                     else -> return false
                 }
 
-                return day in 1..daysInMonth && year > 1900 && year <= Calendar.getInstance().get(Calendar.YEAR)
+                // Validación de día dentro del rango del mes
+                if (day < 1 || day > daysInMonth) return false
+
+                // Validación de rango de año
+                return year > 1900 && year <= Calendar.getInstance().get(Calendar.YEAR)
             } catch (e: Exception) {
                 return false
             }
@@ -186,23 +206,78 @@ class UserRegistrationActivity : AppCompatActivity() {
 
             }
 
+        fun registerUser() {
+            // Crear objeto UserRegistration
+            val userRegistration = UserRegistration(
+                contrasena = contrasena.text.toString(),
+                nombre = nombre.text.toString(),
+                apellido = apellido.text.toString(),
+                nombreUsuario = username.text.toString(),
+                email = email.text.toString(),
+                telefono = telefono.text.toString().takeIf { it.isNotBlank() }?.removePrefix("+"),
+                genero = genero.selectedItem.toString().takeIf { it != "Género" },
+                rut = rut.text.toString(),
+                fechaNacimiento = birthDateButton.text.toString()
+            )
+
+            // Se lanza una corrutina
+            lifecycleScope.launch {
+                try {
+                    // Se hace un llamado al servicio
+                    val response = withContext(Dispatchers.IO) {
+                        retrofitUserClient.registerUser(userRegistration)
+                    }
+
+                    // Se checkea la respuesta
+                    withContext(Dispatchers.Main) {
+                        if (response.isSuccessful) {
+                            // Registro exitoso
+                            Toast.makeText(
+                                this@UserRegistrationActivity,
+                                "Registro exitoso",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            startActivity(Intent(this@UserRegistrationActivity, HomeActivity::class.java))
+                            finish()
+                        } else {
+                            // Llamada no exitosa
+                            val errorMessage = "${response.code()}: " + response.message()
+
+                            Toast.makeText(
+                                this@UserRegistrationActivity,
+                                errorMessage,
+                                Toast.LENGTH_LONG
+                            ).show()
+
+                            Log.e("UserRegistrationActivity", "Error: $errorMessage")
+
+                        }
+                    }
+                } catch (e: Exception) {
+                    // Manejo de excepciones
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            this@UserRegistrationActivity,
+                            "Error: ${e.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        val errorMessage = "Error: ${e.message}"
+                        Log.e("UserRegistrationActivity", "Error: $errorMessage")
+                    }
+                }
+
+            }
+        }
+        // Valida que los datos estén ok y si es así, envía el usuario a la base de datos
             buttonregister.setOnClickListener{
                 if(validateInputs()){
-                    val userRegistration = UserRegistration(
-                        contrasena = contrasena.text.toString(),
-                        nombre = nombre.text.toString(),
-                        apellido = apellido.text.toString(),
-                        nombreUsuario = username.text.toString(),
-                        email = email.text.toString(),
-                        telefono = telefono.text.toString(),
-                        genero = genero.selectedItem.toString(),
-                        rut = rut.text.toString(),
-                        fechaNacimiento = birthDateButton.text.toString()
-                    )
+                    registerUser()
                 }
             }
 
-
+        //Manejo del botón de fecha
         birthDateButton.setOnClickListener {
             if (birthDate.visibility == View.GONE) {
                 birthDate.visibility = View.VISIBLE
@@ -211,8 +286,9 @@ class UserRegistrationActivity : AppCompatActivity() {
             }
         }
 
-        birthDate.setOnDateChangedListener{_, year, month, day ->
-            val formattedDate = "$day/${month+1}/$year"
+        birthDate.setOnDateChangedListener { _, year, month, day ->
+            // Format the date in ISO 8601 (YYYY-MM-DD)
+            val formattedDate = String.format("%04d-%02d-%02d", year, month + 1, day)
             birthDateButton.text = formattedDate
             birthDate.visibility = View.GONE
         }
@@ -220,7 +296,7 @@ class UserRegistrationActivity : AppCompatActivity() {
 
         val genderOptions = listOf("Género", "Masculino", "Femenino", "Prefiero no decir")
 
-
+        // Adaptador para spinner de género
         val adapter = ArrayAdapter(
             this,
             R.layout.spinner_item, // Diseño predeterminado
@@ -242,9 +318,6 @@ class UserRegistrationActivity : AppCompatActivity() {
                     // Mensaje predeterminado seleccionado, no hacer nada
                     return
                 }
-                // Realiza acciones según la opción seleccionada
-                val selectedGender = genderOptions[position]
-                return
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
