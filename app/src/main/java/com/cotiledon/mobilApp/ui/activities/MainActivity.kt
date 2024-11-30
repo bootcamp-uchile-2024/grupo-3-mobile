@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
 
         lifecycleScope.launch {
             delay(splashScreenDuration)
-            val intent = Intent(this@MainActivity, HomeActivity::class.java)
+            val intent = Intent(this@MainActivity, UserRegistrationActivity::class.java)
             startActivity(intent)
             finish() // Cierra MainActivity para que no se mantenga en la pila
         }
