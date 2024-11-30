@@ -126,7 +126,7 @@ class CatalogActivity : AppCompatActivity() {
     private fun fetchProducts(page: Int, size: Int, onSuccess: (JSONArray) -> Unit, onError: (Exception) -> Unit) {
         AsyncTask.execute {
             try {
-                val url = URL("http://18.117.124.137:8080/catalogo?page=$page&pageSize=$size\n")
+                val url = URL("http://52.15.36.189:8080/catalogo?page=$page&pageSize=$size\n")
                 val connection = url.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
 
