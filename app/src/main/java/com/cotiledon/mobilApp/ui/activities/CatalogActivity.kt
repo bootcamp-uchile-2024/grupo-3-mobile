@@ -1,83 +1,122 @@
 package com.cotiledon.mobilApp.ui.activities
 
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.adapters.PlantRecyclerViewAdapter
 import com.cotiledon.mobilApp.ui.dataClasses.Plant
-import org.json.JSONArray
-import java.net.HttpURLConnection
-import java.net.URL
+import com.cotiledon.mobilApp.ui.retrofit.RetrofitCatalogClient
+import kotlinx.coroutines.launch
 
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.cotiledon.mobilApp.ui.dataClasses.PlantResponse
 
 class CatalogActivity : AppCompatActivity() {
 
-    private lateinit var retrofit: Retrofit
-    private lateinit var plantApi: PlantApi
+    // Inicializamos las variables que contendrán el Recycler View, Adapter y Lista con Objetos de la clase Plant
+    // recyclerView y adaptador deben ser lateinit ya que si no generarán problemas al cargar la app
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adaptador: PlantRecyclerViewAdapter
+    private var plantas = mutableListOf<Plant>()
+    private var currentPage = 1
+    private val pageSize = 10
+    private var isLoading = false
+    private var hasMoreItems = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog)
 
-        // Inicializar Retrofit
-        retrofit = Retrofit.Builder()
-            .baseUrl("http://52.15.36.189:8080/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
 
-        plantApi = retrofit.create(PlantApi::class.java)
-        loadNextPage()
-    }
+        //Se obtiene el dato del título de la categoría que se clickeó en el HomeActivity para mostrarlo en el título de la vista de catálogo
+        val bundle = intent.extras
+        val catTitle = bundle?.getString("tituloCat")
+        val tituloCat= findViewById<TextView>(R.id.CatalogName)
+        tituloCat.text = catTitle
 
-    private fun loadNextPage() {
-        if (isLoading) return
-        isLoading = true
+        //Se obtiene el view para la variable del Recycler y se le asigna su LayoutManager
+        recyclerView = findViewById(R.id.catalogRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        plantApi.getPlants(currentPage, pageSize).enqueue(object : retrofit2.Callback<List<Plant>> {
-            override fun onResponse(call: Call<List<Plant>>, response: retrofit2.Response<List<Plant>>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { plants ->
-                        setUpPlants(plants)
-                        currentPage++
-                    }
-                } else {
-                    Toast.makeText(this@CatalogActivity, "Error al cargar productos: ${response.message()}", Toast.LENGTH_LONG).show()
-                }
-                isLoading = false
-            }
+        //Se asigna el valor al adaptador definido como el adaptador creado para este recycler view que toma la lista de plantas creada
+        //Para poder traspasar los datos a la vista detallada de cada producto, se definene los putExtra y se le das start al intent de la vista detallada de producto
+        adaptador = PlantRecyclerViewAdapter(plantas) { planta ->
 
-            override fun onFailure(call: Call<List<Plant>>, t: Throwable) {
-                Toast.makeText(this@CatalogActivity, "Error al cargar productos: ${t.message}", Toast.LENGTH_LONG).show()
-                isLoading = false
-            }
-        })
-    }
-
-    private fun setUpPlants(plants: List<Plant>) {
-        for (planta in plants) {
-            val imageRes = if (Plantas.size < ImagesPlantas.size) ImagesPlantas[Plantas.size] else R.drawable.suculenta
-
-            val instance = Plant(
-                planta.plantName,
-                planta.plantPrice,
-                planta.plantDesc,
-                planta.plantID,
-                planta.plantStock,
-                planta.plantCategory,
-                imageRes
-            )
-
-            Plantas.add(instance)
+            val intent = Intent(this, ProductActivity::class.java)
+            intent.putExtra("source", "CatalogActivity")
+            intent.putExtra("plantId", planta.id)
+            intent.putExtra("plantName", planta.nombre)
+            intent.putExtra("plantPrice", planta.precio)
+            intent.putExtra("plantDesc", planta.descripcion)
+            intent.putExtra("plantStock", planta.cantidad)
+            intent.putExtra("plantImage", planta.imagen)
+            startActivity(intent)
         }
 
-        adaptador.notifyDataSetChanged()
+        //Se vincula el adaptador del recycler view con nuestro adaptador
+        recyclerView.adapter = adaptador
+
+        //Se llama a la función setUpPlants para poblar la lista de plantas desde el JSON
+        setUpPlants()
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+            val visibleItemCount = layoutManager.childCount
+            val totalItemCount = layoutManager.itemCount
+            val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+            if ((!isLoading && hasMoreItems &&
+                (firstVisibleItemPosition + visibleItemCount) >= totalItemCount) &&
+                    firstVisibleItemPosition >= 0)
+                setUpPlants()
+            }
+        })
+
+        val backbttn = findViewById<ImageButton>(R.id.CatalogBackBtn)
+        backbttn.setOnClickListener {
+            finish()
+        }
+
     }
+
+    private fun setUpPlants() {
+        if (isLoading) return
+        isLoading = true
+        adaptador.showLoading()
+
+        lifecycleScope.launch {
+            try {
+                val retrofitClient = RetrofitCatalogClient.createCatalogClient()
+                val response: PlantResponse<Plant> = retrofitClient.getPlants(currentPage, pageSize)
+
+                if (response.data.isEmpty() || currentPage * pageSize >= response.totalItems) {
+                    hasMoreItems = false
+                } else {
+                    plantas.addAll(response.data)
+                    adaptador.notifyItemRangeChanged(
+                        plantas.size - response.data.size,
+                        response.data.size
+                    )
+                }
+                currentPage++
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Toast.makeText(applicationContext, e.message, Toast.LENGTH_LONG).show()
+            } finally {
+                isLoading = false
+                adaptador.hideLoading()
+            }
+        }
+    }
+
+
 }

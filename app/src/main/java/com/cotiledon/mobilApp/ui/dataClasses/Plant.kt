@@ -1,12 +1,22 @@
 package com.cotiledon.mobilApp.ui.dataClasses
 
 data class Plant(
-    val plantName: String,
-    val plantPrice: String,
-    val plantDesc: String,
-    val plantID: String,
-    val plantStock: String,
-    val plantCat: String,
-    val plantImage: Int
+    val id: Int,
+    val SKU: String,
+    val nombre: String,
+    val idCategoria: Int,
+    val precio: Double,
+    val descripcion: String,
+    val imagen: String?,
+    val cantidad: Int,
+    val unidadesVendidas: Int,
+    val puntuacion: Int,
+    val ancho: Int,
+    val alto: Int,
+    val largo: Int,
+    val peso: Int,
+    val habilitado: Boolean,
+    val categoria: Categoria,
+    val planta: PlantDetails?
 )
 

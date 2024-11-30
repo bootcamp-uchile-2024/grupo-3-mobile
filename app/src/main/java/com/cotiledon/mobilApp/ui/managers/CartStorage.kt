@@ -13,27 +13,49 @@ class CartStorage (private val context: Context) {
 
     //Función para guardar un producto en el carrito
     fun saveProductToCart(cartPlant: CartPlant){
-    try {
-        val productJson = JSONObject().apply {
-            put("plantName", cartPlant.plantName)
-            put("plantPrice", cartPlant.plantPrice)
-            put("plantID", cartPlant.plantID)
-            put("plantStock", cartPlant.plantStock)
-            put("plantQuantity", cartPlant.plantQuantity)
-            put("plantImage", cartPlant.plantImage)
-        }
+        try {
+            val productJson = JSONObject().apply {
+                put("plantName", cartPlant.plantName)
+                put("plantPrice", cartPlant.plantPrice)
+                put("plantID", cartPlant.plantID)
+                put("plantStock", cartPlant.plantStock)
+                put("plantQuantity", cartPlant.plantQuantity)
+                put("plantImage", cartPlant.plantImage)
+            }
 
-        //Leer los datos existentes del archivo JSON
-        val existingData = readCartData()
-        existingData.put(productJson)
+            //Leer los datos existentes del archivo JSON
+            val existingData = readCartData()
+            existingData.put(productJson)
 
-        //Escribir los datos actualizados en el archivo JSON
-        context.openFileOutput(filename, Context.MODE_PRIVATE).use { output ->
-            output.write(existingData.toString().toByteArray())
+            //Escribir los datos actualizados en el archivo JSON
+            context.openFileOutput(filename, Context.MODE_PRIVATE).use { output ->
+                output.write(existingData.toString().toByteArray())
+            }
+        } catch (e: Exception){
+            e.printStackTrace()
         }
-    } catch (e: Exception){
-        e.printStackTrace()
     }
+
+    fun removeProductFromCart(plantID: String) {
+        try {
+            val jsonArray = readCartData()
+            val updatedArray = JSONArray()
+
+            // Crear un nuevo JSONArray excluyendo el producto a eliminar
+            for (i in 0 until jsonArray.length()) {
+                val item = jsonArray.getJSONObject(i)
+                if (item.getString("plantID") != plantID) {
+                    updatedArray.put(item)
+                }
+            }
+
+            // Guardar el array actualizado
+            context.openFileOutput(filename, Context.MODE_PRIVATE).use { output ->
+                output.write(updatedArray.toString().toByteArray())
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     //Función para leer los datos del archivo JSON
@@ -53,11 +75,11 @@ class CartStorage (private val context: Context) {
         } catch (e: Exception) {
             e.printStackTrace()
             JSONArray()
-            }
-            }
+        }
+    }
 
     //Función para cargar los productos del carrito
-    fun loadCartItems(): List<CartPlant> {
+    fun loadCartItems(): MutableList<CartPlant> {
         val cartItems = mutableListOf<CartPlant>()
         try{
             val jsonArray = readCartData()

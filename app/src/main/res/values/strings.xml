@@ -113,10 +113,13 @@
     <string name="register_name_hint">Nombre*</string>
     <string name="register_surname_hint">Apellido*</string>
     <string name="register_rut_hint">RUT*</string>
-    <string name="register_phone_hint">Número de Teléfono*</string>
+    <string name="register_phone_hint">Número de Teléfono</string>
     <string name="register_email">Correo Electrónico*</string>
     <string name="register_password">Contraseña*</string>
     <string name="register_terms_n_conditions">Acepto Los Términos Y Condiciones</string>
     <string name="register_create_account">Crear Cuenta</string>
+    <string name="register_password_again_hint">Repite la Contraseña*</string>
+    <string name="birth_date_buttn">Fecha de Nacimiento*</string>
+    <string name="register_username_hint">Nombre de Usuario*</string>
 
 </resources>
