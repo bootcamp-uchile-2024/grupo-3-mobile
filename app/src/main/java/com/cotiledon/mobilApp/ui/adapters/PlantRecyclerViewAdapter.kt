@@ -1,5 +1,6 @@
 package com.cotiledon.mobilApp.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,41 +15,86 @@ import com.squareup.picasso.Picasso
 //Adaptador para la vista de catálogo que creamos ya que esta es un RecyclerView. Se le entrega la
 // lista con objetos Plant y una variable que permitirá clickear en cada tarjeta
 
-class ProductRecyclerViewAdapter(
+class PlantRecyclerViewAdapter(
     private val plants: List<Plant>,
     private val onItemClick: (Plant) -> Unit
-) : RecyclerView.Adapter<ProductRecyclerViewAdapter.ProductViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.catalog_view_card, parent, false)
-        return ProductViewHolder(view)
+    companion object {
+        private const val VIEW_TYPE_ITEM = 0
+        private const val VIEW_TYPE_LOADING = 1
     }
 
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val plant = plants[position]
-        holder.bind(plant)
-        holder.itemView.setOnClickListener {
-            onItemClick(plant)
-        }
-    }
+    private var isLoadingVisible = false
 
-    override fun getItemCount(): Int = plants.size
+    inner class PlantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val imageView: ImageView = itemView.findViewById(R.id.catalogCVImage)
+        val tvName: TextView = itemView.findViewById(R.id.catalogCVName)
+        val tvPrice: TextView = itemView.findViewById(R.id.catalogCVPrice)
 
-    class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageView: ImageView = itemView.findViewById(R.id.catalogCVImage)
-        private val tvName: TextView = itemView.findViewById(R.id.catalogCVName)
-        private val tvPrice: TextView = itemView.findViewById(R.id.catalogCVPrice)
-
-        fun bind(product: Plant) {
-            tvName.text = product.nombre
-            tvPrice.text = "$ ${product.precio}"
+        @SuppressLint("SetTextI18n")
+        fun bind(plant: Plant) {
+            tvName.text = plant.nombre
+            tvPrice.text = "$ ${plant.precio}"
 
             Picasso.get()
-                .load(product.imagen)
+                .load(plant.imagen)
                 .placeholder(R.drawable.suculenta)
                 .error(R.drawable.user_24)
                 .into(imageView)
+        }
+    }
+
+    inner class LoadingViewHolder(view: View) : RecyclerView.ViewHolder(view)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            VIEW_TYPE_ITEM -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.catalog_view_card, parent, false)
+                PlantViewHolder(view)
+            }
+            else -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.progress_bar, parent, false)
+                LoadingViewHolder(view)
+            }
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (getItemViewType(position)) {
+            VIEW_TYPE_ITEM -> {
+                val plantHolder = holder as PlantViewHolder
+                val plant = plants[position]
+                plantHolder.bind(plant)
+                holder.itemView.setOnClickListener {
+                    onItemClick(plant)
+                }
+            }
+            VIEW_TYPE_LOADING -> {
+                // Loading view holder doesn't need any binding
+            }
+        }
+    }
+
+    override fun getItemCount(): Int = if (isLoadingVisible) plants.size + 1 else plants.size
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position == plants.size && isLoadingVisible) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
+    }
+
+    fun showLoading() {
+        if (!isLoadingVisible) {
+            isLoadingVisible = true
+            notifyItemInserted(plants.size)
+        }
+    }
+
+    fun hideLoading() {
+        if (isLoadingVisible) {
+            isLoadingVisible = false
+            notifyItemRemoved(plants.size)
         }
     }
 }

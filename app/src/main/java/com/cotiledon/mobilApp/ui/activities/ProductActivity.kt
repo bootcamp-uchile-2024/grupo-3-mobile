@@ -1,5 +1,6 @@
 package com.cotiledon.mobilApp.ui.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -12,6 +13,7 @@ import com.cotiledon.mobilApp.ui.managers.CartStorage
 
 class ProductActivity : AppCompatActivity() {
     private lateinit var cartStorage: CartStorage
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
