@@ -17,8 +17,15 @@ class MainActivity : ComponentActivity() {
         setContentView(R.layout.activity_main)
     }
 
+    //Función que lleva a registro Login
     fun onRegisterTextClick(view: View) {
         val intent = Intent(this, UserRegistrationActivity::class.java)
+        startActivity(intent)
+    }
+
+    //Función que lleva a singIn
+    fun onSingInTextClick(view: View) {
+        val intent = Intent(this, singin_activity::class.java)
         startActivity(intent)
     }
 

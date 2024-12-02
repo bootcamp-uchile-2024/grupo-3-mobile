@@ -38,7 +38,7 @@
             android:name=".ui.activities.ShoppingCartActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.SignInActivity"
+            android:name=".ui.activities.SignInActivity_unatended"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity

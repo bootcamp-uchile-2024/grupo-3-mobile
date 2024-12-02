@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cotiledon.mobilApp.R
 
 
-class SignInActivity : AppCompatActivity() {
+class SignInActivity_unatended : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
