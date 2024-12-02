@@ -10,4 +10,5 @@
     <color name="terciary_grey">#848484</color>
     <color name="main_app"> #1A4756</color>
     <color name="user_register_font"> #555555</color>
+    <color name="primary_color">#1A4756</color>
 </resources>
