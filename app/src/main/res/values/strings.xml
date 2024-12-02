@@ -125,5 +125,10 @@
     <string name="question_login">¿No tienes cuenta?</string>
     <string name="registration_login">Registrate aquí</string>
     <string name="wellcome_singin">Bienvenido a Plant AI</string>
-
+    <string name="register_email_singin">Correo electrónico</string>
+    <string name="register_password_singin">Contraseña</string>
+    <string name="register_hint_pass_singin">• • • • • • •</string>
+    <string name="login_singin">Iniciar sesión</string>
+    <string name="question1_singin">¿No tienes cuenta?</string>
+    <string name="question2_singin">Registrate aqui</string>
 </resources>

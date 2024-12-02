@@ -195,14 +195,13 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRegisterTextClick"
                 android:text="@string/question2_singin"
                 android:textColor="@color/main_app"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/guideline_singin_H_5"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_singin_H_4"
