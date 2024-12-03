@@ -19,8 +19,8 @@ import com.cotiledon.mobilApp.ui.dataClasses.PlantResponse
 
 class CatalogActivity : AppCompatActivity() {
 
-    // Inicializamos las variables que contendrán el Recycler View, Adapter y Lista con Objetos de la clase Plant
-    // recyclerView y adaptador deben ser lateinit ya que si no generarán problemas al cargar la app
+    // Inicializamos las variables que contendrán el Recycler View, Adapter y Lista con Objetos de la clase Plant.
+    // Consideramos que el catálogo cargará de cada 10 productos y se cargaran de 10 en 10.
     private lateinit var recyclerView: RecyclerView
     private lateinit var adaptador: PlantRecyclerViewAdapter
     private var plantas = mutableListOf<Plant>()
