@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="main_green">#E4F5D9</color>
+    <color name="product_grey">#F2F2F2</color>
+    <color name="ad_grey">#E7E7E7</color>
+    <color name="secondary_green">#5A8378</color>
+    <color name="secondary_grey">#C5C5C5</color>
+    <color name="terciary_grey">#848484</color>
+    <color name="quaternary_grey">#FFCAD2D5</color>
+    <color name="main_app"> #1A4756</color>
+    <color name="user_register_font"> #555555</color>
+    <color name="primary_color">#1A4756</color>
+</resources>

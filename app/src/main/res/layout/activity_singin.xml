@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.singin_activity">
+
+    <ImageView
+        android:id="@+id/imageView_singin_background"
+        android:layout_width="494dp"
+        android:layout_height="930dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/singin_background"
+        tools:layout_editor_absoluteX="-42dp"
+        tools:layout_editor_absoluteY="-4dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_singin_H_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="260dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_singin_H_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="160dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_singin_V_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="42dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_singin_V_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="42dp" />
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="492dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_singin_H_2"
+        app:layout_constraintEnd_toEndOf="@id/guideline_singin_V_2"
+        app:layout_constraintStart_toStartOf="@id/guideline_singin_V_1"
+        app:layout_constraintTop_toTopOf="@+id/guideline_singin_H_1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_singin_H_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="40dp" />
+
+            <TextView
+                android:id="@+id/textView_wellcome_singin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/wellcome_singin"
+                android:textColor="@color/primary_color"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline_singin_H_3" />
+
+            <ImageView
+                android:id="@+id/imageView_logo_singin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:src="@drawable/logo_singin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_wellcome_singin" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="53dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/guideline_singin_H_5"
+                app:layout_constraintStart_toStartOf="@id/guideline_singin_H_4"
+                app:layout_constraintTop_toBottomOf="@id/imageView_logo_singin">
+
+                <TextView
+                    android:id="@+id/textview_singin_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="@string/register_email_singin"
+                    android:textColor="@color/secondary_grey"
+                    android:textStyle="bold" />
+
+
+                <EditText
+                    android:id="@+id/editText_singin_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="emailAddress"
+                    android:background="@drawable/frame_1412"
+                    android:ems="10"
+                    android:fontFamily="@font/quicksand"
+                    android:foregroundGravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hint_email"
+                    android:inputType="textEmailAddress"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/quaternary_grey"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/register_phone" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="@string/register_password_singin"
+                    android:textColor="@color/secondary_grey"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editText_singin_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="phone"
+                    android:background="@drawable/frame_1412"
+                    android:drawableEnd="@drawable/eye_off"
+                    android:ems="10"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:foregroundGravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:hint="@string/register_hint_pass_singin"
+                    android:inputType="textPassword"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/quaternary_grey"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/button_singin"
+                    android:layout_width="118dp"
+                    android:layout_height="34dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/round_standar"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:onClick="onSignInButtonClick"
+                    android:text="@string/login_singin"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/question1_singin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/textView5"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/guideline_singin_H_4"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRegisterTextClick"
+                android:text="@string/question2_singin"
+                android:textColor="@color/main_app"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideline_singin_H_5"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_singin_H_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="45dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_singin_H_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="45dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
