@@ -9,10 +9,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
-import com.cotiledon.mobilApp.ui.managers.CartStorage
+import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 
 class ProductActivity : AppCompatActivity() {
-    private lateinit var cartStorage: CartStorage
+    private lateinit var cartStorageManager: CartStorageManager
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -52,7 +52,7 @@ class ProductActivity : AppCompatActivity() {
                     plantID.toString(), plantStock.toString(), 1, plantImage
                 )
 
-                cartStorage = CartStorage(this)
+                cartStorageManager = CartStorageManager(this)
 
                 //Incrementar la cantidad de producto
                 increaseQuantityButton.setOnClickListener {
@@ -70,7 +70,7 @@ class ProductActivity : AppCompatActivity() {
 
                 //Agregar el producto al carrito
                 addToCartButton.setOnClickListener {
-                    cartStorage.saveProductToCart(cartPlant)
+                    cartStorageManager.saveProductToCart(cartPlant)
                 }
 
                 //Definir los datos que se mostrarán en la actividad

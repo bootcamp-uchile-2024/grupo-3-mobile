@@ -5,15 +5,14 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.managers.CartStorage
+import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var cartStorage: CartStorage
+    private lateinit var cartStorageManager: CartStorageManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -72,7 +71,7 @@ class HomeActivity : AppCompatActivity() {
     //Al cerrar la actividad, vaciar el carrito
     override fun onDestroy() {
         super.onDestroy()
-        cartStorage.clearCart()
+        cartStorageManager.clearCart()
     }
 
 }

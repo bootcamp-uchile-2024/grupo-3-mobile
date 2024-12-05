@@ -10,22 +10,19 @@ import android.view.Gravity
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
 import com.cotiledon.mobilApp.ui.dataClasses.PaymentDetails
 import com.cotiledon.mobilApp.ui.dataClasses.ShippingDetails
-import com.cotiledon.mobilApp.ui.managers.CartStorage
+import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.cotiledon.mobilApp.ui.managers.OrderManager
 
 class PaymentConfirmationActivity : AppCompatActivity() {
 
     private lateinit var productsTableLayout: TableLayout
-    private lateinit var cartStorage: CartStorage
+    private lateinit var cartStorageManager: CartStorageManager
 
     //Constantes
     companion object {
@@ -39,7 +36,7 @@ class PaymentConfirmationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment_confirmation)
 
-        cartStorage = CartStorage(this)
+        cartStorageManager = CartStorageManager(this)
 
         productsTableLayout = findViewById(R.id.productsTableLayout)
 
@@ -48,8 +45,8 @@ class PaymentConfirmationActivity : AppCompatActivity() {
 
 
 
-        //Obtener datos de carrito desde CartStorage
-        val cartItems = cartStorage.loadCartItems()
+        //Obtener datos de carrito desde CartStorageManager
+        val cartItems = cartStorageManager.loadCartItems()
 
         //Mostrar los datos en forma dinámica
         if (paymentDetails != null) {
@@ -59,7 +56,7 @@ class PaymentConfirmationActivity : AppCompatActivity() {
         }
 
         //Limpiar el carrito después de comprar
-        cartStorage.clearCart()
+        cartStorageManager.clearCart()
     }
 
     @SuppressLint("DefaultLocale")
@@ -76,7 +73,7 @@ class PaymentConfirmationActivity : AppCompatActivity() {
         }
 
         //Sumar valores de las plantas
-        val total = cartStorage.getTotalCartPrice()
+        val total = cartStorageManager.getTotalCartPrice()
 
         //Agregar filas de productos
         cartItems.forEach { plant ->

@@ -13,6 +13,7 @@ material = "1.12.0"
 
 cardview = "1.0.0"
 lifecycleViewmodelKtx = "2.8.7"
+roomKtx = "2.6.1"
 
 
 [libraries]
@@ -47,6 +48,7 @@ picasso = { group = "com.squareup.picasso", name = "picasso", version = "2.8" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version = "2.8.7" }
 
 androidx-cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 
 
 [plugins]

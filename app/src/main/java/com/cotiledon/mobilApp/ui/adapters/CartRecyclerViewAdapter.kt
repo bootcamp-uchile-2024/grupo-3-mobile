@@ -1,6 +1,5 @@
 package com.cotiledon.mobilApp.ui.adapters
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +10,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
-import com.cotiledon.mobilApp.ui.managers.CartStorage
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 
-class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>, private val cartStorage: CartStorage,
+class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>, private val cartStorageManager: CartStorageManager,
                                private val onItemRemoved: () -> Unit) :
     RecyclerView.Adapter<CartRecyclerViewAdapter.CartViewHolder>(){
 
@@ -38,7 +36,7 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>, p
                 .setMessage("¿Estás seguro de que deseas eliminar este producto del carrito?")
                 .setPositiveButton("Eliminar") { dialog, _ ->
                     // Eliminar el producto del almacenamiento
-                    cartStorage.removeProductFromCart(planta.plantID)
+                    cartStorageManager.removeProductFromCart(planta.plantID)
 
                     // Eliminar el producto de la lista local
                     cartPlants.removeAt(position)

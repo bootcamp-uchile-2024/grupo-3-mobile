@@ -7,7 +7,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 //Clase de archivo de guardado de productos en el carrito
-class CartStorage (private val context: Context) {
+class CartStorageManager (private val context: Context) {
     //Archivo JSON para guardar los productos del carrito
     private val filename = "cart_data.json"
 
@@ -123,7 +123,7 @@ class CartStorage (private val context: Context) {
                 prices.add(priceString.toDouble()*priceQuantity)
             }
         } catch (e: Exception) {
-            Log.e("CartStorage", "Error extracting prices", e)
+            Log.e("CartStorageManager", "Error extracting prices", e)
         }
         return prices
     }
