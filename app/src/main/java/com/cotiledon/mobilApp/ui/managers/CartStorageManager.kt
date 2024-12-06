@@ -17,7 +17,7 @@ class CartStorageManager (private val context: Context) {
             val productJson = JSONObject().apply {
                 put("plantName", cartPlant.plantName)
                 put("plantPrice", cartPlant.plantPrice)
-                put("plantID", cartPlant.plantID)
+                put("plantID", cartPlant.plantId)
                 put("plantStock", cartPlant.plantStock)
                 put("plantQuantity", cartPlant.plantQuantity)
                 put("plantImage", cartPlant.plantImage)
@@ -90,10 +90,10 @@ class CartStorageManager (private val context: Context) {
                     CartPlant(
                         plantName = item.getString("plantName"),
                         plantPrice = item.getString("plantPrice"),
-                        plantID = item.getString("plantID"),
+                        plantId = item.getString("plantID"),
                         plantStock = item.getString("plantStock"),
                         plantQuantity = item.getInt("plantQuantity"),
-                        plantImage = item.getInt("plantImage")
+                        plantImage = item.getString("plantImage")
                     )
                 )
             }

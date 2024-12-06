@@ -131,10 +131,16 @@
     <string name="login_singin">Iniciar sesión</string>
     <string name="question1_singin">¿No tienes cuenta?</string>
     <string name="question2_singin">Registrate aqui</string>
+    <string name="catalog_filter">Filtros</string>
     <string-array name="gender_items">
         <item>Selecciona tu Género</item>
         <item>Masculino</item>
         <item>Femenino</item>
         <item>Prefiero no decir</item>
     </string-array>
+    <string-array name="initial_budget_slider_values">
+        <item>10000</item>
+        <item>100000</item>
+    </string-array>
+
 </resources>

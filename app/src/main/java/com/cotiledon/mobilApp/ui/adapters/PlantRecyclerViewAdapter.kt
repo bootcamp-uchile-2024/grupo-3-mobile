@@ -12,6 +12,8 @@ import com.cotiledon.mobilApp.ui.dataClasses.Plant
 import com.cotiledon.mobilApp.ui.dataClasses.PlantFilters
 import com.cotiledon.mobilApp.ui.enums.PlantCycle
 import com.squareup.picasso.Picasso
+import java.text.NumberFormat
+import java.util.Locale
 
 
 //Adaptador para la vista de catálogo que creamos ya que esta es un RecyclerView. Se le entrega la
@@ -35,15 +37,16 @@ class PlantRecyclerViewAdapter(
         val tvName: TextView = itemView.findViewById(R.id.catalogCVName)
         val tvPrice: TextView = itemView.findViewById(R.id.catalogCVPrice)
 
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n", "DefaultLocale")
         fun bind(plant: Plant) {
             tvName.text = plant.nombre
-            tvPrice.text = "$ ${plant.precio}"
+            val formatter = NumberFormat.getNumberInstance(Locale.GERMAN)
+            tvPrice.text = "$ ${formatter.format(plant.precio)}"
 
             Picasso.get()
                 .load(plant.imagen)
                 .placeholder(R.drawable.suculenta)
-                .error(R.drawable.user_24)
+                .error(R.drawable.suculenta)
                 .into(imageView)
         }
     }
