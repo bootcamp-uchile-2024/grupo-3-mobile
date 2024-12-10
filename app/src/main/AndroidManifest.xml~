@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.MainAppHomeActivity"
+            android:name=".ui.activities.MainAppActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.singin_activity"

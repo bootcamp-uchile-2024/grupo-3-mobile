@@ -15,6 +15,8 @@ import com.cotiledon.mobilApp.R
 
 class singin_activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         supportActionBar?.hide()
@@ -26,6 +28,7 @@ class singin_activity : AppCompatActivity() {
         }
     }
 
+    //Función que lleva al home
     fun onSignInButtonClick(view: View) {
         val emailField = view.rootView.findViewById<EditText>(R.id.editText_singin_email)
         val passwordField = view.rootView.findViewById<EditText>(R.id.editText_singin_password)
@@ -39,6 +42,12 @@ class singin_activity : AppCompatActivity() {
         } else {
             Toast.makeText(view.context, "Error al iniciar sesión", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    //Función que lleva a registro Login
+    fun onRegisterTextClick(view: View) {
+        val intent = Intent(this, UserRegistrationActivity::class.java)
+        startActivity(intent)
     }
 
 }
