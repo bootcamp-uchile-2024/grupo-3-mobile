@@ -131,4 +131,5 @@
     <string name="login_singin">Iniciar sesión</string>
     <string name="question1_singin">¿No tienes cuenta?</string>
     <string name="question2_singin">Registrate aqui</string>
+    <string name= "search_hint">Buscar</string>
 </resources>
