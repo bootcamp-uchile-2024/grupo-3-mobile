@@ -14,4 +14,5 @@
     <color name="primary_color">#1A4756</color>
     <color name="icon_tint">#E6E6E6</color>
     <color name="icon_tint_selected">#FF9000</color>
+    <color name="deep_green">#0D270D</color>
 </resources>

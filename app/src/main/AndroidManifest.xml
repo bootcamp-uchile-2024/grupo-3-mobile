@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.MainAppShoppingCarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.MainAppProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.MainAppCategoriesActivity"
             android:exported="false" />
         <activity

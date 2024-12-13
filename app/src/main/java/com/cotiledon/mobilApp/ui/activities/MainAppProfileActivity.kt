@@ -10,7 +10,7 @@ import com.cotiledon.mobilApp.R
 import android.content.Intent
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainAppCategoriesActivity : AppCompatActivity() {
+class MainAppProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,9 +24,9 @@ class MainAppCategoriesActivity : AppCompatActivity() {
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // Configura el listener para manejar las selecciones
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
+
                 R.id.nav_home -> {
                     val intent = Intent(this, MainAppHomeActivity::class.java)
                     startActivity(intent)
@@ -34,8 +34,11 @@ class MainAppCategoriesActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_profile -> {
-                    val intent = Intent(this, MainAppProfileActivity::class.java)
-                    startActivity(intent)
+                    if (this !is MainAppProfileActivity) {
+                        val intent = Intent(this, MainAppProfileActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(0, 0)
+                    }
                     true
                 }
 
@@ -46,12 +49,8 @@ class MainAppCategoriesActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_menu -> {
-                    // Redirige a la actividad asociada al icono "Home"
-                    if (this !is MainAppCategoriesActivity) {
-                        val intent = Intent(this, MainAppCategoriesActivity::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(0, 0)
-                    }
+                    val intent = Intent(this, MainAppCategoriesActivity::class.java)
+                    startActivity(intent)
                     true
                 }
 

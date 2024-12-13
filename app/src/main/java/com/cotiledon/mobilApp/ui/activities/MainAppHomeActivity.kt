@@ -38,29 +38,21 @@ class MainAppHomeActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_profile -> {
-                    // Redirige a la actividad asociada al icono "Perfil"
-                    if (false) {
-                        val intent = Intent(this, PaymentConfirmationActivity::class.java)
-                        startActivity(intent)
-                    }
+                    val intent = Intent(this, MainAppProfileActivity::class.java)
+                    startActivity(intent)
                     true
                 }
 
                 R.id.nav_cart -> {
-                    // Redirige a la actividad asociada al icono "Carrito"
-                    if (false) {
-                        val intent = Intent(this, ProductActivity::class.java)
-                        startActivity(intent)
-                    }
+                    val intent = Intent(this, MainAppShoppingCarActivity::class.java)
+                    startActivity(intent)
                     true
                 }
 
                 R.id.nav_menu -> {
                     // Redirige a la actividad asociada al icono "Menú"
-                    if (false) {
-                        val intent = Intent(this, ShippingDetailsActivity::class.java)
-                        startActivity(intent)
-                    }
+                    val intent = Intent(this, MainAppCategoriesActivity::class.java)
+                    startActivity(intent)
                     true
                 }
 
