@@ -131,15 +131,15 @@
     <string name="login_singin">Iniciar sesión</string>
     <string name="question1_singin">¿No tienes cuenta?</string>
     <string name="question2_singin">Registrate aqui</string>
-    <string name= "search_hint">Buscar</string>
-    <string name= "activity_main_recycler_menu_item_all">Todas</string>
-    <string name= "activity_main_recycler_menu_item_plants">Destacados</string>
-    <string name= "activity_main_recycler_menu_item_accesories">Accesorios</string>
-    <string name= "activity_main_recycler_menu_item_inputs">Insumos</string>
-    <string name= "activity_main_bottom_icon_truck">ENVIO GRATIS</string>
-    <string name= "activity_main_bottom_icon_stars">CLUB PLANTAI</string>
-    <string name= "activity_main_bottom_icon_grass">CONSEJOS Y TIPS</string>
-    <string name= "activity_main_bottom_button_truck">App Plant Ai</string>
-    <string name= "activity_main_bottom_button_stars">Beneficios</string>
-    <string name= "activity_main_bottom_button_grass">Consejos</string>
+    <string name="search_hint">Buscar</string>
+    <string name="activity_main_recycler_menu_item_all">Todas</string>
+    <string name="activity_main_recycler_menu_item_plants">Destacados</string>
+    <string name="activity_main_recycler_menu_item_accesories">Accesorios</string>
+    <string name="activity_main_recycler_menu_item_inputs">Insumos</string>
+    <string name="activity_main_bottom_icon_truck">ENVIO GRATIS</string>
+    <string name="activity_main_bottom_icon_stars">CLUB PLANTAI</string>
+    <string name="activity_main_bottom_icon_grass">CONSEJOS Y TIPS</string>
+    <string name="activity_main_bottom_button_truck">App Plant Ai</string>
+    <string name="activity_main_bottom_button_stars">Beneficios</string>
+    <string name="activity_main_bottom_button_grass">Consejos</string>
 </resources>

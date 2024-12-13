@@ -2,17 +2,17 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/home"
-        android:title="Home" />
+        android:title="" />
     <item
         android:id="@+id/nav_profile"
-        android:icon="@drawable/user"
-        android:title="Perfil" />
+        android:icon="@drawable/person"
+        android:title="" />
     <item
         android:id="@+id/nav_cart"
-        android:icon="@drawable/car"
-        android:title="Carrito" />
+        android:icon="@drawable/garden_cart"
+        android:title="" />
     <item
         android:id="@+id/nav_menu"
-        android:icon="@drawable/lines"
-        android:title="Menú" />
+        android:icon="@drawable/segment"
+        android:title="" />
 </menu>
