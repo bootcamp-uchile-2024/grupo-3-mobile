@@ -1,4 +1,4 @@
-package com.cotiledon.mobilApp.ui.activities
+package com.cotiledon.mobilApp.ui.activities._old
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -15,10 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.adapters.PlantRecyclerViewAdapter
 import com.cotiledon.mobilApp.ui.dataClasses.Plant
+import com.cotiledon.mobilApp.ui.dataClasses.PlantResponse
 import com.cotiledon.mobilApp.ui.retrofit.RetrofitCatalogClient
 import kotlinx.coroutines.launch
-
-import com.cotiledon.mobilApp.ui.dataClasses.PlantResponse
 
 class CatalogActivity : AppCompatActivity() {
 

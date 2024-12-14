@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.SignInActivity_unatended">
+    tools:context=".ui.activities._old.SignInActivity_unatended">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gdHomeTop"

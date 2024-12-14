@@ -15,7 +15,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the fragment's layout - make sure to create fragment_profile.xml
-        return inflater.inflate(R.layout.activity_profile_fragment,container, false)
+        return inflater.inflate(R.layout.fragment_profile,container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

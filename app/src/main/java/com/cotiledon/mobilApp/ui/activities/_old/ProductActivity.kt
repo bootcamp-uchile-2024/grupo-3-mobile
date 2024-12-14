@@ -1,4 +1,4 @@
-package com.cotiledon.mobilApp.ui.activities
+package com.cotiledon.mobilApp.ui.activities._old
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -96,7 +96,8 @@ class ProductActivity : AppCompatActivity() {
             plantId = plantData.id.toString(),
             plantStock = plantData.stock.toString(),
             plantQuantity = 1,
-            plantImage = plantData.image)
+            plantImage = plantData.image
+        )
     }
 
     @SuppressLint("SetTextI18n")
@@ -207,5 +208,3 @@ class ProductActivity : AppCompatActivity() {
     }
 
 }
-
-

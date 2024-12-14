@@ -1,4 +1,4 @@
-package com.cotiledon.mobilApp.ui.activities
+package com.cotiledon.mobilApp.ui.activities.FragmentApproach
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -16,7 +16,7 @@ class MainContainerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_container)
         supportActionBar?.hide()
 
         // Handle window insets for edge-to-edge display

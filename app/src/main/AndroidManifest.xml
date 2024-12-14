@@ -23,19 +23,19 @@
             android:name=".ui.fragments.HomeFragment"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.MainContainerActivity"
+            android:name=".ui.activities.FragmentApproach.MainContainerActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.MainAppShoppingCarActivity"
+            android:name=".ui.activities.MainAppApproach.MainAppShoppingCarActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.MainAppProfileActivity"
+            android:name=".ui.activities.MainAppApproach.MainAppProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.MainAppCategoriesActivity"
+            android:name=".ui.activities.MainAppApproach.MainAppCategoriesActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.MainAppHomeActivity"
+            android:name=".ui.activities.MainAppApproach.MainAppHomeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.singin_activity"
@@ -44,25 +44,25 @@
             android:name=".ui.activities.UserRegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.PaymentConfirmationActivity"
+            android:name=".ui.activities._old.PaymentConfirmationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.PaymentDetailsActivity"
+            android:name=".ui.activities._old.PaymentDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.ShippingDetailsActivity"
+            android:name=".ui.activities._old.ShippingDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.CatalogActivity"
+            android:name=".ui.activities._old.CatalogActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.ShoppingCartActivity"
+            android:name=".ui.activities._old.ShoppingCartActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.ProductActivity"
+            android:name=".ui.activities._old.ProductActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.HomeActivity"
+            android:name=".ui.activities._old.HomeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.MainActivity"

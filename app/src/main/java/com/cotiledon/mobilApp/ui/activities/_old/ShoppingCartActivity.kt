@@ -1,4 +1,4 @@
-package com.cotiledon.mobilApp.ui.activities
+package com.cotiledon.mobilApp.ui.activities._old
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,18 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.cotiledon.mobilApp.ui.adapters.CartRecyclerViewAdapter
+import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import java.text.NumberFormat
 import java.util.Locale
-
-
-
-
-
-private lateinit var recyclerView: RecyclerView
-private lateinit var adaptador: CartRecyclerViewAdapter
-
 
 class ShoppingCartActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView

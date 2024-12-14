@@ -33,17 +33,15 @@ class ShoppingCartFragment : Fragment() {
         // Find the search bar container
         val searchContainer = view.findViewById<LinearLayout>(R.id.activity_main_layout_1)
 
-        // Find the search EditText - You might want to add an ID to it in your layout
-        val searchEditText = searchContainer.findViewById<EditText>(2) // The EditText is the third child
+        // Use the actual IDs to find the views
+        val searchEditText = view.findViewById<EditText>(R.id.search_edit_text)
+        val cameraButton = view.findViewById<ImageView>(R.id.camera_button)
 
-        // Find the camera button - You might want to add an ID to it in your layout
-        val cameraButton = searchContainer.findViewById<ImageView>(3) // The camera icon is the fourth child
-
-        searchEditText.setOnClickListener {
+        searchEditText?.setOnClickListener {
             // Handle search functionality
         }
 
-        cameraButton.setOnClickListener {
+        cameraButton?.setOnClickListener {
             // Handle camera functionality
         }
     }

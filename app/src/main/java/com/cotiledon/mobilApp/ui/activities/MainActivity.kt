@@ -5,8 +5,8 @@ import android.os.Bundle
 //import android.widget.Button
 import androidx.activity.ComponentActivity
 import com.cotiledon.mobilApp.R
-import android.os.Handler
 import androidx.lifecycle.lifecycleScope
+import com.cotiledon.mobilApp.ui.activities.FragmentApproach.MainContainerActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
 
         lifecycleScope.launch {
             delay(splashScreenDuration)
-            val intent = Intent(this@MainActivity, MainAppHomeActivity::class.java)
+            val intent = Intent(this@MainActivity, MainContainerActivity::class.java)
             startActivity(intent)
             finish() // Cierra MainActivity para que no se mantenga en la pila
         }

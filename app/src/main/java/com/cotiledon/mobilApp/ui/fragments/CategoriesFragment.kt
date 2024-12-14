@@ -49,12 +49,12 @@ class CategoriesFragment : Fragment() {
         val searchEditText = searchContainer.findViewById<EditText>(1)  // The EditText is the second child
         val cameraButton = searchContainer.findViewById<ImageView>(2)   // The camera button is the third child
 
-        searchEditText.setOnClickListener {
+        searchEditText?.setOnClickListener {
             // Handle search functionality
             handleSearch()
         }
 
-        cameraButton.setOnClickListener {
+        cameraButton?.setOnClickListener {
             // Handle camera functionality
             handleCamera()
         }
