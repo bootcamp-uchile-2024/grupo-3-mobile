@@ -34,11 +34,6 @@ class MainAppProfileActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_profile -> {
-                    if (this !is MainAppProfileActivity) {
-                        val intent = Intent(this, MainAppProfileActivity::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(0, 0)
-                    }
                     true
                 }
 

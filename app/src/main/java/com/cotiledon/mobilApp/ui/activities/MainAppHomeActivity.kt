@@ -29,22 +29,19 @@ class MainAppHomeActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_home -> {
                     // Redirige a la actividad asociada al icono "Home"
-                    if (this !is MainAppHomeActivity) {
-                        val intent = Intent(this, MainAppHomeActivity::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(0, 0)
-                    }
                     true
                 }
 
                 R.id.nav_profile -> {
                     val intent = Intent(this, MainAppProfileActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     true
                 }
 
                 R.id.nav_cart -> {
                     val intent = Intent(this, MainAppShoppingCarActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     true
                 }
@@ -52,6 +49,7 @@ class MainAppHomeActivity : AppCompatActivity() {
                 R.id.nav_menu -> {
                     // Redirige a la actividad asociada al icono "Menú"
                     val intent = Intent(this, MainAppCategoriesActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     true
                 }

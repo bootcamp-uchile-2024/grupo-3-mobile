@@ -47,11 +47,6 @@ class MainAppCategoriesActivity : AppCompatActivity() {
 
                 R.id.nav_menu -> {
                     // Redirige a la actividad asociada al icono "Home"
-                    if (this !is MainAppCategoriesActivity) {
-                        val intent = Intent(this, MainAppCategoriesActivity::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(0, 0)
-                    }
                     true
                 }
 

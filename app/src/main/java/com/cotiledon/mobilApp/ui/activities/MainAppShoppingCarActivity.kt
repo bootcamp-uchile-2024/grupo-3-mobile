@@ -40,11 +40,6 @@ class MainAppShoppingCarActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_cart -> {
-                    if (this !is MainAppShoppingCarActivity) {
-                        val intent = Intent(this, MainAppShoppingCarActivity::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(0, 0)
-                    }
                     true
                 }
 
