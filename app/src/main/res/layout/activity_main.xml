@@ -30,20 +30,20 @@
         android:id="@+id/imageView_Logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="90dp"
         android:src="@drawable/logo_plant_ai"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.247"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineH" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.06999999" />
 
     <Button
         android:id="@+id/button_Main_Login"
-        android:onClick="onSingInTextClick"
         android:layout_width="175dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/round_standar"
         android:fontFamily="@font/quicksand"
+        android:onClick="onSingInTextClick"
         android:scrollbarStyle="insideInset"
         android:text="@string/login"
         android:textColor="@color/white"
@@ -51,8 +51,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guidelineV_1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_Logo"
+        app:layout_constraintVertical_bias="0.94" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineV_1"
@@ -61,46 +62,40 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="103dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineV_2"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="46dp" />
-
-    <TextView
-        android:id="@+id/textView_Main_Logo_question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/quicksand"
-        android:text="@string/question_login"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/guidelineV_2"
-        app:layout_constraintEnd_toStartOf="@id/guidelineH_2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView_Main_Logo_question2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/quicksand"
-        android:onClick="onRegisterTextClick"
-        android:text="@string/registration_login"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/guidelineV_2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="@+id/guidelineH_2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_Main_Login"
+        app:layout_constraintVertical_bias="0.31">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="218dp" />
+        <TextView
+            android:id="@+id/textView_Main_Logo_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/quicksand"
+            android:text="@string/question_login"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView_Main_Logo_question2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand"
+            android:onClick="onRegisterTextClick"
+            android:text="@string/registration_login"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
