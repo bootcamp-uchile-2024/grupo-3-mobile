@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.adapters.CategoryAdapter
 import com.cotiledon.mobilApp.ui.dataClasses.Category
-import com.cotiledon.mobilApp.ui.dataClasses.SubCategory
 
 class SubCategoriesFragment : Fragment() {
 

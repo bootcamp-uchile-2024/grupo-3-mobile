@@ -19,7 +19,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.activities._old.HomeActivity
+import com.cotiledon.mobilApp.ui.activities.FragmentApproach.MainContainerActivity
 import com.cotiledon.mobilApp.ui.dataClasses.UserRegistration
 import com.cotiledon.mobilApp.ui.retrofit.RetrofitUserClient
 import kotlinx.coroutines.Dispatchers
@@ -238,7 +238,7 @@ class UserRegistrationActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
 
-                            startActivity(Intent(this@UserRegistrationActivity, HomeActivity::class.java))
+                            startActivity(Intent(this@UserRegistrationActivity, MainContainerActivity::class.java))
                             finish()
                         } else {
                             // Llamada no exitosa

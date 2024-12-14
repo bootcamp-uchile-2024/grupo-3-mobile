@@ -183,7 +183,7 @@ class CatalogFragment : Fragment() {
 
     private fun navigateToPlantDetail(plant: Plant) {
         // Navigate to your existing plant detail fragment
-        val detailFragment = PlantDetailFragment.newInstance(plant.id)
+        val detailFragment = ProductDetailFragment.newInstance(plant.id)
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, detailFragment)
             .addToBackStack(null)

@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.activities.FragmentApproach.MainContainerActivity
 
 
 class SignInActivity_unatended : AppCompatActivity() {
@@ -22,7 +23,7 @@ class SignInActivity_unatended : AppCompatActivity() {
         //Comprueba el usuario admin y lleva al home
         signin_btn.setOnClickListener{
             if (txt_username.text.toString() == "admin" && txt_password.text.toString() == "1234"){
-                val intent2 = Intent(this, HomeActivity::class.java)
+                val intent2 = Intent(this, MainContainerActivity::class.java)
                 startActivity(intent2)
             }
         }

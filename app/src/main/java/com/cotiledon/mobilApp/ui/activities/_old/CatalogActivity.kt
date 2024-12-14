@@ -19,7 +19,7 @@ import com.cotiledon.mobilApp.ui.dataClasses.PlantResponse
 import com.cotiledon.mobilApp.ui.retrofit.RetrofitCatalogClient
 import kotlinx.coroutines.launch
 
-class CatalogActivity : AppCompatActivity() {
+/*class CatalogActivity : AppCompatActivity() {
 
     // Inicializamos las variables que contendrán el Recycler View, Adapter y Lista con Objetos de la clase Plant.
     // Consideramos que el catálogo cargará de cada 10 productos y se cargaran de 10 en 10.
@@ -141,4 +141,4 @@ class CatalogActivity : AppCompatActivity() {
     }
 
 
-}
+}*/

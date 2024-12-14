@@ -10,7 +10,7 @@ import androidx.cardview.widget.CardView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 
-class HomeActivity : AppCompatActivity() {
+/*class HomeActivity : AppCompatActivity() {
 
     private lateinit var cartStorageManager: CartStorageManager
 
@@ -100,4 +100,4 @@ class HomeActivity : AppCompatActivity() {
         cartStorageManager.clearCart()
     }
 
-}
+}*/
