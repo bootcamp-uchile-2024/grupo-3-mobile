@@ -35,7 +35,7 @@ class singin_activity : AppCompatActivity() {
         val password = passwordField.text.toString()
 
         if (email == "admin" && password == "1234") {
-            val intent = Intent(view.context, HomeActivity::class.java)
+            val intent = Intent(view.context, MainAppHomeActivity::class.java)
             view.context.startActivity(intent)
         } else {
             Toast.makeText(view.context, "Error al iniciar sesión", Toast.LENGTH_SHORT).show()

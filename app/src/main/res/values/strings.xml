@@ -142,5 +142,26 @@
         <item>10000</item>
         <item>100000</item>
     </string-array>
+    <string name="search_hint">Buscar</string>
+    <string name="activity_main_recycler_menu_item_all">Todas</string>
+    <string name="activity_main_recycler_menu_item_plants">Destacados</string>
+    <string name="activity_main_recycler_menu_item_accesories">Accesorios</string>
+    <string name="activity_main_recycler_menu_item_inputs">Insumos</string>
+    <string name="activity_main_bottom_icon_truck">ENVIO GRATIS</string>
+    <string name="activity_main_bottom_icon_stars">CLUB PLANTAI</string>
+    <string name="activity_main_bottom_icon_grass">CONSEJOS Y TIPS</string>
+    <string name="activity_main_bottom_button_truck">App Plant Ai</string>
+    <string name="activity_main_bottom_button_stars">Beneficios</string>
+    <string name="activity_main_bottom_button_grass">Consejos</string>
+
+    <!-- MainCategoriesActivity -->
+    <string name="activity_categories_main">Categorías</string>
+    <string name="activity_categories_card_1">Plantas</string>"
+    <string name="activity_categories_card_2">Comunidad</string>"
+    <string name="activity_categories_card_3">Educación</string>"
+    <string name="activity_categories_card_4">Asistente virtual</string>"
+    <string name="activity_categories_card_5">Vende con nosotros</string>"
+    <string name="activity_categories_card_6">Sobre Nosotros</string>"
+
 
 </resources>
