@@ -63,7 +63,7 @@
     <!-- Fin de Header -->
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/subcategory_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -87,7 +87,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/subcategory_title"
         app:layout_constraintVertical_bias="0.100000024">
 
         <!-- Card: Plantas -->
