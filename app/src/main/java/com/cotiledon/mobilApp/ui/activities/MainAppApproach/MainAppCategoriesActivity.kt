@@ -1,7 +1,6 @@
-package com.cotiledon.mobilApp.ui.activities
+package com.cotiledon.mobilApp.ui.activities.MainAppApproach
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,7 +9,7 @@ import com.cotiledon.mobilApp.R
 import android.content.Intent
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainAppProfileActivity : AppCompatActivity() {
+class MainAppCategoriesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,9 +23,9 @@ class MainAppProfileActivity : AppCompatActivity() {
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
+        // Configura el listener para manejar las selecciones
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-
                 R.id.nav_home -> {
                     val intent = Intent(this, MainAppHomeActivity::class.java)
                     startActivity(intent)
@@ -34,11 +33,8 @@ class MainAppProfileActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_profile -> {
-                    if (this !is MainAppProfileActivity) {
-                        val intent = Intent(this, MainAppProfileActivity::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(0, 0)
-                    }
+                    val intent = Intent(this, MainAppProfileActivity::class.java)
+                    startActivity(intent)
                     true
                 }
 
@@ -49,8 +45,7 @@ class MainAppProfileActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_menu -> {
-                    val intent = Intent(this, MainAppCategoriesActivity::class.java)
-                    startActivity(intent)
+                    // Redirige a la actividad asociada al icono "Home"
                     true
                 }
 

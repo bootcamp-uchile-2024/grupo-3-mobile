@@ -1,7 +1,6 @@
-package com.cotiledon.mobilApp.ui.activities
+package com.cotiledon.mobilApp.ui.activities.MainAppApproach
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,7 +9,7 @@ import com.cotiledon.mobilApp.R
 import android.content.Intent
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainAppShoppingCarActivity : AppCompatActivity() {
+class MainAppProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,9 +23,9 @@ class MainAppShoppingCarActivity : AppCompatActivity() {
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // Configura el listener para manejar las selecciones
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
+
                 R.id.nav_home -> {
                     val intent = Intent(this, MainAppHomeActivity::class.java)
                     startActivity(intent)
@@ -34,21 +33,16 @@ class MainAppShoppingCarActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_profile -> {
-                    val intent = Intent(this, MainAppProfileActivity::class.java)
+                    true
+                }
+
+                R.id.nav_cart -> {
+                    val intent = Intent(this, MainAppShoppingCarActivity::class.java)
                     startActivity(intent)
                     true
                 }
 
-                R.id.nav_cart -> {
-                    if (this !is MainAppShoppingCarActivity) {
-                        val intent = Intent(this, MainAppShoppingCarActivity::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(0, 0)
-                    }
-                    true
-                }
-
-                R.id.nav_cart -> {
+                R.id.nav_menu -> {
                     val intent = Intent(this, MainAppCategoriesActivity::class.java)
                     startActivity(intent)
                     true

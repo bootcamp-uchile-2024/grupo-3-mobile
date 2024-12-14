@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activities.MainAppApproach.MainAppCategoriesActivity">
+    android:layout_height="match_parent">
 
-    <!-- Comienzo de Header -->
+    <!-- Header Section -->
     <View
         android:id="@+id/app_upper_banner"
         android:layout_width="0dp"
@@ -17,6 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Search Bar Section -->
     <LinearLayout
         android:id="@+id/activity_main_layout_1"
         android:layout_width="match_parent"
@@ -33,6 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/app_upper_banner">
 
         <ImageView
+            android:id="@+id/search_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -40,6 +41,7 @@
             android:src="@drawable/search" />
 
         <EditText
+            android:id="@+id/search_edit_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -52,6 +54,7 @@
             android:textSize="18sp" />
 
         <ImageView
+            android:id="@+id/camera_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -60,41 +63,14 @@
 
     </LinearLayout>
 
-    <!-- Fin de Header -->
-
-
-
-
-    <!-- Comienzo de Footer -->
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <!-- Add shopping cart specific content here -->
+    <!-- For example: -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shopping_cart_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/bottom_navigation" />
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/menu_background"
-            android:elevation="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="16dp"
-            app:itemIconSize="24dp"
-            app:itemIconTint="@color/bottom_nav_selector"
-            app:itemTextColor="@color/bottom_nav_selector"
-            app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/bottom_nav_menu" />
-
-    </RelativeLayout>
-
-    <!-- Fin de Footer -->
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_main_layout_1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/categories"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activities.MainAppApproach.MainAppCategoriesActivity">
+    android:layout_height="match_parent">
 
     <!-- Comienzo de Header -->
     <View
@@ -33,6 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/app_upper_banner">
 
         <ImageView
+            android:id="@+id/search_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -40,6 +39,7 @@
             android:src="@drawable/search" />
 
         <EditText
+            android:id="@+id/search_edit_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -52,6 +52,7 @@
             android:textSize="18sp" />
 
         <ImageView
+            android:id="@+id/camera_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -295,39 +296,5 @@
         </androidx.cardview.widget.CardView>
 
     </GridLayout>
-
-
-    <!-- Comienzo de Footer -->
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/bottom_navigation"></FrameLayout>
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/menu_background"
-            android:elevation="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="16dp"
-            app:itemIconSize="24dp"
-            app:itemIconTint="@color/bottom_nav_selector"
-            app:itemTextColor="@color/bottom_nav_selector"
-            app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/bottom_nav_menu" />
-
-    </RelativeLayout>
-
-    <!-- Fin de Footer -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

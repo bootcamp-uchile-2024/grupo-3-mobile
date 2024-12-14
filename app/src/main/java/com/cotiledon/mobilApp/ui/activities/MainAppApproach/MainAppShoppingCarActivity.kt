@@ -1,7 +1,6 @@
-package com.cotiledon.mobilApp.ui.activities
+package com.cotiledon.mobilApp.ui.activities.MainAppApproach
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,7 +9,7 @@ import com.cotiledon.mobilApp.R
 import android.content.Intent
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainAppCategoriesActivity : AppCompatActivity() {
+class MainAppShoppingCarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,18 +39,12 @@ class MainAppCategoriesActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_cart -> {
-                    val intent = Intent(this, MainAppShoppingCarActivity::class.java)
-                    startActivity(intent)
                     true
                 }
 
-                R.id.nav_menu -> {
-                    // Redirige a la actividad asociada al icono "Home"
-                    if (this !is MainAppCategoriesActivity) {
-                        val intent = Intent(this, MainAppCategoriesActivity::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(0, 0)
-                    }
+                R.id.nav_cart -> {
+                    val intent = Intent(this, MainAppCategoriesActivity::class.java)
+                    startActivity(intent)
                     true
                 }
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E4F5D9"
-    tools:context=".ui.activities.ProductActivity">
+    tools:context=".ui.activities._old.ProductActivity">
 
     <ImageButton
         android:id="@+id/burger_menu_product"

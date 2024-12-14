@@ -9,16 +9,20 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.Plant
+import com.cotiledon.mobilApp.ui.dataClasses.PlantFilters
+import com.cotiledon.mobilApp.ui.enums.PlantCycle
 import com.squareup.picasso.Picasso
+import java.text.NumberFormat
+import java.util.Locale
 
 
 //Adaptador para la vista de catálogo que creamos ya que esta es un RecyclerView. Se le entrega la
 // lista con objetos Plant y una variable que permitirá clickear en cada tarjeta
 
 class PlantRecyclerViewAdapter(
-    private val plants: List<Plant>,
+    private val plants: MutableList<Plant>,
     private val onItemClick: (Plant) -> Unit
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : FilterableAdapter<Plant,RecyclerView.ViewHolder>(plants) {
 
     companion object {
         private const val VIEW_TYPE_ITEM = 0
@@ -26,26 +30,67 @@ class PlantRecyclerViewAdapter(
     }
 
     private var isLoadingVisible = false
+    private var filteredPlants: MutableList<Plant> = plants
 
     inner class PlantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.catalogCVImage)
         val tvName: TextView = itemView.findViewById(R.id.catalogCVName)
         val tvPrice: TextView = itemView.findViewById(R.id.catalogCVPrice)
 
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n", "DefaultLocale")
         fun bind(plant: Plant) {
             tvName.text = plant.nombre
-            tvPrice.text = "$ ${plant.precio}"
+            val formatter = NumberFormat.getNumberInstance(Locale.GERMAN)
+            tvPrice.text = "$ ${formatter.format(plant.precio)}"
 
             Picasso.get()
                 .load(plant.imagen)
                 .placeholder(R.drawable.suculenta)
-                .error(R.drawable.user_24)
+                .error(R.drawable.suculenta)
                 .into(imageView)
         }
     }
 
     inner class LoadingViewHolder(view: View) : RecyclerView.ViewHolder(view)
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun filter(filters: PlantFilters) {
+        filteredPlants = plants.filter { plant ->
+            // Verificamos si la planta tiene detalles
+            val plantDetails = plant.planta
+            if (plantDetails == null) {
+                false // Si no tiene detalles, no pasa el filtro
+            } else {
+                // Verificamos cada filtro
+                val priceInRange = plant.precio.toFloat() in filters.priceRange
+
+                val heightInRange = try {
+                    val heightValue = plantDetails.altura.replace(Regex("[^0-9]"), "").toFloat()
+                    heightValue in filters.heightRange
+                } catch (e: Exception) {
+                    true // Si hay error al parsear la altura, no aplicamos este filtro
+                }
+
+                val cycleMatches = filters.cycle == null ||
+                        (filters.cycle == PlantCycle.ANNUAL && !plantDetails.ciclo) ||
+                        (filters.cycle == PlantCycle.PERENNIAL && plantDetails.ciclo)
+
+                val petFriendlyMatches = filters.isPetFriendly == null ||
+                        plantDetails.petFriendly == filters.isPetFriendly
+
+                val temperatureMatches = plantDetails.toleranciaTemperatura.toFloat() in filters.temperatureRange
+
+                val irrigationMatches = filters.irrigationType == null ||
+                        plantDetails.tipoRiego.equals(filters.irrigationType.toString(), ignoreCase = true)
+
+                // Combinamos todas las condiciones
+                priceInRange && heightInRange && cycleMatches &&
+                        petFriendlyMatches && temperatureMatches && irrigationMatches
+            }
+        }.toMutableList()
+
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -78,23 +123,30 @@ class PlantRecyclerViewAdapter(
         }
     }
 
-    override fun getItemCount(): Int = if (isLoadingVisible) plants.size + 1 else plants.size
+    override fun getItemCount(): Int = if (isLoadingVisible) filteredPlants.size + 1 else filteredPlants.size
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == plants.size && isLoadingVisible) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
+        return if (position == filteredPlants.size && isLoadingVisible) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
     }
 
     fun showLoading() {
         if (!isLoadingVisible) {
             isLoadingVisible = true
-            notifyItemInserted(plants.size)
+            notifyItemInserted(filteredPlants.size)
         }
     }
 
     fun hideLoading() {
         if (isLoadingVisible) {
             isLoadingVisible = false
-            notifyItemRemoved(plants.size)
+            notifyItemRemoved(filteredPlants.size)
         }
     }
+
+    fun updatePlants(newPlants: List<Plant>) {
+        plants.clear()
+        plants.addAll(newPlants)
+        filter(currentFilters)
+    }
+
 }

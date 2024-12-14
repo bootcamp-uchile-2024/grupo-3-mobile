@@ -3,15 +3,14 @@ package com.cotiledon.mobilApp.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.activities.MainAppApproach.MainAppHomeActivity
 
 class singin_activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,8 +1,11 @@
-package com.cotiledon.mobilApp.ui.activities
+package com.cotiledon.mobilApp.ui.activities._old
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,23 +15,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.adapters.PlantRecyclerViewAdapter
 import com.cotiledon.mobilApp.ui.dataClasses.Plant
+import com.cotiledon.mobilApp.ui.dataClasses.PlantResponse
 import com.cotiledon.mobilApp.ui.retrofit.RetrofitCatalogClient
 import kotlinx.coroutines.launch
 
-import com.cotiledon.mobilApp.ui.dataClasses.PlantResponse
-
 class CatalogActivity : AppCompatActivity() {
 
-    // Inicializamos las variables que contendrán el Recycler View, Adapter y Lista con Objetos de la clase Plant
-    // recyclerView y adaptador deben ser lateinit ya que si no generarán problemas al cargar la app
+    // Inicializamos las variables que contendrán el Recycler View, Adapter y Lista con Objetos de la clase Plant.
+    // Consideramos que el catálogo cargará de cada 10 productos y se cargaran de 10 en 10.
     private lateinit var recyclerView: RecyclerView
     private lateinit var adaptador: PlantRecyclerViewAdapter
+    private lateinit var orderSpinner: Spinner
     private var plantas = mutableListOf<Plant>()
     private var currentPage = 1
     private val pageSize = 10
     private var isLoading = false
     private var hasMoreItems = true
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
@@ -38,7 +42,9 @@ class CatalogActivity : AppCompatActivity() {
         //Se obtiene el dato del título de la categoría que se clickeó en el HomeActivity para mostrarlo en el título de la vista de catálogo
         val bundle = intent.extras
         val catTitle = bundle?.getString("tituloCat")
-        val tituloCat= findViewById<TextView>(R.id.CatalogName)
+        val tituloCat = findViewById<TextView>(R.id.CatalogName)
+        val filterButton = findViewById<Button>(R.id.catalog_filters_button)
+        orderSpinner = findViewById(R.id.catalog_order_spinner)
         tituloCat.text = catTitle
 
         //Se obtiene el view para la variable del Recycler y se le asigna su LayoutManager
@@ -49,21 +55,37 @@ class CatalogActivity : AppCompatActivity() {
         //Para poder traspasar los datos a la vista detallada de cada producto, se definene los putExtra y se le das start al intent de la vista detallada de producto
         adaptador = PlantRecyclerViewAdapter(plantas) { planta ->
 
-            val intent = Intent(this, ProductActivity::class.java)
-            intent.putExtra("source", "CatalogActivity")
-            intent.putExtra("plantId", planta.id)
-            intent.putExtra("plantName", planta.nombre)
-            intent.putExtra("plantPrice", planta.precio)
-            intent.putExtra("plantDesc", planta.descripcion)
-            intent.putExtra("plantStock", planta.cantidad)
-            intent.putExtra("plantImage", planta.imagen)
+            val intent = Intent(this, ProductActivity::class.java).apply {
+                putExtra("source", "CatalogActivity")
+                putExtra("plantId", planta.id)
+                putExtra("plantSKU", planta.SKU)
+
+                putExtra("plantName", planta.nombre)
+                putExtra("plantPrice", planta.precio)
+                putExtra("plantDesc", planta.descripcion)
+                putExtra("plantStock", planta.cantidad)
+                putExtra("plantImage", planta.imagen)
+
+                putExtra("plantUnitsSold", planta.unidadesVendidas)
+                putExtra("plantRating", planta.puntuacion)
+
+                putExtra("plantWidth", planta.ancho)
+                putExtra("plantHeight", planta.alto)
+                putExtra("plantLength", planta.largo)
+                putExtra("plantWeight", planta.peso)
+
+                putExtra("plantEnabled", planta.habilitado)
+
+                putExtra("plantCategoryId", planta.categoria.id)
+                putExtra("plantCategoryName", planta.categoria.categoria)
+            }
             startActivity(intent)
         }
 
         //Se vincula el adaptador del recycler view con nuestro adaptador
         recyclerView.adapter = adaptador
 
-        //Se llama a la función setUpPlants para poblar la lista de plantas desde el JSON
+        //Se llama a la primera vez para cargar los primeros 10 productos
         setUpPlants()
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
