@@ -6,8 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.fragments.CategoriesFragment
+import com.cotiledon.mobilApp.ui.fragments.HomeFragment
+import com.cotiledon.mobilApp.ui.fragments.ProfileFragment
+import com.cotiledon.mobilApp.ui.fragments.ShoppingCartFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainContainerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

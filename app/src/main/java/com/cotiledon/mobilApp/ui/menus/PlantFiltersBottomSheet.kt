@@ -1,4 +1,4 @@
-package com.cotiledon.mobilApp.ui.fragments
+package com.cotiledon.mobilApp.ui.menus
 
 import com.cotiledon.mobilApp.ui.dataClasses.PlantFilters
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
