@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +22,8 @@ import java.util.Locale
 
 class PlantRecyclerViewAdapter(
     private val plants: MutableList<Plant>,
-    private val onItemClick: (Plant) -> Unit
+    private val onItemClick: (Plant) -> Unit,
+    private val onAddToCartClick: (Plant) -> Unit
 ) : FilterableAdapter<Plant,RecyclerView.ViewHolder>(plants) {
 
     companion object {
@@ -33,21 +35,36 @@ class PlantRecyclerViewAdapter(
     private var filteredPlants: MutableList<Plant> = plants
 
     inner class PlantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.catalogCVImage)
-        val tvName: TextView = itemView.findViewById(R.id.catalogCVName)
-        val tvPrice: TextView = itemView.findViewById(R.id.catalogCVPrice)
+        val productImage: ImageView = itemView.findViewById(R.id.iv_product)
+        val productName: TextView = itemView.findViewById(R.id.tv_product_name)
+        val productDescription: TextView = itemView.findViewById(R.id.tv_product_description)
+        val productPrice: TextView = itemView.findViewById(R.id.tv_product_price)
+        val addToCartButton: ImageButton = itemView.findViewById(R.id.btn_add_to_cart)
 
         @SuppressLint("SetTextI18n", "DefaultLocale")
         fun bind(plant: Plant) {
-            tvName.text = plant.nombre
+            // Set basic product information
+            productName.text = plant.nombre
+            productDescription.text = plant.descripcion
+
+            addToCartButton.setOnClickListener {
+            onAddToCartClick(plant)
+            }
+
+
+            // Format price using the existing NumberFormat
             val formatter = NumberFormat.getNumberInstance(Locale.GERMAN)
-            tvPrice.text = "$ ${formatter.format(plant.precio)}"
+            productPrice.text = "$ ${formatter.format(plant.precio)}"
 
             Picasso.get()
                 .load(plant.imagen)
                 .placeholder(R.drawable.suculenta)
                 .error(R.drawable.suculenta)
-                .into(imageView)
+                .into(productImage)
+
+            // Set click listeners
+            itemView.setOnClickListener { onItemClick(plant) }
+            addToCartButton.setOnClickListener { onAddToCartClick(plant) }
         }
     }
 

@@ -164,7 +164,8 @@
     <string name="activity_categories_card_6">Sobre Nosotros</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="plant_category_title">Placeholder Categoría</string>"
+    <string name="plant_category_title">Placeholder Categoría</string>
+    <string name="catalog_sort">Ordenar por</string>"
 
 
 </resources>

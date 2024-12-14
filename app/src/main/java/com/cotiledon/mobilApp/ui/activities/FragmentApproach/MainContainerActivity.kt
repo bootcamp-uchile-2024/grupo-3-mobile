@@ -10,14 +10,28 @@ import com.cotiledon.mobilApp.ui.fragments.CategoriesFragment
 import com.cotiledon.mobilApp.ui.fragments.HomeFragment
 import com.cotiledon.mobilApp.ui.fragments.ProfileFragment
 import com.cotiledon.mobilApp.ui.fragments.ShoppingCartFragment
+import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainContainerActivity : AppCompatActivity() {
+
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var cartManager: CartStorageManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main_container)
         supportActionBar?.hide()
+
+        // Initialize cart manager
+        cartManager = CartStorageManager(this)
+
+        // Initialize bottom navigation
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        // Set up cart badge initially
+        setupCartBadge()
 
         // Handle window insets for edge-to-edge display
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -26,9 +40,6 @@ class MainContainerActivity : AppCompatActivity() {
             insets
         }
 
-        // Set up bottom navigation
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-
         // Initialize with HomeFragment if this is the first creation
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -36,7 +47,10 @@ class MainContainerActivity : AppCompatActivity() {
                 .commit()
         }
 
-        // Handle navigation selection
+        setupNavigation()
+    }
+
+    private fun setupNavigation() {
         bottomNavigationView.setOnItemSelectedListener { item ->
             val fragment = when (item.itemId) {
                 R.id.nav_home -> HomeFragment()
@@ -54,4 +68,49 @@ class MainContainerActivity : AppCompatActivity() {
             } ?: false
         }
     }
+
+    // Method to set up the cart badge
+    private fun setupCartBadge() {
+        val cartItem = bottomNavigationView.menu.findItem(R.id.nav_cart)
+        val cartItemCount = cartManager.loadCartItems().size
+
+        if (cartItemCount > 0) {
+            // Get or create the badge
+            var badge = bottomNavigationView.getBadge(R.id.nav_cart)
+            if (badge == null) {
+                badge = bottomNavigationView.getOrCreateBadge(R.id.nav_cart)
+            }
+
+            // Configure the badge
+            badge.apply {
+                backgroundColor = getColor(R.color.primary_color) // Use your app's color
+                badgeTextColor = getColor(R.color.white)
+                maxCharacterCount = 3
+                number = cartItemCount
+                isVisible = true
+            }
+        } else {
+            // Remove the badge if cart is empty
+            bottomNavigationView.removeBadge(R.id.nav_cart)
+        }
+    }
+
+    // Public method to update the cart badge
+    fun updateCartBadge() {
+        setupCartBadge()
+    }
+
+    // Optional: Method to update badge with a specific count
+    fun updateCartBadgeWithCount(count: Int) {
+        val badge = bottomNavigationView.getOrCreateBadge(R.id.nav_cart)
+        if (count > 0) {
+            badge.apply {
+                number = count
+                isVisible = true
+            }
+        } else {
+            bottomNavigationView.removeBadge(R.id.nav_cart)
+        }
+    }
+
 }
