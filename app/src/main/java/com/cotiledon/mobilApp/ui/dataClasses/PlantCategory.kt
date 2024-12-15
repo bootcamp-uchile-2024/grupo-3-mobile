@@ -1,6 +1,6 @@
 package com.cotiledon.mobilApp.ui.dataClasses
 
-data class Categoria(
+data class PlantCategory(
     val id: Int,
     val categoria: String
 )

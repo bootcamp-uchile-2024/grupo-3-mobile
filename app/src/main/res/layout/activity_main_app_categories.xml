@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/activity_main_layout_1"
+        android:id="@+id/searchbar_section"
         android:layout_width="match_parent"
         android:layout_height="33dp"
         android:layout_marginStart="30dp"
@@ -74,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_main_layout_1" />
+        app:layout_constraintTop_toBottomOf="@+id/searchbar_section" />
 
     <GridLayout
         android:id="@+id/gridLayout"
@@ -109,7 +109,7 @@
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_image_background"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/c3" />
+                    android:src="@drawable/cat1" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -143,7 +143,7 @@
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_image_background"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/c6" />
+                    android:src="@drawable/cat2" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -177,7 +177,7 @@
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_image_background"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/c4" />
+                    android:src="@drawable/C4" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -211,7 +211,7 @@
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_image_background"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/c1" />
+                    android:src="@drawable/C4" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -245,7 +245,7 @@
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_image_background"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/c5" />
+                    android:src="@drawable/cat5" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -279,7 +279,7 @@
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_image_background"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/c2" />
+                    android:src="@drawable/cat6" />
 
                 <TextView
                     android:layout_width="wrap_content"

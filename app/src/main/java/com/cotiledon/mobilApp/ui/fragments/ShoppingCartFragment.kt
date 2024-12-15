@@ -31,7 +31,7 @@ class ShoppingCartFragment : Fragment() {
 
     private fun setupSearchBar(view: View) {
         // Find the search bar container
-        val searchContainer = view.findViewById<LinearLayout>(R.id.activity_main_layout_1)
+        val searchContainer = view.findViewById<LinearLayout>(R.id.searchbar_section)
 
         // Use the actual IDs to find the views
         val searchEditText = view.findViewById<EditText>(R.id.search_edit_text)

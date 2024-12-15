@@ -22,12 +22,12 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/arrow_back"
-        app:layout_constraintBottom_toBottomOf="@+id/activity_main_layout_1"
+        app:layout_constraintBottom_toBottomOf="@+id/searchbar_section"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_upper_banner" />
 
     <LinearLayout
-        android:id="@+id/activity_main_layout_1"
+        android:id="@+id/searchbar_section"
         android:layout_width="0dp"
         android:layout_height="33dp"
         android:layout_marginStart="10dp"
@@ -74,7 +74,7 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:paddingHorizontal="16dp"
-        app:layout_constraintTop_toBottomOf="@id/activity_main_layout_1">
+        app:layout_constraintTop_toBottomOf="@id/searchbar_section">
 
         <Space
             android:layout_width="wrap_content"

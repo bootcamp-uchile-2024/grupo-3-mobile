@@ -2,48 +2,76 @@ package com.cotiledon.mobilApp.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.adapters.CategoryAdapter
+import com.cotiledon.mobilApp.ui.dataClasses.Category
 
 class CategoriesFragment : Fragment() {
-
-    // We'll use these constants to identify our category cards
-    companion object {
-        private const val PLANTS_CARD = 0
-        private const val COMMUNITY_CARD = 1
-        private const val EDUCATION_CARD = 2
-        private const val VIRTUAL_ASSISTANT_CARD = 3
-        private const val SELL_WITH_US_CARD = 4
-        private const val ABOUT_US_CARD = 5
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the fragment's layout
-        return inflater.inflate(R.layout.fragment_categories, container, false)
-    }
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var categoryAdapter: CategoryAdapter
+    //TODO: Implementar funcionalidad como recylcerview con categorías en forma de Grid de 2 columnas
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set up the different components of our UI
         setupSearchBar(view)
-        setupCategoryCards(view)
+        setupRecyclerView(view)
     }
 
+    private fun setupRecyclerView(view: View) {
+        recyclerView = view.findViewById(R.id.recyclerView)
+
+        //Grid layout
+        val gridLayoutManager = GridLayoutManager(context, 2)
+        recyclerView.layoutManager = gridLayoutManager
+
+        //Lista fija de categorías manejado localmente
+        val categories = listOf(
+            Category(getString(R.string.activity_categories_card_1), R.drawable.cat1),
+            Category(getString(R.string.activity_categories_card_2), R.drawable.cat2),
+            Category(getString(R.string.activity_categories_card_3), R.drawable.cat3),
+            Category(getString(R.string.activity_categories_card_4), R.drawable.cat4),
+            Category(getString(R.string.activity_categories_card_5), R.drawable.cat5),
+            Category(getString(R.string.activity_categories_card_6),R.drawable.cat6)
+        )
+
+        //Adaptador con manejo de click
+        categoryAdapter = CategoryAdapter(categories) { category ->
+            navigateToSubCategories(category)
+        }
+
+        recyclerView.adapter = categoryAdapter
+    }
+
+    private fun navigateToSubCategories(category: Category) {
+        //Creación de argumentos a ser enviados como Bundle
+        val args = SubCategoriesFragment.createArguments(
+            category.name,
+            category.id
+        )
+
+        //Crear fragment y pasar argumentos del bundle
+        val subCategoriesFragment = SubCategoriesFragment.newInstance(args)
+
+        //Navegar al fragment de subcategoría
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, subCategoriesFragment)
+            //Se agrega este fragment al backstack
+            .addToBackStack(null)
+            .commit()
+    }
+
+
     private fun setupSearchBar(view: View) {
-        // Find the search layout container
-        val searchContainer = view.findViewById<LinearLayout>(R.id.activity_main_layout_1)
+        val searchContainer = view.findViewById<LinearLayout>(R.id.searchbar_section)
 
         // Since we're using the same search bar across fragments, we should make its components accessible
         val searchEditText = searchContainer.findViewById<EditText>(1)  // The EditText is the second child
@@ -75,62 +103,6 @@ class CategoriesFragment : Fragment() {
             }
         }
     }
-
-    /*private fun handleCategoryCardClick(position: Int) {
-        // Navigate to the appropriate screen based on which card was clicked
-        when (position) {
-            PLANTS_CARD -> navigateToPlants()
-            COMMUNITY_CARD -> navigateToCommunity()
-            EDUCATION_CARD -> navigateToEducation()
-            VIRTUAL_ASSISTANT_CARD -> navigateToVirtualAssistant()
-            SELL_WITH_US_CARD -> navigateToSellWithUs()
-            ABOUT_US_CARD -> navigateToAboutUs()
-        }
-    }*/
-
-    // Navigation methods for each category
-    /*private fun navigateToPlants() {
-        // Navigate to Plants section using Fragment transaction
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, PlantsFragment())
-            .addToBackStack(null)
-            .commit()
-    }
-
-    private fun navigateToCommunity() {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, CommunityFragment())
-            .addToBackStack(null)
-            .commit()
-    }
-
-    private fun navigateToEducation() {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, EducationFragment())
-            .addToBackStack(null)
-            .commit()
-    }
-
-    private fun navigateToVirtualAssistant() {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, VirtualAssistantFragment())
-            .addToBackStack(null)
-            .commit()
-    }
-
-    private fun navigateToSellWithUs() {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, SellWithUsFragment())
-            .addToBackStack(null)
-            .commit()
-    }
-
-    private fun navigateToAboutUs() {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, AboutUsFragment())
-            .addToBackStack(null)
-            .commit()
-    }*/
 
     private fun handleSearch() {
         // Implement search functionality

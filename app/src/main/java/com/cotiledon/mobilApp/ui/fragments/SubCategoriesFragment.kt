@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.adapters.CategoryAdapter
+import com.cotiledon.mobilApp.ui.adapters.SubCategoryAdapter
 import com.cotiledon.mobilApp.ui.dataClasses.Category
 
 class SubCategoriesFragment : Fragment() {
@@ -28,46 +29,65 @@ class SubCategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize views
+
         recyclerView = view.findViewById(R.id.rv_subcategories)
         backButton = view.findViewById(R.id.btn_back)
 
-        // Set up RecyclerView
+        //Obtiene el nombre de la categoría desde el Bundle anterior con null check
+        val categoryName = arguments?.getString("categoryName") ?:""
+        val categoryId = arguments?.getInt("categoryId") ?: 0
+
+        val subCategoryTitle = view.findViewById<TextView>(R.id.subcategory_title)
+        subCategoryTitle.text = categoryName
+
+
         recyclerView.layoutManager = GridLayoutManager(context, 2)
 
-        // Sample data - replace with your actual subcategories
+        //Carga de tarjetas de subcategorías (estáticas por ahora)
+        //TODO: Implementar carga dinámica de subcategorías dependiendo de la categoría en la que se clickea
         val subcategories = listOf(
-            Category("1", "Plantas De Interior", R.drawable.indoor_plants),
-            Category("2", "Plantas De Exterior", R.drawable.outdoor_plants),
-            Category("3", "Pet Friendly", R.drawable.pet_friendly),
-            Category("4", "Productos Populares", R.drawable.popular_products),
-            Category("5", "Plantas Bajo Mantenimiento", R.drawable.low_maintenance)
+            Category("Plantas De Interior", R.drawable.indoor_plants, 1),
+            Category("Plantas De Exterior", R.drawable.outdoor_plants, 2),
+            Category("Pet Friendly", R.drawable.pet_friendly,3),
+            Category("Productos Populares", R.drawable.popular_products,4),
+            Category("Plantas Bajo Mantenimiento", R.drawable.low_maintenance,5)
         )
 
-        // Set up adapter
-        val adapter = CategoryAdapter(subcategories) { category ->
-            // Navigate to catalog with selected category
-            navigateToCatalog(category)
+        val adapter = SubCategoryAdapter(subcategories) { subcategory ->
+            //Función para navegar al catalogo con un click en una subcategoría
+            navigateToCatalog(subcategory)
         }
         recyclerView.adapter = adapter
 
-        // Set up back button
+
         backButton.setOnClickListener {
-            // Navigate back to categories
             parentFragmentManager.popBackStack()
         }
     }
 
-    private fun navigateToCatalog(category: Category) {
-        // We'll implement the CatalogFragment next
-        val catalogFragment = CatalogFragment.newInstance(category.id)
+    private fun navigateToCatalog(subcategory: Category) {
+        val catalogFragment = CatalogFragment.newInstance()
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, catalogFragment)
             .addToBackStack(null)
             .commit()
     }
 
+    //Companion object para poder generar la nueva instancia del fragment desde un fragment anterior y entrega el Bundle con datos (fragment factory)
     companion object {
-        fun newInstance() = SubCategoriesFragment()
+        //Función para crear una nueva instancia del fragment desde el fragment anterior
+        fun newInstance(args: Bundle): SubCategoriesFragment {
+            return SubCategoriesFragment().apply {
+                arguments = args
+                }
+        }
+
+        //Función para crear el Bundle con los argumentos desde el fragment anterior
+        fun createArguments(categoryName: String, categoryId: Int): Bundle {
+            return Bundle().apply {
+                putString("categoryName", categoryName)
+                putInt("categoryId", categoryId)
+            }
+        }
     }
 }

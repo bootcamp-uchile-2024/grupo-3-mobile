@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/activity_main_layout_1"
+        android:id="@+id/searchbar_section"
         android:layout_width="match_parent"
         android:layout_height="33dp"
         android:layout_marginStart="30dp"

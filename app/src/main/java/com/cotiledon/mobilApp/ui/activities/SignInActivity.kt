@@ -12,12 +12,12 @@ import androidx.core.view.WindowInsetsCompat
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.activities.MainAppApproach.MainAppHomeActivity
 
-class singin_activity : AppCompatActivity() {
+class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         supportActionBar?.hide()
-        setContentView(R.layout.activity_singin)
+        setContentView(R.layout.activity_signin)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

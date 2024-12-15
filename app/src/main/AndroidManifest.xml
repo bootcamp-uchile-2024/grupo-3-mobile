@@ -38,7 +38,7 @@
             android:name=".ui.activities.MainAppApproach.MainAppHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.singin_activity"
+            android:name=".ui.activities.SignInActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.UserRegistrationActivity"

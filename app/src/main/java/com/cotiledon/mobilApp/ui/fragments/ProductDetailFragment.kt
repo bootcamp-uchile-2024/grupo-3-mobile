@@ -17,6 +17,7 @@ import com.cotiledon.mobilApp.ui.dataClasses.PlantDetails
 import java.util.Locale
 
 class ProductDetailFragment : Fragment() {
+    //Muestra inicial de productos para añadir al carrito
     private var quantity = 1
 
     override fun onCreateView(

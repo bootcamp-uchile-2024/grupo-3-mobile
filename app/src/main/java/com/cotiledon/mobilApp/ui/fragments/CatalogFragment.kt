@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.activities.FragmentApproach.MainContainerActivity
-import com.cotiledon.mobilApp.ui.activities.MainActivity
 import com.cotiledon.mobilApp.ui.adapters.PlantRecyclerViewAdapter
 import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
 import com.cotiledon.mobilApp.ui.dataClasses.Plant
@@ -35,7 +34,7 @@ class CatalogFragment : Fragment() {
     private lateinit var filterButton: Button
     private lateinit var sortButton: Button
 
-    // We'll store the current filters at the fragment level
+    //Guardado de filtros a nivel del fragment
     private var currentFilters = PlantFilters()
     private var currentPlants = mutableListOf<Plant>()
 
@@ -53,15 +52,17 @@ class CatalogFragment : Fragment() {
         initializeViews(view)
         setupRecyclerView()
         setupClickListeners()
-        setupSearch()
+        //TODO: Implementar funcionalidad de búsqueda de productos
+        //setupSearch()
 
-        // Load initial data
+        // Carga de data inicial
+        //TODO: Integrar carga de datos con el backend
         loadPlants()
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        // Initialize the cart manager with the context
+        // Inicializar el Cart Manager con el contexto
         cartManager = CartStorageManager(requireContext())
     }
 
@@ -90,15 +91,20 @@ class CatalogFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
+        //TODO: Establecer funcionalidad para el botón de filtro (crear bottom drawer para manejo de filtros)
         /*filterButton.setOnClickListener {
             showFilterDialog()
         }*/
 
+        //TODO: Establecer funcionalidad para el botón de ordenamiento
+        /*
         sortButton.setOnClickListener {
             showSortDialog()
-        }
+        }*/
     }
 
+    //TODO: Función para manejo de busqueda (asociar al backend, no debe aplicar filtro local necesariamente)
+    /*
     private fun setupSearch() {
         val searchEditText = view?.findViewById<EditText>(R.id.search_edit_text)
 
@@ -111,9 +117,10 @@ class CatalogFragment : Fragment() {
                 filterPlants(searchQuery)
                     }
         })
-    }
+    }*/
 
-    private fun filterPlants(searchQuery: String) {
+    //TODO: Función para aplicar filtros seleccionados en el Bottom Drawer
+    /*private fun filterPlants(searchQuery: String) {
         // First apply the search query
         val searchResults = if (searchQuery.isEmpty()) {
             currentPlants
@@ -127,8 +134,9 @@ class CatalogFragment : Fragment() {
         // Then apply any other active filters
         adapter.updatePlants(searchResults)
         adapter.filter(currentFilters)
-    }
+    }*/
 
+    //TODO: Función para mostrar el bottom drawer de filtros
     /*private fun showFilterDialog() {
         // Create and show your filter dialog
         // When filters are applied, update currentFilters and refresh the list
@@ -140,10 +148,13 @@ class CatalogFragment : Fragment() {
         filterDialog.show()
     }*/
 
+    //TODO: Refinar función para muestra de interfaz de ordenamiento y valores dentro de ella (utiliar un Spinner quizás para la selección de opciones)
     private fun showSortDialog() {
-        // Implement your sorting logic here
-        val options = arrayOf("Price: Low to High", "Price: High to Low", "Name: A to Z", "Name: Z to A")
+        // TODO: Implementar opciones con un array de strin para evitar hardcoding
+        //val options = arrayOf("Price: Low to High", "Price: High to Low", "Name: A to Z", "Name: Z to A")
 
+        //TODO: Implementar funcionalidad de ordenamiento con Spinner en vez de AlertDialog
+        /*
         AlertDialog.Builder(requireContext())
             .setTitle("Sort By")
             .setItems(options) { _, which ->
@@ -155,11 +166,11 @@ class CatalogFragment : Fragment() {
                 }
                 adapter.updatePlants(currentPlants)
             }
-            .show()
+            .show()*/
     }
-
+    //TODO: Integrar carga de datos con filtro de categoría
     private fun loadPlants() {
-        // Show loading state
+        // Mostrar estado de carga
         adapter.showLoading()
 
         // Here you would typically make your API call or database query
@@ -175,12 +186,14 @@ class CatalogFragment : Fragment() {
         }
     }
 
+    //TODO: Crear función para comunicación con el backend para carga de datos de plantas
     private fun fetchPlantsForCategory(categoryId: String?, callback: (List<Plant>) -> Unit) {
         // Implement your actual data fetching logic here
         // This could be an API call, database query, etc.
         // For now, it's just a placeholder
     }
 
+    //TODO: Función para navegación a detalle de planta
     private fun navigateToPlantDetail(plant: Plant) {
         // Navigate to your existing plant detail fragment
         val detailFragment = ProductDetailFragment.newInstance(plant.id)
@@ -190,59 +203,65 @@ class CatalogFragment : Fragment() {
             .commit()
     }
 
+    //TODO: Función para manejo de agregar a carrito
     private fun handleAddToCart(plant: Plant) {
         try {
+            //Comprobar que la cantidad de stock es mayor a 0 en el producto
             if (plant.cantidad > 0) {
-                // Convert and add to cart
+                //Crear objeto para guardar en el carrito en caso positivo
                 val cartPlant = CartPlant(
                     plantName = plant.nombre,
                     plantPrice = plant.precio.toString(),
                     plantId = plant.id.toString(),
                     plantStock = plant.cantidad.toString(),
                     plantQuantity = 1,
+                    //TODO: Implementar manejo de imagenes en el carrito
                     plantImage = plant.imagen ?: ""
                 )
 
+                //Se guarda el producto en el carrito
                 cartManager.saveProductToCart(cartPlant)
 
-                // Show success message
+                //Muestra de mensaje de confirmación
                 Snackbar.make(
                     requireView(),
-                    "${plant.nombre} added to cart",
+                    "${plant.nombre} añadido al carrito",
                     Snackbar.LENGTH_SHORT
                 ).show()
 
-                // Update the cart badge
+                //Actualizar el "badge" (globo rojo) del carrito en el nav.view para mostrar la cantidad de productos
                 (activity as? MainContainerActivity)?.updateCartBadge()
             } else {
+                //En caso de no tener stock, informar al usuario
                 Snackbar.make(
                     requireView(),
-                    "Sorry, ${plant.nombre} is out of stock",
+                    "Lo sentimos, ${plant.nombre} no tiene más stock",
                     Snackbar.LENGTH_SHORT
                 ).show()
             }
         } catch (e: Exception) {
-            Log.e("CatalogFragment", "Error adding item to cart", e)
+            Log.e("CatalogFragment", "Error al añadir producto al carrito", e)
             Snackbar.make(
                 requireView(),
-                "Couldn't add item to cart. Please try again.",
+                "No se pudo añadir el producto al carrito, por favor vuelva a intentarlo.",
                 Snackbar.LENGTH_SHORT
             ).show()
         }
     }
 
-    // Helper method to check if a plant is already in cart
+    //Metodo para checkear si un producto ya está en el carrito o no
     private fun isPlantInCart(plantId: String): Boolean {
         return cartManager.loadCartItems().any { it.plantId == plantId }
     }
 
-    // Helper method to get current quantity in cart for a plant
+    //Metodo para obtener la cantidad de un producto en el carrito
     private fun getPlantQuantityInCart(plantId: String): Int {
         return cartManager.loadCartItems()
             .find { it.plantId == plantId }
             ?.plantQuantity ?: 0
     }
 
+    //Función para inicializar el fragment de catálogo desde la vista de subcategoría, entregando el nombre de la categoría como Bundle.
     companion object {
         fun newInstance(categoryId: String) = CatalogFragment().apply {
             arguments = Bundle().apply {
