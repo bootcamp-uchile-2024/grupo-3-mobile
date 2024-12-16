@@ -6,6 +6,7 @@
         <item name="sliderStyle">@style/Widget.App.Slider</item>
 
         <item name="colorPrimary">@color/main_app</item>
+        <item name="colorOnPrimary">@color/white</item>
 
     </style>
 

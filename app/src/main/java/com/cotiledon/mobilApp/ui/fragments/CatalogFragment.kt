@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
@@ -21,8 +23,11 @@ import com.cotiledon.mobilApp.ui.adapters.PlantRecyclerViewAdapter
 import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
 import com.cotiledon.mobilApp.ui.dataClasses.Plant
 import com.cotiledon.mobilApp.ui.dataClasses.PlantFilters
+import com.cotiledon.mobilApp.ui.dataClasses.PlantResponse
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
+import com.cotiledon.mobilApp.ui.retrofit.RetrofitCatalogClient
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 
 class CatalogFragment : Fragment() {
@@ -33,6 +38,11 @@ class CatalogFragment : Fragment() {
     private lateinit var backButton: ImageView
     private lateinit var filterButton: Button
     private lateinit var sortButton: Button
+
+    private var currentPage = 1
+    private val pageSize = 10
+    private var isLoading = false
+    private var hasMoreItems = true
 
     //Guardado de filtros a nivel del fragment
     private var currentFilters = PlantFilters()
@@ -170,19 +180,35 @@ class CatalogFragment : Fragment() {
     }
     //TODO: Integrar carga de datos con filtro de categoría
     private fun loadPlants() {
-        // Mostrar estado de carga
+        if (isLoading) return
+        isLoading = true
         adapter.showLoading()
 
-        // Here you would typically make your API call or database query
-        // For now, we'll simulate loading with some sample data
+        // Get the category ID from arguments
         val categoryId = arguments?.getString("category_id")
 
-        // Replace this with your actual data fetching logic
-        fetchPlantsForCategory(categoryId) { plants ->
-            currentPlants.clear()
-            currentPlants.addAll(plants)
-            adapter.updatePlants(plants)
-            adapter.hideLoading()
+        // Launch coroutine in the appropriate scope
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val retrofitClient = RetrofitCatalogClient.createCatalogClient()
+                val response: PlantResponse<Plant> = retrofitClient.getPlants(currentPage, pageSize)
+
+                if (response.data.isEmpty() || currentPage * pageSize >= response.totalItems) {
+                    hasMoreItems = false
+                } else {
+                    currentPlants.addAll(response.data)
+                    adapter.updatePlants(currentPlants)
+                    currentPage++
+                }
+            } catch (e: Exception) {
+                Log.e("CatalogFragment", "Error loading plants", e)
+                context?.let {
+                    Toast.makeText(it, e.message, Toast.LENGTH_LONG).show()
+                }
+            } finally {
+                isLoading = false
+                adapter.hideLoading()
+            }
         }
     }
 
@@ -195,10 +221,25 @@ class CatalogFragment : Fragment() {
 
     //TODO: Función para navegación a detalle de planta
     private fun navigateToPlantDetail(plant: Plant) {
-
-        val args = ProductDetailFragment.createArguments(
-            plant.id
-        )
+        val args = Bundle().apply {
+            putString("source", "CatalogFragment")
+            putString("plantId", plant.id.toString())
+            putString("plantSKU", plant.SKU)
+            putString("plantName", plant.nombre)
+            putString("plantPrice", plant.precio.toString())
+            putString("plantDesc", plant.descripcion)
+            putString("plantStock", plant.cantidad.toString())
+            putString("plantImage", plant.imagen)
+            putString("plantUnitsSold", plant.unidadesVendidas.toString())
+            putString("plantRating", plant.puntuacion.toString())
+            putString("plantWidth", plant.ancho.toString())
+            putString("plantHeight", plant.alto.toString())
+            putString("plantLength", plant.largo.toString())
+            putString("plantWeight", plant.peso.toString())
+            putBoolean("plantEnabled", plant.habilitado)
+            putString("plantCategoryId", plant.categoria.id.toString())
+            putString("plantCategoryName", plant.categoria.categoria)
+        }
 
         val productDetailFragment = ProductDetailFragment.newInstance(args)
 
@@ -206,7 +247,6 @@ class CatalogFragment : Fragment() {
             .replace(R.id.fragment_container, productDetailFragment)
             .addToBackStack(null)
             .commit()
-
     }
 
     //TODO: Función para manejo de agregar a carrito

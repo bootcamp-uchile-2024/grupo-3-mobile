@@ -25,7 +25,7 @@
             android:layout_margin="8dp"
             android:fontFamily="@font/quicksand_medium"
             android:gravity="center"
-            android:textColor="@color/deep_green"
+            android:textColor="@color/primary_color"
             android:textSize="16sp" />
 
     </LinearLayout>
