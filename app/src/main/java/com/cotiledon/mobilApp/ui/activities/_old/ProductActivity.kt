@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso
 import java.text.NumberFormat
 import java.util.Locale
 
-class ProductActivity : AppCompatActivity() {
+/*class ProductActivity : AppCompatActivity() {
     private lateinit var cartStorageManager: CartStorageManager
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -207,4 +207,4 @@ class ProductActivity : AppCompatActivity() {
         }
     }
 
-}
+}*/

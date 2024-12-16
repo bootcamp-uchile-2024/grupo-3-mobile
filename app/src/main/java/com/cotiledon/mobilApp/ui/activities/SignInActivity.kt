@@ -10,9 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.activities.MainAppApproach.MainAppHomeActivity
 
-class SignInActivity : AppCompatActivity() {
+/*class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -47,7 +46,7 @@ class SignInActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-}
+}*/
 
 
 

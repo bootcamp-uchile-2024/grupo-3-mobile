@@ -195,12 +195,18 @@ class CatalogFragment : Fragment() {
 
     //TODO: Función para navegación a detalle de planta
     private fun navigateToPlantDetail(plant: Plant) {
-        // Navigate to your existing plant detail fragment
-        val detailFragment = ProductDetailFragment.newInstance(plant.id)
+
+        val args = ProductDetailFragment.createArguments(
+            plant.id
+        )
+
+        val productDetailFragment = ProductDetailFragment.newInstance(args)
+
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, detailFragment)
+            .replace(R.id.fragment_container, productDetailFragment)
             .addToBackStack(null)
             .commit()
+
     }
 
     //TODO: Función para manejo de agregar a carrito
@@ -261,10 +267,15 @@ class CatalogFragment : Fragment() {
             ?.plantQuantity ?: 0
     }
 
-    //Función para inicializar el fragment de catálogo desde la vista de subcategoría, entregando el nombre de la categoría como Bundle.
+    //Fragment factory
     companion object {
-        fun newInstance(categoryId: String) = CatalogFragment().apply {
-            arguments = Bundle().apply {
+        fun newInstance(args: Bundle) : CatalogFragment {
+            return CatalogFragment().apply {
+                arguments = args
+            }
+        }
+        fun createArguments(categoryId: String): Bundle {
+            return Bundle().apply {
                 putString("category_id", categoryId)
             }
         }

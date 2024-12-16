@@ -65,8 +65,14 @@ class SubCategoriesFragment : Fragment() {
         }
     }
 
+    //Función para navegar al catalogo
     private fun navigateToCatalog(subcategory: Category) {
-        val catalogFragment = CatalogFragment.newInstance()
+        val args = CatalogFragment.createArguments(
+            subcategory.name
+        )
+
+        val catalogFragment = CatalogFragment.newInstance(args)
+
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, catalogFragment)
             .addToBackStack(null)

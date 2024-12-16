@@ -11,7 +11,7 @@ import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.PaymentDetails
 import com.cotiledon.mobilApp.ui.managers.OrderManager
 
-class PaymentDetailsActivity : AppCompatActivity() {
+/*class PaymentDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
@@ -80,4 +80,4 @@ class PaymentDetailsActivity : AppCompatActivity() {
 
         }
     }
-}
+}*/

@@ -19,7 +19,7 @@ import com.cotiledon.mobilApp.ui.dataClasses.ShippingDetails
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.cotiledon.mobilApp.ui.managers.OrderManager
 
-class PaymentConfirmationActivity : AppCompatActivity() {
+/*class PaymentConfirmationActivity : AppCompatActivity() {
 
     private lateinit var productsTableLayout: TableLayout
     private lateinit var cartStorageManager: CartStorageManager
@@ -204,4 +204,4 @@ class PaymentConfirmationActivity : AppCompatActivity() {
     private fun dpToPx(dp: Int): Int {
         return (dp * resources.displayMetrics.density).toInt()
     }
-}
+}*/

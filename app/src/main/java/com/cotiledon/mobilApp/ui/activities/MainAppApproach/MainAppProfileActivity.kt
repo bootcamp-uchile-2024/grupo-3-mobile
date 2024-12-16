@@ -9,7 +9,7 @@ import com.cotiledon.mobilApp.R
 import android.content.Intent
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainAppProfileActivity : AppCompatActivity() {
+/*class MainAppProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -54,4 +54,4 @@ class MainAppProfileActivity : AppCompatActivity() {
 
     }
 
-}
+}*/

@@ -1,8 +1,10 @@
 package com.cotiledon.mobilApp.ui.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.ImageView
@@ -18,6 +20,15 @@ class CategoriesFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var categoryAdapter: CategoryAdapter
     //TODO: Implementar funcionalidad como recylcerview con categorías en forma de Grid de 2 columnas
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_categories, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,12 +46,12 @@ class CategoriesFragment : Fragment() {
 
         //Lista fija de categorías manejado localmente
         val categories = listOf(
-            Category(getString(R.string.activity_categories_card_1), R.drawable.cat1),
-            Category(getString(R.string.activity_categories_card_2), R.drawable.cat2),
-            Category(getString(R.string.activity_categories_card_3), R.drawable.cat3),
-            Category(getString(R.string.activity_categories_card_4), R.drawable.cat4),
-            Category(getString(R.string.activity_categories_card_5), R.drawable.cat5),
-            Category(getString(R.string.activity_categories_card_6),R.drawable.cat6)
+            Category(getString(R.string.activity_categories_card_1), R.drawable.cat1,1),
+            Category(getString(R.string.activity_categories_card_2), R.drawable.cat2,2),
+            Category(getString(R.string.activity_categories_card_3), R.drawable.cat3,3),
+            Category(getString(R.string.activity_categories_card_4), R.drawable.cat4,4),
+            Category(getString(R.string.activity_categories_card_5), R.drawable.cat5,5),
+            Category(getString(R.string.activity_categories_card_6), R.drawable.cat6,6)
         )
 
         //Adaptador con manejo de click

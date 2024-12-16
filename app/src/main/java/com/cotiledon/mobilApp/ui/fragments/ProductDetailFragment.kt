@@ -11,8 +11,8 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.dataClasses.Categoria
 import com.cotiledon.mobilApp.ui.dataClasses.Plant
+import com.cotiledon.mobilApp.ui.dataClasses.PlantCategory
 import com.cotiledon.mobilApp.ui.dataClasses.PlantDetails
 import java.util.Locale
 
@@ -98,7 +98,7 @@ class ProductDetailFragment : Fragment() {
             largo = 20,
             peso = 2,
             habilitado = true,
-            categoria = Categoria(1, "Plantas de Interior"),
+            categoria = PlantCategory(1, "Plantas de Interior"),
             planta = PlantDetails(
                 idProducto = 1,
                 petFriendly = true,
@@ -191,6 +191,20 @@ class ProductDetailFragment : Fragment() {
         // Implement characteristics dialog display
         currentPlant?.planta?.let { details ->
             // Create and show your characteristics dialog
+        }
+    }
+
+    companion object {
+        fun newInstance(args: Bundle) : ProductDetailFragment {
+            return ProductDetailFragment().apply {
+                arguments = args
+            }
+        }
+
+        fun createArguments(plantId: Int) : Bundle {
+            return Bundle().apply {
+                putInt("plantId", plantId)
+            }
         }
     }
 }

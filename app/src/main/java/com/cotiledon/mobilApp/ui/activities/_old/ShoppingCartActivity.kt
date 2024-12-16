@@ -14,7 +14,7 @@ import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import java.text.NumberFormat
 import java.util.Locale
 
-class ShoppingCartActivity : AppCompatActivity() {
+/*class ShoppingCartActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adaptador: CartRecyclerViewAdapter
     private lateinit var cartStorageManager: CartStorageManager
@@ -79,4 +79,4 @@ class ShoppingCartActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-}
+}*/

@@ -62,7 +62,7 @@
         android:layout_marginTop="30dp"
         android:fontFamily="@font/quicksand_medium"
         android:text="@string/activity_categories_main"
-        android:textColor="@color/primary_color"
+        android:textColor="@color/main_app"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.12"

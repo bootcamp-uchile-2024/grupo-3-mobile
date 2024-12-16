@@ -10,7 +10,7 @@ import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.ShippingDetails
 import com.cotiledon.mobilApp.ui.managers.OrderManager
 
-class ShippingDetailsActivity : AppCompatActivity() {
+/*class ShippingDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -72,4 +72,4 @@ class ShippingDetailsActivity : AppCompatActivity() {
         }
 
     }
-}
+}*/

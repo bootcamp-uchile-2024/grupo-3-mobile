@@ -16,7 +16,7 @@ data class Plant(
     val largo: Int,
     val peso: Int,
     val habilitado: Boolean,
-    val categoria: Categoria,
+    val categoria: PlantCategory,
     val planta: PlantDetails?
 )
 

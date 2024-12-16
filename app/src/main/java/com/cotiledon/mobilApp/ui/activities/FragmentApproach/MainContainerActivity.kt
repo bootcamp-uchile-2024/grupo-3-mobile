@@ -83,7 +83,7 @@ class MainContainerActivity : AppCompatActivity() {
 
             // Configure the badge
             badge.apply {
-                backgroundColor = getColor(R.color.primary_color) // Use your app's color
+                backgroundColor = getColor(R.color.badge_red) // Use your app's color
                 badgeTextColor = getColor(R.color.white)
                 maxCharacterCount = 3
                 number = cartItemCount

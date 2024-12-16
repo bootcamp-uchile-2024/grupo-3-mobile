@@ -177,7 +177,7 @@
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_image_background"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/C4" />
+                    android:src="@drawable/cat4" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -211,7 +211,7 @@
                     android:layout_height="100dp"
                     android:background="@drawable/rounded_image_background"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/C4" />
+                    android:src="@drawable/cat4" />
 
                 <TextView
                     android:layout_width="wrap_content"

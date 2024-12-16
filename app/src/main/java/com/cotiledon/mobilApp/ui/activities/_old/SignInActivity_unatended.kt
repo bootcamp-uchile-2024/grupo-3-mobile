@@ -9,7 +9,7 @@ import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.activities.FragmentApproach.MainContainerActivity
 
 
-class SignInActivity_unatended : AppCompatActivity() {
+/*class SignInActivity_unatended : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
@@ -28,4 +28,4 @@ class SignInActivity_unatended : AppCompatActivity() {
             }
         }
     }
-}
+}*/
