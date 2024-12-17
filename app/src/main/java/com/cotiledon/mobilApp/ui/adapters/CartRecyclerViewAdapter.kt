@@ -22,7 +22,7 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>, p
     RecyclerView.Adapter<CartRecyclerViewAdapter.CartViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
-        val inflater = LayoutInflater.from(parent.context).inflate(R.layout.shopping_cart_item_layout,
+        val inflater = LayoutInflater.from(parent.context).inflate(R.layout.fragment_shopping_cart_item_layout,
             parent, false)
         return CartViewHolder(inflater)
     }
