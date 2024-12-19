@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_green"
     android:backgroundTint="@color/main_green"
-    tools:context=".ui.activities.HomeActivity">
+    tools:context=".ui.activities._old.HomeActivity">
 
     <ImageButton
         android:id="@+id/burger_menu_product"

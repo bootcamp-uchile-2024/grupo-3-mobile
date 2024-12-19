@@ -19,8 +19,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.activities._old.HomeActivity
 import com.cotiledon.mobilApp.ui.dataClasses.UserRegistration
-import com.cotiledon.mobilApp.ui.retrofit.GlobalValues
 import com.cotiledon.mobilApp.ui.retrofit.RetrofitUserClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -293,19 +293,16 @@ class UserRegistrationActivity : AppCompatActivity() {
             birthDate.visibility = View.GONE
         }
 
-
-        val genderOptions = listOf("Género", "Masculino", "Femenino", "Prefiero no decir")
-
         // Adaptador para spinner de género
-        val adapter = ArrayAdapter(
+        val genderAdapter = ArrayAdapter.createFromResource(
             this,
-            R.layout.spinner_item, // Diseño predeterminado
-            genderOptions
+            R.array.gender_items,
+            R.layout.gender_spinner_item // Diseño predeterminado
         )
 
-        adapter.setDropDownViewResource(R.layout.spinner_item)
+        genderAdapter.setDropDownViewResource(R.layout.gender_spinner_item)
 
-        genero.adapter = adapter
+        genero.adapter = genderAdapter
 
         genero.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(

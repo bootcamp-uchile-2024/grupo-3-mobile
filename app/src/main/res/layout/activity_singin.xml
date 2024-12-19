@@ -9,59 +9,56 @@
 
     <ImageView
         android:id="@+id/imageView_singin_background"
-        android:layout_width="494dp"
-        android:layout_height="930dp"
+        android:layout_width="406dp"
+        android:layout_height="839dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/singin_background"
-        tools:layout_editor_absoluteX="-42dp"
-        tools:layout_editor_absoluteY="-4dp" />
+        app:srcCompat="@drawable/singin_background" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_singin_H_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="260dp" />
+        app:layout_constraintGuide_percent="0.325" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_singin_H_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="160dp" />
+        app:layout_constraintGuide_begin="595dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_singin_V_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="42dp" />
+        app:layout_constraintGuide_begin="35dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_singin_V_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="42dp" />
+        app:layout_constraintGuide_percent="0.9027778" />
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="492dp"
+        android:layout_width="302dp"
+        android:layout_height="478dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="24dp"
         app:cardElevation="8dp"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_singin_H_2"
-        app:layout_constraintEnd_toEndOf="@id/guideline_singin_V_2"
-        app:layout_constraintStart_toStartOf="@id/guideline_singin_V_1"
-        app:layout_constraintTop_toTopOf="@+id/guideline_singin_H_1">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="429dp">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_singin_H_3"
@@ -74,6 +71,7 @@
                 android:id="@+id/textView_wellcome_singin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30sp"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/wellcome_singin"
                 android:textColor="@color/primary_color"
@@ -81,27 +79,31 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline_singin_H_3" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
                 android:id="@+id/imageView_logo_singin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
                 android:src="@drawable/logo_singin"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_wellcome_singin" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_wellcome_singin"
+                app:layout_constraintVertical_bias="0.04000002" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="53dp"
+                android:layout_marginTop="24dp"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/guideline_singin_H_5"
                 app:layout_constraintStart_toStartOf="@id/guideline_singin_H_4"
-                app:layout_constraintTop_toBottomOf="@id/imageView_logo_singin">
+                app:layout_constraintTop_toBottomOf="@id/imageView_logo_singin"
+                app:layout_constraintVertical_bias="0.0">
 
                 <TextView
                     android:id="@+id/textview_singin_email"
@@ -176,47 +178,51 @@
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     android:textStyle="bold" />
-
-
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView4"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/question1_singin"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/textView5"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/guideline_singin_H_4"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintVertical_bias="0.47000003">
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRegisterTextClick"
-                android:text="@string/question2_singin"
-                android:textColor="@color/main_app"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/guideline_singin_H_5"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question1_singin"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:onClick="onRegisterTextClick"
+                    android:text="@string/question2_singin"
+                    android:textColor="@color/main_app"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_singin_H_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="45dp" />
+                app:layout_constraintGuide_end="273dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_singin_H_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="45dp" />
+                app:layout_constraintGuide_begin="269dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
