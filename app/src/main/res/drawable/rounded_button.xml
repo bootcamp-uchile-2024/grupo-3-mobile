@@ -1,0 +1,13 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Color de fondo -->
+    <solid android:color="#294A59" /> <!-- Color similar al de tu imagen -->
+
+    <!-- Bordes redondeados -->
+    <corners android:radius="10dp" /> <!-- Ajusta el radio según lo necesites -->
+
+    <padding
+        android:top="2dp"
+        android:bottom="2dp"
+        android:left="2dp"
+        android:right="2dp" />
+</shape>

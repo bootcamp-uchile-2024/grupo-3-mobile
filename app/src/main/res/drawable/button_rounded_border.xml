@@ -1,0 +1,8 @@
+<!-- res/drawable/button_rounded_border.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@android:color/transparent" /> <!-- Fondo transparente -->
+    <stroke
+        android:width="2dp"
+        android:color="#294A59" /> <!-- Color del borde -->
+    <corners android:radius="7dp" /> <!-- Bordes redondeados -->
+</shape>
