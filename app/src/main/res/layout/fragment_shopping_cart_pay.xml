@@ -83,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="60dp" />
+        app:layout_constraintGuide_begin="352dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start"
@@ -261,39 +261,147 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView_shopping_discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="@string/activity_categories_shopping_gratitude_discount"
+        android:textColor="@color/primary_color"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/shopping_layout" />
+
+    <EditText
+        android:id="@+id/edittext_shopping_discount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_shopping_edittext"
+        android:fontFamily="@font/quicksand"
+        android:hint="@string/activity_categories_shopping_gratitude_discount"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_2"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/textView_shopping_discount" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="371dp" />
+
+    <Button
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/edittext_shopping_discount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/button_shopping_apl"
+        android:layout_width="180dp"
+        android:layout_height="35dp"
+        android:background="@drawable/button_rounded_border"
+        android:fontFamily="@font/quicksand"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:text="@string/aplicar"
+        android:textAllCaps="false"
+        android:textColor="#294A59"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView_shopping_discount_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="@string/activity_categories_shopping_gratitude_discount_pay_method"
+        android:textColor="@color/primary_color"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/button_shopping_apl" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout_pay_method"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView_shopping_discount_pay"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_end_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="8dp">
+
+        <!-- WebPay -->
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/webpay"
+            android:contentDescription="WebPay" />
+
+        <!-- VISA -->
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/visa"
+            android:contentDescription="VISA"
+            android:layout_marginStart="16dp"/>
+
+        <!-- MasterCard -->
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/mastercard"
+            android:contentDescription="MasterCard"
+            android:layout_marginStart="16dp"/>
+
+        <!-- PayPal -->
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/paypal"
+            android:contentDescription="PayPal"
+            android:layout_marginStart="16dp"/>
+
+        <!-- Transferencia Bancaria -->
+        <ImageView
+            android:layout_gravity="start"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:src="@drawable/transferencias"
+            android:contentDescription="Transferencia Bancaria"
+            android:layout_marginStart="16dp"/>
+    </LinearLayout>
+
+
     <Button
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shopping_layout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_pay_method"
         android:id="@+id/btn_ir_a_pagar"
-        android:layout_width="200dp"
-        android:layout_height="45dp"
+        android:layout_width="180dp"
+        android:layout_height="38dp"
         android:layout_gravity="center"
         android:background="@drawable/rounded_button"
         android:elevation="4dp"
         android:fontFamily="@font/quicksand"
         android:gravity="center"
-        android:textSize="14sp"
-        android:padding="12dp"
+        android:textSize="18sp"
+        android:padding="5dp"
         android:textAllCaps="false"
         android:textStyle="bold"
-        android:layout_marginTop="40dp"
-        android:text="@string/activity_categories_shopping_pay"
-        android:textColor="#FFFFFF" />
+        android:layout_marginTop="18dp"
+        android:text="@string/activity_categories_shopping_gratitude_discount_pay_button"
+        android:textColor="@color/white" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/quicksand_medium"
-        android:text="@string/activity_categories_shopping_options"
-        android:textColor="@color/primary_color"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/btn_ir_a_pagar" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

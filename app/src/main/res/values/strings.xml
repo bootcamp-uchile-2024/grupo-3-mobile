@@ -168,5 +168,17 @@
     <string name="catalog_sort">Ordenar por</string>"
     <string name="app_name">Plant AI</string>
 
+    <!-- FragmentShoppingCart -->
+    <string name="activity_categories_shopping">Mi carrito de compras</string>
+    <string name="activity_categories_shopping_resume">Resumen de mi compra</string>
+    <string name="activity_categories_shopping_pay">Ir a pagar</string>
+    <string name="activity_categories_shopping_options">Productos que te podrian interesar</string>
+    <string name="activity_categories_shopping_gratitude">Muchas Gracias Por Tu Compra. Hemos Enviado El Recibo De Tu Compra A Tu Correo Electrónico</string>
+    <string name="activity_categories_shopping_gratitude_tittle">¡Compra Exitosa!</string>
+    <string name="activity_categories_shopping_gratitude_tittle_1">Muchas Gracias Por Tu Compra. Hemos Enviado El Recibo De Tu Compra A Tu Correo Electrónico</string>
+    <string name="activity_categories_shopping_gratitude_button">Seguir comprando</string>
+    <string name="activity_categories_shopping_gratitude_discount">Código de descuento</string>
+    <string name="activity_categories_shopping_gratitude_discount_pay_method">Elige como pagar</string>
+    <string name="activity_categories_shopping_gratitude_discount_pay_button">Pagar</string>
 
 </resources>
