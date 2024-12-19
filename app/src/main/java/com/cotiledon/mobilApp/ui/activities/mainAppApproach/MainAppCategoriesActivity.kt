@@ -1,15 +1,6 @@
-package com.cotiledon.mobilApp.ui.activities.MainAppApproach
+package com.cotiledon.mobilApp.ui.activities.mainAppApproach
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.cotiledon.mobilApp.R
-import android.content.Intent
-import com.google.android.material.bottomnavigation.BottomNavigationView
-
-/*class MainAppHomeActivity : AppCompatActivity() {
+/*class MainAppCategoriesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,29 +18,25 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    // Redirige a la actividad asociada al icono "Home"
+                    val intent = Intent(this, MainAppHomeActivity::class.java)
+                    startActivity(intent)
                     true
                 }
 
                 R.id.nav_profile -> {
                     val intent = Intent(this, MainAppProfileActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     true
                 }
 
                 R.id.nav_cart -> {
                     val intent = Intent(this, MainAppShoppingCarActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     true
                 }
 
                 R.id.nav_menu -> {
-                    // Redirige a la actividad asociada al icono "Menú"
-                    val intent = Intent(this, MainAppCategoriesActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
+                    // Redirige a la actividad asociada al icono "Home"
                     true
                 }
 

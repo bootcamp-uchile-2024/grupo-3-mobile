@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -16,8 +17,11 @@ import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import java.text.NumberFormat
+import java.util.Locale
 
-class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>, private val cartStorageManager: CartStorageManager,
+class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
+                               private val cartStorageManager: CartStorageManager,
                                private val onItemRemoved: () -> Unit) :
     RecyclerView.Adapter<CartRecyclerViewAdapter.CartViewHolder>(){
 
@@ -32,10 +36,10 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>, p
         val planta = cartPlants[position]
 
         loadCartItemImage(planta.plantImage, holder.productImage, holder.itemView.context)
-
+        // TODO: Cargar el resto de los datos (ojo con descuento; revisar lógica del backend para manejo de este dato)
         holder.productName.text = planta.plantName
         holder.productQuantity.text = planta.plantQuantity.toString()
-        holder.productPrice.text = planta.plantPrice
+        holder.productCurrentPrice.text = formatPrice(planta.plantPrice.toDouble() * planta.plantQuantity)
 
         holder.deleteButton.setOnClickListener {
             // Mostrar diálogo de confirmación
@@ -59,6 +63,24 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>, p
                     dialog.dismiss()
                 }
                 .show()
+        }
+
+        holder.decreaseButton.setOnClickListener {
+            if (planta.plantQuantity > 1) {
+                planta.plantQuantity--
+                cartStorageManager.saveProductToCart(planta)
+                notifyItemChanged(position)
+                onItemRemoved()
+            }
+        }
+
+        holder.increaseButton.setOnClickListener {
+            if (planta.plantQuantity < planta.plantStock.toInt()) {
+                planta.plantQuantity++
+                cartStorageManager.saveProductToCart(planta)
+                notifyItemChanged(position)
+                onItemRemoved()
+            }
         }
     }
 
@@ -109,13 +131,22 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>, p
         return cartPlants.size
     }
 
-    class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val productImage: ImageView = itemView.findViewById(R.id.shoppingCartProductImage)
-        val productName: TextView = itemView.findViewById(R.id.shoppingCartProductName)
-        val productQuantity: TextView = itemView.findViewById(R.id.shoppingCartProductQuantity)
-        val productPrice: TextView = itemView.findViewById(R.id.shoppingCartProductPrice)
-        val deleteButton: Button = itemView.findViewById(R.id.shoppingCartDeleteButton)
+    private fun formatPrice(price: Double): String {
+        val formatter = NumberFormat.getCurrencyInstance(Locale("es", "CL"))
+        return formatter.format(price)
     }
+
+    inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val productImage: ImageView = itemView.findViewById(R.id.product_image_shopping)
+        val productName: TextView = itemView.findViewById(R.id.product_name_shopping)
+        val productQuantity: TextView = itemView.findViewById(R.id.quantity_shopping)
+        val productCurrentPrice: TextView = itemView.findViewById(R.id.current_price_shopping)
+        val productDiscount: TextView = itemView.findViewById(R.id.discount_shopping)
+        val productNormalPrice: TextView = itemView.findViewById(R.id.normal_price)
+        val deleteButton: ImageButton = itemView.findViewById(R.id.delete_button_shopping)
+        val decreaseButton: ImageButton = itemView.findViewById(R.id.btn_decrease_shopping)
+        val increaseButton: ImageButton = itemView.findViewById(R.id.btn_increase)
+    }
+
 
 }

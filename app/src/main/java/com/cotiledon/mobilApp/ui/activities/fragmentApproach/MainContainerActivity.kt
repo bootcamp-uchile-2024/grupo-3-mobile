@@ -1,4 +1,4 @@
-package com.cotiledon.mobilApp.ui.activities.FragmentApproach
+package com.cotiledon.mobilApp.ui.activities.fragmentApproach
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -95,9 +95,25 @@ class MainContainerActivity : AppCompatActivity() {
         }
     }
 
-    // Public method to update the cart badge
     fun updateCartBadge() {
-        setupCartBadge()
+        val cartManager = CartStorageManager(this)
+        val cartItemCount = cartManager.loadCartItems().size
+
+        val cartItem = bottomNavigationView.menu.findItem(R.id.nav_cart)
+
+        if (cartItemCount > 0) {
+            var badge = bottomNavigationView.getBadge(R.id.nav_cart)
+            if (badge == null) {
+                badge = bottomNavigationView.getOrCreateBadge(R.id.nav_cart)
+            }
+
+            badge.apply {
+                number = cartItemCount
+                isVisible = true
+            }
+        } else {
+            bottomNavigationView.removeBadge(R.id.nav_cart)
+        }
     }
 
     // Optional: Method to update badge with a specific count

@@ -107,6 +107,7 @@
         app:layout_constraintGuide_begin="276dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shopping_cart_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@id/guideline_top2"
@@ -151,6 +152,7 @@
             android:weightSum="1">
 
             <TextView
+                android:id="@+id/product_price_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
@@ -161,6 +163,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/product_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
@@ -180,6 +183,7 @@
             android:weightSum="1">
 
             <TextView
+                android:id="@+id/discount_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
@@ -190,6 +194,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/discount_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
@@ -209,6 +214,7 @@
             android:weightSum="1">
 
             <TextView
+                android:id="@+id/shipment_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
@@ -219,6 +225,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/shippment_cost"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
@@ -238,6 +245,7 @@
             android:weightSum="1">
 
             <TextView
+                android:id="@+id/total_price_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
@@ -248,6 +256,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/total_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"

@@ -24,19 +24,19 @@
             android:name=".ui.fragments.HomeFragment"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.FragmentApproach.MainContainerActivity"
+            android:name=".ui.activities.fragmentApproach.MainContainerActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.MainAppApproach.MainAppShoppingCarActivity"
+            android:name=".ui.activities.mainAppApproach.MainAppShoppingCarActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.MainAppApproach.MainAppProfileActivity"
+            android:name=".ui.activities.mainAppApproach.MainAppProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.MainAppApproach.MainAppCategoriesActivity"
+            android:name=".ui.activities.mainAppApproach.MainAppCategoriesActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.MainAppApproach.MainAppHomeActivity"
+            android:name=".ui.activities.mainAppApproach.MainAppHomeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.SignInActivity"

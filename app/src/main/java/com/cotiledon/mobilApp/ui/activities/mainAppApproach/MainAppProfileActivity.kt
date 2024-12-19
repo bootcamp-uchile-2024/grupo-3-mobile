@@ -1,15 +1,6 @@
-package com.cotiledon.mobilApp.ui.activities.MainAppApproach
+package com.cotiledon.mobilApp.ui.activities.mainAppApproach
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.cotiledon.mobilApp.R
-import android.content.Intent
-import com.google.android.material.bottomnavigation.BottomNavigationView
-
-/*class MainAppShoppingCarActivity : AppCompatActivity() {
+/*class MainAppProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,9 +14,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // Configura el listener para manejar las selecciones
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
+
                 R.id.nav_home -> {
                     val intent = Intent(this, MainAppHomeActivity::class.java)
                     startActivity(intent)
@@ -33,16 +24,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
                 }
 
                 R.id.nav_profile -> {
-                    val intent = Intent(this, MainAppProfileActivity::class.java)
+                    true
+                }
+
+                R.id.nav_cart -> {
+                    val intent = Intent(this, MainAppShoppingCarActivity::class.java)
                     startActivity(intent)
                     true
                 }
 
-                R.id.nav_cart -> {
-                    true
-                }
-
-                R.id.nav_cart -> {
+                R.id.nav_menu -> {
                     val intent = Intent(this, MainAppCategoriesActivity::class.java)
                     startActivity(intent)
                     true

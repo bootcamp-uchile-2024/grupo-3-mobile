@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.MainAppApproach.MainAppCategoriesActivity">
+    tools:context=".ui.activities.mainAppApproach.MainAppCategoriesActivity">
 
     <!-- Comienzo de Header -->
     <View
@@ -128,14 +128,16 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/address_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/rounded_shopping_edittext"
+                android:editable="true"
+                android:focusable="auto"
                 android:fontFamily="@font/quicksand"
-                android:focusable="false"
                 android:hint="Avenida siempreviva 123"
-                android:padding="10dp"
-                android:layout_marginBottom="20dp"/>
+                android:padding="10dp" />
 
             <!-- Quien recibe -->
             <TextView
@@ -149,14 +151,16 @@
                 android:layout_marginBottom="6dp"/>
 
             <EditText
+                android:id="@+id/receiver_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/rounded_shopping_edittext"
-                android:focusable="false"
+                android:editable="true"
+                android:focusable="auto"
                 android:fontFamily="@font/quicksand"
                 android:hint="Juan Perez"
-                android:padding="10dp"
-                android:layout_marginBottom="20dp"/>
+                android:padding="10dp" />
         </LinearLayout>
     </ScrollView>
 
@@ -177,21 +181,21 @@
 
     <!-- Botón Siguiente -->
     <Button
-        android:gravity="center_horizontal"
         android:id="@+id/btn_siguiente"
         android:layout_width="200dp"
         android:layout_height="46dp"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewInformation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_shopping_button"
+        android:fontFamily="@font/quicksand"
+        android:gravity="center_horizontal"
         android:padding="10dp"
         android:text="Finalizar compra"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:fontFamily="@font/quicksand"
-        android:textSize="18dp"/>
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextViewInformation" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import com.cotiledon.mobilApp.R
 import androidx.lifecycle.lifecycleScope
-import com.cotiledon.mobilApp.ui.activities.FragmentApproach.MainContainerActivity
+import com.cotiledon.mobilApp.ui.activities.fragmentApproach.MainContainerActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
