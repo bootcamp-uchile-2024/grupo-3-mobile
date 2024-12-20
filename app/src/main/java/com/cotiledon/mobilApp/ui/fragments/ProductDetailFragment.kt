@@ -13,7 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.activities.fragmentApproach.MainContainerActivity
+import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
 import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
 import com.cotiledon.mobilApp.ui.dataClasses.PlantProductData
 import com.cotiledon.mobilApp.ui.helpers.ProductDetailBarHelper

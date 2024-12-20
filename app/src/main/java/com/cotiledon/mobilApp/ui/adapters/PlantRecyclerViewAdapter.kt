@@ -12,6 +12,7 @@ import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.Plant
 import com.cotiledon.mobilApp.ui.dataClasses.PlantFilters
 import com.cotiledon.mobilApp.ui.enums.PlantCycle
+import com.cotiledon.mobilApp.ui.retrofit.GlobalValues
 import com.squareup.picasso.Picasso
 import java.text.NumberFormat
 import java.util.Locale
@@ -29,6 +30,12 @@ class PlantRecyclerViewAdapter(
     companion object {
         private const val VIEW_TYPE_ITEM = 0
         private const val VIEW_TYPE_LOADING = 1
+
+        private val TEMPERATURE_VALUES = mapOf(
+            "Frío" to 1f,
+            "Templado" to 2f,
+            "Cálido" to 3f
+        )
     }
 
     private var isLoadingVisible = false
@@ -56,8 +63,13 @@ class PlantRecyclerViewAdapter(
             val formatter = NumberFormat.getNumberInstance(Locale.GERMAN)
             productPrice.text = "$ ${formatter.format(plant.precio)}"
 
+            // Handle image loading - now using the first image from the array
+            val imageUrl = plant.imagenes.firstOrNull()?.let {
+                GlobalValues.backEndIP + it.ruta
+            }
+
             Picasso.get()
-                .load(plant.imagen)
+                .load(imageUrl)
                 .placeholder(R.drawable.suculenta)
                 .error(R.drawable.suculenta)
                 .into(productImage)
@@ -81,11 +93,13 @@ class PlantRecyclerViewAdapter(
                 // Verificamos cada filtro
                 val priceInRange = plant.precio.toFloat() in filters.priceRange
 
-                val heightInRange = try {
-                    val heightValue = plantDetails.altura.replace(Regex("[^0-9]"), "").toFloat()
-                    heightValue in filters.heightRange
-                } catch (e: Exception) {
-                    true // Si hay error al parsear la altura, no aplicamos este filtro
+                // Height is now handled through the tamano field
+                val heightInRange = when (plantDetails.tamano) {
+                    "S" -> filters.heightRange.contains(25f)
+                    "M" -> filters.heightRange.contains(50f)
+                    "L" -> filters.heightRange.contains(75f)
+                    "XL" -> filters.heightRange.contains(100f)
+                    else -> true
                 }
 
                 val cycleMatches = filters.cycle == null ||
@@ -95,7 +109,8 @@ class PlantRecyclerViewAdapter(
                 val petFriendlyMatches = filters.isPetFriendly == null ||
                         plantDetails.petFriendly == filters.isPetFriendly
 
-                val temperatureMatches = plantDetails.toleranciaTemperatura.toFloat() in filters.temperatureRange
+                val temperatureValue = TEMPERATURE_VALUES[plantDetails.toleranciaTemperatura] ?: 2f
+                val temperatureMatches = temperatureValue in filters.temperatureRange
 
                 val irrigationMatches = filters.irrigationType == null ||
                         plantDetails.tipoRiego.equals(filters.irrigationType.toString(), ignoreCase = true)
@@ -113,7 +128,7 @@ class PlantRecyclerViewAdapter(
         return when (viewType) {
             VIEW_TYPE_ITEM -> {
                 val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.catalog_view_card, parent, false)
+                    .inflate(R.layout.item_product, parent, false)
                 PlantViewHolder(view)
             }
             else -> {

@@ -14,13 +14,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.activities.fragmentApproach.MainContainerActivity
+import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
 import com.cotiledon.mobilApp.ui.adapters.PlantRecyclerViewAdapter
 import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
 import com.cotiledon.mobilApp.ui.dataClasses.Plant
 import com.cotiledon.mobilApp.ui.dataClasses.PlantFilters
 import com.cotiledon.mobilApp.ui.dataClasses.PlantResponse
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
+import com.cotiledon.mobilApp.ui.retrofit.GlobalValues
 import com.cotiledon.mobilApp.ui.retrofit.RetrofitCatalogClient
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -89,6 +90,26 @@ class CatalogFragment : Fragment() {
         recyclerView.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = this@CatalogFragment.adapter
+
+            // Add scroll listener for pagination
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val layoutManager = recyclerView.layoutManager as GridLayoutManager
+                    val visibleItemCount = layoutManager.childCount
+                    val totalItemCount = layoutManager.itemCount
+                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                    if (!isLoading && hasMoreItems) {
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                            && firstVisibleItemPosition >= 0
+                        ) {
+                            loadPlants()
+                        }
+                    }
+                }
+            })
         }
     }
 
@@ -176,30 +197,44 @@ class CatalogFragment : Fragment() {
     }
     //TODO: Integrar carga de datos con filtro de categoría
     private fun loadPlants() {
-        if (isLoading) return
+        if (isLoading || !hasMoreItems) return
         isLoading = true
         adapter.showLoading()
 
-        // Get the category ID from arguments
-        val categoryId = arguments?.getString("category_id")
+        // Get the category ID from arguments and convert to Int
+        val categoryId = arguments?.getString("category_id")?.toIntOrNull()
 
-        // Launch coroutine in the appropriate scope
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val retrofitClient = RetrofitCatalogClient.createCatalogClient()
-                val response: PlantResponse<Plant> = retrofitClient.getPlants(currentPage, pageSize)
+                val response: PlantResponse<Plant> = retrofitClient.getPlants(
+                    page = currentPage,
+                    pageSize = pageSize
+                )
 
-                if (response.data.isEmpty() || currentPage * pageSize >= response.totalItems) {
-                    hasMoreItems = false
-                } else {
-                    currentPlants.addAll(response.data)
+                // Update pagination state
+                hasMoreItems = currentPage * pageSize < response.totalItems
+
+                // Add new items to the current list
+                val newPlants = response.data.filter { plant ->
+                    // Only include plants that match the category if one is specified
+                    categoryId == null || plant.idCategoria == categoryId
+                }
+
+                if (newPlants.isNotEmpty()) {
+                    currentPlants.addAll(newPlants)
                     adapter.updatePlants(currentPlants)
                     currentPage++
                 }
+
             } catch (e: Exception) {
                 Log.e("CatalogFragment", "Error loading plants", e)
                 context?.let {
-                    Toast.makeText(it, e.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        it,
+                        "Error al cargar las plantas: ${e.localizedMessage}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             } finally {
                 isLoading = false
@@ -224,8 +259,8 @@ class CatalogFragment : Fragment() {
             putString("plantName", plant.nombre)
             putString("plantPrice", plant.precio.toString())
             putString("plantDesc", plant.descripcion)
-            putString("plantStock", plant.cantidad.toString())
-            putString("plantImage", plant.imagen)
+            putString("plantStock", plant.stock.toString())
+            putString("plantImage", plant.imagenes.firstOrNull()?.ruta ?: "")
             putString("plantUnitsSold", plant.unidadesVendidas.toString())
             putString("plantRating", plant.puntuacion.toString())
             putString("plantWidth", plant.ancho.toString())
@@ -248,33 +283,29 @@ class CatalogFragment : Fragment() {
     //TODO: Función para manejo de agregar a carrito
     private fun handleAddToCart(plant: Plant) {
         try {
-            //Comprobar que la cantidad de stock es mayor a 0 en el producto
-            if (plant.cantidad > 0) {
-                //Crear objeto para guardar en el carrito en caso positivo
+            // Check stock availability
+            if (plant.stock > 0) {  // Changed from cantidad to stock
                 val cartPlant = CartPlant(
                     plantName = plant.nombre,
                     plantPrice = plant.precio.toString(),
                     plantId = plant.id.toString(),
-                    plantStock = plant.cantidad.toString(),
+                    plantStock = plant.stock.toString(),  // Changed from cantidad to stock
                     plantQuantity = 1,
-                    //TODO: Implementar manejo de imagenes en el carrito
-                    plantImage = plant.imagen ?: ""
+                    plantImage = plant.imagenes.firstOrNull()?.let {
+                        GlobalValues.backEndIP + it.ruta
+                    } ?: ""
                 )
 
-                //Se guarda el producto en el carrito
                 cartManager.saveProductToCart(cartPlant)
 
-                //Muestra de mensaje de confirmación
                 Snackbar.make(
                     requireView(),
                     "${plant.nombre} añadido al carrito",
                     Snackbar.LENGTH_SHORT
                 ).show()
 
-                //Actualizar el "badge" (globo rojo) del carrito en el nav.view para mostrar la cantidad de productos
                 (activity as? MainContainerActivity)?.updateCartBadge()
             } else {
-                //En caso de no tener stock, informar al usuario
                 Snackbar.make(
                     requireView(),
                     "Lo sentimos, ${plant.nombre} no tiene más stock",
@@ -289,6 +320,16 @@ class CatalogFragment : Fragment() {
                 Snackbar.LENGTH_SHORT
             ).show()
         }
+    }
+
+    private fun showRetrySnackbar() {
+        Snackbar.make(
+            requireView(),
+            "Error al cargar las plantas",
+            Snackbar.LENGTH_INDEFINITE
+        ).setAction("Reintentar") {
+            loadPlants()
+        }.show()
     }
 
     //Metodo para checkear si un producto ya está en el carrito o no

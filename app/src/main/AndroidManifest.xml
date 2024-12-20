@@ -24,7 +24,7 @@
             android:name=".ui.fragments.HomeFragment"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.fragmentApproach.MainContainerActivity"
+            android:name=".ui.activities.MainContainerActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.mainAppApproach.MainAppShoppingCarActivity"

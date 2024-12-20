@@ -19,7 +19,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.activities.fragmentApproach.MainContainerActivity
 import com.cotiledon.mobilApp.ui.dataClasses.UserRegistration
 import com.cotiledon.mobilApp.ui.retrofit.RetrofitUserClient
 import kotlinx.coroutines.Dispatchers

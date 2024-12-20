@@ -1,4 +1,4 @@
-package com.cotiledon.mobilApp.ui.activities.fragmentApproach
+package com.cotiledon.mobilApp.ui.activities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
