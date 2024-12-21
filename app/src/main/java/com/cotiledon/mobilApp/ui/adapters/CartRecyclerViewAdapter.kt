@@ -3,6 +3,7 @@ package com.cotiledon.mobilApp.ui.adapters
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
 import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.squareup.picasso.Callback
@@ -42,46 +44,52 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
         holder.productCurrentPrice.text = formatPrice(planta.plantPrice.toDouble() * planta.plantQuantity)
 
         holder.deleteButton.setOnClickListener {
-            // Mostrar diálogo de confirmación
-            AlertDialog.Builder(holder.itemView.context)
-                .setTitle("Eliminar producto")
-                .setMessage("¿Estás seguro de que deseas eliminar este producto del carrito?")
-                .setPositiveButton("Eliminar") { dialog, _ ->
-                    // Eliminar el producto del almacenamiento
-                    cartStorageManager.removeProductFromCart(planta.plantId)
-
-                    // Eliminar el producto de la lista local
-                    cartPlants.removeAt(position)
-                    notifyItemRemoved(position)
-
-                    // Notificar cambios para actualizar totales
-                    onItemRemoved()
-
-                    dialog.dismiss()
-                }
-                .setNegativeButton("Cancelar") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
+            showDeleteConfirmationDialog(holder.itemView.context, planta, position)
         }
 
         holder.decreaseButton.setOnClickListener {
             if (planta.plantQuantity > 1) {
                 planta.plantQuantity--
-                cartStorageManager.saveProductToCart(planta)
+                cartStorageManager.updateProductQuantity(planta.plantId,planta.plantQuantity)
                 notifyItemChanged(position)
                 onItemRemoved()
+                // Update badge
+                (holder.itemView.context as? MainContainerActivity)?.updateCartBadge()
+            }
+            else{
+                showDeleteConfirmationDialog(holder.itemView.context, planta, position)
             }
         }
 
         holder.increaseButton.setOnClickListener {
             if (planta.plantQuantity < planta.plantStock.toInt()) {
                 planta.plantQuantity++
-                cartStorageManager.saveProductToCart(planta)
+                cartStorageManager.updateProductQuantity(planta.plantId,planta.plantQuantity)
                 notifyItemChanged(position)
                 onItemRemoved()
+                // Update badge
+                (holder.itemView.context as? MainContainerActivity)?.updateCartBadge()
             }
         }
+    }
+
+    private fun showDeleteConfirmationDialog(context: Context, plant: CartPlant, position: Int) {
+        AlertDialog.Builder(context)
+            .setTitle("Eliminar producto")
+            .setMessage("¿Estás seguro de que deseas eliminar este producto del carrito?")
+            .setPositiveButton("Eliminar") { dialog, _ ->
+                cartStorageManager.removeProductFromCart(plant.plantId)
+                cartPlants.removeAt(position)
+                notifyItemRemoved(position)
+                onItemRemoved()
+                // Update badge
+                (context as? MainContainerActivity)?.updateCartBadge()
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     // Helper function to handle image loading with Picasso
@@ -118,11 +126,7 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
 
                 override fun onError(e: Exception) {
                     // Handle error case - maybe show a toast or log the error
-                    Toast.makeText(
-                        context,
-                        "Error al cargar la imagen",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Log.e("Error al cargar la imagen", e.message, e)
                 }
             })
     }

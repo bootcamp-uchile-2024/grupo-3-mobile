@@ -12,6 +12,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.cotiledon.mobilApp.ui.managers.OrderManager
 
@@ -150,6 +151,8 @@ class ShoppingCartOrderSummaryFragment2 : Fragment() {
         // Limpiar data de carrito
         val cartManager = CartStorageManager(requireContext())
         cartManager.clearCart()
+
+        (activity as? MainContainerActivity)?.updateCartBadge()
 
         val gratitudeFragment = ShoppingCartGratitudeFragment.newInstance()
         parentFragmentManager.beginTransaction()

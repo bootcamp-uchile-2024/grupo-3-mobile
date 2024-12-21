@@ -3,6 +3,7 @@ package com.cotiledon.mobilApp.ui.activities
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cotiledon.mobilApp.R
@@ -24,29 +25,28 @@ class MainContainerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main_container)
         supportActionBar?.hide()
 
-        // Initialize cart manager
+        //Inicialiar el cart manager
         cartManager = CartStorageManager(this)
 
-        // Initialize bottom navigation
+        //Inicializar el botom navigation
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        // Set up cart badge initially
-        setupCartBadge()
+        //Inicializar el cart badge
+        updateCartBadge()
 
-        // Handle window insets for edge-to-edge display
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Initialize with HomeFragment if this is the first creation
+        //Inicializar siempre la vista con el HomeFragment
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, HomeFragment())
                 .commit()
         }
-
+        //Manejo de la navegación
         setupNavigation()
     }
 
@@ -69,63 +69,19 @@ class MainContainerActivity : AppCompatActivity() {
         }
     }
 
-    // Method to set up the cart badge
-    private fun setupCartBadge() {
-        val cartItem = bottomNavigationView.menu.findItem(R.id.nav_cart)
-        val cartItemCount = cartManager.loadCartItems().size
-
-        if (cartItemCount > 0) {
-            // Get or create the badge
-            var badge = bottomNavigationView.getBadge(R.id.nav_cart)
-            if (badge == null) {
-                badge = bottomNavigationView.getOrCreateBadge(R.id.nav_cart)
-            }
-
-            // Configure the badge
-            badge.apply {
-                backgroundColor = getColor(R.color.badge_red) // Use your app's color
-                badgeTextColor = getColor(R.color.white)
-                maxCharacterCount = 3
-                number = cartItemCount
-                isVisible = true
-            }
-        } else {
-            // Remove the badge if cart is empty
-            bottomNavigationView.removeBadge(R.id.nav_cart)
-        }
-    }
-
-    fun updateCartBadge() {
-        val cartManager = CartStorageManager(this)
-        val cartItemCount = cartManager.loadCartItems().size
-
+     fun updateCartBadge() {
+        val itemCount = cartManager.cartItemsCount()
         val cartItem = bottomNavigationView.menu.findItem(R.id.nav_cart)
 
-        if (cartItemCount > 0) {
-            var badge = bottomNavigationView.getBadge(R.id.nav_cart)
-            if (badge == null) {
-                badge = bottomNavigationView.getOrCreateBadge(R.id.nav_cart)
-            }
-
+        if (itemCount > 0) {
+            val badge = bottomNavigationView.getOrCreateBadge(cartItem.itemId)
             badge.apply {
-                number = cartItemCount
+                number = itemCount
                 isVisible = true
+                backgroundColor = ContextCompat.getColor(this@MainContainerActivity, R.color.badge_red)
             }
         } else {
-            bottomNavigationView.removeBadge(R.id.nav_cart)
-        }
-    }
-
-    // Optional: Method to update badge with a specific count
-    fun updateCartBadgeWithCount(count: Int) {
-        val badge = bottomNavigationView.getOrCreateBadge(R.id.nav_cart)
-        if (count > 0) {
-            badge.apply {
-                number = count
-                isVisible = true
-            }
-        } else {
-            bottomNavigationView.removeBadge(R.id.nav_cart)
+            bottomNavigationView.removeBadge(cartItem.itemId)
         }
     }
 

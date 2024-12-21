@@ -210,14 +210,13 @@ class ProductDetailFragment : Fragment(), SearchBarHelper.SearchCallback {
                 )
                 cartStorageManager.saveProductToCart(cartPlant)
 
-                // Show success message
                 Toast.makeText(
                     requireContext(),
                     "${plant.name} added to cart successfully",
                     Toast.LENGTH_SHORT
                 ).show()
 
-                // Update cart badge if necessary
+                // Update badge
                 (activity as? MainContainerActivity)?.updateCartBadge()
             } else {
                 Toast.makeText(

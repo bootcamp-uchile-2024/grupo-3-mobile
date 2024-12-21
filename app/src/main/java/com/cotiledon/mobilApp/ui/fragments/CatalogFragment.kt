@@ -282,20 +282,21 @@ class CatalogFragment : Fragment() {
     //TODO: Función para manejo de agregar a carrito
     private fun handleAddToCart(plant: Plant) {
         try {
-            // Check stock availability
-            if (plant.stock > 0) {  // Changed from cantidad to stock
-                val cartPlant = CartPlant(
-                    plantName = plant.nombre,
-                    plantPrice = plant.precio.toString(),
-                    plantId = plant.id.toString(),
-                    plantStock = plant.stock.toString(),  // Changed from cantidad to stock
-                    plantQuantity = 1,
-                    plantImage = plant.imagenes.firstOrNull()?.let {
-                        GlobalValues.backEndIP + it.ruta
-                    } ?: ""
-                )
+            if (plant.stock > 0) {
+                val cartPlant = plant.imagenes.firstOrNull()?.ruta?.let {
+                    CartPlant(
+                        plantName = plant.nombre,
+                        plantPrice = plant.precio.toString(),
+                        plantId = plant.id.toString(),
+                        plantStock = plant.stock.toString(),
+                        plantQuantity = 1,
+                        plantImage = it.drop(1)
+                    )
+                }
 
-                cartManager.saveProductToCart(cartPlant)
+                if (cartPlant != null) {
+                    cartManager.saveProductToCart(cartPlant)
+                }
 
                 Snackbar.make(
                     requireView(),
@@ -303,6 +304,7 @@ class CatalogFragment : Fragment() {
                     Snackbar.LENGTH_SHORT
                 ).show()
 
+                // Update badge
                 (activity as? MainContainerActivity)?.updateCartBadge()
             } else {
                 Snackbar.make(
@@ -315,7 +317,7 @@ class CatalogFragment : Fragment() {
             Log.e("CatalogFragment", "Error al añadir producto al carrito", e)
             Snackbar.make(
                 requireView(),
-                "No se pudo añadir el producto al carrito, por favor vuelva a intentarlo.",
+                "No se pudo añadir el producto al carrito",
                 Snackbar.LENGTH_SHORT
             ).show()
         }
