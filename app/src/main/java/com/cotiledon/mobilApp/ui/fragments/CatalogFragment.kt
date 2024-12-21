@@ -80,6 +80,7 @@ class CatalogFragment : Fragment() {
         sortButton = view.findViewById(R.id.btn_sort)
     }
 
+
     private fun setupRecyclerView() {
         adapter = PlantRecyclerViewAdapter(
             plants = mutableListOf(),
@@ -195,13 +196,13 @@ class CatalogFragment : Fragment() {
             }
             .show()*/
     }
+
     //TODO: Integrar carga de datos con filtro de categoría
     private fun loadPlants() {
         if (isLoading || !hasMoreItems) return
         isLoading = true
         adapter.showLoading()
 
-        // Get the category ID from arguments and convert to Int
         val categoryId = arguments?.getString("category_id")?.toIntOrNull()
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -212,36 +213,34 @@ class CatalogFragment : Fragment() {
                     pageSize = pageSize
                 )
 
-                // Update pagination state
                 hasMoreItems = currentPage * pageSize < response.totalItems
 
-                // Add new items to the current list
                 val newPlants = response.data.filter { plant ->
-                    // Only include plants that match the category if one is specified
                     categoryId == null || plant.idCategoria == categoryId
                 }
 
                 if (newPlants.isNotEmpty()) {
-                    currentPlants.addAll(newPlants)
-                    adapter.updatePlants(currentPlants)
-                    currentPage++
+                    // Update adapter on the main thread
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        adapter.hideLoading() // Hide loading before adding new items
+                        adapter.updatePlants(newPlants)
+                        currentPage++
+                    }
                 }
 
             } catch (e: Exception) {
                 Log.e("CatalogFragment", "Error loading plants", e)
-                context?.let {
-                    Toast.makeText(
-                        it,
-                        "Error al cargar las plantas: ${e.localizedMessage}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                viewLifecycleOwner.lifecycleScope.launch {
+                    adapter.hideLoading()
+                    showRetrySnackbar()
                 }
             } finally {
                 isLoading = false
-                adapter.hideLoading()
             }
         }
     }
+
+
 
     //TODO: Crear función para comunicación con el backend para carga de datos de plantas
     private fun fetchPlantsForCategory(categoryId: String?, callback: (List<Plant>) -> Unit) {

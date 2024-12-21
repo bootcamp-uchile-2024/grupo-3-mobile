@@ -1,6 +1,7 @@
 package com.cotiledon.mobilApp.ui.adapters
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.cotiledon.mobilApp.ui.dataClasses.Plant
 import com.cotiledon.mobilApp.ui.dataClasses.PlantFilters
 import com.cotiledon.mobilApp.ui.enums.PlantCycle
 import com.cotiledon.mobilApp.ui.retrofit.GlobalValues
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.text.NumberFormat
 import java.util.Locale
@@ -38,19 +40,20 @@ class PlantRecyclerViewAdapter(
         )
     }
 
+    private var isLoadingAddedToList = false
     private var isLoadingVisible = false
     private var filteredPlants: MutableList<Plant> = plants
+    private val failedImageLoads = mutableSetOf<String>()
 
     inner class PlantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val productImage: ImageView = itemView.findViewById(R.id.iv_product)
-        val productName: TextView = itemView.findViewById(R.id.tv_product_name)
-        val productDescription: TextView = itemView.findViewById(R.id.tv_product_description)
-        val productPrice: TextView = itemView.findViewById(R.id.tv_product_price)
-        val addToCartButton: ImageButton = itemView.findViewById(R.id.btn_add_to_cart)
+        private val productImage: ImageView = itemView.findViewById(R.id.iv_product)
+        private val productName: TextView = itemView.findViewById(R.id.tv_product_name)
+        private val productDescription: TextView = itemView.findViewById(R.id.tv_product_description)
+        private val productPrice: TextView = itemView.findViewById(R.id.tv_product_price)
+        private val addToCartButton: ImageButton = itemView.findViewById(R.id.btn_add_to_cart)
 
         @SuppressLint("SetTextI18n", "DefaultLocale")
         fun bind(plant: Plant) {
-            // Set basic product information
             productName.text = plant.nombre
             productDescription.text = plant.descripcion
 
@@ -58,25 +61,51 @@ class PlantRecyclerViewAdapter(
             onAddToCartClick(plant)
             }
 
-
-            // Format price using the existing NumberFormat
             val formatter = NumberFormat.getNumberInstance(Locale.GERMAN)
             productPrice.text = "$ ${formatter.format(plant.precio)}"
 
-            // Handle image loading - now using the first image from the array
-            val imageUrl = plant.imagenes.firstOrNull()?.let {
-                GlobalValues.backEndIP + it.ruta
-            }
+            loadProductImage(plant, productImage)
+
+            itemView.setOnClickListener { onItemClick(plant) }
+            addToCartButton.setOnClickListener { onAddToCartClick(plant) }
+
+        }
+    }
+
+    private fun loadProductImage(plant: Plant, imageView: ImageView) {
+        val imageUrl = plant.imagenes.firstOrNull()?.let { imagen ->
+            "${GlobalValues.backEndIP}${imagen.ruta.removePrefix("/")}"
+        }
+
+        if (!imageUrl.isNullOrEmpty()) {
+            // Cancel any existing requests for this ImageView
+            Picasso.get().cancelRequest(imageView)
 
             Picasso.get()
                 .load(imageUrl)
-                .placeholder(R.drawable.suculenta)
+                .placeholder(R.drawable.user_24)
                 .error(R.drawable.suculenta)
-                .into(productImage)
+                .fit()
+                .centerInside()
+                .into(imageView, object : Callback {
+                    override fun onSuccess() {
+                        failedImageLoads.remove(imageUrl)
+                    }
 
-            // Set click listeners
-            itemView.setOnClickListener { onItemClick(plant) }
-            addToCartButton.setOnClickListener { onAddToCartClick(plant) }
+                    override fun onError(e: Exception) {
+                        Log.e("PlantAdapter", "Error loading image: $imageUrl", e)
+                        failedImageLoads.add(imageUrl)
+
+                        // Retry failed loads after a delay
+                        imageView.postDelayed({
+                            if (imageUrl in failedImageLoads) {
+                                loadProductImage(plant, imageView)
+                            }
+                        }, 2000) // 2 second delay before retry
+                    }
+                })
+        } else {
+            imageView.setImageResource(R.drawable.suculenta)
         }
     }
 
@@ -143,42 +172,61 @@ class PlantRecyclerViewAdapter(
         when (getItemViewType(position)) {
             VIEW_TYPE_ITEM -> {
                 val plantHolder = holder as PlantViewHolder
-                val plant = plants[position]
+                val plant = filteredPlants[position]
                 plantHolder.bind(plant)
                 holder.itemView.setOnClickListener {
                     onItemClick(plant)
                 }
             }
             VIEW_TYPE_LOADING -> {
-                // Loading view holder doesn't need any binding
+                //No se necesita binding para este ViewHolder
             }
         }
     }
 
-    override fun getItemCount(): Int = if (isLoadingVisible) filteredPlants.size + 1 else filteredPlants.size
+    override fun getItemCount(): Int {
+        return if (isLoadingVisible) {
+            filteredPlants.size + 1
+        } else {
+            filteredPlants.size
+        }
+    }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == filteredPlants.size && isLoadingVisible) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
+        return if (position == filteredPlants.size && isLoadingVisible) {
+            VIEW_TYPE_LOADING
+        } else {
+            VIEW_TYPE_ITEM
+        }
     }
+
+
+    fun updatePlants(newPlants: List<Plant>) {
+        val startPosition = plants.size
+        plants.addAll(newPlants)
+
+
+        filter(currentFilters)
+
+
+        if (isLoadingVisible) {
+            hideLoading()
+        }
+    }
+
 
     fun showLoading() {
         if (!isLoadingVisible) {
             isLoadingVisible = true
-            notifyItemInserted(filteredPlants.size)
+            notifyItemInserted(itemCount)
         }
     }
 
     fun hideLoading() {
         if (isLoadingVisible) {
             isLoadingVisible = false
-            notifyItemRemoved(filteredPlants.size)
+            notifyItemRemoved(itemCount)
         }
-    }
-
-    fun updatePlants(newPlants: List<Plant>) {
-        plants.clear()
-        plants.addAll(newPlants)
-        filter(currentFilters)
     }
 
 }

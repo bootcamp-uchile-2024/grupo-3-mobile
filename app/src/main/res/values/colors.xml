@@ -16,4 +16,5 @@
     <color name="icon_tint_selected">#FF9000</color>
     <color name="deep_green">#0D270D</color>
     <color name="badge_red">#ED0131</color>
+    <color name="description_black">#222222</color>
 </resources>
