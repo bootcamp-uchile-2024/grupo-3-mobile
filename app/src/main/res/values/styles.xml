@@ -16,12 +16,15 @@
         <item name="android:textColor">@color/main_app</item>
     </style>
 
-    <style name="LeafRatingBar" parent="Widget.AppCompat.RatingBar">
+    <style name="LeafRatingBar" parent="Widget.AppCompat.RatingBar.Small">
         <item name="android:progressDrawable">@drawable/custom_ratingbar</item>
-        <item name="android:minHeight">20dp</item>
-        <item name="android:maxHeight">20dp</item>
-        <item name="android:minWidth">20dp</item>
-        <item name="android:maxWidth">20dp</item>
+        <item name="android:minHeight">30dp</item>
+        <item name="android:maxHeight">30dp</item>
+        <item name="android:minWidth">30dp</item>
+        <item name="android:maxWidth">30dp</item>
+        <item name="android:numStars">5</item>
+        <item name="android:isIndicator">true</item>
+        <item name="android:stepSize">0.5</item>
     </style>
 
 </resources>

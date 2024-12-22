@@ -21,18 +21,17 @@ import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
 import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
 import com.cotiledon.mobilApp.ui.dataClasses.Plant
-import com.cotiledon.mobilApp.ui.dataClasses.PlantProductData
-import com.cotiledon.mobilApp.ui.helpers.ProductDetailBarHelper
-import com.cotiledon.mobilApp.ui.helpers.SearchBarHelper
+import com.cotiledon.mobilApp.ui.helpers.LeafRatingView
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.cotiledon.mobilApp.ui.retrofit.GlobalValues
-import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.util.Locale
+import kotlin.math.roundToInt
 
 class ProductDetailFragment : Fragment() {
 
+    private lateinit var backButton: ImageButton
     private lateinit var productImage: ImageView
     private lateinit var productName: TextView
     private lateinit var currentPrice: TextView
@@ -40,7 +39,7 @@ class ProductDetailFragment : Fragment() {
     private lateinit var discountPercentage: TextView
     private lateinit var descriptionText: TextView
     private lateinit var showCharacteristicsButton: Button
-    private lateinit var ratingBar: RatingBar
+    private lateinit var leafRatingView: LeafRatingView
     private lateinit var ratingScore: TextView
     private lateinit var reviewsRecyclerView: RecyclerView
     private lateinit var addToCartButton: Button
@@ -49,6 +48,16 @@ class ProductDetailFragment : Fragment() {
     private lateinit var decreaseQuantityButton: ImageButton
     private lateinit var increaseQuantityButton: ImageButton
     private lateinit var quantityTextView: TextView
+    //Declaraciones para la ficha técnica
+    private lateinit var technicalDescriptionText: TextView
+    private lateinit var lightRequirementText: TextView
+    private lateinit var wateringText: TextView
+    private lateinit var environmentText: TextView
+    private lateinit var petFriendlyText: TextView
+    private lateinit var speciesText: TextView
+    private lateinit var lifecycleText: TextView
+    private lateinit var growthText: TextView
+    private lateinit var resistanceText: TextView
 
     //Container para overlay de datos técnicos
     private lateinit var technicalDetailsContainer: ConstraintLayout
@@ -69,27 +78,56 @@ class ProductDetailFragment : Fragment() {
         private const val ARG_PRODUCT_DISCOUNT = "product_discount"
         private const val ARG_PRODUCT_DESCRIPTION = "product_description"
         private const val ARG_PRODUCT_IMAGES = "product_images"
-        private const val ARG_PRODUCT_RATING = "product_rating"
         private const val ARG_PRODUCT_STOCK = "product_stock"
+        private const val ARG_PRODUCT_RATING = "product_rating"
+        //TODO: Backend y UX a definir uso de dimensiones
+        private const val ARG_PRODUCT_HEIGHT = "product_height"
+        private const val ARG_PRODUCT_WIDTH = "product_width"
+        private const val ARG_PRODUCT_LENGTH = "product_length"
+        private const val ARG_PRODUCT_WEIGHT = "product_weight"
+        private const val ARG_PRODUCT_PET_FRIENDLY = "pet_friendly"
+        private const val ARG_PRODUCT_CYCLE = "product_cycle"
+        private const val ARG_PRODUCT_SPECIES = "product_species"
+        private const val ARG_PRODUCT_GROWTH_HABIT = "product_growth_habit"
+        private const val ARG_PRODUCT_COLOR = "product_color"
+        private const val ARG_PRODUCT_PHOTO_PERIOD = "product_photo_period"
+        private const val ARG_PRODUCT_IRRIGATION_TYPE = "product_irrigation_type"
+        private const val ARG_PRODUCT_HABITAT = "product_habitat"
+        private const val ARG_PRODUCT_LIGHTING = "product_lighting"
+        private const val ARG_PRODUCT_TEMPERATURE = "product_temperature"
+        private const val ARG_PRODUCT_SIZE = "product_size"
+
+
 
         //Factory del fragment
-        fun newInstance(product: Plant): ProductDetailFragment {
+        fun newInstance(planta: Plant): ProductDetailFragment {
             return ProductDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(ARG_PRODUCT_ID, product.id)
-                    putString(ARG_PRODUCT_NAME, product.nombre)
-                    putString(ARG_PRODUCT_PRICE, product.precio.toString())
-                    //TODO: Calcular el precio si hay descuento
-                    product.planta?.let { plantDetails ->
-                        // Add any additional plant-specific details here
+                    putInt(ARG_PRODUCT_ID, planta.id)
+                    putString(ARG_PRODUCT_NAME, planta.nombre)
+                    putString(ARG_PRODUCT_PRICE, planta.precio.toString())
+                    //TODO: Calcular el precio si hay descuento (back a implementar descuentos)
+                    //Manejo de imbeded class de detalles de la planta
+                    planta.planta?.let { plantDetails ->
+                        putBoolean(ARG_PRODUCT_PET_FRIENDLY, plantDetails.petFriendly)
+                        putBoolean(ARG_PRODUCT_CYCLE, plantDetails.ciclo)
+                        putString(ARG_PRODUCT_SPECIES, plantDetails.especie)
+                        putString(ARG_PRODUCT_GROWTH_HABIT, plantDetails.habitoCrecimiento)
+                        putString(ARG_PRODUCT_COLOR, plantDetails.color)
+                        putString(ARG_PRODUCT_PHOTO_PERIOD, plantDetails.fotoPeriodo)
+                        putString(ARG_PRODUCT_IRRIGATION_TYPE, plantDetails.tipoRiego)
+                        putString(ARG_PRODUCT_HABITAT, plantDetails.entorno)
+                        putString(ARG_PRODUCT_LIGHTING, plantDetails.iluminacion)
+                        putString(ARG_PRODUCT_TEMPERATURE, plantDetails.toleranciaTemperatura)
+                        putString(ARG_PRODUCT_SIZE,plantDetails.tamano)
                     }
                     //Manejo de imagenes del producto
-                    putString(ARG_PRODUCT_DESCRIPTION, product.descripcion)
-                    val imageUrls = product.imagenes.map {
+                    putString(ARG_PRODUCT_DESCRIPTION, planta.descripcion)
+                    val imageUrls = planta.imagenes.map {
                         "${GlobalValues.backEndIP}${it.ruta.removePrefix("/")}"
                     }
                     putStringArrayList(ARG_PRODUCT_IMAGES, ArrayList(imageUrls))
-                    putInt(ARG_PRODUCT_STOCK, product.stock)
+                    putInt(ARG_PRODUCT_STOCK, planta.stock)
                 }
             }
         }
@@ -110,6 +148,9 @@ class ProductDetailFragment : Fragment() {
         cartManager = CartStorageManager(requireContext())
         setupProductDetails()
 
+        val rating = arguments?.getFloat(ARG_PRODUCT_RATING, 5.0f) ?: 5.0f
+        leafRatingView.setRating(rating)
+
         //Setteo de clickeables
         setupClickListeners()
 
@@ -118,14 +159,15 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun initializeViews(view: View) {
+        backButton = view.findViewById(R.id.btn_back)
         productImage = view.findViewById(R.id.productImage)
         productName = view.findViewById(R.id.productName)
         currentPrice = view.findViewById(R.id.currentPrice)
         originalPrice = view.findViewById(R.id.originalPrice)
         discountPercentage = view.findViewById(R.id.discountPercentage)
-        descriptionText = view.findViewById(R.id.descriptionText)
+        descriptionText = view.findViewById(R.id.technical_description_text)
         showCharacteristicsButton = view.findViewById(R.id.showCharacteristicsButton)
-        ratingBar = view.findViewById(R.id.ratingBar)
+        leafRatingView = view.findViewById(R.id.leafRatingView)
         ratingScore = view.findViewById(R.id.ratingScore)
         reviewsRecyclerView = view.findViewById(R.id.reviewsRecyclerView)
         technicalDetailsContainer = view.findViewById(R.id.technical_details_container)
@@ -135,12 +177,31 @@ class ProductDetailFragment : Fragment() {
         increaseQuantityButton = view.findViewById(R.id.btn_increase)
         quantityTextView = view.findViewById(R.id.quantity)
         addToCartButton = view.findViewById(R.id.add_to_cart_btn)
+        technicalDetailsContainer.apply {
+            technicalDescriptionText = findViewById(R.id.technical_description_text)
+            lightRequirementText = findViewById(R.id.lightRequirementText)
+            wateringText = findViewById(R.id.wateringText)
+            environmentText = findViewById(R.id.environmentText)
+            petFriendlyText = findViewById(R.id.petFriendlyText)
+            speciesText = findViewById(R.id.speciesText)
+            lifecycleText = findViewById(R.id.lifecycleText)
+            growthText = findViewById(R.id.growthText)
+            resistanceText = findViewById(R.id.resistanceText)
+        }
+        setupBackNavigation()
     }
 
     private fun setupClickListeners() {
         setupImageNavigation()
         setupQuantityControls()
         setupTechnicalDetailsButton()
+        setupAddProductToCartButton()
+    }
+
+    private fun setupBackNavigation() {
+        backButton.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
     }
 
     private fun setupImageNavigation() {
@@ -214,7 +275,6 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun setupQuantityControls() {
-        // Get maximum quantity from product stock
         val maxStock = arguments?.getInt(ARG_PRODUCT_STOCK, 0) ?: 0
 
         decreaseQuantityButton.setOnClickListener {
@@ -229,17 +289,52 @@ class ProductDetailFragment : Fragment() {
                 currentQuantity++
                 updateQuantityDisplay()
             } else {
-                // Show message when trying to exceed stock
                 Toast.makeText(
-                    context,
+                    requireContext(),
                     "No hay más stock disponible",
                     Toast.LENGTH_SHORT
                 ).show()
             }
         }
 
-        // Set initial quantity display
         updateQuantityDisplay()
+    }
+
+    private fun setupAddProductToCartButton(){
+        addToCartButton.setOnClickListener {
+            arguments?.let { args ->
+                val stock = args.getInt(ARG_PRODUCT_STOCK, 0)
+
+                if (stock >= currentQuantity) {
+                    val cartProduct = CartPlant(
+                        plantName = args.getString(ARG_PRODUCT_NAME) ?: "",
+                        plantPrice = args.getString(ARG_PRODUCT_PRICE) ?: "",
+                        plantId = args.getInt(ARG_PRODUCT_ID).toString(),
+                        plantStock = stock.toString(),
+                        plantQuantity = currentQuantity,
+                        plantImage = args.getStringArrayList(ARG_PRODUCT_IMAGES)?.firstOrNull()
+                            ?: ""
+                    )
+
+                    cartManager.saveProductToCart(cartProduct)
+
+                    Toast.makeText(
+                        requireContext(),
+                        "${cartProduct.plantName} añadido al carrito",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    // Actualizamos el badge del carrito en la actividad principal
+                    (activity as? MainContainerActivity)?.updateCartBadge()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Lo sentimos, ${args.getString(ARG_PRODUCT_NAME)} no tiene más stock",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -252,9 +347,28 @@ class ProductDetailFragment : Fragment() {
         increaseQuantityButton.isEnabled = currentQuantity < maxStock
     }
 
+    private fun setupTechnicalDetails() {
+        arguments?.let { args ->
+            technicalDescriptionText.text = args.getString(ARG_PRODUCT_DESCRIPTION, "")
+            lightRequirementText.text = args.getString(ARG_PRODUCT_LIGHTING, "")
+            wateringText.text = args.getString(ARG_PRODUCT_IRRIGATION_TYPE, "")
+            environmentText.text = args.getString(ARG_PRODUCT_HABITAT, "")
+            val isPetFriendly = args.getBoolean(ARG_PRODUCT_PET_FRIENDLY)
+            petFriendlyText.text = if (isPetFriendly) "Sí" else "No"
+            speciesText.text = args.getString(ARG_PRODUCT_SPECIES, "")
+            val isCyclePerenne = args.getBoolean(ARG_PRODUCT_CYCLE)
+            lifecycleText.text = if (isCyclePerenne) "Perenne" else "Anual"
+            growthText.text = args.getString(ARG_PRODUCT_GROWTH_HABIT, "")
+            resistanceText.text = args.getString(ARG_PRODUCT_TEMPERATURE, "")
+        }
+    }
+
     private fun setupTechnicalDetailsButton() {
         showCharacteristicsButton.setOnClickListener {
-            // Show technical details overlay with animation
+
+            setupTechnicalDetails()
+
+            //Animanción para la visibilidad del contenedor
             technicalDetailsContainer.apply {
                 visibility = View.VISIBLE
                 alpha = 0f
@@ -265,10 +379,10 @@ class ProductDetailFragment : Fragment() {
             }
         }
 
-        // Set up back button in technical details view
+        //Boton back para la vista de tecnicalDetailContainer
         val backButton = technicalDetailsContainer.findViewById<ImageButton>(R.id.btn_back)
         backButton.setOnClickListener {
-            // Hide technical details overlay with animation
+            //Misma animación para esconder la visa de detalle
             technicalDetailsContainer.animate()
                 .alpha(0f)
                 .setDuration(300)
@@ -327,10 +441,6 @@ class ProductDetailFragment : Fragment() {
             //Settear descripción
             val args = requireArguments()
             descriptionText.text = args.getString(ARG_PRODUCT_DESCRIPTION)
-
-            // Settear rating
-            val rating = args.getFloat(ARG_PRODUCT_RATING, 5.0f)
-            ratingBar.rating = rating
-            ratingScore.text = String.format("%.1f", rating)
         }
-    }
+
+}

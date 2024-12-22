@@ -1,5 +1,6 @@
 package com.cotiledon.mobilApp.ui.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -62,8 +63,21 @@ class CatalogFragment : Fragment() {
         //TODO: Implementar funcionalidad de búsqueda de productos
         //setupSearch()
 
-        // Carga de data inicial
+    }
+
+    override fun onResume() {
+        super.onResume()
+        resetLoadingState()
         loadPlants()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun resetLoadingState() {
+        currentPage = 1
+        isLoading = false
+        hasMoreItems = true
+        currentPlants.clear()
+        adapter.notifyDataSetChanged()
     }
 
     override fun onAttach(context: Context) {
@@ -246,36 +260,6 @@ class CatalogFragment : Fragment() {
         // This could be an API call, database query, etc.
         // For now, it's just a placeholder
     }
-
-    //TODO: Función para navegación a detalle de planta
-    /*private fun navigateToPlantDetail(plant: Plant) {
-        val args = Bundle().apply {
-            putString("source", "CatalogFragment")
-            putString("plantId", plant.id.toString())
-            putString("plantSKU", plant.SKU)
-            putString("plantName", plant.nombre)
-            putString("plantPrice", plant.precio.toString())
-            putString("plantDesc", plant.descripcion)
-            putString("plantStock", plant.stock.toString())
-            putString("plantImage", plant.imagenes.firstOrNull()?.ruta ?: "")
-            putString("plantUnitsSold", plant.unidadesVendidas.toString())
-            putString("plantRating", plant.puntuacion.toString())
-            putString("plantWidth", plant.ancho.toString())
-            putString("plantHeight", plant.alto.toString())
-            putString("plantLength", plant.largo.toString())
-            putString("plantWeight", plant.peso.toString())
-            putBoolean("plantEnabled", plant.habilitado)
-            putString("plantCategoryId", plant.categoria.id.toString())
-            putString("plantCategoryName", plant.categoria.categoria)
-        }
-
-        val productDetailFragment = ProductDetailFragment.newInstance(args)
-
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, productDetailFragment)
-            .addToBackStack(null)
-            .commit()
-    }*/
 
     //TODO: Función para manejo de agregar a carrito
     private fun handleAddToCart(plant: Plant) {
