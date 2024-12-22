@@ -66,6 +66,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <TextView
@@ -94,6 +95,7 @@
                             android:layout_marginStart="8dp"
                             android:background="@drawable/discount_background"
                             android:fontFamily="@font/quicksand_medium"
+                            android:gravity="center"
                             android:padding="4dp"
                             android:text="50%"
                             android:textColor="@color/white" />
@@ -156,34 +158,33 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/ratingScore"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
                                 android:text="5.0"
-                                android:textSize="24sp"
-                                android:textStyle="bold"
                                 android:textColor="@color/black"
-                                android:fontFamily="@font/quicksand_medium"/>
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
 
-                            <!-- Rating Icons (Leaves) Container -->
-                            <LinearLayout
+                            <RatingBar
+                                android:id="@+id/ratingBar"
+                                style="@style/LeafRatingBar"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginStart="8dp">
-
-                                <!-- Repeat this ImageView 5 times for the leaves -->
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:src="@drawable/leaf_rating"/>
-                                <!-- Repeat 4 more times -->
-
-                            </LinearLayout>
+                                android:layout_gravity="center"
+                                android:layout_marginStart="8dp"
+                                android:isIndicator="true"
+                                android:numStars="5"
+                                android:rating="5"
+                                android:stepSize="0.5" />
                         </LinearLayout>
 
                         <!-- Review Count -->
@@ -197,74 +198,18 @@
                             android:fontFamily="@font/quicksand"/>
                     </LinearLayout>
 
-                    <!-- Reviews Horizontal Scroll -->
-                    <HorizontalScrollView
+                    <!-- Recommended Products Section -->
+
+                    <!-- The RecyclerView for horizontal scrolling of recommended products -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recommendedProductsRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:scrollbars="none">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <!-- Individual Review Card -->
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="280dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="16dp"
-                                app:cardCornerRadius="12dp"
-                                app:cardElevation="4dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:padding="16dp">
-
-                                    <!-- Review Rating Icons -->
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal">
-                                        <!-- Repeat leaf icon 5 times -->
-                                        <ImageView
-                                            android:layout_width="16dp"
-                                            android:layout_height="16dp"
-                                            android:src="@drawable/leaf_rating"/>
-                                        <!-- Repeat 4 more times -->
-                                    </LinearLayout>
-
-                                    <!-- Reviewer Name -->
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="8dp"
-                                        android:text="Nombre"
-                                        android:textSize="16sp"
-                                        android:textStyle="bold"
-                                        android:textColor="@color/black"
-                                        android:fontFamily="@font/quicksand_medium"/>
-
-                                    <!-- Review Text -->
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="8dp"
-                                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
-                                        android:textSize="14sp"
-                                        android:textColor="@color/secondary_grey"
-                                        android:fontFamily="@font/quicksand"
-                                        android:maxLines="3"
-                                        android:ellipsize="end"/>
-                                </LinearLayout>
-                            </androidx.cardview.widget.CardView>
-
-                            <!-- Duplicate the CardView for multiple reviews -->
-
-                        </LinearLayout>
-                    </HorizontalScrollView>
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="36dp"/>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
