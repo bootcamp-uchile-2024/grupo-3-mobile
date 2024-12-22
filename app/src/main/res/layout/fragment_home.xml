@@ -13,57 +13,14 @@
         android:layout_height="wrap_content">
 
         <!-- Upper banner -->
-        <View
-            android:id="@+id/app_upper_banner"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:background="#1A4756"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Search bar layout - Made clickable -->
-        <LinearLayout
-            android:id="@+id/searchbar_section"
+        <include
+            android:id="@+id/layout_searchbar_no_back_btn"
+            layout="@layout/layout_searchbar_no_back_btn"
             android:layout_width="match_parent"
-            android:layout_height="33dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/button_butt"
-            android:clickable="true"
-            android:elevation="10dp"
-            android:focusable="true"
-            android:orientation="horizontal"
-            android:padding="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_upper_banner">
-
-            <EditText
-                android:id="@+id/search_edit_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/personal_magnifying"
-                android:fontFamily="@font/quicksand_medium"
-                android:hint="@string/search_hint"
-                android:textColor="@color/quaternary_grey"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:id="@+id/camera_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="12dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/camera" />
-
-        </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Categories ScrollView - Made items clickable -->
         <HorizontalScrollView
@@ -73,7 +30,7 @@
             android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchbar_section">
+            app:layout_constraintTop_toBottomOf="@+id/layout_searchbar_no_back_btn">
 
             <LinearLayout
                 android:layout_width="wrap_content"
