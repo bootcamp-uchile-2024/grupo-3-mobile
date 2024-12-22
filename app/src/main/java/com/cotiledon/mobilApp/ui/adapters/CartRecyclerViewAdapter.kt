@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -28,7 +27,7 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
     RecyclerView.Adapter<CartRecyclerViewAdapter.CartViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
-        val inflater = LayoutInflater.from(parent.context).inflate(R.layout.fragment_shopping_cart_item_layout,
+        val inflater = LayoutInflater.from(parent.context).inflate(R.layout.item_shopping_cart,
             parent, false)
         return CartViewHolder(inflater)
     }
@@ -168,7 +167,7 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
         val productNormalPrice: TextView = itemView.findViewById(R.id.normal_price)
         val deleteButton: ImageButton = itemView.findViewById(R.id.delete_button_shopping)
         val decreaseButton: ImageButton = itemView.findViewById(R.id.btn_decrease_shopping)
-        val increaseButton: ImageButton = itemView.findViewById(R.id.btn_increase)
+        val increaseButton: ImageButton = itemView.findViewById(R.id.btn_increase_shopping)
     }
 
 

@@ -5,25 +5,38 @@
     android:layout_height="190dp"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/product_image_shopping"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/product_image_shopping_card"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:scaleType="centerCrop"
+        android:layout_weight="1"
+        app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardElevation="0dp">
+
+        <ImageView
+            android:id="@+id/product_image_shopping"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+
 
     <ImageButton
         android:id="@+id/delete_button_shopping"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="32dp"
         android:background="@null"
         android:src="@drawable/full_trash"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/product_name_shopping"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/product_name_shopping" />
 
     <TextView
         android:id="@+id/product_name_shopping"
@@ -36,8 +49,8 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/delete_button_shopping"
-        app:layout_constraintStart_toEndOf="@id/product_image_shopping"
-        app:layout_constraintTop_toTopOf="@id/product_image_shopping" />
+        app:layout_constraintStart_toEndOf="@id/product_image_shopping_card"
+        app:layout_constraintTop_toTopOf="@id/product_image_shopping_card" />
 
     <TextView
         android:id="@+id/current_price_shopping"
@@ -65,7 +78,6 @@
         android:text="35%"
         android:textColor="@color/white"
         android:textSize="12sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/product_name_shopping"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/current_price_shopping"
@@ -99,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="14dp"
         android:fontFamily="@font/quicksand"
         android:text="1"
         android:textColor="@color/black"
@@ -109,7 +121,7 @@
         app:layout_constraintTop_toBottomOf="@+id/normal_price" />
 
     <ImageButton
-        android:id="@+id/btn_increase"
+        android:id="@+id/btn_increase_shopping"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"

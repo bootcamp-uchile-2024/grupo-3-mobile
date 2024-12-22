@@ -5,7 +5,7 @@
     <color name="main_green">#E4F5D9</color>
     <color name="product_grey">#F2F2F2</color>
     <color name="ad_grey">#E7E7E7</color>
-    <color name="secondary_green">#5A8378</color>
+    <color name="secondary_green">#AAAAAA</color>
     <color name="secondary_grey">#C5C5C5</color>
     <color name="terciary_grey">#848484</color>
     <color name="quaternary_grey">#FFE2E6E8</color>
@@ -16,5 +16,6 @@
     <color name="icon_tint_selected">#FF9000</color>
     <color name="deep_green">#0D270D</color>
     <color name="badge_red">#ED0131</color>
+    <color name="discount_red">#D11111</color>
     <color name="description_black">#222222</color>
 </resources>

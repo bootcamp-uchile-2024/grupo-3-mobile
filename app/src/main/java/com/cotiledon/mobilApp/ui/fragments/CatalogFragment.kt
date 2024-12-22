@@ -63,13 +63,12 @@ class CatalogFragment : Fragment() {
         //setupSearch()
 
         // Carga de data inicial
-        //TODO: Integrar carga de datos con el backend
         loadPlants()
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        // Inicializar el Cart Manager con el contexto
+        // Inicializar el Cart Manager
         cartManager = CartStorageManager(requireContext())
     }
 
@@ -84,7 +83,7 @@ class CatalogFragment : Fragment() {
     private fun setupRecyclerView() {
         adapter = PlantRecyclerViewAdapter(
             plants = mutableListOf(),
-            onItemClick = { plant -> navigateToPlantDetail(plant) },
+            onItemClick = {   plant -> navigateToProductDetail(plant)},
             onAddToCartClick = { plant -> handleAddToCart(plant) }
         )
 
@@ -249,7 +248,7 @@ class CatalogFragment : Fragment() {
     }
 
     //TODO: Función para navegación a detalle de planta
-    private fun navigateToPlantDetail(plant: Plant) {
+    /*private fun navigateToPlantDetail(plant: Plant) {
         val args = Bundle().apply {
             putString("source", "CatalogFragment")
             putString("plantId", plant.id.toString())
@@ -276,7 +275,7 @@ class CatalogFragment : Fragment() {
             .replace(R.id.fragment_container, productDetailFragment)
             .addToBackStack(null)
             .commit()
-    }
+    }*/
 
     //TODO: Función para manejo de agregar a carrito
     private fun handleAddToCart(plant: Plant) {
@@ -339,6 +338,17 @@ class CatalogFragment : Fragment() {
         return cartManager.loadCartItems()
             .find { it.plantId == plantId }
             ?.plantQuantity ?: 0
+    }
+
+    //Función para navegar a la vista de detalle
+    private fun navigateToProductDetail(plant: Plant) {
+
+        val productDetailFragment = ProductDetailFragment.newInstance(plant)
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, productDetailFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     //Fragment factory

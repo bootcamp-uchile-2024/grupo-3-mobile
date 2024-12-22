@@ -101,7 +101,7 @@ class CategoriesFragment : Fragment() {
 
     private fun setupCategoryCards(view: View) {
         // Find the GridLayout that contains our category cards
-        val gridLayout = view.findViewById<GridLayout>(R.id.gridLayout)
+        val gridLayout = view.findViewById<GridLayout>(R.id.recyclerView)
 
         // Set up click listeners for each card
         // We'll iterate through the GridLayout's children to set up each card
