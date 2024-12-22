@@ -51,9 +51,16 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
             if (planta.plantQuantity > 1) {
                 planta.plantQuantity--
                 cartStorageManager.updateProductQuantity(planta.plantId,planta.plantQuantity)
+
+                Toast.makeText(
+                    holder.itemView.context,
+                    "Cantidad de ${planta.plantName} reducida a ${planta.plantQuantity}",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+
                 notifyItemChanged(position)
                 onItemRemoved()
-                // Update badge
                 (holder.itemView.context as? MainContainerActivity)?.updateCartBadge()
             }
             else{
@@ -65,9 +72,15 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
             if (planta.plantQuantity < planta.plantStock.toInt()) {
                 planta.plantQuantity++
                 cartStorageManager.updateProductQuantity(planta.plantId,planta.plantQuantity)
+
+                Toast.makeText(
+                    holder.itemView.context,
+                    "Cantidad de ${planta.plantName} aumentada a ${planta.plantQuantity}",
+                    Toast.LENGTH_SHORT
+                ).show()
+
                 notifyItemChanged(position)
                 onItemRemoved()
-                // Update badge
                 (holder.itemView.context as? MainContainerActivity)?.updateCartBadge()
             }
         }
@@ -82,7 +95,13 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
                 cartPlants.removeAt(position)
                 notifyItemRemoved(position)
                 onItemRemoved()
-                // Update badge
+
+                Toast.makeText(
+                    context,
+                    "${plant.plantName} ha sido eliminado del carrito",
+                    Toast.LENGTH_SHORT
+                ).show()
+
                 (context as? MainContainerActivity)?.updateCartBadge()
                 dialog.dismiss()
             }

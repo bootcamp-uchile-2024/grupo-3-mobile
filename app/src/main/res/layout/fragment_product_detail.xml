@@ -1,152 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <!-- Main Content -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <!-- Top Bar -->
-
-        <!-- Product Image -->
+        <!-- SearchBar at the top -->
         <include
+            android:id="@+id/search_bar_layout"
             layout="@layout/layout_searchbar"
-            android:layout_width="match_parent"
-            android:layout_height="80dp" />
-
-        <ImageView
-            android:id="@+id/productImage"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:scaleType="centerCrop" />
-
-        <!-- Product Info -->
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/productName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:text="Stromanthe" />
+        <!-- Scrollable Content -->
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_bar_layout">
 
-            <!-- Price Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/currentPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    tools:text="$11,693" />
+                <!-- Product Image -->
 
-                <TextView
-                    android:id="@+id/originalPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:textColor="@android:color/darker_gray"
-                    tools:text="$17,990" />
+                <ImageView
+                    android:id="@+id/productImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:scaleType="centerCrop" />
 
-                <TextView
-                    android:id="@+id/discountPercentage"
-                    android:layout_width="wrap_content"
+                <!-- Product Info Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:background="@drawable/discount_background"
-                    android:padding="4dp"
-                    android:textColor="@android:color/white"
-                    tools:text="35%" />
+                    android:orientation="vertical"
+                    android:padding="36dp">
+
+                    <!-- Product Name -->
+                    <TextView
+                        android:id="@+id/productName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Plantita"
+                        android:textColor="@color/primary_color"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <!-- Price Section -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/currentPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:text="$ 10.000"
+                            android:textColor="@color/primary_color"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/originalPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/quicksand"
+                            android:text="$ 20.000"
+                            android:textColor="@color/secondary_grey" />
+
+                        <TextView
+                            android:id="@+id/discountPercentage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/discount_background"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:padding="4dp"
+                            android:text="50%"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <!-- Description Title -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Descripción"
+                        android:textColor="@color/primary_color"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <!-- Description Text -->
+                    <TextView
+                        android:id="@+id/descriptionText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/quicksand"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/product_description_example"
+                        android:textColor="@color/main_app" />
+
+                    <!-- Show Characteristics Button -->
+                    <Button
+                        android:id="@+id/showCharacteristicsButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/tomo_button"
+                        android:backgroundTint="@color/main_app"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Ver todas las características"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <!-- Reviews Title -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:text="Valoraciones de Clientes"
+                        android:textColor="@color/primary_color"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/quicksand_medium"/>
+
+                    <!-- Rating Score and Count Container -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical">
+
+                        <!-- Rating Score and Stars -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:id="@+id/ratingScore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="5.0"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/quicksand_medium"/>
+
+                            <!-- Rating Icons (Leaves) Container -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginStart="8dp">
+
+                                <!-- Repeat this ImageView 5 times for the leaves -->
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/leaf_rating"/>
+                                <!-- Repeat 4 more times -->
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Review Count -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Basado en 36 comentarios"
+                            android:textSize="14sp"
+                            android:textColor="@color/secondary_grey"
+                            android:fontFamily="@font/quicksand"/>
+                    </LinearLayout>
+
+                    <!-- Reviews Horizontal Scroll -->
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <!-- Individual Review Card -->
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="280dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="4dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="16dp">
+
+                                    <!-- Review Rating Icons -->
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+                                        <!-- Repeat leaf icon 5 times -->
+                                        <ImageView
+                                            android:layout_width="16dp"
+                                            android:layout_height="16dp"
+                                            android:src="@drawable/leaf_rating"/>
+                                        <!-- Repeat 4 more times -->
+                                    </LinearLayout>
+
+                                    <!-- Reviewer Name -->
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="8dp"
+                                        android:text="Nombre"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/quicksand_medium"/>
+
+                                    <!-- Review Text -->
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="8dp"
+                                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+                                        android:textSize="14sp"
+                                        android:textColor="@color/secondary_grey"
+                                        android:fontFamily="@font/quicksand"
+                                        android:maxLines="3"
+                                        android:ellipsize="end"/>
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+                            <!-- Duplicate the CardView for multiple reviews -->
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+                </LinearLayout>
             </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Quantity Controls -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal">
+    <!-- Technical Details Overlay -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/technical_details_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="gone">
 
-                <ImageButton
-                    android:id="@+id/decreaseButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@drawable/quantity_button_background"
-                    android:backgroundTint="@color/white"
-                    android:src="@drawable/substract_circle" />
+        <include
+            android:id="@+id/technical_details_searchbar"
+            layout="@layout/layout_searchbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/quantityText"
-                    android:layout_width="48dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="18sp"
-                    tools:text="1" />
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/technical_details_searchbar">
 
-                <ImageButton
-                    android:id="@+id/increaseButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@drawable/quantity_button_background"
-                    android:backgroundTint="@color/white"
-                    android:src="@drawable/add_circle" />
-            </LinearLayout>
-
-            <!-- Add to Cart Button -->
-            <Button
-                android:id="@+id/addToCartButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/button_background"
-                android:text="@string/add_to_cart"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
-
-            <!-- Description Section -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Descripción"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/descriptionText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:lineSpacingExtra="4dp" />
-
-            <Button
-                android:id="@+id/showCharacteristicsButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Ver todas las características"
-                android:textAllCaps="false" />
-
-            <!-- Technical Details Section -->
             <include
-                android:id="@+id/technicalDetails"
-                layout="@layout/technical_details_layout" />
+                layout="@layout/technical_details_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

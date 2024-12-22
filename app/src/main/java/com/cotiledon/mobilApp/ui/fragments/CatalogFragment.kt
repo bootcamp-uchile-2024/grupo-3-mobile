@@ -220,9 +220,8 @@ class CatalogFragment : Fragment() {
                 }
 
                 if (newPlants.isNotEmpty()) {
-                    // Update adapter on the main thread
                     viewLifecycleOwner.lifecycleScope.launch {
-                        adapter.hideLoading() // Hide loading before adding new items
+                        adapter.hideLoading()
                         adapter.updatePlants(newPlants)
                         currentPage++
                     }
@@ -232,7 +231,7 @@ class CatalogFragment : Fragment() {
                 Log.e("CatalogFragment", "Error loading plants", e)
                 viewLifecycleOwner.lifecycleScope.launch {
                     adapter.hideLoading()
-                    showRetrySnackbar()
+                    showRetryToast()
                 }
             } finally {
                 isLoading = false
@@ -298,39 +297,36 @@ class CatalogFragment : Fragment() {
                     cartManager.saveProductToCart(cartPlant)
                 }
 
-                Snackbar.make(
-                    requireView(),
+                Toast.makeText(
+                    requireContext(),
                     "${plant.nombre} añadido al carrito",
-                    Snackbar.LENGTH_SHORT
+                    Toast.LENGTH_SHORT
                 ).show()
 
-                // Update badge
                 (activity as? MainContainerActivity)?.updateCartBadge()
             } else {
-                Snackbar.make(
-                    requireView(),
+                Toast.makeText(
+                    requireContext(),
                     "Lo sentimos, ${plant.nombre} no tiene más stock",
-                    Snackbar.LENGTH_SHORT
+                    Toast.LENGTH_SHORT
                 ).show()
             }
         } catch (e: Exception) {
             Log.e("CatalogFragment", "Error al añadir producto al carrito", e)
-            Snackbar.make(
-                requireView(),
+            Toast.makeText(
+                requireContext(),
                 "No se pudo añadir el producto al carrito",
-                Snackbar.LENGTH_SHORT
+                Toast.LENGTH_SHORT
             ).show()
         }
     }
 
-    private fun showRetrySnackbar() {
-        Snackbar.make(
-            requireView(),
-            "Error al cargar las plantas",
-            Snackbar.LENGTH_INDEFINITE
-        ).setAction("Reintentar") {
-            loadPlants()
-        }.show()
+    private fun showRetryToast() {
+        Toast.makeText(
+            requireContext(),
+            "Error al cargar las plantas. Por favor, intente nuevamente.",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     //Metodo para checkear si un producto ya está en el carrito o no

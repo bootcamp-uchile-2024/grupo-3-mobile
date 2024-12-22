@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_marginStart="36dp"
+    android:layout_marginEnd="36dp"
     android:layout_marginTop="24dp">
+
+    <!-- Description Section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="Descripción"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/quicksand"
+        android:lineSpacingExtra="4dp"
+        android:text="@string/product_description_example"
+        android:textColor="@color/main_app"
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand_medium"
         android:text="Detalle técnico"
-        android:textColor="@color/main_app"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
     <!-- Light Requirements -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp">
 
         <ImageView
@@ -32,13 +57,14 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Luz: "
-            android:textColor="@color/main_app" />
+            android:textColor="@color/user_register_font" />
 
         <TextView
             android:id="@+id/lightRequirementText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:textColor="@color/user_register_font"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -47,12 +73,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/water" />
+            android:src="@drawable/opacity" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,13 +88,14 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Riego: "
-            android:textColor="@color/main_app" />
+            android:textColor="@color/user_register_font" />
 
         <TextView
             android:id="@+id/wateringText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:textColor="@color/user_register_font"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -75,12 +104,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/environment" />
+            android:src="@drawable/waves" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -88,13 +119,14 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Entorno: "
-            android:textColor="@color/main_app" />
+            android:textColor="@color/user_register_font" />
 
         <TextView
             android:id="@+id/environmentText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:textColor="@color/user_register_font"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -103,6 +135,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp">
 
         <ImageView
@@ -116,13 +150,14 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Pet friendly: "
-            android:textColor="@color/main_app" />
+            android:textColor="@color/user_register_font" />
 
         <TextView
             android:id="@+id/petFriendlyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:textColor="@color/user_register_font"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -132,16 +167,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/quicksand_medium"
-        android:text="Características: "
-        android:textColor="@color/main_app"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:text="Características"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
     <!-- Species -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp">
 
         <ImageView
@@ -155,13 +191,14 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Especie: "
-            android:textColor="@color/main_app" />
+            android:textColor="@color/user_register_font" />
 
         <TextView
             android:id="@+id/speciesText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:textColor="@color/user_register_font"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -170,12 +207,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/cloud" />
+            android:src="@drawable/cloud_outline" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -183,13 +222,14 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Ciclo: "
-            android:textColor="@color/main_app" />
+            android:textColor="@color/user_register_font" />
 
         <TextView
             android:id="@+id/lifecycleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:textColor="@color/user_register_font"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -198,6 +238,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp">
 
         <ImageView
@@ -211,13 +253,14 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Crecimiento: "
-            android:textColor="@color/main_app" />
+            android:textColor="@color/user_register_font" />
 
         <TextView
             android:id="@+id/growthText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:textColor="@color/user_register_font"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -226,12 +269,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/cloud_outline" />
+            app:srcCompat="@drawable/filter_drama" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -239,13 +284,14 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Resistencia: "
-            android:textColor="@color/main_app" />
+            android:textColor="@color/user_register_font" />
 
         <TextView
             android:id="@+id/resistanceText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:textColor="@color/user_register_font"
             android:textStyle="bold" />
     </LinearLayout>
 
