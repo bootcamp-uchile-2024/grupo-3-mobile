@@ -39,7 +39,7 @@
             android:name=".ui.activities.mainAppApproach.MainAppHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.SignInActivity"
+            android:name=".ui.fragments.SignInPreviousFragment"
             android:exported="false" />
         <activity
             android:name=".ui.activities.UserRegistrationActivity"

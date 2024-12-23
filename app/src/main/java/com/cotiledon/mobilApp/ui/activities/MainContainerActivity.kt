@@ -11,6 +11,7 @@ import com.cotiledon.mobilApp.ui.fragments.CategoriesFragment
 import com.cotiledon.mobilApp.ui.fragments.HomeFragment
 import com.cotiledon.mobilApp.ui.fragments.ProfileFragment
 import com.cotiledon.mobilApp.ui.fragments.ShoppingCartFragment
+import com.cotiledon.mobilApp.ui.fragments.SignInPreviousFragment
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -54,7 +55,7 @@ class MainContainerActivity : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener { item ->
             val fragment = when (item.itemId) {
                 R.id.nav_home -> HomeFragment()
-                R.id.nav_profile -> ProfileFragment()
+                R.id.nav_profile -> SignInPreviousFragment()
                 R.id.nav_cart -> ShoppingCartFragment()
                 R.id.nav_menu -> CategoriesFragment()
                 else -> null

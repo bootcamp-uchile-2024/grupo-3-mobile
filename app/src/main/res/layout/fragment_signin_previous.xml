@@ -38,17 +38,18 @@
         app:layout_constraintVertical_bias="0.06999999" />
 
     <Button
-        android:id="@+id/button_Main_Login"
-        android:layout_width="175dp"
+        android:id="@+id/signin_btn"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@drawable/round_standar"
-        android:fontFamily="@font/quicksand"
-        android:onClick="onSingInTextClick"
+        android:fontFamily="@font/quicksand_medium"
         android:scrollbarStyle="insideInset"
         android:text="@string/login"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:cornerRadius="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineV_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,11 +71,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_Main_Login"
+        app:layout_constraintTop_toBottomOf="@+id/signin_btn"
         app:layout_constraintVertical_bias="0.31">
 
         <TextView
-            android:id="@+id/textView_Main_Logo_question"
+            android:id="@+id/signin_register_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -84,9 +85,10 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textView_Main_Logo_question2"
+            android:id="@+id/signin_register_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:fontFamily="@font/quicksand"
             android:onClick="onRegisterTextClick"
             android:text="@string/registration_login"
