@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
 import com.cotiledon.mobilApp.ui.adapters.CartSummaryAdapter
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import java.text.NumberFormat
@@ -22,7 +23,6 @@ class ShoppingCartFragmentPay : Fragment(){
     private lateinit var recyclerView: RecyclerView
     private lateinit var cartManager: CartStorageManager
 
-    // Views for price display
     private lateinit var productPriceText: TextView
     private lateinit var discountValueText: TextView
     private lateinit var shippingCostText: TextView
@@ -31,7 +31,6 @@ class ShoppingCartFragmentPay : Fragment(){
     private lateinit var applyDiscountButton: Button
     private lateinit var checkoutButton: Button
 
-    // Constants
     private val SHIPPING_COST = 5000.0
     private val DISCOUNT_CODE = "lanzamientoxapp"
     private val DISCOUNT_PERCENTAGE = 0.20 // 20%
@@ -107,14 +106,13 @@ class ShoppingCartFragmentPay : Fragment(){
     private fun updatePrices() {
         val cartItems = cartManager.loadCartItems()
 
-        // Calculate product total
         val productTotal = cartItems.sumOf { it.plantPrice.toDouble() * it.plantQuantity }
         productPriceText.text = formatPrice(productTotal)
 
-        // Set shipping cost
+        //Shipping cost fijo por mientras el back no implementa eso
         shippingCostText.text = formatPrice(SHIPPING_COST)
 
-        // Calculate discount if applicable
+        //Mismo con el discount, solo se establece local para probar la funcionalidad
         val discountAmount = if (isDiscountApplied) {
             productTotal * DISCOUNT_PERCENTAGE
         } else {
@@ -122,7 +120,6 @@ class ShoppingCartFragmentPay : Fragment(){
         }
         discountValueText.text = formatPrice(discountAmount)
 
-        // Calculate final total
         val totalPrice = productTotal + SHIPPING_COST - discountAmount
         totalPriceText.text = formatPrice(totalPrice)
     }
@@ -154,6 +151,8 @@ class ShoppingCartFragmentPay : Fragment(){
         val totalWithShipping = finalAmount + SHIPPING_COST - finalDiscount
 
         cartManager.clearCart()
+
+        (activity as? MainContainerActivity)?.updateCartBadge()
 
 
         val gratitudeFragment = ShoppingCartGratitudeFragment.newInstance()
