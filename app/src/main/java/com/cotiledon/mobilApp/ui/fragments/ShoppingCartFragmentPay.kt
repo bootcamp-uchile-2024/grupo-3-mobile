@@ -31,6 +31,7 @@ class ShoppingCartFragmentPay : Fragment(){
     private lateinit var applyDiscountButton: Button
     private lateinit var checkoutButton: Button
 
+
     private val SHIPPING_COST = 5000.0
     private val DISCOUNT_CODE = "lanzamientoxapp"
     private val DISCOUNT_PERCENTAGE = 0.20 // 20%
