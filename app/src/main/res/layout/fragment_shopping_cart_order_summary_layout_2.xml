@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/layout_searchbar"
+        layout="@layout/layout_searchbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ScrollView for the main content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/layout_searchbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"
+        android:id="@+id/scroll_shopping"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_box"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <!-- Título -->
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Tus datos están correctos?"
+                android:textColor="@color/primary_color"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/quicksand"
+                android:layout_marginBottom="20dp" />
+
+            <Spinner
+                android:id="@+id/spinner_region"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_border_spinner"
+                android:spinnerMode="dropdown"
+                android:popupBackground="#FFFFFF"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:dropDownVerticalOffset="8dp"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Segundo Spinner -->
+            <Spinner
+                android:id="@+id/spinner_comuna"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_border_spinner"
+                android:spinnerMode="dropdown"
+                android:popupBackground="#FFFFFF"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:dropDownVerticalOffset="8dp"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Dirección -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/quicksand"
+                android:text="Dirección"
+                android:textColor="@color/primary_color"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/address_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:editable="true"
+                android:focusable="auto"
+                android:fontFamily="@font/quicksand"
+                android:hint="Avenida siempreviva 123"
+                android:padding="10dp" />
+
+            <!-- Quien recibe -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_color"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/quicksand"
+                android:text="¿Quien recibe?"
+                android:layout_marginBottom="6dp"/>
+
+            <EditText
+                android:id="@+id/receiver_name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:editable="true"
+                android:focusable="auto"
+                android:fontFamily="@font/quicksand"
+                android:hint="Juan Perez"
+                android:padding="10dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Modificar información -->
+    <TextView
+        android:id="@+id/TextViewInformation"
+        app:layout_constraintTop_toBottomOf="@+id/scroll_shopping"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="Modificar información"
+        android:textColor="@color/primary_color"
+        android:fontFamily="@font/quicksand"
+        android:textSize="14sp" />
+
+    <!-- Botón Siguiente -->
+    <Button
+        android:id="@+id/btn_siguiente"
+        android:layout_width="200dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_shopping_button"
+        android:fontFamily="@font/quicksand"
+        android:gravity="center|center_horizontal"
+        android:padding="0dp"
+        android:text="Finalizar compra"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextViewInformation" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

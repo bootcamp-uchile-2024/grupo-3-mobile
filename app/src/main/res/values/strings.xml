@@ -108,5 +108,80 @@
     <string name="order_billing_address">Dirección de Facturación</string>
     <string name="order_shipping_address">Dirección de Envío</string>
     <string name="card_date_hint">MM/YY</string>
+    <string name="eres_nuevo_">¿Eres nuevo en Plant AI?</string>
+    <string name="registrate_">Registrate y disfruta de nuestros productos y beneficios</string>
+    <string name="register_name_hint">Nombre*</string>
+    <string name="register_surname_hint">Apellido*</string>
+    <string name="register_rut_hint">RUT*</string>
+    <string name="register_phone_hint">Número de Teléfono</string>
+    <string name="register_email">Correo Electrónico*</string>
+    <string name="register_password">Contraseña*</string>
+    <string name="register_terms_n_conditions">Acepto Los Términos Y Condiciones</string>
+    <string name="register_create_account">Crear Cuenta</string>
+    <string name="register_password_again_hint">Repite la Contraseña*</string>
+    <string name="birth_date_buttn">Fecha de Nacimiento*</string>
+    <string name="register_username_hint">Nombre de Usuario*</string>
+    <string name="login">Inicia sesión</string>
+    <string name="question_login">¿No tienes cuenta?</string>
+    <string name="registration_login">Registrate aquí</string>
+    <string name="wellcome_singin">Bienvenido a Plant AI</string>
+    <string name="register_email_singin">Correo electrónico</string>
+    <string name="register_password_singin">Contraseña</string>
+    <string name="register_hint_pass_singin">• • • • • • •</string>
+    <string name="login_singin">Iniciar sesión</string>
+    <string name="question1_singin">¿No tienes cuenta?</string>
+    <string name="question2_singin">Registrate aqui</string>
+    <string name="catalog_filter">Filtros</string>
+    <string-array name="gender_items">
+        <item>Selecciona tu Género</item>
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>Prefiero no decir</item>
+    </string-array>
+    <string-array name="initial_budget_slider_values">
+        <item>10000</item>
+        <item>100000</item>
+    </string-array>
+    <string name="search_hint">Buscar</string>
+    <string name="activity_main_recycler_menu_item_all">Todas</string>
+    <string name="activity_main_recycler_menu_item_plants">Destacados</string>
+    <string name="activity_main_recycler_menu_item_accesories">Accesorios</string>
+    <string name="activity_main_recycler_menu_item_inputs">Insumos</string>
+    <string name="activity_main_bottom_icon_truck">ENVIO GRATIS</string>
+    <string name="activity_main_bottom_icon_stars">CLUB PLANTAI</string>
+    <string name="activity_main_bottom_icon_grass">CONSEJOS Y TIPS</string>
+    <string name="activity_main_bottom_button_truck">App Plant Ai</string>
+    <string name="activity_main_bottom_button_stars">Beneficios</string>
+    <string name="activity_main_bottom_button_grass">Consejos</string>
+
+    <!-- MainCategoriesActivity -->
+    <string name="activity_categories_main">Categorías</string>
+    <string name="activity_categories_card_1">Plantas</string>"
+    <string name="activity_categories_card_2">Comunidad</string>"
+    <string name="activity_categories_card_3">Educación</string>"
+    <string name="activity_categories_card_4">Asistente virtual</string>"
+    <string name="activity_categories_card_5">Vende con nosotros</string>"
+    <string name="activity_categories_card_6">Sobre Nosotros</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="plant_category_title">Placeholder Categoría</string>
+    <string name="catalog_sort">Ordenar por</string>"
+    <string name="app_name">Plant AI</string>
+
+    <!-- FragmentShoppingCart -->
+    <string name="activity_categories_shopping">Mi carrito de compras</string>
+    <string name="activity_categories_shopping_resume">Resumen de mi compra</string>
+    <string name="activity_categories_shopping_pay">Ir a pagar</string>
+    <string name="activity_categories_shopping_options">Productos que te podrian interesar</string>
+    <string name="activity_categories_shopping_gratitude">Muchas Gracias Por Tu Compra. Hemos Enviado El Recibo De Tu Compra A Tu Correo Electrónico</string>
+    <string name="activity_categories_shopping_gratitude_tittle">¡Compra Exitosa!</string>
+    <string name="activity_categories_shopping_gratitude_tittle_1">Muchas Gracias Por Tu Compra. Hemos Enviado El Recibo De Tu Compra A Tu Correo Electrónico</string>
+    <string name="activity_categories_shopping_gratitude_button">Seguir comprando</string>
+    <string name="activity_categories_shopping_gratitude_discount">Código de descuento</string>
+    <string name="activity_categories_shopping_gratitude_discount_pay_method">Elige como pagar</string>
+    <string name="activity_categories_shopping_gratitude_discount_pay_button">Pagar</string>
+    <string name="add_to_cart_text">Añadir al carrito</string>
+    <string name="logo_plantai">Logo Plantai</string>
+    <string name="camara">Camara</string>
 
 </resources>

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Upper banner -->
+        <include
+            android:id="@+id/layout_searchbar_no_back_btn"
+            layout="@layout/layout_searchbar_no_back_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Categories ScrollView - Made items clickable -->
+        <HorizontalScrollView
+            android:id="@+id/horizontal_scroll_view_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_searchbar_no_back_btn">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/category_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="16dp"
+                    android:text="@string/activity_main_recycler_menu_item_all"
+                    android:textColor="@color/primary_color"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/category_highlited"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="16dp"
+                    android:text="@string/activity_main_recycler_menu_item_plants"
+                    android:textColor="@color/primary_color"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/category_accesories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="16dp"
+                    android:text="@string/activity_main_recycler_menu_item_accesories"
+                    android:textColor="@color/primary_color"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/category_supplies"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="16dp"
+                    android:text="@string/activity_main_recycler_menu_item_inputs"
+                    android:textColor="@color/primary_color"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Banner images - Made clickable -->
+        <ImageView
+            android:id="@+id/imageView_banner_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontal_scroll_view_1"
+            app:srcCompat="@drawable/banner_up" />
+
+        <!-- RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/activity_main_recyclerview"
+            android:layout_width="335dp"
+            android:layout_height="92dp"
+            android:layout_marginTop="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_banner_up" />
+
+        <!-- Lower banner - Made clickable -->
+        <ImageView
+            android:id="@+id/activity_main_banner_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/rounder_squares"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_main_recyclerview"
+            app:srcCompat="@drawable/banner_down" />
+
+        <!-- Bottom sections using ConstraintLayout -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_sections_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_main_banner_down">
+
+            <!-- Guidelines for alignment -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/start_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.35" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/end_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.70" />
+
+            <!-- Free Shipping Section -->
+            <ImageView
+                android:id="@+id/truck_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/truck"
+                app:layout_constraintEnd_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/free_shipping_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand"
+                android:text="@string/activity_main_bottom_icon_truck"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toTopOf="@id/truck_icon" />
+
+            <Button
+                android:id="@+id/app_plant_ai_button"
+                android:layout_width="126dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:padding="0dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/rectangle_5"
+                android:backgroundTint="@color/primary_color"
+                android:elevation="4dp"
+                android:fontFamily="@font/quicksand"
+
+                android:text="@string/activity_main_bottom_button_truck"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/free_shipping_text" />
+
+            <!-- Club Plantai Section -->
+            <ImageView
+                android:id="@+id/stars_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/stars"
+                app:layout_constraintEnd_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/app_plant_ai_button" />
+
+            <TextView
+                android:id="@+id/club_plantai_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand"
+                android:text="@string/activity_main_bottom_icon_stars"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toTopOf="@id/stars_icon" />
+
+            <Button
+                android:id="@+id/benefits_button"
+                android:layout_width="126dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:padding="0dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/rectangle_5"
+                android:backgroundTint="@color/primary_color"
+                android:elevation="4dp"
+                android:fontFamily="@font/quicksand"
+                android:text="@string/activity_main_bottom_button_stars"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/club_plantai_text" />
+
+            <!-- Tips and Tricks Section -->
+            <ImageView
+                android:id="@+id/grass_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/grass"
+                app:layout_constraintEnd_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/benefits_button" />
+
+            <TextView
+                android:id="@+id/tips_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand"
+                android:text="@string/activity_main_bottom_icon_grass"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toTopOf="@id/grass_icon" />
+
+            <Button
+                android:id="@+id/tips_button"
+                android:layout_width="126dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:padding="0dp"
+                android:background="@drawable/rectangle_5"
+                android:backgroundTint="@color/primary_color"
+                android:elevation="4dp"
+                android:fontFamily="@font/quicksand"
+                android:text="@string/activity_main_bottom_button_grass"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/tips_text" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

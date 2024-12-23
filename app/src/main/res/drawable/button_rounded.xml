@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="#FFFFFF" /> <!-- Color de fondo -->
-    <corners android:radius="15dp" /> <!-- Radio de las esquinas -->
+    <corners android:radius="8dp" /> <!-- Radio de las esquinas -->
     <padding
         android:left="10dp"
         android:top="10dp"

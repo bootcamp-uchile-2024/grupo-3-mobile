@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home"
+        android:iconTint="@color/white"
+        android:title="" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/person"
+        android:iconTint="@color/white"
+        android:title="" />
+    <item
+        android:id="@+id/nav_cart"
+        android:icon="@drawable/garden_cart"
+        android:iconTint="@color/white"
+        android:title="" />
+    <item
+        android:id="@+id/nav_menu"
+        android:icon="@drawable/segment"
+        android:iconTint="@color/white"
+        android:title="" />
+</menu>
