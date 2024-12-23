@@ -2,33 +2,53 @@ package com.cotiledon.mobilApp.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-//import android.widget.Button
-import androidx.activity.ComponentActivity
 import com.cotiledon.mobilApp.R
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import android.animation.ObjectAnimator
+import android.os.Handler
+import android.os.Looper
+import android.view.animation.LinearInterpolator
+import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : ComponentActivity() {
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var progressBar: ProgressBar
+    private val splashDuration: Long = 1500 // 3 seconds
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Splash screen
-//        val btnStart = findViewById<Button>(R.id.btnStart)
-//        btnStart.setOnClickListener {
-//            val intent = Intent(this, SignInActivity::class.java)
-//            startActivity(intent)
-//        }
+        // Hide the action bar
+        supportActionBar?.hide()
 
-        val splashScreenDuration: Long = 3000 // 3 segundos
+        // Initialize progress bar
+        progressBar = findViewById(R.id.progressBar)
 
-        lifecycleScope.launch {
-            delay(splashScreenDuration)
-            val intent = Intent(this@MainActivity, MainContainerActivity::class.java)
-            startActivity(intent)
-            finish() // Cierra MainActivity para que no se mantenga en la pila
+        // Animate progress bar
+        animateProgressBar()
+
+        // Navigate to main app after splash duration
+        Handler(Looper.getMainLooper()).postDelayed({
+            startMainApp()
+        }, splashDuration)
+    }
+
+    private fun animateProgressBar() {
+        // Create progress animation
+        val progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, 100)
+        progressAnimator.apply {
+            duration = splashDuration
+            interpolator = LinearInterpolator()
+            start()
         }
+    }
 
+    private fun startMainApp() {
+        // Navigate to main container activity
+        val intent = Intent(this, MainContainerActivity::class.java)
+        startActivity(intent)
+        finish() // Close splash screen so it's not in the back stack
     }
 }
