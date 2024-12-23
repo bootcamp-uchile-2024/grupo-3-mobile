@@ -22,9 +22,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/layout_searchbar"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_searchbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -256,7 +258,7 @@
             <Button
                 android:id="@+id/button_shopping_apl"
                 android:layout_width="180dp"
-                android:layout_height="35dp"
+                android:layout_height="36dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/button_rounded_border"
                 android:fontFamily="@font/quicksand"
@@ -267,6 +269,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/main_app"
                 android:textSize="14sp"
+                app:cornerRadius="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edittext_shopping_discount" />
@@ -288,78 +291,77 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout_pay_method"
-                android:layout_marginTop="15dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView_shopping_discount_pay"
-                app:layout_constraintStart_toStartOf="@+id/guideline_start"
-                app:layout_constraintEnd_toEndOf="@+id/guideline_end_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
                 android:gravity="center_vertical"
-                android:padding="8dp">
+                android:orientation="horizontal"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/guideline_end_2"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/textView_shopping_discount_pay">
 
                 <!-- WebPay -->
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/webpay"
-                    android:contentDescription="WebPay" />
+                    android:contentDescription="WebPay"
+                    android:src="@drawable/webpay" />
 
                 <!-- VISA -->
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/visa"
+                    android:layout_marginStart="16dp"
                     android:contentDescription="VISA"
-                    android:layout_marginStart="16dp"/>
+                    android:src="@drawable/visa" />
 
                 <!-- MasterCard -->
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/mastercard"
+                    android:layout_marginStart="16dp"
                     android:contentDescription="MasterCard"
-                    android:layout_marginStart="16dp"/>
+                    android:src="@drawable/mastercard" />
 
                 <!-- PayPal -->
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/paypal"
+                    android:layout_marginStart="16dp"
                     android:contentDescription="PayPal"
-                    android:layout_marginStart="16dp"/>
+                    android:src="@drawable/paypal" />
 
                 <!-- Transferencia Bancaria -->
                 <ImageView
-                    android:layout_gravity="start"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/transferencias"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="16dp"
                     android:contentDescription="Transferencia Bancaria"
-                    android:layout_marginStart="16dp"/>
+                    android:src="@drawable/transferencias" />
             </LinearLayout>
 
 
             <Button
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout_pay_method"
                 android:id="@+id/btn_ir_a_pagar"
                 android:layout_width="180dp"
-                android:layout_height="38dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="18dp"
                 android:background="@drawable/rounded_button"
                 android:elevation="4dp"
                 android:fontFamily="@font/quicksand"
                 android:gravity="center"
-                android:textSize="18sp"
                 android:padding="5dp"
-                android:textAllCaps="false"
-                android:textStyle="bold"
-                android:layout_marginTop="18dp"
                 android:text="@string/activity_categories_shopping_gratitude_discount_pay_button"
-                android:textColor="@color/white" />
-
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_pay_method" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
