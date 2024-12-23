@@ -60,8 +60,6 @@ class ShoppingCartFragment : Fragment() {
             item.plantPrice.toDouble() * item.plantQuantity
         }
 
-        val totalProducts = cartManager.cartItemsCount()
-
         // Update UI with formatted price
         view?.findViewById<TextView>(R.id.product_price)?.text = formatPrice(totalProductPrice)
 

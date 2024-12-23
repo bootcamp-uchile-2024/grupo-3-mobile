@@ -97,7 +97,7 @@ class ShoppingCartOrderSummaryFragment2 : Fragment() {
         finalizeButton.setOnClickListener {
             if (validateInputs()) {
                 saveAddressDetails()
-                navigateToGratitude()
+                navigateToPayment()
             }
         }
 
@@ -147,18 +147,17 @@ class ShoppingCartOrderSummaryFragment2 : Fragment() {
         comunaSpinner.isEnabled = true
     }
 
-    private fun navigateToGratitude() {
-        // Limpiar data de carrito
-        val cartManager = CartStorageManager(requireContext())
-        cartManager.clearCart()
+    private fun navigateToPayment() {
+        if (validateInputs()) {
+            saveAddressDetails()
 
-        (activity as? MainContainerActivity)?.updateCartBadge()
+            val paymentFragment = ShoppingCartFragmentPay.newInstance()
 
-        val gratitudeFragment = ShoppingCartGratitudeFragment.newInstance()
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, gratitudeFragment)
-            .addToBackStack(null)
-            .commit()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, paymentFragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     companion object {

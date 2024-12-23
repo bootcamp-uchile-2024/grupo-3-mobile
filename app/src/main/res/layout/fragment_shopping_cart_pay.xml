@@ -6,411 +6,363 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Comienzo de Header -->
-    <View
-        android:id="@+id/app_upper_banner"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:background="#1A4756"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/activity_main_layout_1"
+    <!-- The header section that includes our custom searchbar layout.
+         This will remain fixed at the top while the rest of the content scrolls -->
+    <include
+        android:id="@+id/layout_searchbar"
+        layout="@layout/layout_searchbar"
         android:layout_width="match_parent"
-        android:layout_height="33dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/personal_magnifying"
-        android:elevation="10dp"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_upper_banner">
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <ImageView
-            android:id="@+id/search_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="3dp"
-            android:src="@drawable/search" />
-
-        <EditText
-            android:id="@+id/search_edit_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/personal_magnifying"
-            android:fontFamily="@font/quicksand_medium"
-            android:hint="@string/search_hint"
-            android:textColor="@color/quaternary_grey"
-            android:textSize="18sp" />
-
-        <ImageView
-            android:id="@+id/camera_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="12dp"
-            android:src="@drawable/camera" />
-
-    </LinearLayout>
-
-    <!-- Fin de Header -->
-
-    <TextView
-        android:id="@+id/shopping_cart_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/quicksand_medium"
-        android:text="@string/activity_categories_shopping"
-        android:textColor="@color/primary_color"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_main_layout_1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="352dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="150dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="276dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/shopping_cart_recycler_view"
-        android:layout_width="0dp"
+    <!-- ScrollView container that will enable scrolling for all content below the header.
+         The height is set to 0dp to use constraint layout's match constraints behavior -->
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_top2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toTopOf="@+id/guideline_top1" />
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/layout_searchbar"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/quicksand_medium"
-        android:text="@string/activity_categories_shopping_resume"
-        android:textColor="@color/primary_color"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline_top2" />
-
-    <LinearLayout
-        android:id="@+id/shopping_layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/border_background_shopping_total"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:layout_height="wrap_content">
 
+            <!-- Shopping Cart Title Section -->
             <TextView
-                android:id="@+id/product_price_text"
+                android:id="@+id/shopping_cart_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/activity_categories_shopping"
+                android:textColor="@color/primary_color"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Guidelines for consistent layout margins -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="60dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp" />
+
+            <!-- RecyclerView for displaying cart items -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/shopping_cart_recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/shopping_cart_title" />
+
+            <!-- Order Summary Section Title -->
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/activity_categories_shopping_resume"
+                android:textColor="@color/primary_color"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/shopping_cart_recycler_view" />
+
+            <!-- Order Summary Container -->
+            <LinearLayout
+                android:id="@+id/shopping_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border_background_shopping_total"
+                android:orientation="vertical"
+                android:padding="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+                <!-- Product Cost Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/product_price_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:fontFamily="@font/quicksand"
+                        android:text="Costo de tus productos"
+                        android:textColor="@color/main_app"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/product_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:fontFamily="@font/quicksand"
+                        android:gravity="end"
+                        android:text="$0"
+                        android:textColor="@color/main_app"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Discounts Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/discount_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:fontFamily="@font/quicksand"
+                        android:text="Descuentos"
+                        android:textColor="@color/main_app"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/discount_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:fontFamily="@font/quicksand"
+                        android:gravity="end"
+                        android:text="$0"
+                        android:textColor="@color/main_app"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Shipping Cost Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/shipment_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:fontFamily="@font/quicksand"
+                        android:text="Envio"
+                        android:textColor="@color/main_app"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/shippment_cost"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:fontFamily="@font/quicksand"
+                        android:gravity="end"
+                        android:text="$0"
+                        android:textColor="@color/main_app"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Total Price Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/total_price_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:fontFamily="@font/quicksand"
+                        android:text="Total"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/total_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:fontFamily="@font/quicksand"
+                        android:gravity="end"
+                        android:text="$0"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Discount Section Title -->
+            <TextView
+                android:id="@+id/textView_shopping_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/activity_categories_shopping_gratitude_discount"
+                android:textColor="@color/primary_color"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/shopping_layout" />
+
+            <!-- Discount Input Field -->
+            <EditText
+                android:id="@+id/edittext_shopping_discount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_shopping_edittext"
                 android:fontFamily="@font/quicksand"
-                android:text="Costo de tus productos (1)"
-                android:textColor="@color/black"
+                android:hint="@string/activity_categories_shopping_gratitude_discount"
+                android:padding="10dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/textView_shopping_discount" />
+
+            <Button
+                android:id="@+id/button_shopping_apl"
+                android:layout_width="180dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/button_rounded_border"
+                android:fontFamily="@font/quicksand"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="@string/aplicar"
+                android:textAllCaps="false"
+                android:textColor="@color/main_app"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edittext_shopping_discount" />
 
             <TextView
-                android:id="@+id/product_price"
-                android:layout_width="0dp"
+                android:id="@+id/textView_shopping_discount_pay"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:fontFamily="@font/quicksand"
-                android:gravity="end"
-                android:text="$ 17.990"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/activity_categories_shopping_gratitude_discount_pay_method"
+                android:textColor="@color/primary_color"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.02"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/button_shopping_apl" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <TextView
-                android:id="@+id/discount_text"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/linearLayout_pay_method"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView_shopping_discount_pay"
+                app:layout_constraintStart_toStartOf="@+id/guideline_start"
+                app:layout_constraintEnd_toEndOf="@+id/guideline_end_2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="8dp">
+
+                <!-- WebPay -->
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/webpay"
+                    android:contentDescription="WebPay" />
+
+                <!-- VISA -->
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/visa"
+                    android:contentDescription="VISA"
+                    android:layout_marginStart="16dp"/>
+
+                <!-- MasterCard -->
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/mastercard"
+                    android:contentDescription="MasterCard"
+                    android:layout_marginStart="16dp"/>
+
+                <!-- PayPal -->
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/paypal"
+                    android:contentDescription="PayPal"
+                    android:layout_marginStart="16dp"/>
+
+                <!-- Transferencia Bancaria -->
+                <ImageView
+                    android:layout_gravity="start"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/transferencias"
+                    android:contentDescription="Transferencia Bancaria"
+                    android:layout_marginStart="16dp"/>
+            </LinearLayout>
+
+
+            <Button
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_pay_method"
+                android:id="@+id/btn_ir_a_pagar"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_button"
+                android:elevation="4dp"
                 android:fontFamily="@font/quicksand"
-                android:text="Descuentos"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/discount_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:fontFamily="@font/quicksand"
-                android:gravity="end"
-                android:text="$ 6.297"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <TextView
-                android:id="@+id/shipment_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:fontFamily="@font/quicksand"
-                android:text="Envio"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/shippment_cost"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:fontFamily="@font/quicksand"
-                android:gravity="end"
-                android:text="$ 0"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <TextView
-                android:id="@+id/total_price_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:fontFamily="@font/quicksand"
-                android:text="Total"
-                android:textColor="@color/black"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/total_price"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:fontFamily="@font/quicksand"
-                android:gravity="end"
-                android:text="$ 11.693"
-                android:textColor="@color/black"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView_shopping_discount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/quicksand_medium"
-        android:text="@string/activity_categories_shopping_gratitude_discount"
-        android:textColor="@color/primary_color"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
-        app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/shopping_layout" />
-
-    <EditText
-        android:id="@+id/edittext_shopping_discount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_shopping_edittext"
-        android:fontFamily="@font/quicksand"
-        android:hint="@string/activity_categories_shopping_gratitude_discount"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_2"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/textView_shopping_discount" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_end_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="371dp" />
-
-    <Button
-        android:layout_marginTop="15dp"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_shopping_discount"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/button_shopping_apl"
-        android:layout_width="180dp"
-        android:layout_height="35dp"
-        android:background="@drawable/button_rounded_border"
-        android:fontFamily="@font/quicksand"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:text="@string/aplicar"
-        android:textAllCaps="false"
-        android:textColor="#294A59"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/textView_shopping_discount_pay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/quicksand_medium"
-        android:text="@string/activity_categories_shopping_gratitude_discount_pay_method"
-        android:textColor="@color/primary_color"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
-        app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/button_shopping_apl" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout_pay_method"
-        android:layout_marginTop="15dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView_shopping_discount_pay"
-        app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_end_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="8dp">
-
-        <!-- WebPay -->
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/webpay"
-            android:contentDescription="WebPay" />
-
-        <!-- VISA -->
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/visa"
-            android:contentDescription="VISA"
-            android:layout_marginStart="16dp"/>
-
-        <!-- MasterCard -->
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/mastercard"
-            android:contentDescription="MasterCard"
-            android:layout_marginStart="16dp"/>
-
-        <!-- PayPal -->
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/paypal"
-            android:contentDescription="PayPal"
-            android:layout_marginStart="16dp"/>
-
-        <!-- Transferencia Bancaria -->
-        <ImageView
-            android:layout_gravity="start"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:src="@drawable/transferencias"
-            android:contentDescription="Transferencia Bancaria"
-            android:layout_marginStart="16dp"/>
-    </LinearLayout>
+                android:gravity="center"
+                android:textSize="18sp"
+                android:padding="5dp"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:layout_marginTop="18dp"
+                android:text="@string/activity_categories_shopping_gratitude_discount_pay_button"
+                android:textColor="@color/white" />
 
 
-    <Button
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout_pay_method"
-        android:id="@+id/btn_ir_a_pagar"
-        android:layout_width="180dp"
-        android:layout_height="38dp"
-        android:layout_gravity="center"
-        android:background="@drawable/rounded_button"
-        android:elevation="4dp"
-        android:fontFamily="@font/quicksand"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:padding="5dp"
-        android:textAllCaps="false"
-        android:textStyle="bold"
-        android:layout_marginTop="18dp"
-        android:text="@string/activity_categories_shopping_gratitude_discount_pay_button"
-        android:textColor="@color/white" />
 
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
