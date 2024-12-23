@@ -6,7 +6,7 @@ import com.cotiledon.mobilApp.ui.enums.GrowthHabit
 import com.cotiledon.mobilApp.ui.enums.IrrigationType
 import com.cotiledon.mobilApp.ui.enums.Lighting
 import com.cotiledon.mobilApp.ui.enums.PlantCycle
-
+//TODO: Implementar manager de filtros
 class PlantFilterManager {
     private var currentFilters = PlantFilters()
 

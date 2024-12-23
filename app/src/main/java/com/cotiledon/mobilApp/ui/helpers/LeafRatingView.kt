@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.cotiledon.mobilApp.R
-
+//Helper para crear vistas de rating con hojas en vez de estrellas
 class LeafRatingView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

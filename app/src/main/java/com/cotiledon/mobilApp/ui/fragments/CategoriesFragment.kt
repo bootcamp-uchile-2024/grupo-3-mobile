@@ -19,14 +19,12 @@ import com.cotiledon.mobilApp.ui.dataClasses.Category
 class CategoriesFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var categoryAdapter: CategoryAdapter
-    //TODO: Implementar funcionalidad como recylcerview con categorías en forma de Grid de 2 columnas
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_categories, container, false)
     }
 
@@ -84,42 +82,35 @@ class CategoriesFragment : Fragment() {
     private fun setupSearchBar(view: View) {
         val searchContainer = view.findViewById<LinearLayout>(R.id.searchbar_section)
 
-        // Since we're using the same search bar across fragments, we should make its components accessible
-        val searchEditText = searchContainer.findViewById<EditText>(1)  // The EditText is the second child
-        val cameraButton = searchContainer.findViewById<ImageView>(2)   // The camera button is the third child
+        // Ya que estamos usando la misma searchbar por todos los fragmetos, conviene hacerla accesible globalmente
+        val searchEditText = searchContainer.findViewById<EditText>(1)
+        val cameraButton = searchContainer.findViewById<ImageView>(2)
 
         searchEditText?.setOnClickListener {
-            // Handle search functionality
             handleSearch()
         }
 
         cameraButton?.setOnClickListener {
-            // Handle camera functionality
             handleCamera()
         }
     }
 
     private fun setupCategoryCards(view: View) {
-        // Find the GridLayout that contains our category cards
         val gridLayout = view.findViewById<GridLayout>(R.id.recyclerView)
 
-        // Set up click listeners for each card
-        // We'll iterate through the GridLayout's children to set up each card
         for (i in 0 until gridLayout.childCount) {
             val cardView = gridLayout.getChildAt(i) as CardView
 
             cardView.setOnClickListener {
-                // Handle the card click based on its position
-                //handleCategoryCardClick(i)
             }
         }
     }
 
     private fun handleSearch() {
-        // Implement search functionality
+        //TODO: Implementar lógica de búsqueda
     }
 
     private fun handleCamera() {
-        // Implement camera functionality
+        //TODO: Implementar lógica de cámara
     }
 }

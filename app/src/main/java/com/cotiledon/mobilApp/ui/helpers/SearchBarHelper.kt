@@ -8,7 +8,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageButton
 import com.cotiledon.mobilApp.R
-
+//Todo: Terminar de implenmentar lógica de búsqueda
 class SearchBarHelper(
     private val activity: Activity,
     private val searchCallback: SearchCallback

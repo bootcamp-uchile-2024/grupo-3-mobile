@@ -105,7 +105,7 @@ class CatalogFragment : Fragment() {
             layoutManager = GridLayoutManager(context, 2)
             adapter = this@CatalogFragment.adapter
 
-            // Add scroll listener for pagination
+            //Scroll listener para paginación
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -252,16 +252,6 @@ class CatalogFragment : Fragment() {
         }
     }
 
-
-
-    //TODO: Crear función para comunicación con el backend para carga de datos de plantas
-    private fun fetchPlantsForCategory(categoryId: String?, callback: (List<Plant>) -> Unit) {
-        // Implement your actual data fetching logic here
-        // This could be an API call, database query, etc.
-        // For now, it's just a placeholder
-    }
-
-    //TODO: Función para manejo de agregar a carrito
     private fun handleAddToCart(plant: Plant) {
         try {
             if (plant.stock > 0) {

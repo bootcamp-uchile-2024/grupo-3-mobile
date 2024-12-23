@@ -20,23 +20,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Hide the action bar
         supportActionBar?.hide()
 
-        // Initialize progress bar
         progressBar = findViewById(R.id.progressBar)
 
-        // Animate progress bar
         animateProgressBar()
 
-        // Navigate to main app after splash duration
         Handler(Looper.getMainLooper()).postDelayed({
             startMainApp()
         }, splashDuration)
     }
 
     private fun animateProgressBar() {
-        // Create progress animation
         val progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, 100)
         progressAnimator.apply {
             duration = splashDuration
@@ -46,9 +41,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startMainApp() {
-        // Navigate to main container activity
         val intent = Intent(this, MainContainerActivity::class.java)
         startActivity(intent)
-        finish() // Close splash screen so it's not in the back stack
+        finish()
     }
 }

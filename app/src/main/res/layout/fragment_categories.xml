@@ -41,7 +41,8 @@
             android:fontFamily="@font/quicksand_medium"
             android:hint="@string/search_hint"
             android:textColor="@color/quaternary_grey"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:inputType="text"/>
 
         <ImageView
             android:id="@+id/camera_button"
@@ -49,7 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="12dp"
-            android:src="@drawable/camera" />
+            android:src="@drawable/camera"
+            android:contentDescription="@string/camara"/>
 
     </LinearLayout>
 

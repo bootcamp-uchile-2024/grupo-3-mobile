@@ -181,5 +181,7 @@
     <string name="activity_categories_shopping_gratitude_discount_pay_method">Elige como pagar</string>
     <string name="activity_categories_shopping_gratitude_discount_pay_button">Pagar</string>
     <string name="add_to_cart_text">Añadir al carrito</string>
+    <string name="logo_plantai">Logo Plantai</string>
+    <string name="camara">Camara</string>
 
 </resources>

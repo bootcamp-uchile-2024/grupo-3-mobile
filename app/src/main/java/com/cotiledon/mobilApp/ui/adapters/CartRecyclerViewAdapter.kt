@@ -110,40 +110,29 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
             .show()
     }
 
-    // Helper function to handle image loading with Picasso
+    //Función para cargar imagenes con Picasso
     private fun loadCartItemImage(imageUrl: String, imageView: ImageView, context: Context) {
-        // First, check if we have a valid URL
         if (imageUrl.isBlank()) {
-            // If no valid URL, load a placeholder
             Picasso.get()
                 .load(R.drawable.suculenta)
                 .into(imageView)
             return
         }
 
-        // Load the actual image using Picasso
         Picasso.get()
             .load(imageUrl)
             .apply {
-                // Since this is a cart item, we probably want smaller images
-                // Adjust these dimensions based on your cart item layout
+                // Ajustar el tamaño de la imagen debido a que es solo de carrito
                 resize(400, 400)
                 centerInside()
-
-                // Show a placeholder while loading
                 placeholder(R.drawable.user_24)
-
-                // Show an error image if loading fails
                 error(R.drawable.suculenta)
             }
             .into(imageView, object : Callback {
                 override fun onSuccess() {
-                    // Image loaded successfully
-                    // You could add animation or other UI updates here
                 }
 
                 override fun onError(e: Exception) {
-                    // Handle error case - maybe show a toast or log the error
                     Log.e("Error al cargar la imagen", e.message, e)
                 }
             })

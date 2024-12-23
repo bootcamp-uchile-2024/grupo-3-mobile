@@ -78,7 +78,6 @@ class PlantRecyclerViewAdapter(
         }
 
         if (!imageUrl.isNullOrEmpty()) {
-            // Cancel any existing requests for this ImageView
             Picasso.get().cancelRequest(imageView)
 
             Picasso.get()
@@ -96,12 +95,11 @@ class PlantRecyclerViewAdapter(
                         Log.e("PlantAdapter", "Error loading image: $imageUrl", e)
                         failedImageLoads.add(imageUrl)
 
-                        // Retry failed loads after a delay
                         imageView.postDelayed({
                             if (imageUrl in failedImageLoads) {
                                 loadProductImage(plant, imageView)
                             }
-                        }, 2000) // 2 second delay before retry
+                        }, 2000)
                     }
                 })
         } else {
@@ -122,7 +120,6 @@ class PlantRecyclerViewAdapter(
                 // Verificamos cada filtro
                 val priceInRange = plant.precio.toFloat() in filters.priceRange
 
-                // Height is now handled through the tamano field
                 val heightInRange = when (plantDetails.tamano) {
                     "S" -> filters.heightRange.contains(25f)
                     "M" -> filters.heightRange.contains(50f)

@@ -48,46 +48,40 @@ class ShoppingCartFragment : Fragment() {
     }
 
     private fun formatPrice(amount: Double): String {
-        // Create a formatter for Chilean peso
         val formatter = NumberFormat.getCurrencyInstance(Locale("es", "CL"))
         return formatter.format(amount)
     }
 
     private fun updateProductPrice() {
-        // Get all items from cart manager and calculate total
         val cartItems = cartManager.loadCartItems()
         val totalProductPrice = cartItems.sumOf { item ->
             item.plantPrice.toDouble() * item.plantQuantity
         }
 
-        // Update UI with formatted price
+
         view?.findViewById<TextView>(R.id.product_price)?.text = formatPrice(totalProductPrice)
 
-        // Update product count in text
+
         val totalItems = cartManager.cartItemsCount()
         view?.findViewById<TextView>(R.id.product_price_text)?.text =
             "Costo de tus productos ($totalItems)"
 
-        // After updating product price, always update total
+
         updateTotalPrice()
     }
 
     private fun updateTotalPrice() {
         try {
-            // Get the components
             val productPriceText = view?.findViewById<TextView>(R.id.product_price)?.text.toString()
             val discountText = view?.findViewById<TextView>(R.id.discount_value)?.text.toString()
             val shippingText = view?.findViewById<TextView>(R.id.shippment_cost)?.text.toString()
 
-            // Convert string prices to doubles (removing currency symbol and dots)
             val productPrice = convertPriceToDouble(productPriceText)
             val discount = convertPriceToDouble(discountText)
             val shipping = convertPriceToDouble(shippingText)
 
-            // Calculate total
             val totalPrice = productPrice - discount + shipping
 
-            // Update UI
             view?.findViewById<TextView>(R.id.total_price)?.text = formatPrice(totalPrice)
         } catch (e: Exception) {
             Log.e("ShoppingCartFragment", "Error calculating total price", e)
@@ -96,7 +90,6 @@ class ShoppingCartFragment : Fragment() {
 
     private fun convertPriceToDouble(priceString: String): Double {
         return try {
-            // Remove currency symbol, dots, and spaces, then parse
             priceString.replace("$", "")
                 .replace(".", "")
                 .trim()
@@ -134,19 +127,12 @@ class ShoppingCartFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun updateCartUI() {
-        // Update recycler view
         adapter.notifyDataSetChanged()
 
-        // Update total price
         val totalPrice = cartManager.getTotalCartPrice()
         val formatter = NumberFormat.getCurrencyInstance(Locale("es", "CL"))
         totalPriceText.text = formatter.format(totalPrice)
 
-        // Enable/disable checkout button based on cart contents
         checkoutButton.isEnabled = cartManager.loadCartItems().isNotEmpty()
-    }
-
-    companion object {
-        fun newInstance() = ShoppingCartFragment()
     }
 }

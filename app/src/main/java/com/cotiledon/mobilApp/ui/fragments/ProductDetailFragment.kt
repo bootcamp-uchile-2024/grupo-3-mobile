@@ -341,7 +341,6 @@ class ProductDetailFragment : Fragment() {
     private fun updateQuantityDisplay() {
         quantityTextView.text = currentQuantity.toString()
 
-        // Update button states based on quantity limits
         val maxStock = arguments?.getInt(ARG_PRODUCT_STOCK, 0) ?: 0
         decreaseQuantityButton.isEnabled = currentQuantity > 1
         increaseQuantityButton.isEnabled = currentQuantity < maxStock

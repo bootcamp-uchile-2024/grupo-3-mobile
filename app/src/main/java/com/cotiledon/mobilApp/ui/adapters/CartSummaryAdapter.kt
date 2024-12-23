@@ -20,7 +20,6 @@ class CartSummaryAdapter(
 ) : RecyclerView.Adapter<CartSummaryAdapter.CartSummaryViewHolder>() {
 
     inner class CartSummaryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        // Keep only the views we need for display
         val productImage: ImageView = itemView.findViewById(R.id.product_image_shopping)
         val productName: TextView = itemView.findViewById(R.id.product_name_shopping)
         val productQuantity: TextView = itemView.findViewById(R.id.quantity_shopping)
@@ -28,8 +27,6 @@ class CartSummaryAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartSummaryViewHolder {
-        // Instead of using the same layout, we should create a new simplified layout
-        // that doesn't include the buttons we don't need
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_cart_summary, parent, false)
         return CartSummaryViewHolder(view)
@@ -43,7 +40,6 @@ class CartSummaryAdapter(
         holder.productQuantity.text = plant.plantQuantity.toString()
         holder.productCurrentPrice.text = formatPrice(plant.plantPrice.toDouble() * plant.plantQuantity)
 
-        // Load image using Picasso
         loadCartItemImage(plant.plantImage, holder.productImage, holder.itemView.context)
     }
 
