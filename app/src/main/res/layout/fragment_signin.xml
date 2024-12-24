@@ -9,11 +9,12 @@
 
     <ImageView
         android:id="@+id/imageView_singin_background"
-        android:layout_width="406dp"
+        android:layout_width="0dp"
         android:layout_height="839dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/singin_background" />
 
     <androidx.constraintlayout.widget.Guideline
