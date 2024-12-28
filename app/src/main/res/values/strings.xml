@@ -184,4 +184,51 @@
     <string name="logo_plantai">Logo Plantai</string>
     <string name="camara">Camara</string>
 
+    <!-- RegisterFragment -->
+    <string name="register_wellcome">¿Eres nuevo en Plant AI?</string>
+    <string name="register_drop">Regístrate y disfruta de nuestros\nproductos y beneficios</string>
+    <string name="register_data">Mis Datos</string>
+    <string name="register_name">Nombre *</string>
+    <string name="register_lastname">Apellido *</string>
+    <string name="register_name1_hint">Nombre</string>
+    <string name="register_lastname1_hint">Apellido</string>
+    <string name="register_username">Nombre usuario *</string>
+    <string name="register_usermail">Correo *</string>
+    <string name="register_userpassword">Confirmar contraseña *</string>
+    <string name="register_username_hint1">Nombre usuario</string>
+    <string name="register_usermail_hint">Correo</string>
+    <string name="register_userrut">RUT *</string>
+    <string name="register_userphone">Teléfono *</string>
+    <string name="register_userrut_hint">RUT</string>
+    <string name="register_userphone_hint">Teléfono</string>
+    <string name="register_usergender">Género</string>
+    <string name="register_userbirthday">Fecha de nacimiento *</string>">
+    <string name="register_userbirthday_hint">Fecha de nacimiento</string>
+    <string name="register_next">Siguiente</string>
+
+    <!-- RegisterNextFragment -->
+    <string name="register_next_shipping_info">Información de despacho</string>
+    <string name="register_next_address">Dirección *</string>
+    <string name="register_next_address_hint">Direción/Número/Piso</string>
+    <string name="register_next_card_info">Registra una tarjeta (Opcional)</string>
+    <string name="register_next_card_number">Número de tarjeta *</string>
+    <string name="register_next_card_number_hint">Número de tarjeta</string>
+    <string name="register_next_card_mm">Expiración (MM...</string>
+    <string name="register_next_card_mm_hint">Expiración (MM...</string>
+    <string name="register_next_card_cvc">CVC</string>
+    <string name="register_next_card_cvc_hint">CVC</string>
+
+    <!-- FragmentUserProfile -->
+    <string name="profile_greetings">¡Hola!</string>
+    <string name="profile_username">Nombre de Usuario</string>
+    <string name="profile_profile">Mi perfil</string>
+    <string name="profile_acount">Mi cuenta</string>
+    <string name="profile_myaddress">Mis direcciones</string>
+    <string name="profile_mycupons">Mis cupones</string>
+    <string name="profile_mynotifications">Mis notificaciones</string>
+    <string name="profile_shopping_history">Historial de compra</string>
+    <string name="profile_close_session">Cerrar sesión</string>
+
+
+
 </resources>
