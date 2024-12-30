@@ -184,7 +184,11 @@
     <string name="logo_plantai">Logo Plantai</string>
     <string name="camara">Camara</string>
 
+<<<<<<< HEAD
     <!-- RegisterFragment -->
+=======
+    <!-- FragmentUserRegister -->
+>>>>>>> d5ef24d8fd224c9bb3382e98ee4b3a9f80746ebd
     <string name="register_wellcome">¿Eres nuevo en Plant AI?</string>
     <string name="register_drop">Regístrate y disfruta de nuestros\nproductos y beneficios</string>
     <string name="register_data">Mis Datos</string>
@@ -206,7 +210,11 @@
     <string name="register_userbirthday_hint">Fecha de nacimiento</string>
     <string name="register_next">Siguiente</string>
 
+<<<<<<< HEAD
     <!-- RegisterNextFragment -->
+=======
+    <!-- FragmentUserRegisterNext -->
+>>>>>>> d5ef24d8fd224c9bb3382e98ee4b3a9f80746ebd
     <string name="register_next_shipping_info">Información de despacho</string>
     <string name="register_next_address">Dirección *</string>
     <string name="register_next_address_hint">Direción/Número/Piso</string>
@@ -218,6 +226,7 @@
     <string name="register_next_card_cvc">CVC</string>
     <string name="register_next_card_cvc_hint">CVC</string>
 
+<<<<<<< HEAD
     <!-- FragmentUserProfile -->
     <string name="profile_greetings">¡Hola!</string>
     <string name="profile_username">Nombre de Usuario</string>
@@ -231,4 +240,6 @@
 
 
 
+=======
+>>>>>>> d5ef24d8fd224c9bb3382e98ee4b3a9f80746ebd
 </resources>
