@@ -184,11 +184,8 @@
     <string name="logo_plantai">Logo Plantai</string>
     <string name="camara">Camara</string>
 
-<<<<<<< HEAD
+
     <!-- RegisterFragment -->
-=======
-    <!-- FragmentUserRegister -->
->>>>>>> d5ef24d8fd224c9bb3382e98ee4b3a9f80746ebd
     <string name="register_wellcome">¿Eres nuevo en Plant AI?</string>
     <string name="register_drop">Regístrate y disfruta de nuestros\nproductos y beneficios</string>
     <string name="register_data">Mis Datos</string>
@@ -210,11 +207,8 @@
     <string name="register_userbirthday_hint">Fecha de nacimiento</string>
     <string name="register_next">Siguiente</string>
 
-<<<<<<< HEAD
-    <!-- RegisterNextFragment -->
-=======
+
     <!-- FragmentUserRegisterNext -->
->>>>>>> d5ef24d8fd224c9bb3382e98ee4b3a9f80746ebd
     <string name="register_next_shipping_info">Información de despacho</string>
     <string name="register_next_address">Dirección *</string>
     <string name="register_next_address_hint">Direción/Número/Piso</string>
@@ -226,7 +220,6 @@
     <string name="register_next_card_cvc">CVC</string>
     <string name="register_next_card_cvc_hint">CVC</string>
 
-<<<<<<< HEAD
     <!-- FragmentUserProfile -->
     <string name="profile_greetings">¡Hola!</string>
     <string name="profile_username">Nombre de Usuario</string>
@@ -238,8 +231,16 @@
     <string name="profile_shopping_history">Historial de compra</string>
     <string name="profile_close_session">Cerrar sesión</string>
 
+    <!-- FragmentProfile -->
+    <string name="profile_account">Mis datos personales</string>
+    <string name="profile_aka">¿Cómo quieres que te digamos?</string>
+    <string name="profile_mail">Correo electrónico</string>
+    <string name="profile_birthday">¿Cuándo es tu cumpleaños?</string>
+    <string name="profile_password_mod">Modificar contraseña *</string>
+    <string name="profile_password_confirmation">Confirma tu contraseña *</string>
+    <string name="profile_button_save">Guardar</string>
+    <string name="profile_map_text1">Aún no tienes direcciones guardadas</string>
+    <string name="profile_map_text2">Agrega tus direcciones para realizar una compra mas rápida</string>
+    <string name="profile_map_button">Agregar dirección</string>
 
-
-=======
->>>>>>> d5ef24d8fd224c9bb3382e98ee4b3a9f80746ebd
 </resources>
