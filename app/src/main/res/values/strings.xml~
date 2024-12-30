@@ -1,0 +1,232 @@
+<resources>
+    <string name="heading_example">Heading Example</string>
+    <string name="categorias">Categorías</string>
+    <string name="expandir_catalogo">Ver todo</string>
+    <string name="expandir_catalogo_short">Ir</string>
+    <string name="cat1_name">Interior</string>
+    <string name="cat2_name">Perenne</string>
+    <string name="cat3_name">Árboles</string>
+    <string name="cat4_name">Frutales</string>
+    <string name="cat5_name">Pet Friendly</string>
+    <string name="cat6_name">Exóticas</string>
+    <string name="home_recommended_1">Plantas recomendadas para ti!</string>
+    <string name="recommended1_product1">Suculenta</string>
+    <string name="recommended1_product1_price">$15.000</string>
+    <string name="recommended1_product2">Manto de Eva</string>
+    <string name="recommended1_product2_price">$75.000</string>
+    <string name="recommended1_product3">Girasol</string>
+    <string name="recommended1_product3_price">$5.000</string>
+    <string name="recommended1_product4">Lengua de Suegra</string>
+    <string name="recommended1_product4_price">$15.000</string>
+    <string name="recommended1_product5">Monstera</string>
+    <string name="recommended1_product5_price">$30.000</string>
+    <string name="recommended1_product6">Pata de Elefante</string>
+    <string name="recommended1_product6_price">$50.000</string>
+    <string name="advertisement">ADVERTISEMENT</string>
+    <string name="home_recommended2">Escogidas para ti en la categoría Pet-Friendly</string>
+    <string name="necesitas_ayuda">¿Necesitas ayuda?</string>
+    <string name="terminos_y_condiciones">Términos y condiciones</string>
+    <string name="promociones">Promociones</string>
+    <string name="conocer_mas">Conocer más</string>
+    <string name="inicio">Inicio</string>
+    <string name="direccion_envio">Dirección de envío</string>
+    <string name="product_description_example">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed nisi purus. Cras bibendum neque diam, at rutrum augue dignissim vel. Sed rutrum ex non purus egestas facilisis. Aliquam erat volutpat. Duis vitae leo vel est ultricies sodales. Etiam ornare sapien feugiat magna iaculis euismod sed id tortor. Duis rhoncus pellentesque metus. Cras luctus semper leo ac venenatis. Curabitur tellus dui, euismod vel elit ut, consequat feugiat ligula. Sed efficitur id nisi ac cursus. Morbi ut lectus ut elit dignissim accumsan. Phasellus quam lorem, eleifend porta mattis et, gravida quis libero. Cras maximus porta tortor, ac posuere lorem pharetra vitae. Duis tincidunt vel mi non laoreet.</string>
+    <string name="add_to_cart">Añadir al carrito</string>
+    <string name="mis_compras">Mis Compras</string>
+    <string name="product_size">Tamaño:</string>
+    <string name="recommended1_qty">1</string>
+    <string name="codigo_de_promocion">Codigo de promoción</string>
+    <string name="aplicar">Aplicar</string>
+    <string name="sub_total">Sub-Total</string>
+    <string name="total_envio">Total Envío</string>
+    <string name="descuento">Descuento</string>
+    <string name="sub_total_price">$17.990</string>
+    <string name="total_envio_price">$3.500</string>
+    <string name="descuentos_price">- $4.000</string>
+    <string name="total">Total</string>
+    <string name="total_price">$17.490</string>
+    <string name="comprar">Comprar</string>
+    <string name="ingresa">Ingresa</string>
+    <string name="bienvenida">Bienvenido, que bueno verte</string>
+    <string name="email">Email</string>
+    <string name="hint_email">example@gmail.com</string>
+    <string name="password">Password</string>
+    <string name="password_hint">*******************</string>
+    <string name="password_reset">¿Olvidasate tu clave?</string>
+    <string name="sign_in">Ingresar</string>
+    <string name="ingreso_alternativo">Entra con tu cuenta:</string>
+    <string name="crear_cuenta">¿Aun no tienes cuenta?</string>
+    <string name="crear_cuenta_button">Crea una cuenta</string>
+    <string name="catalogcvname">CatalogCVName</string>
+    <string name="catalogcvprice">CatalogCVPrice</string>
+    <string name="wellcomeSplash">Bienvenido</string>
+    <string name="shopping_cart_product_name">Planta Ejemplo</string>
+    <string name="shopping_cart_product_quantity">1</string>
+    <string name="shopping_cart_product_price">$xxxxx</string>
+    <string name="shopping_cart_product_image_descr">Imágen del producto agregado al carrito</string>
+    <string name="plus_sign">+</string>
+    <string name="minus_sign">-</string>
+    <string name="product_quantity">1</string>
+    <string name="cart_quantity_string">"Cantidad: "</string>
+    <string name="invitado">Invitado</string>
+    <string name="name">Nombre: </string>
+    <string name="direccion">Direccion: </string>
+    <string name="hint_name">Juan Pereira Gonzalez</string>
+    <string name="hint_direction">Las Mercedes #5112</string>
+    <string name="city">Ciudad: </string>
+    <string name="hint_city">Punta Arenas</string>
+    <string name="region">"Región: "</string>
+    <string name="hint_region">Region de Magallanes</string>
+    <string name="zip">"Zip: "</string>
+    <string name="hint_zip">6200018</string>
+    <string name="phone">"Telefono: "</string>
+    <string name="hint_phone">+569XXXXXXXX</string>
+    <string name="email_shipping">Email :</string>
+    <string name="hint_email_shipping">nombre@ejemplo.com</string>
+    <string name="shipping_information">Datos de Envío</string>
+    <string name="place_order">Realizar Pedido</string>
+    <string name="thanks">Gracias por tu pedido</string>
+    <string name="gratitude1">Tu pedido se ha recibido y se esta procesando.</string>
+    <string name="gratitude2">Para tu informacion, los detalles del pedido son los siguientes.</string>
+    <string name="Pay">Pago</string>
+    <string name="payment_method">Seleccionar método de pago</string>
+    <string name="credit_car">Tarjeta</string>
+    <string name="paypal">PayPal</string>
+    <string name="card_selector">Seleccionar tarjeta</string>
+    <string name="hint_card_number">XXXX-XXXX-XXXX-XXXX</string>
+    <string name="hint_cvv_number">CVV</string>
+    <string name="hint_card">XXXX-XXXX-XXXX-XXXX</string>
+    <string name="hintCVV">CVV</string>
+    <string name="payment_confirmation_message">Tu pedido se ha recibido y se está procesando. Para tu información, los detalles del pedido son los siguientes.</string>
+    <string name="payment_confirmation_title">Gracias por tu pedido</string>
+    <string name="order_number_prefix">Pedido</string>
+    <string name="order_number">1</string>
+    <string name="order_product_title">Producto</string>
+    <string name="order_quantity_title">Cantidad</string>
+    <string name="order_price_title">Precio</string>
+    <string name="order_client_data">Datos del Cliente</string>
+    <string name="order_billing_address">Dirección de Facturación</string>
+    <string name="order_shipping_address">Dirección de Envío</string>
+    <string name="card_date_hint">MM/YY</string>
+    <string name="eres_nuevo_">¿Eres nuevo en Plant AI?</string>
+    <string name="registrate_">Registrate y disfruta de nuestros productos y beneficios</string>
+    <string name="register_name_hint">Nombre*</string>
+    <string name="register_surname_hint">Apellido*</string>
+    <string name="register_rut_hint">RUT*</string>
+    <string name="register_phone_hint">Número de Teléfono</string>
+    <string name="register_email">Correo Electrónico*</string>
+    <string name="register_password">Contraseña*</string>
+    <string name="register_terms_n_conditions">Acepto Los Términos Y Condiciones</string>
+    <string name="register_create_account">Crear Cuenta</string>
+    <string name="register_password_again_hint">Repite la Contraseña*</string>
+    <string name="birth_date_buttn">Fecha de Nacimiento*</string>
+    <string name="register_username_hint">Nombre de Usuario*</string>
+    <string name="login">Inicia sesión</string>
+    <string name="question_login">¿No tienes cuenta?</string>
+    <string name="registration_login">Registrate aquí</string>
+    <string name="wellcome_singin">Bienvenido a Plant AI</string>
+    <string name="register_email_singin">Correo electrónico</string>
+    <string name="register_password_singin">Contraseña</string>
+    <string name="register_hint_pass_singin">• • • • • • •</string>
+    <string name="login_singin">Iniciar sesión</string>
+    <string name="question1_singin">¿No tienes cuenta?</string>
+    <string name="question2_singin">Registrate aqui</string>
+    <string name="catalog_filter">Filtros</string>
+    <string-array name="gender_items">
+        <item>Selecciona tu Género</item>
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>Prefiero no decir</item>
+    </string-array>
+    <string-array name="initial_budget_slider_values">
+        <item>10000</item>
+        <item>100000</item>
+    </string-array>
+    <string name="search_hint">Buscar</string>
+    <string name="activity_main_recycler_menu_item_all">Todas</string>
+    <string name="activity_main_recycler_menu_item_plants">Destacados</string>
+    <string name="activity_main_recycler_menu_item_accesories">Accesorios</string>
+    <string name="activity_main_recycler_menu_item_inputs">Insumos</string>
+    <string name="activity_main_bottom_icon_truck">ENVIO GRATIS</string>
+    <string name="activity_main_bottom_icon_stars">CLUB PLANTAI</string>
+    <string name="activity_main_bottom_icon_grass">CONSEJOS Y TIPS</string>
+    <string name="activity_main_bottom_button_truck">App Plant Ai</string>
+    <string name="activity_main_bottom_button_stars">Beneficios</string>
+    <string name="activity_main_bottom_button_grass">Consejos</string>
+
+    <!-- MainCategoriesActivity -->
+    <string name="activity_categories_main">Categorías</string>
+    <string name="activity_categories_card_1">Plantas</string>"
+    <string name="activity_categories_card_2">Comunidad</string>"
+    <string name="activity_categories_card_3">Educación</string>"
+    <string name="activity_categories_card_4">Asistente virtual</string>"
+    <string name="activity_categories_card_5">Vende con nosotros</string>"
+    <string name="activity_categories_card_6">Sobre Nosotros</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="plant_category_title">Placeholder Categoría</string>
+    <string name="catalog_sort">Ordenar por</string>"
+    <string name="app_name">Plant AI</string>
+
+    <!-- FragmentShoppingCart -->
+    <string name="activity_categories_shopping">Mi carrito de compras</string>
+    <string name="activity_categories_shopping_resume">Resumen de mi compra</string>
+    <string name="activity_categories_shopping_pay">Ir a pagar</string>
+    <string name="activity_categories_shopping_options">Productos que te podrian interesar</string>
+    <string name="activity_categories_shopping_gratitude">Muchas Gracias Por Tu Compra. Hemos Enviado El Recibo De Tu Compra A Tu Correo Electrónico</string>
+    <string name="activity_categories_shopping_gratitude_tittle">¡Compra Exitosa!</string>
+    <string name="activity_categories_shopping_gratitude_tittle_1">Muchas Gracias Por Tu Compra. Hemos Enviado El Recibo De Tu Compra A Tu Correo Electrónico</string>
+    <string name="activity_categories_shopping_gratitude_button">Seguir comprando</string>
+    <string name="activity_categories_shopping_gratitude_discount">Código de descuento</string>
+    <string name="activity_categories_shopping_gratitude_discount_pay_method">Elige como pagar</string>
+    <string name="activity_categories_shopping_gratitude_discount_pay_button">Pagar</string>
+    <string name="add_to_cart_text">Añadir al carrito</string>
+    <string name="logo_plantai">Logo Plantai</string>
+    <string name="camara">Camara</string>
+
+    <!-- RegisterFragment -->
+    <string name="register_wellcome">¿Eres nuevo en Plant AI?</string>
+    <string name="register_drop">Regístrate y disfruta de nuestros\nproductos y beneficios</string>
+    <string name="register_data">Mis Datos</string>
+    <string name="register_name">Nombre *</string>
+    <string name="register_lastname">Apellido *</string>
+    <string name="register_name1_hint">Nombre</string>
+    <string name="register_lastname1_hint">Apellido</string>
+    <string name="register_username">Nombre usuario *</string>
+    <string name="register_usermail">Correo *</string>
+    <string name="register_userpassword">Confirmar contraseña *</string>
+    <string name="register_username_hint1">Nombre usuario</string>
+    <string name="register_usermail_hint">Correo</string>
+    <string name="register_userrut">RUT *</string>
+    <string name="register_userphone">Teléfono *</string>
+    <string name="register_userrut_hint">RUT</string>
+    <string name="register_userphone_hint">Teléfono</string>
+    <string name="register_usergender">Género</string>
+    <string name="register_userbirthday">Fecha de nacimiento *</string>">
+    <string name="register_userbirthday_hint">Fecha de nacimiento</string>
+    <string name="register_next">Siguiente</string>
+
+    <!-- RegisterNextFragment -->
+    <string name="register_next_shipping_info">Información de despacho</string>
+    <string name="register_next_address">Dirección *</string>
+    <string name="register_next_address_hint">Direción/Número/Piso</string>
+    <string name="register_next_card_info">Registra una tarjeta (Opcional)</string>
+    <string name="register_next_card_number">Número de tarjeta *</string>
+    <string name="register_next_card_number_hint">Número de tarjeta</string>
+    <string name="register_next_card_mm">Expiración (MM...</string>
+    <string name="register_next_card_mm_hint">Expiración (MM...</string>
+    <string name="register_next_card_cvc">CVC</string>
+    <string name="register_next_card_cvc_hint">CVC</string>
+
+    <!-- FragmentUserProfile -->
+    <string name="profile_greetings">¡Hola!</string>
+    <string name="profile_username">Nombre de Usuario</string>
+    <string name="profile_profile">Mi perfil</string>
+    <string name="profile_acount">Mi cuenta</string>
+    <string name="profile_myaddress">Mis direcciones</string>
+    <string name="profile_mycupons">Mis cupones</string>
+    <string name="profile_mynotifications">Mis notificaciones</string>
+
+
+
+</resources>
