@@ -256,6 +256,5 @@
     <!-- DialogFragment  -->
     <string name="DialogFragment_tittle_1">Cerrar sesión</string>
     <string name="DialogFragment_tittle_2">¿Seguro que quieres cerrar sesión?</string>
-    <string name="DialogFragment_button_2">Volver</string>
 
 </resources>
