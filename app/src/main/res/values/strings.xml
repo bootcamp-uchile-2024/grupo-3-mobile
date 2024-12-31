@@ -251,11 +251,23 @@
     <string name="profile_user_favorites_address_direction">Dirección:</string>
     <string name="profile_user_favorites_address_direction_hint_1">Zenteno 123. Osorno, Región de los lagos</string>
     <string name="profile_user_favorites_address_direction_hint_2">Ramirez 123, Temuco, Araucanía</string>
+    <string name="profile_user_cuppons">¿Tienes algún cupón?</string>
+    <string name="profile_user_cuppons_hint">Cupón de descuento</string>
+    <string name="profile_user_cuppons_add">Agregar</string>
+    <string name="profile_user_my_cuppons">Mis cupones vigentes</string>
+    <string name="profile_user_cuppons_shopp">Ir a comprar</string>
+    <string name="profile_user_shopping_history">Historial de compras</string>
+    <string name="profile_user_shopping_online">Compras online</string>
+    <string name="profile_user_shopping_offline">Compras en tienda</string>
 
 
     <!-- DialogFragment  -->
     <string name="DialogFragment_tittle_1">Cerrar sesión</string>
     <string name="DialogFragment_tittle_2">¿Seguro que quieres cerrar sesión?</string>
     <string name="DialogFragment_button_2">Volver</string>
+    <string name="DialogFragment_denied_icon">No tienes cupones vigentes</string>
+    <string name="DialogFragment_apply_icon">Tu cupon se aplicara al finalizar la compra</string>
+    <string name="DialogFragment_not_notification">Sin notificaciones</string>
+    <string name="DialogFragment_not_notification_2">No hay notificaciones nuevas, pero hay un mundo de productos por descubrir</string>
 
 </resources>
