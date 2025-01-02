@@ -19,4 +19,5 @@
     <color name="discount_red">#D11111</color>
     <color name="description_black">#222222</color>
     <color name="secondary_app_alternate">#0D270D</color>
+    <color name="checkbox_color">#2A3E50</color>
 </resources>

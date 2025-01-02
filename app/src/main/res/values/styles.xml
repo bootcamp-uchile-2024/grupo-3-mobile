@@ -27,4 +27,12 @@
         <item name="android:stepSize">0.5</item>
     </style>
 
+    <style name="CustomDialogTheme" parent="Theme.AppCompat.Dialog">
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowMinWidthMajor">75%</item>
+        <item name="android:windowMinWidthMinor">75%</item>
+        <item name="android:windowBackground">@drawable/rounded_popup_background</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
 </resources>
