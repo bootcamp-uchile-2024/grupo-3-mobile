@@ -12,26 +12,45 @@ class CartStorageManager (private val context: Context) {
     private val filename = "cart_data.json"
 
     //Función para guardar un producto en el carrito
-    fun saveProductToCart(cartPlant: CartPlant){
+    fun saveProductToCart(cartPlant: CartPlant) {
         try {
-            val productJson = JSONObject().apply {
-                put("plantName", cartPlant.plantName)
-                put("plantPrice", cartPlant.plantPrice)
-                put("plantID", cartPlant.plantId)
-                put("plantStock", cartPlant.plantStock)
-                put("plantQuantity", cartPlant.plantQuantity)
-                put("plantImage", cartPlant.plantImage)
+            val existingData = readCartData()
+            var productExists = false
+
+            for (i in 0 until existingData.length()) {
+                val item = existingData.getJSONObject(i)
+                if (item.getString("plantID") == cartPlant.plantId) {
+                    val currentQuantity = item.getInt("plantQuantity")
+                    val newQuantity = currentQuantity + cartPlant.plantQuantity
+
+                    val stockLimit = cartPlant.plantStock.toInt()
+                    if (newQuantity <= stockLimit) {
+                        item.put("plantQuantity", newQuantity)
+                    } else {
+                        item.put("plantQuantity", stockLimit)
+                    }
+                    productExists = true
+                    break
+                }
             }
 
-            //Leer los datos existentes del archivo JSON
-            val existingData = readCartData()
-            existingData.put(productJson)
+            if (!productExists) {
+                val productJson = JSONObject().apply {
+                    put("plantName", cartPlant.plantName)
+                    put("plantPrice", cartPlant.plantPrice)
+                    put("plantID", cartPlant.plantId)
+                    put("plantStock", cartPlant.plantStock)
+                    put("plantQuantity", cartPlant.plantQuantity)
+                    put("plantImage", cartPlant.plantImage)
+                }
+                existingData.put(productJson)
+            }
 
-            //Escribir los datos actualizados en el archivo JSON
+            //Guardad datos de nuevo en el archivo
             context.openFileOutput(filename, Context.MODE_PRIVATE).use { output ->
                 output.write(existingData.toString().toByteArray())
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
@@ -103,9 +122,33 @@ class CartStorageManager (private val context: Context) {
         return cartItems
     }
 
+    fun cartItemsCount(): Int {
+        return loadCartItems().sumOf { it.plantQuantity }
+    }
+
     //Función para limpiar el carrito
     fun clearCart() {
         context.deleteFile(filename)
+    }
+
+    fun updateProductQuantity(plantId: String, newQuantity: Int) {
+        try {
+            val jsonArray = readCartData()
+
+            for (i in 0 until jsonArray.length()) {
+                val item = jsonArray.getJSONObject(i)
+                if (item.getString("plantID") == plantId) {
+                    item.put("plantQuantity", newQuantity)
+                    break
+                }
+            }
+
+            context.openFileOutput(filename, Context.MODE_PRIVATE).use { output ->
+                output.write(jsonArray.toString().toByteArray())
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     //Función para obtener los precios de los productos en el carrito

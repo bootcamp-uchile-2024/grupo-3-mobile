@@ -1,9 +1,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Color de fondo -->
-    <solid android:color="#294A59" /> <!-- Color similar al de tu imagen -->
+    <solid android:color="#294A59" />
 
-    <!-- Bordes redondeados -->
-    <corners android:radius="10dp" /> <!-- Ajusta el radio según lo necesites -->
+    <corners android:radius="10dp" />
 
     <padding
         android:top="2dp"

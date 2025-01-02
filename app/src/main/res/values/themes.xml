@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Cotiledon" parent="android:Theme.Material.Light.NoActionBar" >
+    <style name="Theme.Cotiledon" parent="Theme.MaterialComponents.DayNight.NoActionBar" >
 
         <item name="sliderStyle">@style/Widget.App.Slider</item>
+
+        <item name="colorPrimary">@color/main_app</item>
+        <item name="colorOnPrimary">@color/white</item>
 
     </style>
 

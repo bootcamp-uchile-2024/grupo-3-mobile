@@ -17,9 +17,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.activities._old.HomeActivity
 import com.cotiledon.mobilApp.ui.dataClasses.UserRegistration
 import com.cotiledon.mobilApp.ui.retrofit.RetrofitUserClient
 import kotlinx.coroutines.Dispatchers
@@ -50,6 +51,12 @@ class UserRegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_user_registration)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         contrasena = findViewById(R.id.register_password)
         contrasenaRepet = findViewById(R.id.register_password_again)
@@ -238,7 +245,7 @@ class UserRegistrationActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
 
-                            startActivity(Intent(this@UserRegistrationActivity, HomeActivity::class.java))
+                            startActivity(Intent(this@UserRegistrationActivity, MainContainerActivity::class.java))
                             finish()
                         } else {
                             // Llamada no exitosa

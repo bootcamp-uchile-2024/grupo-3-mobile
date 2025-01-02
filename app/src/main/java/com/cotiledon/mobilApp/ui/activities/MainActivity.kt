@@ -2,34 +2,47 @@ package com.cotiledon.mobilApp.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-//import android.widget.Button
-import androidx.activity.ComponentActivity
 import com.cotiledon.mobilApp.R
-import androidx.lifecycle.lifecycleScope
-import com.cotiledon.mobilApp.ui.activities.FragmentApproach.MainContainerActivity
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import android.animation.ObjectAnimator
+import android.os.Handler
+import android.os.Looper
+import android.view.animation.LinearInterpolator
+import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : ComponentActivity() {
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var progressBar: ProgressBar
+    private val splashDuration: Long = 1500 // 3 seconds
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Splash screen
-//        val btnStart = findViewById<Button>(R.id.btnStart)
-//        btnStart.setOnClickListener {
-//            val intent = Intent(this, SignInActivity::class.java)
-//            startActivity(intent)
-//        }
+        supportActionBar?.hide()
 
-        val splashScreenDuration: Long = 3000 // 3 segundos
+        progressBar = findViewById(R.id.progressBar)
 
-        lifecycleScope.launch {
-            delay(splashScreenDuration)
-            val intent = Intent(this@MainActivity, MainContainerActivity::class.java)
-            startActivity(intent)
-            finish() // Cierra MainActivity para que no se mantenga en la pila
+        animateProgressBar()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            startMainApp()
+        }, splashDuration)
+    }
+
+    private fun animateProgressBar() {
+        val progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, 100)
+        progressAnimator.apply {
+            duration = splashDuration
+            interpolator = LinearInterpolator()
+            start()
         }
+    }
 
+    private fun startMainApp() {
+        val intent = Intent(this, MainContainerActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

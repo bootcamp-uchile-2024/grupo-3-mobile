@@ -6,63 +6,23 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.MainAppApproach.MainAppCategoriesActivity">
+    tools:context=".ui.activities.mainAppApproach.MainAppCategoriesActivity">
 
-    <!-- Comienzo de Header -->
-    <View
-        android:id="@+id/app_upper_banner"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:background="#1A4756"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ui.activities.mainAppApproach.MainAppCategoriesActivity">
 
-    <LinearLayout
-        android:id="@+id/activity_main_layout_1"
+    <!-- Include the standard searchbar layout -->
+    <include
+        android:id="@+id/layout_searchbar"
+        layout="@layout/layout_searchbar"
         android:layout_width="match_parent"
-        android:layout_height="33dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/personal_magnifying"
-        android:elevation="10dp"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_upper_banner">
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="3dp"
-            android:src="@drawable/search" />
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/personal_magnifying"
-            android:fontFamily="@font/quicksand_medium"
-            android:hint="@string/search_hint"
-            android:textColor="@color/quaternary_grey"
-            android:textSize="18sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="12dp"
-            android:src="@drawable/camera" />
-
-    </LinearLayout>
-
+    <!-- Content container -->
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        app:layout_constraintTop_toBottomOf="@id/layout_searchbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -114,18 +74,19 @@
         <!-- Botón Seguir Comprando -->
         <Button
             android:id="@+id/button_continue"
-            android:gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="37dp"
-            android:text="@string/activity_categories_shopping_gratitude_button"
-            android:textColor="@android:color/white"
-            android:fontFamily="@font/quicksand"
-            android:background="@drawable/button_rounded_shopping_botton"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:backgroundTint="#2F4F4F"
+            android:layout_height="40dp"
             android:layout_marginTop="32dp"
-            android:paddingHorizontal="32dp"/>
+            android:background="@drawable/button_rounded_shopping_botton"
+            android:backgroundTint="#2F4F4F"
+            android:fontFamily="@font/quicksand"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="32dp"
+            android:text="@string/activity_categories_shopping_gratitude_button"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:cornerRadius="8dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

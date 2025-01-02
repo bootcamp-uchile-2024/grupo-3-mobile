@@ -7,8 +7,8 @@ data class Plant(
     val idCategoria: Int,
     val precio: Double,
     val descripcion: String,
-    val imagen: String?,
-    val cantidad: Int,
+    val imagenes: List<ProductImage>,
+    val stock: Int,
     val unidadesVendidas: Int,
     val puntuacion: Int,
     val ancho: Int,
@@ -16,7 +16,7 @@ data class Plant(
     val largo: Int,
     val peso: Int,
     val habilitado: Boolean,
-    val categoria: Categoria,
+    val categoria: PlantCategory,
     val planta: PlantDetails?
 )
 
