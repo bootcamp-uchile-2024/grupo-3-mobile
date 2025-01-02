@@ -3,8 +3,8 @@ package com.cotiledon.mobilApp.ui.dataClasses
 data class CartResponse(
     val id: Int,
     val idUsuario: Int,
+    val carroProductos: List<CarroProducto>,
     val precioTotal: Double,
-    val carroProductos: List<String>,
-    val fechaCreacion: String,
-    val fechaCierre: String
+    val fecha_cierre: String?,
+    val fecha_creacion: String
 )

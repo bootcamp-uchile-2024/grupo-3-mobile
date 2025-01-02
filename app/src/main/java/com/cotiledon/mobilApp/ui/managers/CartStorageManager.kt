@@ -3,6 +3,7 @@ package com.cotiledon.mobilApp.ui.managers
 import android.content.Context
 import android.util.Log
 import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
+import com.cotiledon.mobilApp.ui.dataClasses.CartProduct
 import com.cotiledon.mobilApp.ui.dataClasses.QueuedOperation
 import com.cotiledon.mobilApp.ui.enums.CartOperation
 import com.cotiledon.mobilApp.ui.retrofit.RetrofitCartClient
@@ -264,10 +265,15 @@ class CartStorageManager (private val context: Context) {
 
             val cartId = getCartId()
             if (cartId != null) {
+                val cartProduct = CartProduct(
+                    productoId = plantId.toInt(),
+                    cantidadProducto = newQuantity
+                )
+
                 val response = cartClient.updateProductQuantity(
                     cartId = cartId,
-                    productId = plantId.toInt(),
-                    quantity = newQuantity
+                    cartProduct.productoId,
+                    cartProduct.cantidadProducto
                 )
 
                 if (!response.isSuccessful) {
@@ -289,7 +295,7 @@ class CartStorageManager (private val context: Context) {
         }
     }
 
-    //FUnción para actualizar el carrito localmente
+    //Función para actualizar el carrito localmente
     private fun updateQuantityLocally(plantId: String, newQuantity: Int) {
         try{
             val jsonArray = readCartData()
