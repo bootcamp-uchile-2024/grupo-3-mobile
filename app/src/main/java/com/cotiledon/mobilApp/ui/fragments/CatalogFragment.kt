@@ -24,8 +24,9 @@ import com.cotiledon.mobilApp.ui.dataClasses.PlantResponse
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.cotiledon.mobilApp.ui.retrofit.GlobalValues
 import com.cotiledon.mobilApp.ui.retrofit.RetrofitCatalogClient
-import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class CatalogFragment : Fragment() {
@@ -262,21 +263,29 @@ class CatalogFragment : Fragment() {
                         plantId = plant.id.toString(),
                         plantStock = plant.stock.toString(),
                         plantQuantity = 1,
-                        plantImage = it.drop(1)
+                        plantImage = plant.imagenes.firstOrNull()?.let {
+                            "${GlobalValues.backEndIP}${it.ruta.removePrefix("/")}"
+                        } ?: ""
                     )
                 }
 
                 if (cartPlant != null) {
-                    cartManager.saveProductToCart(cartPlant)
+                    // Launch a coroutine to handle the suspend function
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        cartManager.saveProductToCart(cartPlant)
+
+                        // Show success message on the main thread
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                requireContext(),
+                                "${plant.nombre} añadido al carrito",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            (activity as? MainContainerActivity)?.updateCartBadge()
+                        }
+                    }
                 }
-
-                Toast.makeText(
-                    requireContext(),
-                    "${plant.nombre} añadido al carrito",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                (activity as? MainContainerActivity)?.updateCartBadge()
             } else {
                 Toast.makeText(
                     requireContext(),

@@ -16,6 +16,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
@@ -26,8 +27,11 @@ import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.cotiledon.mobilApp.ui.retrofit.GlobalValues
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Locale
-import kotlin.math.roundToInt
+
 
 class ProductDetailFragment : Fragment() {
 
@@ -300,7 +304,7 @@ class ProductDetailFragment : Fragment() {
         updateQuantityDisplay()
     }
 
-    private fun setupAddProductToCartButton(){
+    private fun setupAddProductToCartButton() {
         addToCartButton.setOnClickListener {
             arguments?.let { args ->
                 val stock = args.getInt(ARG_PRODUCT_STOCK, 0)
@@ -312,20 +316,37 @@ class ProductDetailFragment : Fragment() {
                         plantId = args.getInt(ARG_PRODUCT_ID).toString(),
                         plantStock = stock.toString(),
                         plantQuantity = currentQuantity,
-                        plantImage = args.getStringArrayList(ARG_PRODUCT_IMAGES)?.firstOrNull()
-                            ?: ""
+                        plantImage = args.getStringArrayList(ARG_PRODUCT_IMAGES)?.firstOrNull() ?: ""
                     )
 
-                    cartManager.saveProductToCart(cartProduct)
+                    // Launch coroutine to handle the suspend function
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        try {
+                            cartManager.saveProductToCart(cartProduct)
 
-                    Toast.makeText(
-                        requireContext(),
-                        "${cartProduct.plantName} añadido al carrito",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                            // Update UI on main thread
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "${cartProduct.plantName} añadido al carrito",
+                                    Toast.LENGTH_SHORT
+                                ).show()
 
-                    // Actualizamos el badge del carrito en la actividad principal
-                    (activity as? MainContainerActivity)?.updateCartBadge()
+                                // Update badge in activity
+                                (activity as? MainContainerActivity)?.updateCartBadge()
+                            }
+                        } catch (e: Exception) {
+                            // Handle errors on main thread
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error al añadir el producto al carrito",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                Log.e("ProductDetailFragment", "Error adding to cart", e)
+                            }
+                        }
+                    }
                 } else {
                     Toast.makeText(
                         requireContext(),

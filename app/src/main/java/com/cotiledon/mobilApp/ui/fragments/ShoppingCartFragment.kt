@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
@@ -46,6 +47,7 @@ class ShoppingCartFragment : Fragment() {
         updateCartUI()
         updateProductPrice()
     }
+
 
     private fun formatPrice(amount: Double): String {
         val formatter = NumberFormat.getCurrencyInstance(Locale("es", "CL"))
@@ -106,7 +108,8 @@ class ShoppingCartFragment : Fragment() {
             onItemRemoved = {
                 updateCartUI()
                 updateProductPrice()
-            }
+            },
+            scope = viewLifecycleOwner.lifecycleScope
         )
 
         recyclerView.apply {
