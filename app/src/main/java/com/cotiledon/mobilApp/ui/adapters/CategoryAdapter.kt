@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.dataClasses.Category
+import com.cotiledon.mobilApp.ui.dataClasses.category.Category
 
 class CategoryAdapter (
     private val categories: List<Category>,

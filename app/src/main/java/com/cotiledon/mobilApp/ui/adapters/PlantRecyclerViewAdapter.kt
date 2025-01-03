@@ -10,10 +10,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.dataClasses.Plant
-import com.cotiledon.mobilApp.ui.dataClasses.PlantFilters
+import com.cotiledon.mobilApp.ui.dataClasses.plant.Plant
+import com.cotiledon.mobilApp.ui.dataClasses.category.PlantFilters
 import com.cotiledon.mobilApp.ui.enums.PlantCycle
-import com.cotiledon.mobilApp.ui.retrofit.GlobalValues
+import com.cotiledon.mobilApp.ui.backend.GlobalValues
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.text.NumberFormat

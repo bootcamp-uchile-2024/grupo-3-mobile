@@ -2,11 +2,11 @@ package com.cotiledon.mobilApp.ui.managers
 
 import android.content.Context
 import android.util.Log
-import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
-import com.cotiledon.mobilApp.ui.dataClasses.CartProduct
-import com.cotiledon.mobilApp.ui.dataClasses.QueuedOperation
+import com.cotiledon.mobilApp.ui.dataClasses.cart.CartPlant
+import com.cotiledon.mobilApp.ui.dataClasses.cart.CartProduct
+import com.cotiledon.mobilApp.ui.dataClasses.cart.QueuedOperation
 import com.cotiledon.mobilApp.ui.enums.CartOperation
-import com.cotiledon.mobilApp.ui.retrofit.RetrofitCartClient
+import com.cotiledon.mobilApp.ui.backend.cart.RetrofitCartClient
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
@@ -29,7 +29,7 @@ class CartStorageManager (private val context: Context) {
     //Variable para almacenar el ID del carrito traido desde el servidor
     private var serverCartId: Int? = null
 
-    private suspend fun getCartId(): Int? {
+    suspend fun getCartId(): Int? {
         if (serverCartId != null) {
             return serverCartId
         }

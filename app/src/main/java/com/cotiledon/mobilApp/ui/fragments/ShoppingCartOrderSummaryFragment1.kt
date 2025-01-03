@@ -9,7 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.dataClasses.ShippingDetails
+import com.cotiledon.mobilApp.ui.dataClasses.order.ShippingDetails
 import com.cotiledon.mobilApp.ui.managers.OrderManager
 
 class ShoppingCartOrderSummaryFragment1 : Fragment() {

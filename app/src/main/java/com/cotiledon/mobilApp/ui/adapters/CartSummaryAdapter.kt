@@ -5,12 +5,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
+import com.cotiledon.mobilApp.ui.dataClasses.cart.CartPlant
 import com.squareup.picasso.Picasso
 import java.text.NumberFormat
 import java.util.Locale

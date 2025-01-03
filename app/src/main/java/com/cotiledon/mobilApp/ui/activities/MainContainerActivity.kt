@@ -15,7 +15,7 @@ import com.cotiledon.mobilApp.ui.fragments.SignInPreviousFragment
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainContainerActivity : AppCompatActivity() {
+class MainContainerActivity : BaseActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var cartManager: CartStorageManager

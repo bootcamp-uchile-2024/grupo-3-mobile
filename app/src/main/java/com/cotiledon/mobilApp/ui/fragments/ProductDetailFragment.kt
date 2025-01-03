@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -20,11 +19,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
-import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
-import com.cotiledon.mobilApp.ui.dataClasses.Plant
+import com.cotiledon.mobilApp.ui.dataClasses.cart.CartPlant
+import com.cotiledon.mobilApp.ui.dataClasses.plant.Plant
 import com.cotiledon.mobilApp.ui.helpers.LeafRatingView
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
-import com.cotiledon.mobilApp.ui.retrofit.GlobalValues
+import com.cotiledon.mobilApp.ui.backend.GlobalValues
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers

@@ -14,9 +14,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
-import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
+import com.cotiledon.mobilApp.ui.dataClasses.cart.CartPlant
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
-import com.cotiledon.mobilApp.ui.retrofit.GlobalValues
+import com.cotiledon.mobilApp.ui.backend.GlobalValues
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
@@ -74,22 +74,22 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
         }
 
         holder.increaseButton.setOnClickListener {
-            if (planta.plantQuantity < planta.plantStock.toInt()) {
-                planta.plantQuantity++
-                scope.launch {
-                    cartStorageManager.updateProductQuantity(planta.plantId, planta.plantQuantity)
-                }
 
-                Toast.makeText(
-                    holder.itemView.context,
-                    "Cantidad de ${planta.plantName} aumentada a ${planta.plantQuantity}",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                notifyItemChanged(position)
-                onItemRemoved()
-                (holder.itemView.context as? MainContainerActivity)?.updateCartBadge()
+            planta.plantQuantity++
+            scope.launch {
+                cartStorageManager.updateProductQuantity(planta.plantId, planta.plantQuantity)
             }
+
+            Toast.makeText(
+                holder.itemView.context,
+                "Cantidad de ${planta.plantName} aumentada a ${planta.plantQuantity}",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            notifyItemChanged(position)
+            onItemRemoved()
+            (holder.itemView.context as? MainContainerActivity)?.updateCartBadge()
+
         }
     }
 

@@ -21,13 +21,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.dataClasses.UserRegistration
-import com.cotiledon.mobilApp.ui.retrofit.RetrofitUserClient
+import com.cotiledon.mobilApp.ui.dataClasses.profile.UserRegistration
+import com.cotiledon.mobilApp.ui.backend.user.RetrofitUserClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class UserRegistrationActivity : AppCompatActivity() {
+class UserRegistrationActivity : BaseActivity() {
 
     private lateinit var contrasena: EditText
     private lateinit var contrasenaRepet: EditText

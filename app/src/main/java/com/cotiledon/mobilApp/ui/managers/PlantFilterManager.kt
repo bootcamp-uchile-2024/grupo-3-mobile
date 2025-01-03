@@ -1,7 +1,6 @@
 package com.cotiledon.mobilApp.ui.managers
 
-import androidx.room.util.copy
-import com.cotiledon.mobilApp.ui.dataClasses.PlantFilters
+import com.cotiledon.mobilApp.ui.dataClasses.category.PlantFilters
 import com.cotiledon.mobilApp.ui.enums.GrowthHabit
 import com.cotiledon.mobilApp.ui.enums.IrrigationType
 import com.cotiledon.mobilApp.ui.enums.Lighting

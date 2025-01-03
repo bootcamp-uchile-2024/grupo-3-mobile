@@ -1,6 +1,6 @@
 package com.cotiledon.mobilApp.ui.menus
 
-import com.cotiledon.mobilApp.ui.dataClasses.PlantFilters
+import com.cotiledon.mobilApp.ui.dataClasses.category.PlantFilters
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 //TODO: Implementar menu de filtros (bottom sheet menu)

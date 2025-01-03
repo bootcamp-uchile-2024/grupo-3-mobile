@@ -2,7 +2,7 @@ package com.cotiledon.mobilApp.ui.adapters
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
-import com.cotiledon.mobilApp.ui.dataClasses.PlantFilters
+import com.cotiledon.mobilApp.ui.dataClasses.category.PlantFilters
 
 abstract class FilterableAdapter <T: Any, VH: RecyclerView.ViewHolder>(
     private var items: List<T>): RecyclerView.Adapter<VH>()

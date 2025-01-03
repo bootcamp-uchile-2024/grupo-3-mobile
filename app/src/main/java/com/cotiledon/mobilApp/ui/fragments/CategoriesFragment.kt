@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.adapters.CategoryAdapter
-import com.cotiledon.mobilApp.ui.dataClasses.Category
+import com.cotiledon.mobilApp.ui.dataClasses.category.Category
 
 class CategoriesFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
