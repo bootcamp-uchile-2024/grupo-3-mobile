@@ -74,6 +74,7 @@ class SignInFragment : Fragment() {
             Toast.makeText(context, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show()
             return
         }
+
         lifecycleScope.launch {
             try {
                 val response = authClient.login(email, password)
@@ -81,9 +82,11 @@ class SignInFragment : Fragment() {
                 when (response.code()) {
                     201 -> {
                         response.body()?.let { authResponse ->
-                            //Gynere el token
-                            tokenManager.saveToken(authResponse.accessToken)
-                            //Navegamos al Home
+                            tokenManager.saveAuthData(
+                                authResponse.accessToken,
+                                authResponse.id,
+                                authResponse.expToken
+                            )
                             navigateToMain()
                         }
                     }

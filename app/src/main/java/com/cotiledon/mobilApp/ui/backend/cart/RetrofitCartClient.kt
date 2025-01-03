@@ -3,12 +3,15 @@ package com.cotiledon.mobilApp.ui.backend.cart
 import com.cotiledon.mobilApp.ui.backend.GlobalValues
 import com.cotiledon.mobilApp.ui.dataClasses.cart.CartProduct
 import com.cotiledon.mobilApp.ui.dataClasses.cart.CartProducts
+import com.cotiledon.mobilApp.ui.dataClasses.cart.CartResponse
+import com.cotiledon.mobilApp.ui.managers.TokenManager
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitCartClient(private val baseUrl: String) {
+class RetrofitCartClient(private val baseUrl: String, private val tokenManager: TokenManager) {
     private val cartApiService: CartApiService
 
     init {
@@ -18,6 +21,16 @@ class RetrofitCartClient(private val baseUrl: String) {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
+            .addInterceptor { chain ->
+                val token = tokenManager.getToken()
+                    ?: throw AuthenticationException("No hay token de autenticacion disponible")
+
+                val request = chain.request().newBuilder()
+                    .addHeader("Authorization", "Bearer $token")
+                    .build()
+
+                chain.proceed(request)
+            }
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -29,8 +42,17 @@ class RetrofitCartClient(private val baseUrl: String) {
         cartApiService = retrofit.create(CartApiService::class.java)
     }
 
-    suspend fun getUserCart(userId: Int) =
-        cartApiService.getUserCart(userId)
+    suspend fun getUserCart(userId: Int): Response<CartResponse> =
+        try {
+            cartApiService.getUserCart(userId)
+        } catch (e: AuthenticationException) {
+            //Enviar de vuelta a fragmento de sign-in
+            //TODO
+            throw e
+        }
+
+    suspend fun createCart(userId: Int) =
+        cartApiService.createCart(userId)
 
     suspend fun addProductToCart(cartId: Int, productId: Int, quantity: Int) =
         cartApiService.addProductToCart(cartId, CartProduct(productId, quantity))
@@ -45,12 +67,21 @@ class RetrofitCartClient(private val baseUrl: String) {
         cartApiService.replaceCartProducts(cartId, products)
 
     suspend fun validateCartProducts(cartId: Int, products: List<CartProduct>) =
-        cartApiService.validateCartProducts(
-            cartId = cartId,
-            request = CartProducts(products)
-        )
+        try {
+            cartApiService.validateCartProducts(
+                cartId = cartId,
+                request = CartProducts(products)
+            )
+        } catch (e: AuthenticationException) {
+            //Enviar de vuelta a fragmento de sign-in
+            //TODO
+            throw e
+        }
+
+    class AuthenticationException(message: String) : Exception(message)
 
     companion object {
-        fun createCartClient() = RetrofitCartClient(GlobalValues.backEndIP)
+        fun createCartClient(tokenManager: TokenManager) =
+            RetrofitCartClient(GlobalValues.backEndIP, tokenManager)
     }
 }

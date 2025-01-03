@@ -20,6 +20,11 @@ interface CartApiService {
         @Path("id") userId: Int
     ): Response<CartResponse>
 
+    @POST("carro-compras/{idUsuario}")
+    suspend fun createCart(
+        @Path("idUsuario") userId: Int
+    ): Response<CartResponse>
+
     @POST("carro-compras/addProducto/{idCarro}")
     suspend fun addProductToCart(
         @Path("idCarro") cartId: Int,

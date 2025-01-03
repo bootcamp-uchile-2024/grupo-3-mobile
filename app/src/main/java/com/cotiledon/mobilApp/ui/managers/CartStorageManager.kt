@@ -2,11 +2,14 @@ package com.cotiledon.mobilApp.ui.managers
 
 import android.content.Context
 import android.util.Log
+import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.activities.BaseActivity
 import com.cotiledon.mobilApp.ui.dataClasses.cart.CartPlant
 import com.cotiledon.mobilApp.ui.dataClasses.cart.CartProduct
 import com.cotiledon.mobilApp.ui.dataClasses.cart.QueuedOperation
 import com.cotiledon.mobilApp.ui.enums.CartOperation
 import com.cotiledon.mobilApp.ui.backend.cart.RetrofitCartClient
+import com.cotiledon.mobilApp.ui.fragments.SignInFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
@@ -17,11 +20,11 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 //Clase de archivo de guardado de productos en el carrito
-class CartStorageManager (private val context: Context) {
+class CartStorageManager (private val context: Context, tokenManager: TokenManager) {
     //Archivo JSON para guardar los productos del carrito de manera local
     private val filename = "cart_data.json"
     //Se agregan variables para la comunicación con el servidor y coordinar con el ambiente local
-    private val cartClient = RetrofitCartClient.createCartClient()
+    private val cartClient = RetrofitCartClient.createCartClient(tokenManager)
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private val queueKey = "cart_operation_queue"
     private val gson = Gson()
@@ -35,32 +38,67 @@ class CartStorageManager (private val context: Context) {
         }
 
         try {
-            //Por ahora hard coding de que el carrito pertenece al usuario 1
-            // TODO: Administrar con registro de usuario
-            val response = cartClient.getUserCart(userId = 1)
+            // First try to get existing cart
+            val response = cartClient.getUserCart(userId = 1) // TODO: Get actual user ID
 
-            if (response.isSuccessful) {
-                val cart = response.body()
-                serverCartId = cart?.id
-
-                // Guardar el ID del carrito en SharedPreferences para uso futuro
-                context.getSharedPreferences("cart_prefs", Context.MODE_PRIVATE)
-                    .edit()
-                    .putInt("server_cart_id", serverCartId ?: -1)
-                    .apply()
-
-                Log.d("CartStorageManager", "Cart ID: $serverCartId")
-
-                return serverCartId
-
-            } else {
-                Log.e("CartStorageManager", "Failed to get cart ID: ${response.code()}")
-                return null
+            return when (response.code()) {
+                200 -> {
+                    val cart = response.body()
+                    serverCartId = cart?.id
+                    saveCartIdLocally(serverCartId)
+                    serverCartId
+                }
+                404 -> {
+                    // User has no cart, create a new one
+                    val createResponse = cartClient.createCart(userId = 1) // TODO: Get actual user ID
+                    when (createResponse.code()) {
+                        201 -> {
+                            val newCart = createResponse.body()
+                            serverCartId = newCart?.id
+                            saveCartIdLocally(serverCartId)
+                            serverCartId
+                        }
+                        400 -> {
+                            // User already has an active cart
+                            Log.e("CartStorageManager", "User already has an active cart")
+                            null
+                        }
+                        else -> null
+                    }
+                }
+                else -> null
             }
+        } catch (e: RetrofitCartClient.AuthenticationException) {
+            // Handle authentication error
+            handleAuthenticationError()
+            null
         } catch (e: Exception) {
-            Log.e("CartStorageManager", "Error getting cart ID", e)
-            return null
+            Log.e("CartStorageManager", "Error getting/creating cart", e)
+            null
         }
+        return null
+    }
+
+    private fun handleAuthenticationError() {
+
+        //TODO: Add authentication error handling
+        //Navigate back to login
+        //This requires some way to access the activity/navigation
+        //You might want to use a callback or event bus for this
+        (context as? BaseActivity)?.let { activity ->
+            activity.runOnUiThread {
+                activity.supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, SignInFragment())
+                    .commit()
+            }
+        }
+    }
+
+    private fun saveCartIdLocally(cartId: Int?) {
+        context.getSharedPreferences("cart_prefs", Context.MODE_PRIVATE)
+            .edit()
+            .putInt("server_cart_id", cartId ?: -1)
+            .apply()
     }
 
     //Función para guardar un producto en el carrito
@@ -367,7 +405,8 @@ class CartStorageManager (private val context: Context) {
 
                 if (queue.isEmpty()) return@launch
 
-                val cartClient = RetrofitCartClient.createCartClient()
+                val tokenManager = TokenManager(context)
+                val cartClient = RetrofitCartClient.createCartClient(tokenManager)
                 val serverCartId = prefs.getInt("server_cart_id", -1)
                 if (serverCartId == -1) return@launch
 
