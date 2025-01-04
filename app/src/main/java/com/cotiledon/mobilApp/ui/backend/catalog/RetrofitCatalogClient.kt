@@ -1,6 +1,7 @@
 package com.cotiledon.mobilApp.ui.backend.catalog
 
 import com.cotiledon.mobilApp.ui.backend.GlobalValues
+import com.cotiledon.mobilApp.ui.dataClasses.catalog.PlantFilterParams
 import com.cotiledon.mobilApp.ui.dataClasses.plant.Plant
 import com.cotiledon.mobilApp.ui.dataClasses.plant.PlantResponse
 import okhttp3.OkHttpClient
@@ -30,8 +31,27 @@ class RetrofitCatalogClient(private val baseUrl: String) {
         catalogApiService = retrofit.create(CatalogApiService::class.java)
     }
 
-    suspend fun getPlants(page: Int, pageSize: Int): PlantResponse<Plant> =
-        catalogApiService.getPlants(page, pageSize)
+    suspend fun getPlants(
+        page: Int,
+        pageSize: Int,
+        filterParams: PlantFilterParams? = null
+    ): PlantResponse<Plant> {
+        return catalogApiService.getPlants(
+            page = page,
+            pageSize = pageSize,
+            environment = filterParams?.environment,
+            petFriendly = filterParams?.petFriendly,
+            rating = filterParams?.rating,
+            maxPrice = filterParams?.maxPrice,
+            minPrice = filterParams?.minPrice,
+            temperatureTolerance = filterParams?.temperatureTolerance,
+            lighting = filterParams?.lighting,
+            irrigationType = filterParams?.irrigationType,
+            orderBy = filterParams?.orderBy,
+            order = filterParams?.order,
+            size = filterParams?.size
+        )
+    }
 
     companion object {
         fun createCatalogClient() = RetrofitCatalogClient(GlobalValues.backEndIP)

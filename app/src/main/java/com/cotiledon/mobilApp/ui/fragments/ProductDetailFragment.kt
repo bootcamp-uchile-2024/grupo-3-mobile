@@ -24,6 +24,7 @@ import com.cotiledon.mobilApp.ui.dataClasses.plant.Plant
 import com.cotiledon.mobilApp.ui.helpers.LeafRatingView
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.cotiledon.mobilApp.ui.backend.GlobalValues
+import com.cotiledon.mobilApp.ui.managers.TokenManager
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
@@ -148,7 +149,7 @@ class ProductDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initializeViews(view)
-        cartManager = CartStorageManager(requireContext())
+        cartManager = CartStorageManager(requireContext(),TokenManager(requireContext()))
         setupProductDetails()
 
         val rating = arguments?.getFloat(ARG_PRODUCT_RATING, 5.0f) ?: 5.0f

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sort_popup_background"
+    android:minWidth="200dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/popular_products_option"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:fontFamily="@font/quicksand_medium"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/sort_popular_products"
+        android:textColor="@color/main_app"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/quaternary_grey" />
+
+    <TextView
+        android:id="@+id/most_sold_option"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:fontFamily="@font/quicksand_medium"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/sort_most_sold"
+        android:textColor="@color/main_app"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/quaternary_grey" />
+
+    <TextView
+        android:id="@+id/price_high_to_low_option"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:fontFamily="@font/quicksand_medium"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/sort_price_high_to_low"
+        android:textColor="@color/main_app"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/quaternary_grey" />
+
+    <TextView
+        android:id="@+id/price_low_to_high_option"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:fontFamily="@font/quicksand_medium"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/sort_price_low_to_high"
+        android:textColor="@color/main_app"
+        android:textSize="16sp" />
+
+</LinearLayout>

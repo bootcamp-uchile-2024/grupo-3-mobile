@@ -9,310 +9,389 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
-        <!-- Sección de Presupuesto -->
+        <!-- Guidelines for consistent margins throughout the layout -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/startGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/endGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.96" />
+
+        <!-- 1. Price Range Section -->
         <TextView
             android:id="@+id/budgetLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Tu presupuesto"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/budgetValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10.000 - 100.000"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/quicksand_medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/budgetLabel" />
+            android:text="$10.000 - $100.000"
+            app:layout_constraintBaseline_toBaselineOf="@id/budgetLabel"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline" />
 
         <com.google.android.material.slider.RangeSlider
             android:id="@+id/budgetSlider"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:layout_constraintTop_toBottomOf="@id/budgetLabel" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:labelBehavior="withinBounds"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/budgetLabel"
+            app:thumbColor="@color/main_app"
+            app:trackColorActive="@color/main_app"
+            app:trackColorInactive="#DDDDDD" />
 
-        <!-- Sección de Tamaño -->
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/budgetSlider" />
+
+        <!-- 2. Size Section -->
         <TextView
             android:id="@+id/sizeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/quicksand_medium"
             android:text="Busca el tamaño perfecto"
-            android:fontFamily="@font/quicksand_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/budgetSlider" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/divider1" />
 
-        <TextView
-            android:id="@+id/sizeValue"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/sizeGroup"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="60 - 150 cm"
-            android:fontFamily="@font/quicksand_medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/sizeLabel" />
-
-        <com.google.android.material.slider.RangeSlider
-            android:id="@+id/sizeSlider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:valueFrom="60"
-            android:valueTo="150"
-            app:labelBehavior="withinBounds"
-            app:thumbColor="@color/main_app"
-            app:trackColorActive="@color/main_app"
-            app:trackColorInactive="#DDDDDD"
-            app:tickVisible="false"
-            style="@style/Widget.App.Slider"
-            app:layout_constraintTop_toBottomOf="@id/sizeLabel" />
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/sizeLabel">
 
-        <!-- Sección Pet Friendly -->
+            <RadioButton
+                android:id="@+id/sizeS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="S (15-30 cm)" />
+
+            <RadioButton
+                android:id="@+id/sizeM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="M (30-60 cm)" />
+
+            <RadioButton
+                android:id="@+id/sizeL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="L (60-100 cm)" />
+
+            <RadioButton
+                android:id="@+id/sizeXL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="XL (100+ cm)" />
+        </RadioGroup>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sizeGroup" />
+
+        <!-- 3. Pet Friendly Section -->
         <TextView
             android:id="@+id/petFriendlyLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="Pet friendly"
             android:fontFamily="@font/quicksand_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sizeSlider" />
+            android:text="Pet friendly"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/divider2" />
 
-        <RadioGroup
-            android:id="@+id/petFriendlyGroup"
-            android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/petFriendlyCheckbox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/petFriendlyLabel">
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="Mostrar"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/petFriendlyLabel" />
 
-            <RadioButton
-                android:id="@+id/petFriendlyYes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Si"
-                android:fontFamily="@font/quicksand_medium" />
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/petFriendlyCheckbox" />
 
-            <RadioButton
-                android:id="@+id/petFriendlyNo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No"
-                android:fontFamily="@font/quicksand_medium" />
-        </RadioGroup>
-
-        <!-- Sección de Luz -->
+        <!-- 4. Light Section -->
         <TextView
             android:id="@+id/lightLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="¿Con cuanta luz cuenta tu espacio?"
             android:fontFamily="@font/quicksand_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/petFriendlyGroup" />
+            android:text="¿Cuanta luz necesita tu espacio?"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/divider3" />
 
         <RadioGroup
             android:id="@+id/lightGroup"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
             app:layout_constraintTop_toBottomOf="@id/lightLabel">
 
             <RadioButton
                 android:id="@+id/lightDirect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sol Directo"
-                android:fontFamily="@font/quicksand_medium" />
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Sol Directo" />
 
             <RadioButton
                 android:id="@+id/lightPartial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Semi Sombra"
-                android:fontFamily="@font/quicksand_medium" />
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Semi Sombra" />
 
             <RadioButton
                 android:id="@+id/lightShade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sombra"
-                android:fontFamily="@font/quicksand_medium" />
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Sombra" />
         </RadioGroup>
 
-        <!-- Sección de Ubicación -->
-        <TextView
-            android:id="@+id/locationLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:text="Escoge tu lugar favorito"
-            android:fontFamily="@font/quicksand_medium"
+            android:layout_marginEnd="24dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lightGroup" />
 
-        <LinearLayout
-            android:id="@+id/locationGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/locationLabel">
-
-            <CheckBox
-                android:id="@+id/locationBathroom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Baño"
-                android:fontFamily="@font/quicksand_medium" />
-
-            <CheckBox
-                android:id="@+id/locationKitchen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cocina"
-                android:fontFamily="@font/quicksand_medium" />
-
-            <CheckBox
-                android:id="@+id/locationLiving"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Living"
-                android:fontFamily="@font/quicksand_medium" />
-
-            <CheckBox
-                android:id="@+id/locationBedroom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pieza"
-                android:fontFamily="@font/quicksand_medium" />
-
-            <CheckBox
-                android:id="@+id/locationHallway"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pasillo"
-                android:fontFamily="@font/quicksand_medium" />
-
-            <CheckBox
-                android:id="@+id/locationTerrace"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Terraza"
-                android:fontFamily="@font/quicksand_medium" />
-        </LinearLayout>
-
-        <!-- Sección de Características Especiales -->
+        <!-- 5. Temperature Tolerance Section -->
         <TextView
-            android:id="@+id/characteristicsLabel"
+            android:id="@+id/temperatureLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="Busca la caracteristica especial"
             android:fontFamily="@font/quicksand_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/locationGroup" />
-
-        <LinearLayout
-            android:id="@+id/characteristicsGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/characteristicsLabel">
-
-            <CheckBox
-                android:id="@+id/charSmallLeaf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hoja Chica"
-                android:fontFamily="@font/quicksand_medium" />
-
-            <CheckBox
-                android:id="@+id/charBigLeaf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hoja Grande"
-                android:fontFamily="@font/quicksand_medium" />
-
-            <CheckBox
-                android:id="@+id/charLowMaintenance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bajo Mantenimiento"
-                android:fontFamily="@font/quicksand_medium" />
-
-            <CheckBox
-                android:id="@+id/charResistant"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Resistente"
-                android:fontFamily="@font/quicksand_medium" />
-
-            <CheckBox
-                android:id="@+id/charFlowering"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Con Flor"
-                android:fontFamily="@font/quicksand_medium" />
-
-            <CheckBox
-                android:id="@+id/charPalm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Palmera"
-                android:fontFamily="@font/quicksand_medium" />
-        </LinearLayout>
-
-        <!-- Sección de Origen -->
-        <TextView
-            android:id="@+id/originLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="¿De donde prefieres que sea tu planta?"
-            android:fontFamily="@font/quicksand_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/characteristicsGroup" />
+            android:text="Tolerancia a la temperatura"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/divider4" />
 
         <RadioGroup
-            android:id="@+id/originGroup"
-            android:layout_width="match_parent"
+            android:id="@+id/temperatureGroup"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/originLabel">
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/temperatureLabel">
 
             <RadioButton
-                android:id="@+id/originNational"
+                android:id="@+id/tempWarm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nacional"
-                android:fontFamily="@font/quicksand_medium" />
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Cálido" />
 
             <RadioButton
-                android:id="@+id/originForeign"
+                android:id="@+id/tempMild"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Extranjero"
-                android:fontFamily="@font/quicksand_medium" />
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Templado" />
+
+            <RadioButton
+                android:id="@+id/tempCold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Frío" />
         </RadioGroup>
 
-        <!-- Botón de Limpiar Filtros -->
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/temperatureGroup" />
+
+        <!-- 6. Irrigation Type Section -->
+        <TextView
+            android:id="@+id/irrigationLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="Tipo de irrigación"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/divider5" />
+
+        <RadioGroup
+            android:id="@+id/irrigationGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/irrigationLabel">
+
+            <RadioButton
+                android:id="@+id/irrigationManual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Manual" />
+
+            <RadioButton
+                android:id="@+id/irrigationDrip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Goteo" />
+
+            <RadioButton
+                android:id="@+id/irrigationCapillary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Capilar" />
+
+            <RadioButton
+                android:id="@+id/irrigationSubmersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Sumersión" />
+
+            <RadioButton
+                android:id="@+id/irrigationSelfWatering"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Autorriego" />
+
+            <RadioButton
+                android:id="@+id/irrigationMisting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Nebulización" />
+
+            <RadioButton
+                android:id="@+id/irrigationAutomatic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Automático" />
+        </RadioGroup>
+
+        <!-- Apply and Clear Filters Buttons -->
         <Button
             android:id="@+id/clearFiltersButton"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="16dp"
-            android:text="Quitar filtros"
-            android:textAllCaps="false"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
             android:fontFamily="@font/quicksand_medium"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/originGroup" />
+            android:text="Limpiar Filtros"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/irrigationGroup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

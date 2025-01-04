@@ -2,6 +2,7 @@ package com.cotiledon.mobilApp.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,9 +21,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
 class SignInFragment : Fragment() {
-    private lateinit var emailEditText: EditText
-    private lateinit var passwordEditText: EditText
-    private lateinit var signInButton: Button
+
+    private var emailEditText: EditText? = null
+    private var passwordEditText: EditText? = null
+    private var signInButton: Button? = null
     private lateinit var tokenManager: TokenManager
     private lateinit var authClient: RetrofitAuthClient
 
@@ -43,39 +45,55 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initializeViews(view)
-        setupClickListeners()
+        try {
+            initializeViews(view)
+            setupClickListeners()
 
-        tokenManager = TokenManager(requireContext())
-        authClient = RetrofitAuthClient.createAuthClient()
+            tokenManager = TokenManager(requireContext())
+            authClient = RetrofitAuthClient.createAuthClient()
 
-        if (tokenManager.getToken() != null) {
-            navigateToMain()
+            if (tokenManager.getToken() != null) {
+                navigateToMain()
+            }
+        } catch (e: Exception) {
+            Log.e("SignInFragment", "Error in onViewCreated: ${e.message}")
+            Toast.makeText(context, "Error initializing login screen", Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun initializeViews(view: View){
-        emailEditText = view.findViewById(R.id.edit_text_email)
+    private fun initializeViews(view: View) {
+        emailEditText = view.findViewById(R.id.editText_singin_email)
+        if (emailEditText == null) {
+            throw IllegalStateException("Email EditText not found in layout")
+        }
+
         passwordEditText = view.findViewById(R.id.editText_singin_password)
+        if (passwordEditText == null) {
+            throw IllegalStateException("Password EditText not found in layout")
+        }
+
         signInButton = view.findViewById(R.id.button_singin)
+        if (signInButton == null) {
+            throw IllegalStateException("Sign in button not found in layout")
+        }
     }
 
     private fun setupClickListeners() {
-        signInButton.setOnClickListener {
+        signInButton?.setOnClickListener {
             validateAndLogin()
         }
     }
 
     private fun validateAndLogin() {
-        val email = emailEditText.text.toString().trim()
-        val password = passwordEditText.text.toString().trim()
+        val email = emailEditText?.text?.toString()?.trim() ?: ""
+        val password = passwordEditText?.text?.toString()?.trim() ?: ""
 
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(context, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return
         }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val response = authClient.login(email, password)
 
@@ -93,14 +111,14 @@ class SignInFragment : Fragment() {
                     401 -> {
                         Toast.makeText(
                             context,
-                            "Credenciales inválidas",
+                            "Invalid credentials",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                     else -> {
                         Toast.makeText(
                             context,
-                            "Error al iniciar sesión",
+                            "Login error",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -108,9 +126,10 @@ class SignInFragment : Fragment() {
             } catch (e: Exception) {
                 Toast.makeText(
                     context,
-                    "Error de conexión",
+                    "Connection error",
                     Toast.LENGTH_SHORT
                 ).show()
+                Log.e("SignInFragment", "Login error: ${e.message}")
             }
         }
     }
@@ -119,7 +138,7 @@ class SignInFragment : Fragment() {
         (activity as? MainContainerActivity)?.let { mainActivity ->
             val bottomNav = mainActivity.findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-            parentFragmentManager.popBackStack()
+            parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, HomeFragment())
@@ -128,4 +147,12 @@ class SignInFragment : Fragment() {
             bottomNav.selectedItemId = R.id.nav_home
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        emailEditText = null
+        passwordEditText = null
+        signInButton = null
+    }
+
 }

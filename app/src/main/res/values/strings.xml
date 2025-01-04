@@ -153,6 +153,10 @@
     <string name="activity_main_bottom_button_truck">App Plant Ai</string>
     <string name="activity_main_bottom_button_stars">Beneficios</string>
     <string name="activity_main_bottom_button_grass">Consejos</string>
+    <string name="sort_popular_products">Productos populares</string>
+    <string name="sort_most_sold">Más vendidos</string>
+    <string name="sort_price_high_to_low">Precio mayor a menor</string>
+    <string name="sort_price_low_to_high">Precio menor a mayor</string>
 
     <!-- MainCategoriesActivity -->
     <string name="activity_categories_main">Categorías</string>

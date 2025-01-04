@@ -48,22 +48,23 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_sort"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:fontFamily="@font/quicksand_medium"
+            android:gravity="center"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:text="@string/catalog_sort"
             android:textAllCaps="false"
             android:textColor="@color/primary_color"
             android:textSize="16sp"
-            android:gravity="center"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
             app:icon="@drawable/sort_icon"
             app:iconGravity="textEnd"
             app:iconPadding="8dp"
-            app:iconSize="18dp"
+            app:iconSize="30dp"
             app:iconTint="@color/primary_color" />
     </LinearLayout>
 

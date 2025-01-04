@@ -1,16 +1,27 @@
 package com.cotiledon.mobilApp.ui.fragments
 
+import PlantFiltersBottomSheet
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.PopupWindow
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,24 +30,23 @@ import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
 import com.cotiledon.mobilApp.ui.adapters.PlantRecyclerViewAdapter
 import com.cotiledon.mobilApp.ui.dataClasses.cart.CartPlant
 import com.cotiledon.mobilApp.ui.dataClasses.plant.Plant
-import com.cotiledon.mobilApp.ui.dataClasses.category.PlantFilters
 import com.cotiledon.mobilApp.ui.dataClasses.plant.PlantResponse
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
-import com.cotiledon.mobilApp.ui.backend.GlobalValues
 import com.cotiledon.mobilApp.ui.backend.catalog.RetrofitCatalogClient
-import kotlinx.coroutines.Dispatchers
+import com.cotiledon.mobilApp.ui.dataClasses.catalog.PlantFilterParams
+import com.cotiledon.mobilApp.ui.managers.TokenManager
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
-class CatalogFragment : Fragment() {
+class CatalogFragment : Fragment(), PlantFiltersBottomSheet.FilterListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PlantRecyclerViewAdapter
     private lateinit var cartManager: CartStorageManager
     private lateinit var backButton: ImageView
     private lateinit var filterButton: Button
-    private lateinit var sortButton: Button
+    private lateinit var sortButton: MaterialButton
 
     private var currentPage = 1
     private val pageSize = 10
@@ -44,7 +54,8 @@ class CatalogFragment : Fragment() {
     private var hasMoreItems = true
 
     //Guardado de filtros a nivel del fragment
-    private var currentFilters = PlantFilters()
+    private var currentFilters: PlantFilterParams? = null
+    private var currentSortParams: PlantFilterParams? = null
     private var currentPlants = mutableListOf<Plant>()
 
     override fun onCreateView(
@@ -83,8 +94,13 @@ class CatalogFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        // Inicializar el Cart Manager
-        cartManager = CartStorageManager(requireContext())
+
+        val tokenManager = TokenManager(requireContext())
+
+        cartManager = CartStorageManager(
+            context = requireContext(),
+            tokenManager
+        )
     }
 
     private fun initializeViews(view: View) {
@@ -133,16 +149,31 @@ class CatalogFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
-        //TODO: Establecer funcionalidad para el botón de filtro (crear bottom drawer para manejo de filtros)
-        /*filterButton.setOnClickListener {
-            showFilterDialog()
-        }*/
+        filterButton.setOnClickListener {
+            showFilterBottomSheet()
+        }
 
-        //TODO: Establecer funcionalidad para el botón de ordenamiento
-        /*
         sortButton.setOnClickListener {
-            showSortDialog()
-        }*/
+            showSortPopupMenu()
+            animateIconRotation(sortButton, R.drawable.sort_icon_up)
+        }
+    }
+
+    @SuppressLint("Recycle", "ObjectAnimatorBinding")
+    private fun animateIconRotation(button: MaterialButton, newIconResId: Int) {
+        val currentIcon = button.icon
+
+        val rotateOut = ObjectAnimator.ofFloat(currentIcon, "rotationZ",0f, 180f)
+        rotateOut.duration = 300
+
+        rotateOut.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                val newIcon : Drawable? = ContextCompat.getDrawable(button.context, newIconResId)
+                button.icon = newIcon
+            }
+        })
+
+        rotateOut.start()
     }
 
     //TODO: Función para manejo de busqueda (asociar al backend, no debe aplicar filtro local necesariamente)
@@ -161,82 +192,150 @@ class CatalogFragment : Fragment() {
         })
     }*/
 
-    //TODO: Función para aplicar filtros seleccionados en el Bottom Drawer
-    /*private fun filterPlants(searchQuery: String) {
-        // First apply the search query
-        val searchResults = if (searchQuery.isEmpty()) {
-            currentPlants
-        } else {
-            currentPlants.filter { plant ->
-                plant.nombre.contains(searchQuery, ignoreCase = true) ||
-                        plant.descripcion.contains(searchQuery, ignoreCase = true)
-            }
-        }.toMutableList()
-
-        // Then apply any other active filters
-        adapter.updatePlants(searchResults)
-        adapter.filter(currentFilters)
-    }*/
-
-    //TODO: Función para mostrar el bottom drawer de filtros
-    /*private fun showFilterDialog() {
-        // Create and show your filter dialog
-        // When filters are applied, update currentFilters and refresh the list
-        val filterDialog = PlantFilterDialog(requireContext(), currentFilters)
-        filterDialog.setOnFilterAppliedListener { filters ->
-            currentFilters = filters
-            adapter.filter(filters)
+    override fun onFiltersApplied(filterParams: PlantFilterParams) {
+        // Apply new filters while preserving sorting
+        filterParams.apply {
+            orderBy = currentFilters?.orderBy
+            order = currentFilters?.order
         }
-        filterDialog.show()
-    }*/
 
-    //TODO: Refinar función para muestra de interfaz de ordenamiento y valores dentro de ella (utiliar un Spinner quizás para la selección de opciones)
-    private fun showSortDialog() {
-        // TODO: Implementar opciones con un array de strin para evitar hardcoding
-        //val options = arrayOf("Price: Low to High", "Price: High to Low", "Name: A to Z", "Name: Z to A")
-
-        //TODO: Implementar funcionalidad de ordenamiento con Spinner en vez de AlertDialog
-        /*
-        AlertDialog.Builder(requireContext())
-            .setTitle("Sort By")
-            .setItems(options) { _, which ->
-                when (which) {
-                    0 -> currentPlants.sortBy { it.precio }
-                    1 -> currentPlants.sortByDescending { it.precio }
-                    2 -> currentPlants.sortBy { it.nombre }
-                    3 -> currentPlants.sortByDescending { it.nombre }
-                }
-                adapter.updatePlants(currentPlants)
-            }
-            .show()*/
+        currentFilters = filterParams
+        adapter.clearPlants()
+        currentPage = 1
+        isLoading = false
+        hasMoreItems = true
+        loadPlants()
     }
 
-    //TODO: Integrar carga de datos con filtro de categoría
+    override fun getCurrentFilters(): PlantFilterParams? {
+        return currentFilters
+    }
+
+    private fun showFilterBottomSheet() {
+        val location = IntArray(2)
+        filterButton.getLocationOnScreen(location)
+        val filterButtonY = location[1] + filterButton.height
+
+        PlantFiltersBottomSheet.newInstance(filterButtonY)
+            .show(parentFragmentManager, "filters")
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun applyFilters(newFilters: PlantFilterParams) {
+        currentPage = 1
+        isLoading = false
+        hasMoreItems = true
+
+        currentPlants.clear()
+        adapter.notifyDataSetChanged()
+
+        currentFilters = newFilters
+
+        loadPlants()
+    }
+
+    @SuppressLint("InflateParams")
+    private fun showSortPopupMenu() {
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.sort_popup_menu, null)
+
+        val sortPopupWindow = PopupWindow(
+            popupView,
+            205.dpToPx(requireContext()),
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        ).apply {
+            elevation = 16f
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            setOnDismissListener {
+                animateIconRotation(sortButton, R.drawable.sort_icon)
+                dismiss()
+            }
+        }
+
+        popupView.apply {
+            findViewById<TextView>(R.id.popular_products_option).setOnClickListener {
+                applySorting(PlantFilterParams.ORDER_BY_RATING, PlantFilterParams.ORDER_DESC)
+                sortPopupWindow.dismiss()
+            }
+
+            findViewById<TextView>(R.id.most_sold_option).setOnClickListener {
+                applySorting(PlantFilterParams.ORDER_BY_UNITS_SOLD, PlantFilterParams.ORDER_DESC)
+                sortPopupWindow.dismiss()
+            }
+
+            findViewById<TextView>(R.id.price_high_to_low_option).setOnClickListener {
+                applySorting(PlantFilterParams.ORDER_BY_PRICE, PlantFilterParams.ORDER_DESC)
+                sortPopupWindow.dismiss()
+            }
+
+            findViewById<TextView>(R.id.price_low_to_high_option).setOnClickListener {
+                applySorting(PlantFilterParams.ORDER_BY_PRICE, PlantFilterParams.ORDER_ASC)
+                sortPopupWindow.dismiss()
+            }
+        }
+
+        val location = IntArray(2)
+        sortButton.getLocationOnScreen(location)
+
+        sortPopupWindow.showAsDropDown(
+            sortButton,
+            -65,
+            0,
+            Gravity.START
+        )
+
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun applySorting(orderBy: String, order: String) {
+        val newParams = currentFilters?.copy() ?: PlantFilterParams()
+        newParams.apply {
+            this.orderBy = orderBy
+            this.order = order
+        }
+
+        //Resetear y recargar con nuevos parámetros
+        currentFilters = newParams
+
+        adapter.clearPlants()
+
+        currentPage = 1
+        isLoading = false
+        hasMoreItems = true
+
+        //Cargar nueva data con los nuevos parámetros
+        loadPlants()
+    }
+
+
+
+    private fun Int.dpToPx(context: Context): Int {
+        return (this * context.resources.displayMetrics.density).toInt()
+    }
+
     private fun loadPlants() {
         if (isLoading || !hasMoreItems) return
         isLoading = true
         adapter.showLoading()
-
-        val categoryId = arguments?.getString("category_id")?.toIntOrNull()
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val retrofitClient = RetrofitCatalogClient.createCatalogClient()
                 val response: PlantResponse<Plant> = retrofitClient.getPlants(
                     page = currentPage,
-                    pageSize = pageSize
+                    pageSize = pageSize,
+                    filterParams = currentFilters
                 )
 
                 hasMoreItems = currentPage * pageSize < response.totalItems
 
-                val newPlants = response.data.filter { plant ->
-                    categoryId == null || plant.idCategoria == categoryId
-                }
-
-                if (newPlants.isNotEmpty()) {
+                if (response.data.isNotEmpty()) {
                     viewLifecycleOwner.lifecycleScope.launch {
                         adapter.hideLoading()
-                        adapter.updatePlants(newPlants)
+                        adapter.updatePlants(response.data)
                         currentPage++
                     }
                 }
@@ -254,54 +353,56 @@ class CatalogFragment : Fragment() {
     }
 
     private fun handleAddToCart(plant: Plant) {
-        try {
-            if (plant.stock > 0) {
-                val cartPlant = plant.imagenes.firstOrNull()?.ruta?.let {
-                    CartPlant(
-                        plantName = plant.nombre,
-                        plantPrice = plant.precio.toString(),
-                        plantId = plant.id.toString(),
-                        plantStock = plant.stock.toString(),
-                        plantQuantity = 1,
-                        plantImage = plant.imagenes.firstOrNull()?.let {
-                            "${GlobalValues.backEndIP}${it.ruta.removePrefix("/")}"
-                        } ?: ""
-                    )
-                }
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                if (plant.stock > 0) {
+                    val cartPlant = plant.imagenes.firstOrNull()?.ruta?.let {
+                        CartPlant(
+                            plantName = plant.nombre,
+                            plantPrice = plant.precio.toString(),
+                            plantId = plant.id.toString(),
+                            plantStock = plant.stock.toString(),
+                            plantQuantity = 1,
+                            plantImage = it.drop(1)
+                        )
+                    }
 
-                if (cartPlant != null) {
-                    // Launch a coroutine to handle the suspend function
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        cartManager.saveProductToCart(cartPlant)
+                    cartPlant?.let {
+                        cartManager.saveProductToCart(it)
 
-                        // Show success message on the main thread
-                        withContext(Dispatchers.Main) {
+                        activity?.runOnUiThread {
                             Toast.makeText(
                                 requireContext(),
                                 "${plant.nombre} añadido al carrito",
                                 Toast.LENGTH_SHORT
                             ).show()
-
-                            (activity as? MainContainerActivity)?.updateCartBadge()
                         }
+                        (activity as? MainContainerActivity)?.updateCartBadge()
+                    }
+
+                } else {
+                    activity?.runOnUiThread {
+                        Toast.makeText(
+                            requireContext(),
+                            "Lo sentimos, ${plant.nombre} no tiene más stock",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Lo sentimos, ${plant.nombre} no tiene más stock",
-                    Toast.LENGTH_SHORT
-                ).show()
+
+            } catch (e: Exception) {
+                Log.e("CatalogFragment", "Error al añadir producto al carrito", e)
+                activity?.runOnUiThread {
+                    Toast.makeText(
+                        requireContext(),
+                        "No se pudo añadir el producto al carrito",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
-        } catch (e: Exception) {
-            Log.e("CatalogFragment", "Error al añadir producto al carrito", e)
-            Toast.makeText(
-                requireContext(),
-                "No se pudo añadir el producto al carrito",
-                Toast.LENGTH_SHORT
-            ).show()
         }
     }
+
 
     private fun showRetryToast() {
         Toast.makeText(

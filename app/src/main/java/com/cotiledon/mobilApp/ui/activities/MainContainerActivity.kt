@@ -13,6 +13,7 @@ import com.cotiledon.mobilApp.ui.fragments.ProfileFragment
 import com.cotiledon.mobilApp.ui.fragments.ShoppingCartFragment
 import com.cotiledon.mobilApp.ui.fragments.SignInPreviousFragment
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
+import com.cotiledon.mobilApp.ui.managers.TokenManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainContainerActivity : BaseActivity() {
@@ -27,7 +28,7 @@ class MainContainerActivity : BaseActivity() {
         supportActionBar?.hide()
 
         //Inicialiar el cart manager
-        cartManager = CartStorageManager(this)
+        cartManager = CartStorageManager(this, TokenManager(this))
 
         //Inicializar el botom navigation
         bottomNavigationView = findViewById(R.id.bottom_navigation)

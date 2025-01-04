@@ -21,6 +21,7 @@ import com.cotiledon.mobilApp.ui.dataClasses.cart.CartValidationErrorResponse
 
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.cotiledon.mobilApp.ui.backend.cart.RetrofitCartClient
+import com.cotiledon.mobilApp.ui.managers.TokenManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
@@ -34,7 +35,7 @@ class ShoppingCartFragment : Fragment() {
     private lateinit var totalPriceText: TextView
     private lateinit var checkoutButton: Button
     private var checkoutTimer: CountDownTimer? = null
-    private val cartClient = RetrofitCartClient.createCartClient()
+    private val cartClient = RetrofitCartClient.createCartClient(TokenManager(requireContext()))
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +48,7 @@ class ShoppingCartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        cartManager = CartStorageManager(requireContext())
+        cartManager = CartStorageManager(requireContext(), TokenManager(requireContext()))
 
         recyclerView = view.findViewById(R.id.shopping_cart_recycler_view)
         totalPriceText = view.findViewById(R.id.total_price)

@@ -1,6 +1,6 @@
 package com.cotiledon.mobilApp.ui.dataClasses.plant
 
-import com.cotiledon.mobilApp.ui.dataClasses.category.PlantCategory
+import com.cotiledon.mobilApp.ui.dataClasses.catalog.PlantCategory
 
 data class Plant(
     val id: Int,

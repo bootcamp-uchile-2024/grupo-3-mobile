@@ -16,6 +16,7 @@ import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
 import com.cotiledon.mobilApp.ui.adapters.CartSummaryAdapter
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
+import com.cotiledon.mobilApp.ui.managers.TokenManager
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -65,7 +66,7 @@ class ShoppingCartFragmentPay : Fragment(){
         applyDiscountButton = view.findViewById(R.id.button_shopping_apl)
         checkoutButton = view.findViewById(R.id.btn_ir_a_pagar)
 
-        cartManager = CartStorageManager(requireContext())
+        cartManager = CartStorageManager(requireContext(), TokenManager(requireContext()))
     }
 
     private fun setupRecyclerView() {

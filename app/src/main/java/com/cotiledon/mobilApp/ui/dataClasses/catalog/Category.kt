@@ -1,4 +1,4 @@
-package com.cotiledon.mobilApp.ui.dataClasses.category
+package com.cotiledon.mobilApp.ui.dataClasses.catalog
 
 data class Category(
     val name: String,

@@ -11,8 +11,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.plant.Plant
-import com.cotiledon.mobilApp.ui.dataClasses.category.PlantFilters
-import com.cotiledon.mobilApp.ui.enums.PlantCycle
 import com.cotiledon.mobilApp.ui.backend.GlobalValues
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -110,7 +108,7 @@ class PlantRecyclerViewAdapter(
     inner class LoadingViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun filter(filters: PlantFilters) {
+    /*override fun filter(filters: PlantFilterParams) {
         filteredPlants = plants.filter { plant ->
             // Verificamos si la planta tiene detalles
             val plantDetails = plant.planta
@@ -148,7 +146,7 @@ class PlantRecyclerViewAdapter(
         }.toMutableList()
 
         notifyDataSetChanged()
-    }
+    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -169,7 +167,7 @@ class PlantRecyclerViewAdapter(
         when (getItemViewType(position)) {
             VIEW_TYPE_ITEM -> {
                 val plantHolder = holder as PlantViewHolder
-                val plant = filteredPlants[position]
+                val plant = filteredItems[position]
                 plantHolder.bind(plant)
                 holder.itemView.setOnClickListener {
                     onItemClick(plant)
@@ -189,6 +187,11 @@ class PlantRecyclerViewAdapter(
         }
     }
 
+    fun clearPlants() {
+        clearItems()
+        isLoadingVisible = false
+    }
+
     override fun getItemViewType(position: Int): Int {
         return if (position == filteredPlants.size && isLoadingVisible) {
             VIEW_TYPE_LOADING
@@ -199,13 +202,7 @@ class PlantRecyclerViewAdapter(
 
 
     fun updatePlants(newPlants: List<Plant>) {
-        val startPosition = plants.size
-        plants.addAll(newPlants)
-
-
-        filter(currentFilters)
-
-
+        updateItems(newPlants)
         if (isLoadingVisible) {
             hideLoading()
         }
