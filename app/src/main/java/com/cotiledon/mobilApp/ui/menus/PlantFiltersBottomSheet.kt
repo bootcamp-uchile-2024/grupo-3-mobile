@@ -71,8 +71,20 @@ class PlantFiltersBottomSheet : BottomSheetDialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        filterListener = parentFragment as? FilterListener
-            ?: throw RuntimeException("Parent fragment must implement FilterListener")
+        // Try multiple approaches to find the listener
+        filterListener = when {
+            // First, check if the parent fragment implements the interface
+            parentFragment is FilterListener -> parentFragment as FilterListener
+            // If not, check if the containing activity implements it
+            context is FilterListener -> context
+            // If neither, check if there's a target fragment that implements it
+            targetFragment is FilterListener -> targetFragment as FilterListener
+            else -> {
+                // If we still haven't found a listener, let's try one more time with the parent fragment manager
+                parentFragmentManager.fragments.firstOrNull { it is FilterListener } as? FilterListener
+                    ?: throw RuntimeException("Either parent fragment, target fragment, or activity must implement FilterListener")
+            }
+        }
     }
 
     private fun initializeViews(view: View) {
@@ -141,8 +153,8 @@ class PlantFiltersBottomSheet : BottomSheetDialogFragment() {
         budgetSlider.addOnChangeListener { slider, _, _ ->
             val values = slider.values
             currentFilters.minPrice = values[0].toInt()
-            currentFilters.maxPrice = values[1].toInt()
-            updateBudgetText(values[0], values[1])
+            currentFilters.maxPrice = values[0].toInt()
+            updateBudgetText(values[0], values[0])
         }
 
         // Size radio group listener

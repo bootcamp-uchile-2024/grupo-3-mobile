@@ -113,7 +113,7 @@ class CatalogFragment : Fragment(), PlantFiltersBottomSheet.FilterListener {
 
     private fun setupRecyclerView() {
         adapter = PlantRecyclerViewAdapter(
-            plants = mutableListOf(),
+            initialPlants = mutableListOf(),
             onItemClick = {   plant -> navigateToProductDetail(plant)},
             onAddToCartClick = { plant -> handleAddToCart(plant) }
         )
@@ -164,7 +164,7 @@ class CatalogFragment : Fragment(), PlantFiltersBottomSheet.FilterListener {
         val currentIcon = button.icon
 
         val rotateOut = ObjectAnimator.ofFloat(currentIcon, "rotationZ",0f, 180f)
-        rotateOut.duration = 300
+        rotateOut.duration = 100
 
         rotateOut.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
@@ -216,8 +216,10 @@ class CatalogFragment : Fragment(), PlantFiltersBottomSheet.FilterListener {
         filterButton.getLocationOnScreen(location)
         val filterButtonY = location[1] + filterButton.height
 
-        PlantFiltersBottomSheet.newInstance(filterButtonY)
-            .show(parentFragmentManager, "filters")
+        val bottomSheet = PlantFiltersBottomSheet.newInstance(filterButtonY)
+        // Set the target fragment to ensure the listener connection
+        bottomSheet.setTargetFragment(this, 0)
+        bottomSheet.show(parentFragmentManager, "filters")
     }
 
     @SuppressLint("NotifyDataSetChanged")

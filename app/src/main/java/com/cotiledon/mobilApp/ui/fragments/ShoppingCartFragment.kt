@@ -30,12 +30,15 @@ import java.util.Locale
 
 class ShoppingCartFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var cartManager: CartStorageManager
     private lateinit var adapter: CartRecyclerViewAdapter
     private lateinit var totalPriceText: TextView
     private lateinit var checkoutButton: Button
     private var checkoutTimer: CountDownTimer? = null
-    private val cartClient = RetrofitCartClient.createCartClient(TokenManager(requireContext()))
+
+
+    private val tokenManager by lazy { TokenManager(requireContext()) }
+    private val cartClient by lazy { RetrofitCartClient.createCartClient(tokenManager) }
+    private val cartManager by lazy { CartStorageManager(requireContext(), tokenManager) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +51,10 @@ class ShoppingCartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        cartManager = CartStorageManager(requireContext(), TokenManager(requireContext()))
+        recyclerView = view.findViewById(R.id.shopping_cart_recycler_view)
+        totalPriceText = view.findViewById(R.id.total_price)
+        checkoutButton = view.findViewById(R.id.btn_ir_a_pagar)
+
 
         recyclerView = view.findViewById(R.id.shopping_cart_recycler_view)
         totalPriceText = view.findViewById(R.id.total_price)

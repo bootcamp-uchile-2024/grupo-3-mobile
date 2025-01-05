@@ -5,33 +5,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.ui.dataClasses.catalog.PlantFilterParams
 
 abstract class FilterableAdapter<T: Any, VH: RecyclerView.ViewHolder>(
-    private var items: List<T>
+    initialItems: List<T>
 ): RecyclerView.Adapter<VH>() {
-    protected var currentFilters: PlantFilterParams = PlantFilterParams()
-    var filteredItems: List<T> = items
+    private var items : MutableList<T> = initialItems.toMutableList()
+    private var currentFilters: PlantFilterParams = PlantFilterParams()
+    protected var filteredItems: MutableList<T> = items.toMutableList()
 
     @SuppressLint("NotifyDataSetChanged")
     open fun filter(filters: PlantFilterParams) {
-
         currentFilters = filters
-
-
-        filteredItems = items.filter { item ->
-            true
-        }
+        filteredItems = items.toMutableList()
         notifyDataSetChanged()
     }
 
+
     @SuppressLint("NotifyDataSetChanged")
     fun clearItems() {
-        items = emptyList()
-        filteredItems = emptyList()
+        items.clear()
+        filteredItems.clear()
         notifyDataSetChanged()
     }
 
     fun updateItems(newItems: List<T>) {
-        items = newItems
-        filter(currentFilters)
+        val startPosition = items.size
+        items.addAll(newItems)
+        filteredItems.addAll(newItems)
+        notifyItemRangeInserted(startPosition, newItems.size)
     }
 
     override fun getItemCount(): Int = filteredItems.size

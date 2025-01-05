@@ -22,25 +22,17 @@ import java.util.Locale
 // lista con objetos Plant y una variable que permitirá clickear en cada tarjeta
 
 class PlantRecyclerViewAdapter(
-    private val plants: MutableList<Plant>,
+    initialPlants: MutableList<Plant>,
     private val onItemClick: (Plant) -> Unit,
     private val onAddToCartClick: (Plant) -> Unit
-) : FilterableAdapter<Plant,RecyclerView.ViewHolder>(plants) {
+) : FilterableAdapter<Plant,RecyclerView.ViewHolder>(initialPlants) {
 
     companion object {
         private const val VIEW_TYPE_ITEM = 0
         private const val VIEW_TYPE_LOADING = 1
-
-        private val TEMPERATURE_VALUES = mapOf(
-            "Frío" to 1f,
-            "Templado" to 2f,
-            "Cálido" to 3f
-        )
     }
 
-    private var isLoadingAddedToList = false
     private var isLoadingVisible = false
-    private var filteredPlants: MutableList<Plant> = plants
     private val failedImageLoads = mutableSetOf<String>()
 
     inner class PlantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -181,9 +173,9 @@ class PlantRecyclerViewAdapter(
 
     override fun getItemCount(): Int {
         return if (isLoadingVisible) {
-            filteredPlants.size + 1
+            filteredItems.size + 1
         } else {
-            filteredPlants.size
+            filteredItems.size
         }
     }
 
@@ -193,7 +185,7 @@ class PlantRecyclerViewAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == filteredPlants.size && isLoadingVisible) {
+        return if (position == filteredItems.size && isLoadingVisible) {
             VIEW_TYPE_LOADING
         } else {
             VIEW_TYPE_ITEM
