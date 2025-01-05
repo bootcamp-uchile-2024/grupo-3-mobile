@@ -1,13 +1,15 @@
 package com.cotiledon.mobilApp.ui.backend.order
 
+import com.cotiledon.mobilApp.ui.backend.AuthInterceptor
 import com.cotiledon.mobilApp.ui.backend.GlobalValues
 import com.cotiledon.mobilApp.ui.dataClasses.order.OrderRequest
+import com.cotiledon.mobilApp.ui.managers.TokenManager
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitOrderClient(private val baseUrl: String) {
+class RetrofitOrderClient(private val baseUrl: String, private val tokenManager: TokenManager) {
     private val orderApiService: OrderApiService
 
     init {
@@ -15,8 +17,11 @@ class RetrofitOrderClient(private val baseUrl: String) {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
+        val authInterceptor = AuthInterceptor(tokenManager)
+
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
+            .addInterceptor(authInterceptor)
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -32,6 +37,7 @@ class RetrofitOrderClient(private val baseUrl: String) {
         orderApiService.createOrder(userId, orderRequest)
 
     companion object {
-        fun createOrderClient() = RetrofitOrderClient(GlobalValues.backEndIP)
+        fun createOrderClient(tokenManager: TokenManager) =
+            RetrofitOrderClient(GlobalValues.backEndIP, tokenManager)
     }
 }

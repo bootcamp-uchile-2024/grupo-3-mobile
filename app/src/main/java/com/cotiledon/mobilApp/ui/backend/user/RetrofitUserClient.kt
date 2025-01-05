@@ -1,13 +1,15 @@
 package com.cotiledon.mobilApp.ui.backend.user
 
+import com.cotiledon.mobilApp.ui.backend.AuthInterceptor
 import com.cotiledon.mobilApp.ui.backend.GlobalValues
-import com.cotiledon.mobilApp.ui.dataClasses.profile.UserRegistration
+import com.cotiledon.mobilApp.ui.dataClasses.profile.UserRegistrationData
+import com.cotiledon.mobilApp.ui.managers.TokenManager
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.logging.HttpLoggingInterceptor
 
-class RetrofitUserClient (private val baseUrl: String) {
+class RetrofitUserClient (private val baseUrl: String, private val tokenManager: TokenManager) {
 
     private val userApiService: UserApiService
 
@@ -17,8 +19,11 @@ class RetrofitUserClient (private val baseUrl: String) {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
+        val authInterceptor = AuthInterceptor(tokenManager)
+
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
+            .addInterceptor(authInterceptor)
             .build()
 
 
@@ -32,9 +37,16 @@ class RetrofitUserClient (private val baseUrl: String) {
         userApiService = retrofit.create(UserApiService::class.java)
     }
 
-    suspend fun registerUser(userRegistration: UserRegistration) = userApiService.registerUser(userRegistration)
+    suspend fun registerUser(userRegistration: UserRegistrationData?) = userRegistration?.let {
+        userApiService.registerUser(
+            it
+        )
+    }
+
+    suspend fun getUserProfile() = userApiService.getUserProfile()
 
     companion object {
-        fun createUserClient() = RetrofitUserClient(GlobalValues.backEndIP)
+        fun createUserClient(tokenManager: TokenManager) =
+            RetrofitUserClient(GlobalValues.backEndIP, tokenManager)
     }
 }

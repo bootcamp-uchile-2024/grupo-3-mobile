@@ -2,32 +2,89 @@ package com.cotiledon.mobilApp.ui.managers
 
 import android.content.Context
 import android.os.CountDownTimer
+import android.util.Log
+import java.io.File
 
-class TokenManager (context: Context) {
-    private val prefs = context.getSharedPreferences(PREFS_TOKEN_FILE, Context.MODE_PRIVATE)
-    private val editor = prefs.edit()
+class TokenManager (private val context: Context) {
+    private val appContext = context.applicationContext
+    private val prefs by lazy {
+        appContext.getSharedPreferences(PREFS_TOKEN_FILE, Context.MODE_PRIVATE)
+    }
+
+    private val editor by lazy {
+        prefs.edit()
+    }
+
     private var expirationTimer: CountDownTimer? = null
     private var tokenExpirationTimer: CountDownTimer? = null
 
     //Guardamos toda la información del token
     fun saveAuthData(token: String, userId: Int, tokenExpiration: Long) {
-        editor.apply {
-            putString(KEY_TOKEN, token)
-            putInt(KEY_USER_ID, userId)
-            putLong(KEY_TOKEN_EXPIRATION, tokenExpiration)
-            apply()
+        Log.d("TokenManager", "Starting save operation...")
+        Log.d("TokenManager", "Current prefs content before save: ${prefs.all}")
+
+        try {
+            // Clear existing data first
+            editor.clear()
+            editor.commit()
+
+            // Save new data
+            editor.putString(KEY_TOKEN, token)
+            editor.putInt(KEY_USER_ID, userId)
+            editor.putLong(KEY_TOKEN_EXPIRATION, tokenExpiration)
+
+            val committed = editor.commit()
+            Log.d("TokenManager", "Save committed: $committed")
+
+            // Verify immediate save
+            val savedToken = prefs.getString(KEY_TOKEN, null)
+            Log.d("TokenManager", "Immediate verification - Saved token: $savedToken")
+
+            if (savedToken != token) {
+                Log.e("TokenManager", "Token verification failed! Expected: $token, Got: $savedToken")
+            }
+
+            startTokenExpirationTimer(tokenExpiration)
+            verifyPreferencesFile()
+
+        } catch (e: Exception) {
+            Log.e("TokenManager", "Error saving auth data", e)
         }
-        startTokenExpirationTimer(tokenExpiration)
     }
 
-    //Obtenemos el token si existe
     fun getToken(): String? {
-        return prefs.getString(KEY_TOKEN, null)
+        try {
+            val token = prefs.getString(KEY_TOKEN, null)
+            Log.d("TokenManager", "Retrieving token...")
+            Log.d("TokenManager", "Current prefs content: ${prefs.all}")
+            Log.d("TokenManager", "Retrieved token: $token")
+            return token
+        } catch (e: Exception) {
+            Log.e("TokenManager", "Error retrieving token", e)
+            return null
+        }
     }
 
     //Obtener el id del usuario
     fun getUserId(): Int {
         return prefs.getInt(KEY_USER_ID, -1)
+    }
+
+    private fun verifyPreferencesFile() {
+        try {
+            val prefsFile = File(appContext.applicationInfo.dataDir + "/shared_prefs/" + PREFS_TOKEN_FILE + ".xml")
+            Log.d("TokenManager", "Preferences file exists: ${prefsFile.exists()}")
+
+            if (prefsFile.exists()) {
+                Log.d("TokenManager", "Preferences file size: ${prefsFile.length()} bytes")
+                Log.d("TokenManager", "Preferences file path: ${prefsFile.absolutePath}")
+                Log.d("TokenManager", "Current preferences content: ${prefs.all}")
+            } else {
+                Log.e("TokenManager", "Preferences file does not exist!")
+            }
+        } catch (e: Exception) {
+            Log.e("TokenManager", "Error verifying preferences file", e)
+        }
     }
 
         //Iniciamos el timer para la expiración del token si la app pasa al background
@@ -58,13 +115,16 @@ class TokenManager (context: Context) {
         if (timeUntilExpiration > 0) {
             tokenExpirationTimer = object : CountDownTimer(timeUntilExpiration, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
-                    //Cuando le queden 5 minutos de expiración, se vuelve a traer el token
+                    // Add logging to track timer
+                    Log.d("TokenManager", "Token expires in: ${millisUntilFinished / 1000} seconds")
+
                     if (millisUntilFinished <= REFRESH_THRESHOLD && isAppInForeground) {
                         refreshTokenCallback?.invoke()
                     }
                 }
 
                 override fun onFinish() {
+                    Log.d("TokenManager", "Token expired, clearing data")
                     clearAuthData()
                 }
             }.start()
@@ -79,10 +139,15 @@ class TokenManager (context: Context) {
 
     //Función para limpiar la data del token
     fun clearAuthData() {
-        editor.clear().apply()
+        Log.d("TokenManager", "Clearing auth data...")
+        editor.clear()
+        editor.commit()
         cancelExpirationTimer()
         tokenExpirationTimer?.cancel()
         tokenExpirationTimer = null
+
+        // Verify clear operation
+        Log.d("TokenManager", "Auth data cleared. Current prefs content: ${prefs.all}")
     }
 
     // Callback para refrescar el token

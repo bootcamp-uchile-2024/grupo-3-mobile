@@ -1,20 +1,23 @@
 package com.cotiledon.mobilApp.ui.activities
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cotiledon.mobilApp.R
+import androidx.lifecycle.lifecycleScope
+import com.cotiledon.mobilApp.ui.backend.user.RetrofitUserClient
 import com.cotiledon.mobilApp.ui.fragments.CategoriesFragment
 import com.cotiledon.mobilApp.ui.fragments.HomeFragment
-import com.cotiledon.mobilApp.ui.fragments.ProfileFragment
+import com.cotiledon.mobilApp.ui.fragments.ProfileUserFragment
 import com.cotiledon.mobilApp.ui.fragments.ShoppingCartFragment
 import com.cotiledon.mobilApp.ui.fragments.SignInPreviousFragment
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.cotiledon.mobilApp.ui.managers.TokenManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
 
 class MainContainerActivity : BaseActivity() {
 
@@ -54,20 +57,31 @@ class MainContainerActivity : BaseActivity() {
 
     private fun setupNavigation() {
         bottomNavigationView.setOnItemSelectedListener { item ->
-            val fragment = when (item.itemId) {
-                R.id.nav_home -> HomeFragment()
-                R.id.nav_profile -> SignInPreviousFragment()
-                R.id.nav_cart -> ShoppingCartFragment()
-                R.id.nav_menu -> CategoriesFragment()
-                else -> null
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, HomeFragment())
+                        .commit()
+                    true
+                }
+                R.id.nav_profile -> {
+                    handleProfileNavigation()
+                    true
+                }
+                R.id.nav_cart -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, ShoppingCartFragment())
+                        .commit()
+                    true
+                }
+                R.id.nav_menu -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, CategoriesFragment())
+                        .commit()
+                    true
+                }
+                else -> false
             }
-
-            fragment?.let {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, it)
-                    .commit()
-                true
-            } ?: false
         }
     }
 
@@ -85,6 +99,50 @@ class MainContainerActivity : BaseActivity() {
         } else {
             bottomNavigationView.removeBadge(cartItem.itemId)
         }
+    }
+
+    private fun handleProfileNavigation() {
+        lifecycleScope.launch {
+            try {
+                // Check if we have a token
+                val token = tokenManager.getToken()
+                Log.d("TokenManager", "Token obtenido: $token")
+                if (token != null) {
+                    // Try to get user profile
+                    val userClient = RetrofitUserClient.createUserClient(TokenManager(this@MainContainerActivity))
+                    val response = userClient.getUserProfile()
+
+                    if (response.isSuccessful) {
+                        response.body()?.let { profile ->
+                            if (profile.rol != "Visitante") {
+                                // Show user profile
+                                supportFragmentManager.beginTransaction()
+                                    .replace(R.id.fragment_container, ProfileUserFragment.newInstance())
+                                    .commit()
+                            } else {
+                                // Show login screen for visitors
+                                showLoginScreen()
+                            }
+                        }
+                    } else {
+                        // Error getting profile, show login
+                        showLoginScreen()
+                    }
+                } else {
+                    // No token, show login
+                    showLoginScreen()
+                }
+            } catch (e: Exception) {
+                // Error occurred, show login
+                showLoginScreen()
+            }
+        }
+    }
+
+    private fun showLoginScreen() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, SignInPreviousFragment())
+            .commit()
     }
 
 }

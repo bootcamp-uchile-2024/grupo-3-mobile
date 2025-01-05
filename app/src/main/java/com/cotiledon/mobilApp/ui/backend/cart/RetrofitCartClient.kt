@@ -1,5 +1,6 @@
 package com.cotiledon.mobilApp.ui.backend.cart
 
+import com.cotiledon.mobilApp.ui.backend.AuthInterceptor
 import com.cotiledon.mobilApp.ui.backend.GlobalValues
 import com.cotiledon.mobilApp.ui.dataClasses.cart.CartProduct
 import com.cotiledon.mobilApp.ui.dataClasses.cart.CartProducts
@@ -19,18 +20,11 @@ class RetrofitCartClient(private val baseUrl: String, private val tokenManager: 
             level = HttpLoggingInterceptor.Level.BODY
         }
 
+        val authInterceptor = AuthInterceptor(tokenManager)
+
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
-            .addInterceptor { chain ->
-                val token = tokenManager.getToken()
-                    ?: throw AuthenticationException("No hay token de autenticacion disponible")
-
-                val request = chain.request().newBuilder()
-                    .addHeader("Authorization", "Bearer $token")
-                    .build()
-
-                chain.proceed(request)
-            }
+            .addInterceptor(authInterceptor)
             .build()
 
         val retrofit = Retrofit.Builder()

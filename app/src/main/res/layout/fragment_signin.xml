@@ -200,10 +200,11 @@
                     android:textSize="13sp" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/register_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
+                    android:clickable="true"
                     android:onClick="onRegisterTextClick"
                     android:text="@string/question2_singin"
                     android:textColor="@color/main_app"

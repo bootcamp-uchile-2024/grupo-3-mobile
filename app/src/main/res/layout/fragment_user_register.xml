@@ -1,5 +1,4 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -87,6 +86,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/edittext_name"
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_gravity="center_vertical"
@@ -97,9 +97,10 @@
                 android:hint="@string/register_name1_hint"
                 android:inputType="textPersonName"
                 android:paddingStart="12dp"
-                tools:ignore="RtlSymmetry"/>
+                tools:ignore="RtlSymmetry" />
 
             <EditText
+                android:id="@+id/edittext_lastname"
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_gravity="center_vertical"
@@ -117,22 +118,23 @@
             android:id="@+id/linearLayout_register_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="40dp">
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/TextView_register_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/register_username"
                 android:textColor="@color/primary_color"
                 android:textSize="22sp"
-                android:layout_marginBottom="10dp"
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edittext_username"
                 android:layout_width="match_parent"
                 android:layout_height="39dp"
                 android:layout_gravity="center_vertical|center_horizontal"
@@ -150,22 +152,23 @@
             android:id="@+id/linearLayout_register_user_mail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="40dp">
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/TextView_register_usermail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/register_usermail"
                 android:textColor="@color/primary_color"
                 android:textSize="22sp"
-                android:layout_marginBottom="10dp"
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edittext_email"
                 android:layout_width="match_parent"
                 android:layout_height="39dp"
                 android:layout_gravity="center_vertical|center_horizontal"
@@ -182,23 +185,58 @@
         <LinearLayout
             android:id="@+id/linearLayout_register_user_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="40dp">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/TextView_register_userpassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/register_userpassword_first"
+                android:textColor="@color/primary_color"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edittext_password"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="@string/register_password_singin"
+                android:inputType="textPassword"
+                android:paddingStart="12dp"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_register_user_password_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TextView_register_userpassword_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/register_userpassword"
                 android:textColor="@color/primary_color"
                 android:textSize="22sp"
-                android:layout_marginBottom="10dp"
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edittext_password_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="39dp"
                 android:layout_gravity="center_vertical|center_horizontal"
@@ -250,6 +288,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/edittext_rut"
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_gravity="center_vertical"
@@ -260,9 +299,10 @@
                 android:hint="@string/register_userrut_hint"
                 android:inputType="textPersonName"
                 android:paddingStart="12dp"
-                tools:ignore="RtlSymmetry"/>
+                tools:ignore="RtlSymmetry" />
 
             <EditText
+                android:id="@+id/edittext_phone"
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_gravity="center_vertical"
@@ -277,20 +317,21 @@
         </LinearLayout>
 
         <Spinner
+            android:id="@+id/spinner_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:scrollbarSize="22dp"
             android:background="@drawable/rounded_border_spinner"
             android:padding="12dp"
-            android:textAlignment="center"/>
+            android:scrollbarSize="22dp"
+            android:textAlignment="center" />
 
         <LinearLayout
             android:id="@+id/linearLayout_register_birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="40dp">
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/TextView_register_userbirthday"
@@ -305,18 +346,19 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edittext_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="39dp"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_shopping_edittext"
                 android:fontFamily="@font/quicksand_medium"
                 android:hint="@string/register_userbirthday_hint"
                 android:inputType="textEmailAddress"
                 android:paddingStart="12dp"
-                tools:ignore="RtlSymmetry"
-                android:layout_marginBottom="30dp"/>
+                tools:ignore="RtlSymmetry" />
         </LinearLayout>
 
         <Button
@@ -324,18 +366,17 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:paddingStart="90dp"
-            android:paddingEnd="90dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
             android:background="@drawable/round_standar"
             android:fontFamily="@font/quicksand"
+            android:paddingStart="90dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="90dp"
+            android:paddingBottom="5dp"
             android:text="@string/register_next"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="22sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
     </LinearLayout>
 </ScrollView>

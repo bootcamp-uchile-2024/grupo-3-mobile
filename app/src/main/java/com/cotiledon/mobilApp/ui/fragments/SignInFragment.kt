@@ -1,6 +1,7 @@
 package com.cotiledon.mobilApp.ui.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,16 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.activities.BaseActivity
-import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
+import com.cotiledon.mobilApp.ui.activities.MainActivity
 import com.cotiledon.mobilApp.ui.backend.authentication.RetrofitAuthClient
 import com.cotiledon.mobilApp.ui.managers.TokenManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
 class SignInFragment : Fragment() {
@@ -25,6 +25,7 @@ class SignInFragment : Fragment() {
     private var emailEditText: EditText? = null
     private var passwordEditText: EditText? = null
     private var signInButton: Button? = null
+    private var registerButton: TextView? = null
     private lateinit var tokenManager: TokenManager
     private lateinit var authClient: RetrofitAuthClient
 
@@ -49,11 +50,10 @@ class SignInFragment : Fragment() {
             initializeViews(view)
             setupClickListeners()
 
-            tokenManager = TokenManager(requireContext())
             authClient = RetrofitAuthClient.createAuthClient()
 
             if (tokenManager.getToken() != null) {
-                navigateToMain()
+                navigateToMainActivity()
             }
         } catch (e: Exception) {
             Log.e("SignInFragment", "Error in onViewCreated: ${e.message}")
@@ -76,11 +76,16 @@ class SignInFragment : Fragment() {
         if (signInButton == null) {
             throw IllegalStateException("Sign in button not found in layout")
         }
+        registerButton = view.findViewById(R.id.register_btn)
     }
 
     private fun setupClickListeners() {
         signInButton?.setOnClickListener {
             validateAndLogin()
+        }
+
+        registerButton?.setOnClickListener {
+            navigateToRegister()
         }
     }
 
@@ -99,53 +104,47 @@ class SignInFragment : Fragment() {
 
                 when (response.code()) {
                     201 -> {
-                        response.body()?.let { authResponse ->
+                        val authResponse = response.body()
+                        if (authResponse != null) {
+                            Log.d("SignInFragment", "Auth Response: $authResponse")  // Add logging
                             tokenManager.saveAuthData(
-                                authResponse.accessToken,
+                                authResponse.access_token,  // Use access_token instead of accessToken
                                 authResponse.id,
                                 authResponse.expToken
                             )
-                            navigateToMain()
+                            Log.d("SignInFragment", "Token saved successfully")  // Add logging
+                            navigateToMainActivity()
+                        } else {
+                            Log.e("SignInFragment", "Response body is null")
+                            Toast.makeText(context, "Invalid response from server", Toast.LENGTH_SHORT).show()
                         }
                     }
                     401 -> {
-                        Toast.makeText(
-                            context,
-                            "Invalid credentials",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(context, "Invalid credentials", Toast.LENGTH_SHORT).show()
                     }
                     else -> {
-                        Toast.makeText(
-                            context,
-                            "Login error",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Log.e("SignInFragment", "Unexpected response code: ${response.code()}")
+                        Toast.makeText(context, "Login error", Toast.LENGTH_SHORT).show()
                     }
                 }
             } catch (e: Exception) {
-                Toast.makeText(
-                    context,
-                    "Connection error",
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.e("SignInFragment", "Login error: ${e.message}")
+                Log.e("SignInFragment", "Login error", e)
+                Toast.makeText(context, "Connection error", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun navigateToMain() {
-        (activity as? MainContainerActivity)?.let { mainActivity ->
-            val bottomNav = mainActivity.findViewById<BottomNavigationView>(R.id.bottom_navigation)
+    private fun navigateToMainActivity() {
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+    }
 
-            parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, HomeFragment())
-                .commit()
-
-            bottomNav.selectedItemId = R.id.nav_home
-        }
+    private fun navigateToRegister() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, UserRegisterFragment())
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onDestroyView() {

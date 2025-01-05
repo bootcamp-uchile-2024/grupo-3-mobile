@@ -16,13 +16,13 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.dataClasses.profile.UserRegistration
 import com.cotiledon.mobilApp.ui.backend.user.RetrofitUserClient
+import com.cotiledon.mobilApp.ui.dataClasses.profile.UserRegistrationData
+import com.cotiledon.mobilApp.ui.managers.TokenManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -73,7 +73,7 @@ class UserRegistrationActivity : BaseActivity() {
         birthDate = findViewById(R.id.birth_date)
 
         //Inicializar Retrofit Client
-        retrofitUserClient = RetrofitUserClient.createUserClient()
+        retrofitUserClient = RetrofitUserClient.createUserClient(TokenManager(this))
 
         // Validación de Pass
         fun isValidPassword(password: String): Boolean {
@@ -215,17 +215,23 @@ class UserRegistrationActivity : BaseActivity() {
 
         fun registerUser() {
             // Crear objeto UserRegistration
-            val userRegistration = UserRegistration(
-                contrasena = contrasena.text.toString(),
-                nombre = nombre.text.toString(),
-                apellido = apellido.text.toString(),
-                nombreUsuario = username.text.toString(),
-                email = email.text.toString(),
-                telefono = telefono.text.toString().takeIf { it.isNotBlank() }?.removePrefix("+"),
-                genero = genero.selectedItem.toString().takeIf { it != "Género" },
-                rut = rut.text.toString(),
-                fechaNacimiento = birthDateButton.text.toString()
-            )
+            val userRegistration =
+                telefono.text.toString().takeIf { it.isNotBlank() }?.removePrefix("+")?.let {
+                    genero.selectedItem.toString().takeIf { it != "Género" }?.let { it1 ->
+                        UserRegistrationData(
+                            nombre = nombre.text.toString(),
+                            apellido = apellido.text.toString(),
+                            nombreUsuario = username.text.toString(),
+                            email = email.text.toString(),
+                            telefono = it,
+                            genero = it1,
+                            rut = rut.text.toString(),
+                            fechaNacimiento = birthDateButton.text.toString(),
+                            contrasena = contrasena.text.toString(),
+                            idRol = 3
+                        )
+                    }
+                }
 
             // Se lanza una corrutina
             lifecycleScope.launch {
@@ -236,29 +242,31 @@ class UserRegistrationActivity : BaseActivity() {
                     }
 
                     // Se checkea la respuesta
-                    withContext(Dispatchers.Main) {
-                        if (response.isSuccessful) {
-                            // Registro exitoso
-                            Toast.makeText(
-                                this@UserRegistrationActivity,
-                                "Registro exitoso",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                    if (response != null) {
+                        withContext(Dispatchers.Main) {
+                            if (response.isSuccessful) {
+                                // Registro exitoso
+                                Toast.makeText(
+                                    this@UserRegistrationActivity,
+                                    "Registro exitoso",
+                                    Toast.LENGTH_SHORT
+                                ).show()
 
-                            startActivity(Intent(this@UserRegistrationActivity, MainContainerActivity::class.java))
-                            finish()
-                        } else {
-                            // Llamada no exitosa
-                            val errorMessage = "${response.code()}: " + response.message()
+                                startActivity(Intent(this@UserRegistrationActivity, MainContainerActivity::class.java))
+                                finish()
+                            } else {
+                                // Llamada no exitosa
+                                val errorMessage = "${response.code()}: " + response.message()
 
-                            Toast.makeText(
-                                this@UserRegistrationActivity,
-                                errorMessage,
-                                Toast.LENGTH_LONG
-                            ).show()
+                                Toast.makeText(
+                                    this@UserRegistrationActivity,
+                                    errorMessage,
+                                    Toast.LENGTH_LONG
+                                ).show()
 
-                            Log.e("UserRegistrationActivity", "Error: $errorMessage")
+                                Log.e("UserRegistrationActivity", "Error: $errorMessage")
 
+                            }
                         }
                     }
                 } catch (e: Exception) {

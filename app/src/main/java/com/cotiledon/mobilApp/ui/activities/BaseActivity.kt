@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 
 abstract class BaseActivity : AppCompatActivity() {
     lateinit var tokenManager: TokenManager
+    private var isFinishing = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,9 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onPause()
         //Se empieza el timer cuando la app pasa al background
         tokenManager.setAppForegroundState(false)
-        tokenManager.startExpirationTimer()
+        if (!isFinishing) {
+            tokenManager.startExpirationTimer()
+        }
     }
 
     override fun onResume() {
@@ -37,16 +40,12 @@ abstract class BaseActivity : AppCompatActivity() {
         tokenManager.cancelExpirationTimer()
     }
 
-    override fun onStop() {
-        super.onStop()
-        //Se limpia el token cuando la app se cierra
-        tokenManager.clearAuthData()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         //Se limpia el token cuando la app se destruye
-        tokenManager.clearAuthData()
+        if (isFinishing) {
+            tokenManager.clearAuthData()
+        }
     }
 
     //TODO: A implementarse luego de que exista el servicio de refrescar el token

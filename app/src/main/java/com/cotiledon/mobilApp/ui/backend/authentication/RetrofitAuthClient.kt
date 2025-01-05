@@ -1,5 +1,6 @@
 package com.cotiledon.mobilApp.ui.backend.authentication
 
+import com.cotiledon.mobilApp.ui.backend.AuthInterceptor
 import com.cotiledon.mobilApp.ui.backend.GlobalValues
 import com.cotiledon.mobilApp.ui.dataClasses.authentication.AuthRequest
 import com.cotiledon.mobilApp.ui.dataClasses.authentication.AuthResponse
@@ -9,7 +10,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitAuthClient(private val baseUrl: String) {
+class RetrofitAuthClient(private val baseUrl: String, private val token: String) {
     private val authApiService: AuthApiService
 
     init {
@@ -34,6 +35,6 @@ class RetrofitAuthClient(private val baseUrl: String) {
     }
 
     companion object{
-    fun createAuthClient() = RetrofitAuthClient(GlobalValues.backEndIP)
+    fun createAuthClient() = RetrofitAuthClient(GlobalValues.backEndIP, "")
     }
 }

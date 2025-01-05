@@ -217,7 +217,7 @@
     <string name="register_next_address">Dirección *</string>
     <string name="register_next_address_hint">Direción/Número/Piso</string>
     <string name="register_next_card_info">Registra una tarjeta (Opcional)</string>
-    <string name="register_next_card_number">Número de tarjeta *</string>
+    <string name="register_next_card_number">Número de tarjeta</string>
     <string name="register_next_card_number_hint">Número de tarjeta</string>
     <string name="register_next_card_mm">Expiración (MM...</string>
     <string name="register_next_card_mm_hint">Expiración (MM...</string>
@@ -273,5 +273,7 @@
     <string name="DialogFragment_apply_icon">Tu cupon se aplicara al finalizar la compra</string>
     <string name="DialogFragment_not_notification">Sin notificaciones</string>
     <string name="DialogFragment_not_notification_2">No hay notificaciones nuevas, pero hay un mundo de productos por descubrir</string>
+    <string name="register_userpassword_first">Contraseña *</string>
+    <string name="register_create_act">Crear Cuenta</string>
 
 </resources>
