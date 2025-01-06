@@ -38,7 +38,7 @@ object OrderManager {
 
             // Create DireccionEnvio with properly separated address components
             val direccionEnvio = DireccionEnvio(
-                comuna = details.city,
+                comuna = details.commune,
                 calle = details.address,        // Now contains only street name
                 numero = details.streetNumber ?: "",
                 departamento = details.department ?: "",

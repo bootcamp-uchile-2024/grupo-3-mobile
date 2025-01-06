@@ -6,7 +6,7 @@ data class ShippingDetails(
     val name: String,
     val lastName: String,
     val address: String,        // Will store street name
-    val city: String,
+    val commune: String,
     val region: String,
     val department: String? = null,
     val streetNumber: String? = null,

@@ -70,13 +70,14 @@ class UserRegisterNextFragment : Fragment() {
 
     private fun setupSpinners() {
         val regions = listOf(
-            "Arica y Parinacota", "Tarapacá", "Antofagasta", "Atacama", "Coquimbo",
+            "Seleccione una Región","Arica y Parinacota", "Tarapacá", "Antofagasta", "Atacama", "Coquimbo",
             "Valparaíso", "Metropolitana de Santiago", "O'Higgins", "Maule",
             "Ñuble", "Biobío", "Araucanía", "Los Ríos", "Los Lagos",
             "Aysén", "Magallanes"
         )
 
         val communesByRegion = mapOf(
+            "Seleccione una Región" to listOf("Seleccione una Comuna"),
             "Arica y Parinacota" to listOf("Arica", "Camarones", "Putre", "General Lagos"),
             "Tarapacá" to listOf("Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"),
             "Antofagasta" to listOf("Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena"),
@@ -95,22 +96,49 @@ class UserRegisterNextFragment : Fragment() {
             "Magallanes" to listOf("Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos", "Antártica", "Porvenir", "Primavera", "Timaukel", "Natales", "Torres del Paine")
         )
 
-        val regionAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, regions)
+        // Set up region adapter
+        val regionAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            regions
+        )
         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         regionSpinner.adapter = regionAdapter
 
+        // Create default commune adapter
+        val defaultCommuneAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            listOf("Seleccione una Comuna")
+        )
+        defaultCommuneAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        comunaSpinner.adapter = defaultCommuneAdapter
+
+        // Set up spinner listener with improved handling
         regionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedRegion = regions[position]
-                val communes = communesByRegion[selectedRegion] ?: emptyList()
 
-                val communeAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, communes)
+                // Get communes based on selection
+                val communes = if (selectedRegion == "Seleccione una Región") {
+                    listOf("Seleccione una Comuna")
+                } else {
+                    communesByRegion[selectedRegion] ?: listOf("Seleccione una Comuna")
+                }
+
+                // Create and set commune adapter
+                val communeAdapter = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_item,
+                    communes
+                )
                 communeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 comunaSpinner.adapter = communeAdapter
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                comunaSpinner.adapter = null
+                // Reset to default commune adapter
+                comunaSpinner.adapter = defaultCommuneAdapter
             }
         }
     }
