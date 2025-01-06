@@ -1,5 +1,6 @@
 package com.cotiledon.mobilApp.ui.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,11 @@ import com.cotiledon.mobilApp.ui.managers.OrderManager
 class ShoppingCartOrderSummaryFragment2 : Fragment() {
     private lateinit var regionSpinner: Spinner
     private lateinit var comunaSpinner: Spinner
-    private lateinit var addressEditText: EditText
+    // Add new fields for street address components
+    private lateinit var streetNameEditText: EditText
+    private lateinit var streetNumberEditText: EditText
+    private lateinit var departmentEditText: EditText  // For apartment/unit number
+    private lateinit var referenceEditText: EditText   // For delivery instructions/reference
     private lateinit var receiverNameEditText: EditText
     private lateinit var finalizeButton: Button
     private lateinit var modifyInfoText: TextView
@@ -51,7 +56,10 @@ class ShoppingCartOrderSummaryFragment2 : Fragment() {
     private fun initializeViews(view: View) {
         regionSpinner = view.findViewById(R.id.spinner_region)
         comunaSpinner = view.findViewById(R.id.spinner_comuna)
-        addressEditText = view.findViewById(R.id.address_edit_text)
+        streetNameEditText = view.findViewById(R.id.street_name_edit_text)
+        streetNumberEditText = view.findViewById(R.id.street_number_edit_text)
+        departmentEditText = view.findViewById(R.id.department_edit_text)
+        referenceEditText = view.findViewById(R.id.reference_edit_text)
         receiverNameEditText = view.findViewById(R.id.receiver_name_edit_text)
         finalizeButton = view.findViewById(R.id.btn_siguiente)
         modifyInfoText = view.findViewById(R.id.TextViewInformation)
@@ -107,41 +115,75 @@ class ShoppingCartOrderSummaryFragment2 : Fragment() {
     }
 
     private fun validateInputs(): Boolean {
-        if (addressEditText.text.toString().isBlank()) {
-            addressEditText.error = "Ingrese una dirección válida"
-            return false
+        var isValid = true
+
+        if (streetNameEditText.text.toString().isBlank()) {
+            streetNameEditText.error = "Ingrese el nombre de la calle"
+            isValid = false
+        }
+
+        if (streetNumberEditText.text.toString().isBlank()) {
+            streetNumberEditText.error = "Ingrese el número"
+            isValid = false
         }
 
         if (receiverNameEditText.text.toString().isBlank()) {
             receiverNameEditText.error = "Ingrese el nombre de quien recibe"
-            return false
+            isValid = false
         }
 
-        return true
+        return isValid
     }
 
     private fun saveAddressDetails() {
-        // Actualizar los detalles de envío
-        OrderManager.shippingDetails = OrderManager.shippingDetails?.copy(
-            address = addressEditText.text.toString(),
+        val currentDetails = OrderManager.shippingDetails
+        OrderManager.shippingDetails = currentDetails?.copy(
+            address = streetNameEditText.text.toString(),
             city = comunaSpinner.selectedItem.toString(),
-            region = regionSpinner.selectedItem.toString()
+            region = regionSpinner.selectedItem.toString(),
+            streetNumber = streetNumberEditText.text.toString(),
+            department = departmentEditText.text.toString(),
+            reference = referenceEditText.text.toString()
         )
     }
 
+    @SuppressLint("SetTextI18n")
     private fun loadExistingDetails() {
         // Cargar los detalles de envío si ya existen
         OrderManager.shippingDetails?.let { details ->
             if (details.address.isNotEmpty()) {
-                addressEditText.setText(details.address)
+                streetNameEditText.setText(details.address)
+            }
+
+            if (details.city.isNotEmpty()) {
+                comunaSpinner.setSelection(comunasMap[details.region]?.indexOf(details.city) ?: 0)
+            }
+
+            if (details.region.isNotEmpty()) {
+                regionSpinner.setSelection(regions.indexOf(details.region))
+            }
+
+            if (details.streetNumber != null) {
+                streetNumberEditText.setText(details.streetNumber.toString())
+            }
+
+            if (details.department != null) {
+                departmentEditText.setText(details.department)
+            }
+
+            if (details.reference?.isNotEmpty() == true) {
+                referenceEditText.setText(details.reference)
             }
             // Settear el nombre de quien recibe. Utilizar el nombre original si no se llena
-            receiverNameEditText.setText(details.name)
+            receiverNameEditText.setText(details.name + " " + details.lastName)
         }
     }
 
     private fun enableEditing() {
-        addressEditText.isEnabled = true
+        streetNameEditText.isEnabled = true
+        streetNumberEditText.isEnabled = true
+        departmentEditText.isEnabled = true
+        referenceEditText.isEnabled = true
         receiverNameEditText.isEnabled = true
         regionSpinner.isEnabled = true
         comunaSpinner.isEnabled = true

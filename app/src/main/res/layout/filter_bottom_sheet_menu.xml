@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:elevation="0dp"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,6 +12,26 @@
         android:layout_height="wrap_content">
 
         <!-- Guidelines for consistent margins throughout the layout -->
+        <Button
+            android:id="@+id/applyFilterButton"
+            style="@style/CustomButton"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTintMode="src_in"
+            android:fontFamily="@font/quicksand_medium"
+            android:padding="0dp"
+            android:text="Ver resultados"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textColorLink="@color/main_app"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:theme="@style/Theme.Cotiledon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/startGuideline"
             android:layout_width="wrap_content"
@@ -35,10 +55,12 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Tu presupuesto"
+            android:textColor="@color/main_app"
+            android:textColorLink="@color/main_app"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/startGuideline"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/applyFilterButton" />
 
         <TextView
             android:id="@+id/budgetValue"
@@ -47,6 +69,8 @@
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="$10.000 - $100.000"
+            android:textColor="@color/main_app"
+            android:textColorLink="@color/main_app"
             app:layout_constraintBaseline_toBaselineOf="@id/budgetLabel"
             app:layout_constraintEnd_toEndOf="@id/endGuideline" />
 
@@ -55,7 +79,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             app:labelBehavior="withinBounds"
             app:layout_constraintEnd_toEndOf="@id/endGuideline"
@@ -73,6 +96,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/terciary_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/budgetSlider" />
@@ -86,6 +110,8 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Busca el tamaño perfecto"
+            android:textColor="@color/main_app"
+            android:textColorLink="@color/main_app"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/startGuideline"
@@ -105,31 +131,48 @@
 
             <RadioButton
                 android:id="@+id/sizeS"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/main_app"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="S (15-30 cm)" />
+                android:text="S"
+                android:textColor="@color/main_app"
+                android:textColorLink="@color/main_app" />
 
             <RadioButton
                 android:id="@+id/sizeM"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="M (30-60 cm)" />
+                android:text="M"
+                android:textColor="@color/main_app"
+                android:textColorLink="@color/main_app" />
 
             <RadioButton
                 android:id="@+id/sizeL"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="L (60-100 cm)" />
+                android:text="L"
+                android:textColor="@color/main_app"
+                android:textColorLink="@color/main_app" />
 
             <RadioButton
                 android:id="@+id/sizeXL"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="XL (100+ cm)" />
+                android:text="XL"
+                android:textColor="@color/main_app"
+                android:textColorLink="@color/main_app" />
         </RadioGroup>
 
         <View
@@ -140,6 +183,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/terciary_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sizeGroup" />
@@ -153,6 +197,8 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Pet friendly"
+            android:textColor="@color/main_app"
+            android:textColorLink="@color/main_app"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/startGuideline"
@@ -165,8 +211,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:buttonTint="@color/main_app"
             android:fontFamily="@font/quicksand_medium"
             android:text="Mostrar"
+            android:textColor="@color/main_app"
             app:layout_constraintEnd_toEndOf="@id/endGuideline"
             app:layout_constraintStart_toStartOf="@id/startGuideline"
             app:layout_constraintTop_toBottomOf="@id/petFriendlyLabel" />
@@ -179,6 +227,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/terciary_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/petFriendlyCheckbox" />
@@ -192,6 +241,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="¿Cuanta luz necesita tu espacio?"
+            android:textColor="@color/main_app"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/startGuideline"
@@ -211,24 +261,33 @@
 
             <RadioButton
                 android:id="@+id/lightDirect"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="Sol Directo" />
+                android:text="Sol Directo"
+                android:textColor="@color/main_app" />
 
             <RadioButton
                 android:id="@+id/lightPartial"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="Semi Sombra" />
+                android:text="Semi Sombra"
+                android:textColor="@color/main_app" />
 
             <RadioButton
                 android:id="@+id/lightShade"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="Sombra" />
+                android:text="Sombra"
+                android:textColor="@color/main_app" />
         </RadioGroup>
 
         <View
@@ -239,6 +298,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/terciary_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lightGroup" />
@@ -252,6 +312,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Tolerancia a la temperatura"
+            android:textColor="@color/main_app"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/startGuideline"
@@ -271,24 +332,33 @@
 
             <RadioButton
                 android:id="@+id/tempWarm"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="Cálido" />
+                android:text="Cálido"
+                android:textColor="@color/main_app" />
 
             <RadioButton
                 android:id="@+id/tempMild"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="Templado" />
+                android:text="Templado"
+                android:textColor="@color/main_app" />
 
             <RadioButton
                 android:id="@+id/tempCold"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="Frío" />
+                android:text="Frío"
+                android:textColor="@color/main_app" />
         </RadioGroup>
 
         <View
@@ -299,11 +369,13 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/terciary_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/temperatureGroup" />
 
         <!-- 6. Irrigation Type Section -->
+
         <TextView
             android:id="@+id/irrigationLabel"
             android:layout_width="wrap_content"
@@ -312,6 +384,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/quicksand_medium"
             android:text="Tipo de irrigación"
+            android:textColor="@color/main_app"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/startGuideline"
@@ -331,67 +404,110 @@
 
             <RadioButton
                 android:id="@+id/irrigationManual"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="Manual" />
+                android:text="Manual"
+                android:textColor="@color/main_app"
+                android:textColorLink="@color/main_app" />
 
             <RadioButton
                 android:id="@+id/irrigationDrip"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="Goteo" />
+                android:text="Goteo"
+                android:textColor="@color/main_app" />
 
             <RadioButton
                 android:id="@+id/irrigationCapillary"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="Capilar" />
+                android:text="Capilar"
+                android:textColor="@color/main_app" />
 
             <RadioButton
                 android:id="@+id/irrigationSubmersion"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="Sumersión" />
+                android:text="Sumersión"
+                android:textColor="@color/main_app" />
 
             <RadioButton
                 android:id="@+id/irrigationSelfWatering"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="Autorriego" />
+                android:text="Autorriego"
+                android:textColor="@color/main_app" />
 
             <RadioButton
                 android:id="@+id/irrigationMisting"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="Nebulización" />
+                android:text="Nebulización"
+                android:textColor="@color/main_app" />
 
             <RadioButton
                 android:id="@+id/irrigationAutomatic"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/main_app"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="Automático" />
+                android:text="Automático"
+                android:textColor="@color/main_app" />
+
         </RadioGroup>
 
         <!-- Apply and Clear Filters Buttons -->
+
+        <View
+            android:id="@+id/divider6"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/terciary_grey"
+            app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+            app:layout_constraintStart_toStartOf="@+id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/irrigationGroup" />
+
         <Button
             android:id="@+id/clearFiltersButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/CustomOutlinedButton"
+            android:layout_width="180dp"
+            android:layout_height="55dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_weight="1"
+            android:layout_marginBottom="16dp"
+            android:elevation="0dp"
             android:fontFamily="@font/quicksand_medium"
-            android:text="Limpiar Filtros"
+            android:padding="0dp"
+            android:text="Quitar Filtros"
             android:textAllCaps="false"
+            android:textColor="@color/main_app"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/endGuideline"
-            app:layout_constraintTop_toBottomOf="@+id/irrigationGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/divider6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

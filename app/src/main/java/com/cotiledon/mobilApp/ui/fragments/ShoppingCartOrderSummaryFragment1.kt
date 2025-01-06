@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.order.ShippingDetails
 import com.cotiledon.mobilApp.ui.managers.OrderManager
+import com.cotiledon.mobilApp.ui.managers.TokenManager
 
 class ShoppingCartOrderSummaryFragment1 : Fragment() {
 
@@ -21,6 +22,7 @@ class ShoppingCartOrderSummaryFragment1 : Fragment() {
     private lateinit var rutEditText: EditText
     private lateinit var nextButton: Button
     private lateinit var modifyInfoText: TextView
+    private lateinit var tokenManager: TokenManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,11 +36,52 @@ class ShoppingCartOrderSummaryFragment1 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        initializeViews(view)
+        tokenManager = TokenManager(requireContext())
 
+        initializeViews(view)
         setupClickListeners()
 
+        // Handle different user types
+        if (tokenManager.isVisitor()) {
+            handleVisitorFlow()
+        } else {
+            handleRegisteredUserFlow()
+        }
+    }
+
+    private fun handleVisitorFlow() {
+        // Start with empty fields for visitors
+        clearFields()
+        enableAllFields(true)
+
+        // Check if we have previously entered visitor details
+        OrderManager.getVisitorDetails()?.let { details ->
+            populateFields(details)
+        }
+    }
+
+    private fun handleRegisteredUserFlow() {
+        // Load existing profile data and disable fields by default
         loadExistingDetails()
+        enableAllFields(false)
+
+        // Allow modification through the modify button
+        modifyInfoText.visibility = View.VISIBLE
+    }
+
+    private fun populateFields(details: ShippingDetails) {
+        nameEditText.setText(details.name)
+        lastNameEditText.setText(details.lastName)
+        emailEditText.setText(details.email)
+        phoneEditText.setText(details.phone)
+    }
+
+    private fun clearFields() {
+        nameEditText.text?.clear()
+        lastNameEditText.text?.clear()
+        emailEditText.text?.clear()
+        phoneEditText.text?.clear()
+        rutEditText.text?.clear()
     }
 
     private fun initializeViews(view: View) {
@@ -61,8 +104,16 @@ class ShoppingCartOrderSummaryFragment1 : Fragment() {
         }
 
         modifyInfoText.setOnClickListener {
-            enableEditing()
+            enableAllFields(true)
         }
+    }
+
+    private fun enableAllFields(enabled: Boolean) {
+        nameEditText.isEnabled = enabled
+        lastNameEditText.isEnabled = enabled
+        emailEditText.isEnabled = enabled
+        phoneEditText.isEnabled = enabled
+        rutEditText.isEnabled = enabled
     }
 
     private fun validateInputs(): Boolean {
@@ -94,21 +145,30 @@ class ShoppingCartOrderSummaryFragment1 : Fragment() {
     private fun saveShippingDetails() {
         val shippingDetails = ShippingDetails(
             name = nameEditText.text.toString(),
+            lastName = lastNameEditText.text.toString(),
             email = emailEditText.text.toString(),
             phone = phoneEditText.text.toString(),
-            address = "", //A ser modificado en el siguiente fragment
+            address = "", // Will be filled in next fragment
             city = "",
             region = "",
-            zipCode = ""
+            department = null,
+            streetNumber = null
         )
 
-        // Se agrega al singleton OrderManager para mantener los datos de forma global
+        // For visitors, we store the details for later profile update
+        if (tokenManager.isVisitor()) {
+            OrderManager.saveVisitorDetails(shippingDetails)
+        }
+
+        // Save to OrderManager for the checkout process
         OrderManager.shippingDetails = shippingDetails
     }
+
 
     private fun loadExistingDetails() {
         OrderManager.shippingDetails?.let { details ->
             nameEditText.setText(details.name)
+            lastNameEditText.setText(details.lastName)
             emailEditText.setText(details.email)
             phoneEditText.setText(details.phone)
         }
@@ -116,9 +176,9 @@ class ShoppingCartOrderSummaryFragment1 : Fragment() {
 
     private fun enableEditing() {
         nameEditText.isEnabled = true
+        lastNameEditText.isEnabled = true
         emailEditText.isEnabled = true
         phoneEditText.isEnabled = true
-        lastNameEditText.isEnabled = true
         rutEditText.isEnabled = true
     }
 

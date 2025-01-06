@@ -1,6 +1,6 @@
 package com.cotiledon.mobilApp.ui.fragments
 
-import PlantFiltersBottomSheet
+import com.cotiledon.mobilApp.ui.menus.PlantFiltersBottomSheet
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
@@ -217,9 +217,15 @@ class CatalogFragment : Fragment(), PlantFiltersBottomSheet.FilterListener {
         val filterButtonY = location[1] + filterButton.height
 
         val bottomSheet = PlantFiltersBottomSheet.newInstance(filterButtonY)
+
+        val maxPrice = currentPlants.maxOfOrNull { it.precio.toFloat() } ?: 100000f
+        bottomSheet.setMaxProductPrice(maxPrice)
+
         // Set the target fragment to ensure the listener connection
         bottomSheet.setTargetFragment(this, 0)
         bottomSheet.show(parentFragmentManager, "filters")
+
+
     }
 
     @SuppressLint("NotifyDataSetChanged")

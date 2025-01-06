@@ -77,6 +77,7 @@ class ShoppingCartFragment : Fragment() {
         return formatter.format(amount)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateProductPrice() {
         val cartItems = cartManager.loadCartItems()
         val totalProductPrice = cartItems.sumOf { item ->
@@ -197,7 +198,7 @@ class ShoppingCartFragment : Fragment() {
     }
 
     private fun showConflictDialog(conflictResponse: CartValidationErrorResponse) {
-        val conflicts = conflictResponse.response.cartProducts
+        val conflicts = conflictResponse.response.productosCarro
         if (conflicts.isEmpty()) {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Error de Stock")

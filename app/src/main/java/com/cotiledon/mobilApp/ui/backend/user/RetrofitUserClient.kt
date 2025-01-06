@@ -2,6 +2,7 @@ package com.cotiledon.mobilApp.ui.backend.user
 
 import com.cotiledon.mobilApp.ui.backend.AuthInterceptor
 import com.cotiledon.mobilApp.ui.backend.GlobalValues
+import com.cotiledon.mobilApp.ui.dataClasses.profile.UserProfileUpdate
 import com.cotiledon.mobilApp.ui.dataClasses.profile.UserRegistrationData
 import com.cotiledon.mobilApp.ui.managers.TokenManager
 import okhttp3.OkHttpClient
@@ -42,6 +43,10 @@ class RetrofitUserClient (private val baseUrl: String, private val tokenManager:
             it
         )
     }
+
+    suspend fun createVisitorProfile() = userApiService.createVisitorProfile()
+
+    suspend fun updateUserProfile(userId: Int, userProfile: UserProfileUpdate) = userApiService.updateUserProfile(userId, userProfile)
 
     suspend fun getUserProfile() = userApiService.getUserProfile()
 

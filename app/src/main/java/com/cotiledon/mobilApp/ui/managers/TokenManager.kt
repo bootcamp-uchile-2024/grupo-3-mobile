@@ -3,6 +3,7 @@ package com.cotiledon.mobilApp.ui.managers
 import android.content.Context
 import android.os.CountDownTimer
 import android.util.Log
+import com.cotiledon.mobilApp.ui.dataClasses.profile.VisitorResponse
 import java.io.File
 
 class TokenManager (private val context: Context) {
@@ -50,6 +51,27 @@ class TokenManager (private val context: Context) {
         } catch (e: Exception) {
             Log.e("TokenManager", "Error saving auth data", e)
         }
+    }
+
+    fun saveVisitorAuthData(visitorResponse: VisitorResponse) {
+        editor.apply {
+            putString(KEY_TOKEN, visitorResponse.access_token)
+            putInt(KEY_USER_ID, visitorResponse.id)
+            putString(KEY_USER_ROLE, visitorResponse.rol)
+            putLong(KEY_TOKEN_EXPIRATION, visitorResponse.expToken)
+            apply()
+        }
+        startTokenExpirationTimer(visitorResponse.expToken)
+    }
+
+    fun isVisitor(): Boolean {
+        return prefs.getString(KEY_USER_ROLE, null) == ROLE_VISITOR
+    }
+
+    fun hasValidToken(): Boolean {
+        val token = getToken()
+        val expiration = prefs.getLong(KEY_TOKEN_EXPIRATION, 0)
+        return !token.isNullOrEmpty() && expiration > System.currentTimeMillis()
     }
 
     fun getToken(): String? {
@@ -166,6 +188,8 @@ class TokenManager (private val context: Context) {
         private const val PREFS_TOKEN_FILE = "auth_prefs"
         private const val KEY_TOKEN = "auth_token"
         private const val KEY_USER_ID = "user_id"
+        private const val KEY_USER_ROLE = "user_role"
+        private const val ROLE_VISITOR = "Visitante"
         private const val KEY_TOKEN_EXPIRATION = "token_expiration"
         private const val BACKGROUND_EXPIRATION_TIME = 3600000L //1 hora en milisegundos
         private const val REFRESH_THRESHOLD = 300000L //5 minutos

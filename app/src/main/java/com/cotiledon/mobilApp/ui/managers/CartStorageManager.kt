@@ -9,6 +9,10 @@ import com.cotiledon.mobilApp.ui.dataClasses.cart.CartProduct
 import com.cotiledon.mobilApp.ui.dataClasses.cart.QueuedOperation
 import com.cotiledon.mobilApp.ui.enums.CartOperation
 import com.cotiledon.mobilApp.ui.backend.cart.RetrofitCartClient
+import com.cotiledon.mobilApp.ui.backend.user.RetrofitUserClient
+import com.cotiledon.mobilApp.ui.dataClasses.profile.ProfileResponse
+import com.cotiledon.mobilApp.ui.dataClasses.profile.VisitorResponse
+import com.cotiledon.mobilApp.ui.dataClasses.profile.toVisitorResponse
 import com.cotiledon.mobilApp.ui.fragments.SignInFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -20,11 +24,12 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 //Clase de archivo de guardado de productos en el carrito
-class CartStorageManager (private val context: Context, tokenManager: TokenManager) {
+class CartStorageManager (private val context: Context, private val tokenManager: TokenManager) {
     //Archivo JSON para guardar los productos del carrito de manera local
     private val filename = "cart_data.json"
     //Se agregan variables para la comunicación con el servidor y coordinar con el ambiente local
     private val cartClient = RetrofitCartClient.createCartClient(tokenManager)
+    private val userClient = RetrofitUserClient.createUserClient(tokenManager)
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private val queueKey = "cart_operation_queue"
     private val gson = Gson()
@@ -38,43 +43,57 @@ class CartStorageManager (private val context: Context, tokenManager: TokenManag
         }
 
         try {
-            // First try to get existing cart
-            val response = cartClient.getUserCart(userId = 1) // TODO: Get actual user ID
-
-            return when (response.code()) {
-                200 -> {
-                    val cart = response.body()
-                    serverCartId = cart?.id
-                    saveCartIdLocally(serverCartId)
-                    serverCartId
-                }
-                404 -> {
-                    // User has no cart, create a new one
-                    val createResponse = cartClient.createCart(userId = 1) // TODO: Get actual user ID
-                    when (createResponse.code()) {
-                        201 -> {
-                            val newCart = createResponse.body()
-                            serverCartId = newCart?.id
-                            saveCartIdLocally(serverCartId)
-                            serverCartId
-                        }
-                        400 -> {
-                            // User already has an active cart
-                            Log.e("CartStorageManager", "User already has an active cart")
-                            null
-                        }
-                        else -> null
-                    }
-                }
-                else -> null
+            // Check if we need to create a visitor profile
+            if (!tokenManager.hasValidToken()) {
+                val visitorResponse = createVisitorProfile()
+                visitorResponse?.let {
+                    tokenManager.saveVisitorAuthData(it)
+                } ?: return null
             }
-        } catch (e: RetrofitCartClient.AuthenticationException) {
-            // Handle authentication error
-            handleAuthenticationError()
-            null
+
+            // Now that we have a valid token (visitor or regular), get/create cart
+            val userId = tokenManager.getUserId()
+            if (userId != -1) {
+                val response = cartClient.getUserCart(userId)
+
+                return when (response.code()) {
+                    200 -> {
+                        val cart = response.body()
+                        serverCartId = cart?.id
+                        saveCartIdLocally(serverCartId)
+                        serverCartId
+                    }
+                    404 -> {
+                        // Create new cart
+                        val createResponse = cartClient.createCart(userId)
+                        when (createResponse.code()) {
+                            201 -> {
+                                val newCart = createResponse.body()
+                                serverCartId = newCart?.id
+                                saveCartIdLocally(serverCartId)
+                                serverCartId
+                            }
+                            else -> null
+                        }
+                    }
+                    else -> null
+                }
+            }
         } catch (e: Exception) {
-            Log.e("CartStorageManager", "Error getting/creating cart", e)
-            null
+            Log.e("CartStorageManager", "Error getting cart", e)
+            return null
+        }
+        return null
+    }
+
+    private suspend fun createVisitorProfile(): VisitorResponse? {
+        try {
+            val response = userClient.createVisitorProfile()
+            if (response.isSuccessful) {
+                return response.body()?.toVisitorResponse()
+            }
+        } catch (e: Exception) {
+            Log.e("CartStorageManager", "Error creating visitor profile", e)
         }
         return null
     }

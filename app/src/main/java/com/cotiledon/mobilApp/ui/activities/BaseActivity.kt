@@ -40,6 +40,15 @@ abstract class BaseActivity : AppCompatActivity() {
         tokenManager.cancelExpirationTimer()
     }
 
+    override fun onStop() {
+        super.onStop()
+        //Se empieza el timer cuando la app pasa al background
+        tokenManager.setAppForegroundState(false)
+        if (!isFinishing) {
+            tokenManager.startExpirationTimer()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         //Se limpia el token cuando la app se destruye

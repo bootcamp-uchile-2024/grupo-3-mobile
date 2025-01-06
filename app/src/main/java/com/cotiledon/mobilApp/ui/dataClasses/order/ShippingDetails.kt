@@ -2,10 +2,16 @@ package com.cotiledon.mobilApp.ui.dataClasses.order
 
 import java.io.Serializable
 
-data class ShippingDetails (val name: String,
-    val address: String,
+data class ShippingDetails(
+    val name: String,
+    val lastName: String,
+    val address: String,        // Will store street name
     val city: String,
     val region: String,
-    val zipCode: String,
+    val department: String? = null,
+    val streetNumber: String? = null,
+    val reference: String? = null,  // Added reference field
+    val email: String,
     val phone: String,
-    val email: String) : Serializable
+    val rut: String? = null
+) : Serializable

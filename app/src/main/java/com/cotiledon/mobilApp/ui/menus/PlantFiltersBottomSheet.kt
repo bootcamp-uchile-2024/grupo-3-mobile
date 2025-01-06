@@ -1,3 +1,5 @@
+package com.cotiledon.mobilApp.ui.menus
+
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
@@ -20,7 +22,6 @@ import com.google.android.material.slider.RangeSlider
 import java.text.NumberFormat
 import java.util.Locale
 
-// PlantFiltersBottomSheet.kt
 class PlantFiltersBottomSheet : BottomSheetDialogFragment() {
 
     // Interface to communicate filter changes
@@ -28,6 +29,10 @@ class PlantFiltersBottomSheet : BottomSheetDialogFragment() {
         fun onFiltersApplied(filterParams: PlantFilterParams)
         fun getCurrentFilters(): PlantFilterParams?
     }
+
+    private var maxProductPrice: Float = 100000f  // Default max value if no products
+    private val minAllowedPrice: Float = 0f      // Minimum value always 0
+    private val minMaxPrice: Float = 1000f       // Minimum allowed maximum value
 
     private var filterListener: FilterListener? = null
     private lateinit var currentFilters: PlantFilterParams
@@ -41,6 +46,7 @@ class PlantFiltersBottomSheet : BottomSheetDialogFragment() {
     private lateinit var temperatureGroup: RadioGroup
     private lateinit var irrigationGroup: RadioGroup
     private lateinit var clearButton: Button
+    private lateinit var applyButton: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,8 +65,6 @@ class PlantFiltersBottomSheet : BottomSheetDialogFragment() {
 
         // Set up the bottom sheet behavior
         setupBottomSheetBehavior()
-
-        setupFilterListeners()
 
         // If we have existing filters, initialize the UI with them
         // Initialize filters from parent
@@ -97,6 +101,26 @@ class PlantFiltersBottomSheet : BottomSheetDialogFragment() {
         temperatureGroup = view.findViewById(R.id.temperatureGroup)
         irrigationGroup = view.findViewById(R.id.irrigationGroup)
         clearButton = view.findViewById(R.id.clearFiltersButton)
+        applyButton = view.findViewById(R.id.applyFilterButton)
+
+        setupBudgetSlider()
+    }
+
+    private fun setupBudgetSlider() {
+        budgetSlider.apply {
+            // Set the value range
+            valueFrom = minAllowedPrice
+            valueTo = maxOf(maxProductPrice, minMaxPrice)
+
+            // Set initial values - start at 0 and max at the higher value
+            values = listOf(minAllowedPrice, valueTo)
+
+            // Update the text display
+            updateBudgetText(minAllowedPrice, valueTo)
+
+            // Set step size - optional, depends on your needs
+            stepSize = 1000f  // Steps of 1000 pesos
+        }
     }
 
     private fun setupBottomSheetBehavior() {
@@ -131,6 +155,14 @@ class PlantFiltersBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
+    fun setMaxProductPrice(price: Float) {
+        maxProductPrice = maxOf(price, minMaxPrice)  // Ensure it's at least 1000
+        // Update the slider if it's initialized
+        if (::budgetSlider.isInitialized) {
+            setupBudgetSlider()
+        }
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Create a customized BottomSheetDialog
         return BottomSheetDialog(requireContext(), theme).apply {
@@ -149,12 +181,28 @@ class PlantFiltersBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun setupFilterListeners() {
-        // Budget slider listener
         budgetSlider.addOnChangeListener { slider, _, _ ->
             val values = slider.values
-            currentFilters.minPrice = values[0].toInt()
-            currentFilters.maxPrice = values[0].toInt()
-            updateBudgetText(values[0], values[0])
+
+            // First value (min) is always 0
+            val minValue = minAllowedPrice
+
+            // Ensure max value is at least minMaxPrice
+            val maxValue = maxOf(values[1], minMaxPrice)
+
+            // Update the filter values
+            currentFilters.apply {
+                minPrice = minValue.toInt()
+                maxPrice = maxValue.toInt()
+            }
+
+            // Update the display text
+            updateBudgetText(minValue, maxValue)
+
+            // Force the values to maintain our rules
+            if (values[0] != minValue || values[1] != maxValue) {
+                slider.values = listOf(minValue, maxValue)
+            }
         }
 
         // Size radio group listener
@@ -275,8 +323,7 @@ class PlantFiltersBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun resetFilters() {
-        // Reset all UI elements to default state
-        budgetSlider.values = listOf(0f, 100000f)
+        budgetSlider.values = listOf(minAllowedPrice, maxOf(maxProductPrice, minMaxPrice))
         sizeGroup.clearCheck()
         petFriendlyCheckbox.isChecked = false
         lightGroup.clearCheck()
