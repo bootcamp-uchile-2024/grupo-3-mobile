@@ -149,7 +149,7 @@ class ShoppingCartOrderSummaryFragment1 : Fragment() {
             email = emailEditText.text.toString(),
             phone = phoneEditText.text.toString(),
             address = "", // Will be filled in next fragment
-            city = "",
+            commune = "",
             region = "",
             department = null,
             streetNumber = null
