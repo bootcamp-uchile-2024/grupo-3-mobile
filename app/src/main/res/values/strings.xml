@@ -211,7 +211,7 @@
     <string name="register_username_hint1">juan_perez</string>
     <string name="register_usermail_hint">juan.perez.123@gmail.com</string>
     <string name="register_userrut">RUT *</string>
-    <string name="register_userphone">Teléfono *</string>
+    <string name="register_userphone">Teléfono</string>
     <string name="register_userrut_hint">11111111-1</string>
     <string name="register_userphone_hint">+56912345678</string>
     <string name="register_usergender">Género</string>
