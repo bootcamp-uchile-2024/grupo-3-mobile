@@ -99,7 +99,7 @@
                 android:fontFamily="@font/quicksand"
                 android:text="Dirección *"
                 android:textColor="@color/deep_green"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -120,7 +120,7 @@
                 android:fontFamily="@font/quicksand"
                 android:text="Numero *"
                 android:textColor="@color/deep_green"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -141,7 +141,7 @@
                 android:fontFamily="@font/quicksand"
                 android:text="Departamento/Casa/Oficina"
                 android:textColor="@color/deep_green"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -162,7 +162,7 @@
                 android:fontFamily="@font/quicksand"
                 android:text="Referencia"
                 android:textColor="@color/deep_green"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <EditText
