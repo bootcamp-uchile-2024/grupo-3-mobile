@@ -6,155 +6,238 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Search bar at the top -->
     <include
         android:id="@+id/layout_searchbar"
         layout="@layout/layout_searchbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- ScrollView for the main content -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/layout_searchbar"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="10dp"
-        android:id="@+id/scroll_shopping"
-        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/layout_searchbar">
 
-        <LinearLayout
+        <!-- Main content container -->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_box"
-            android:orientation="vertical"
-            android:padding="30dp">
+            android:layout_height="wrap_content">
 
-            <!-- Título -->
+            <!-- Grey box containing form fields -->
+            <LinearLayout
+                android:id="@+id/form_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_box"
+                android:orientation="vertical"
+                android:padding="30dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/quicksand"
+                    android:text="¿Tus datos están correctos?"
+                    android:textColor="@color/primary_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Region Spinner -->
+
+                <!-- Comuna Spinner -->
+                <Spinner
+                    android:id="@+id/spinner_region"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_border_spinner"
+                    android:dropDownVerticalOffset="8dp"
+                    android:foregroundGravity="center"
+                    android:gravity="center"
+                    android:paddingStart="16dp"
+                    android:paddingTop="0dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="0dp"
+                    android:popupBackground="#FFFFFF"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="center" />
+
+                <Spinner
+                    android:id="@+id/spinner_comuna"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_border_spinner"
+                    android:dropDownVerticalOffset="8dp"
+                    android:foregroundGravity="center"
+                    android:gravity="center"
+                    android:paddingStart="16dp"
+                    android:paddingTop="0dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="0dp"
+                    android:popupBackground="#FFFFFF"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="center" />
+
+                <!-- Street Label and Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:fontFamily="@font/quicksand"
+                    android:text="Dirección"
+                    android:textColor="@color/deep_green"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/street_name_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/rounded_shopping_edittext"
+                    android:fontFamily="@font/quicksand"
+                    android:hint="Avenida siempreviva"
+                    android:padding="10dp" />
+
+                <!-- Number Label and Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:fontFamily="@font/quicksand"
+                    android:text="Numero"
+                    android:textColor="@color/deep_green"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/street_number_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/rounded_shopping_edittext"
+                    android:fontFamily="@font/quicksand"
+                    android:hint="123"
+                    android:padding="10dp" />
+
+                <!-- Department Label and Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:fontFamily="@font/quicksand"
+                    android:text="Departamento/Casa/Oficina"
+                    android:textColor="@color/deep_green"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/department_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/rounded_shopping_edittext"
+                    android:fontFamily="@font/quicksand"
+                    android:hint="Opcional"
+                    android:padding="10dp" />
+
+                <!-- Reference Label and Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:fontFamily="@font/quicksand"
+                    android:text="Referencia"
+                    android:textColor="@color/deep_green"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/reference_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/rounded_shopping_edittext"
+                    android:fontFamily="@font/quicksand"
+                    android:hint="Opcional"
+                    android:padding="10dp" />
+
+                <!-- Receiver Label and Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:fontFamily="@font/quicksand"
+                    android:text="¿Quien recibe?"
+                    android:textColor="@color/deep_green"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/receiver_name_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_shopping_edittext"
+                    android:fontFamily="@font/quicksand"
+                    android:hint="Juan Perez"
+                    android:padding="10dp" />
+
+            </LinearLayout>
+
+            <!-- Modify Information Text - Outside the grey box -->
             <TextView
-                android:layout_marginTop="5dp"
+                android:id="@+id/TextViewInformation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¿Tus datos están correctos?"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/quicksand"
+                android:text="Modificar información"
                 android:textColor="@color/primary_color"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/form_container" />
+
+            <!-- Next Button - Outside the grey box -->
+            <Button
+                android:id="@+id/btn_siguiente"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_shopping_button"
+                android:elevation="0dp"
                 android:fontFamily="@font/quicksand"
-                android:layout_marginBottom="20dp" />
+                android:padding="0dp"
+                android:text="Finalizar compra"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/TextViewInformation" />
 
-            <Spinner
-                android:id="@+id/spinner_region"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/rounded_border_spinner"
-                android:spinnerMode="dropdown"
-                android:popupBackground="#FFFFFF"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:dropDownVerticalOffset="8dp"
-                android:layout_marginBottom="12dp"/>
-
-            <!-- Segundo Spinner -->
-            <Spinner
-                android:id="@+id/spinner_comuna"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/rounded_border_spinner"
-                android:spinnerMode="dropdown"
-                android:popupBackground="#FFFFFF"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:dropDownVerticalOffset="8dp"
-                android:layout_marginBottom="12dp"/>
-
-            <!-- Dirección -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:fontFamily="@font/quicksand"
-                android:text="Dirección"
-                android:textColor="@color/primary_color"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/address_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/rounded_shopping_edittext"
-                android:editable="true"
-                android:focusable="auto"
-                android:fontFamily="@font/quicksand"
-                android:hint="Avenida siempreviva 123"
-                android:padding="10dp" />
-
-            <!-- Quien recibe -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primary_color"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/quicksand"
-                android:text="¿Quien recibe?"
-                android:layout_marginBottom="6dp"/>
-
-            <EditText
-                android:id="@+id/receiver_name_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/rounded_shopping_edittext"
-                android:editable="true"
-                android:focusable="auto"
-                android:fontFamily="@font/quicksand"
-                android:hint="Juan Perez"
-                android:padding="10dp" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <!-- Modificar información -->
-    <TextView
-        android:id="@+id/TextViewInformation"
-        app:layout_constraintTop_toBottomOf="@+id/scroll_shopping"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:text="Modificar información"
-        android:textColor="@color/primary_color"
-        android:fontFamily="@font/quicksand"
-        android:textSize="14sp" />
-
-    <!-- Botón Siguiente -->
-    <Button
-        android:id="@+id/btn_siguiente"
-        android:layout_width="200dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_shopping_button"
-        android:fontFamily="@font/quicksand"
-        android:gravity="center|center_horizontal"
-        android:padding="0dp"
-        android:text="Finalizar compra"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:cornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewInformation" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

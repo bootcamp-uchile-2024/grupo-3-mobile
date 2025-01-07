@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="193dp"
+    android:height="32dp"
+    android:viewportWidth="193"
+    android:viewportHeight="32">
+
+    <!-- White background with rounded corners -->
+    <path
+        android:pathData="M8 0H185C189.418 0 193 3.58172 193 8V24C193 28.4183 189.418 32 185 32H8C3.58172 32 0 28.4183 0 24V8C0 3.58172 3.58172 0 8 0Z"
+        android:fillColor="#FFFFFF"/>
+
+    <!-- Border using AAPT to reference the color resource -->
+    <path
+        android:pathData="M8 0H185C189.418 0 193 3.58172 193 8V24C193 28.4183 189.418 32 185 32H8C3.58172 32 0 28.4183 0 24V8C0 3.58172 3.58172 0 8 0Z"
+        android:strokeWidth="1"
+        android:fillColor="@color/white">
+        <aapt:attr name="android:strokeColor">
+            <color android:color="@color/main_app"/>
+        </aapt:attr>
+    </path>
+</vector>

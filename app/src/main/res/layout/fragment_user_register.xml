@@ -1,0 +1,391 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/TextView_register_user_wellcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:gravity="center_horizontal"
+            android:text="@string/register_wellcome"
+            android:textColor="@color/primary_color"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/TextView_register_user_drop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:gravity="center_horizontal|center_vertical"
+            android:lineSpacingExtra="-4sp"
+            android:text="@string/register_drop"
+            android:textColor="@color/primary_color"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/TextView_register_user_data"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="25dp"
+            android:fontFamily="@font/quicksand"
+            android:text="@string/register_data"
+            android:textColor="@color/deep_green"
+            android:textSize="30sp" />
+
+        <LinearLayout
+            android:id="@+id/info_linear_layout_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/TextView_register_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="98dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/register_name"
+                android:textColor="@color/deep_green"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/TextView_register_user_lastname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/register_lastname"
+                android:textColor="@color/deep_green"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edittext_name"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="@string/register_name1_hint"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                tools:ignore="RtlSymmetry" />
+
+            <EditText
+                android:id="@+id/edittext_lastname"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="@string/register_lastname1_hint"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_register_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TextView_register_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/register_username"
+                android:textColor="@color/deep_green"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edittext_username"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="@string/register_username_hint1"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_register_user_mail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TextView_register_usermail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/register_usermail"
+                android:textColor="@color/deep_green"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edittext_email"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="@string/register_usermail_hint"
+                android:inputType="textEmailAddress"
+                android:paddingStart="12dp"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_register_user_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TextView_register_userpassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/register_userpassword_first"
+                android:textColor="@color/deep_green"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edittext_password"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="@string/register_password_singin"
+                android:inputType="textPassword"
+                android:paddingStart="12dp"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_register_user_password_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TextView_register_userpassword_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/register_userpassword"
+                android:textColor="@color/deep_green"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edittext_password_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="@string/register_password_singin"
+                android:inputType="textPassword"
+                android:paddingStart="12dp"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/info_linear_layout_rut_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/TextView_register_user_rut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="98dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/register_userrut"
+                android:textColor="@color/deep_green"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/TextView_register_user_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/register_userphone"
+                android:textColor="@color/deep_green"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edittext_rut"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="@string/register_userrut_hint"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                tools:ignore="RtlSymmetry" />
+
+            <EditText
+                android:id="@+id/edittext_phone"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="@string/register_userphone_hint"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/spinner_gender"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_border_spinner"
+            android:padding="0dp"
+            android:scrollbarSize="22dp"
+            android:textAlignment="center" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_register_birthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TextView_register_userbirthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/register_userbirthday"
+                android:textColor="@color/deep_green"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edittext_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="@string/register_userbirthday_hint"
+                android:inputType="textEmailAddress"
+                android:paddingStart="12dp"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_register_next"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:background="@drawable/round_standar"
+            android:fontFamily="@font/quicksand"
+            android:paddingStart="90dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="90dp"
+            android:paddingBottom="5dp"
+            android:text="@string/register_next"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

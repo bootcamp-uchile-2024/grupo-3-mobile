@@ -35,7 +35,8 @@
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:background="@drawable/rounded_image_background"
-            android:scaleType="centerCrop" />
+            android:scaleType="center"
+            app:srcCompat="@drawable/planta_group" />
 
     </FrameLayout>
 
@@ -46,7 +47,7 @@
         android:id="@+id/subcategory_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/quicksand_medium"
         android:text="@string/plant_category_title"
@@ -62,12 +63,12 @@
         android:id="@+id/rv_subcategories"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="8dp"
         android:clipToPadding="false"
-        android:padding="16dp"
+        android:foregroundGravity="clip_horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -133,7 +133,7 @@
     <string name="question2_singin">Registrate aqui</string>
     <string name="catalog_filter">Filtros</string>
     <string-array name="gender_items">
-        <item>Selecciona tu Género</item>
+        <item>Selecciona tu Género (Opcional)</item>
         <item>Masculino</item>
         <item>Femenino</item>
         <item>Prefiero no decir</item>
@@ -153,6 +153,18 @@
     <string name="activity_main_bottom_button_truck">App Plant Ai</string>
     <string name="activity_main_bottom_button_stars">Beneficios</string>
     <string name="activity_main_bottom_button_grass">Consejos</string>
+    <string name="sort_popular_products">Productos populares</string>
+    <string name="sort_most_sold">Más vendidos</string>
+    <string name="sort_price_high_to_low">Precio mayor a menor</string>
+    <string name="sort_price_low_to_high">Precio menor a mayor</string>
+    <string name="search_catalog_hint">Buscar plantas...</string>
+    <string name="search_no_results">No se encontraron resultados para: %1$s</string>
+    <string name="search_error">Error al realizar la búsqueda</string>
+    <string name="no_search_results">No se encontraron plantas que coincidan con: "%1$s"</string>
+    <string name="no_catalog_items">No hay plantas disponibles en este momento</string>
+    <string name="error_loading_plants">Hubo un error al cargar las plantas. Por favor, intente nuevamente</string>
+    <string name="error_network">Error de conexión. Por favor, verifique su conexión a internet</string>
+    <string name="error_server">Error en el servidor. Por favor, intente más tarde</string>
 
     <!-- MainCategoriesActivity -->
     <string name="activity_categories_main">Categorías</string>
@@ -183,5 +195,94 @@
     <string name="add_to_cart_text">Añadir al carrito</string>
     <string name="logo_plantai">Logo Plantai</string>
     <string name="camara">Camara</string>
+
+
+    <!-- RegisterFragment -->
+    <string name="register_wellcome">¿Eres nuevo en Plant AI?</string>
+    <string name="register_drop">Regístrate y disfruta de nuestros\nproductos y beneficios</string>
+    <string name="register_data">Mis Datos</string>
+    <string name="register_name">Nombre *</string>
+    <string name="register_lastname">Apellido *</string>
+    <string name="register_name1_hint">Juan</string>
+    <string name="register_lastname1_hint">Perez</string>
+    <string name="register_username">Nombre usuario *</string>
+    <string name="register_usermail">Correo *</string>
+    <string name="register_userpassword">Confirmar contraseña *</string>
+    <string name="register_username_hint1">juan_perez</string>
+    <string name="register_usermail_hint">juan.perez.123@gmail.com</string>
+    <string name="register_userrut">RUT *</string>
+    <string name="register_userphone">Teléfono *</string>
+    <string name="register_userrut_hint">11111111-1</string>
+    <string name="register_userphone_hint">+56912345678</string>
+    <string name="register_usergender">Género</string>
+    <string name="register_userbirthday">Fecha de nacimiento *</string>">
+    <string name="register_userbirthday_hint">Fecha de nacimiento</string>
+    <string name="register_next">Siguiente</string>
+
+
+    <!-- FragmentUserRegisterNext -->
+    <string name="register_next_shipping_info">Información de despacho</string>
+    <string name="register_next_address">Dirección *</string>
+    <string name="register_next_address_hint">Direción/Número/Piso</string>
+    <string name="register_next_card_info">Registra una tarjeta (Opcional)</string>
+    <string name="register_next_card_number">Número de tarjeta</string>
+    <string name="register_next_card_number_hint">Número de tarjeta</string>
+    <string name="register_next_card_mm">Expiración (MM...</string>
+    <string name="register_next_card_mm_hint">Expiración (MM...</string>
+    <string name="register_next_card_cvc">CVC</string>
+    <string name="register_next_card_cvc_hint">CVC</string>
+
+    <!-- FragmentUserProfile -->
+    <string name="profile_greetings">¡Hola!</string>
+    <string name="profile_username">Nombre de Usuario</string>
+    <string name="profile_profile">Mi perfil</string>
+    <string name="profile_acount">Mi cuenta</string>
+    <string name="profile_myaddress">Mis direcciones</string>
+    <string name="profile_mycupons">Mis cupones</string>
+    <string name="profile_mynotifications">Mis notificaciones</string>
+    <string name="profile_shopping_history">Historial de compra</string>
+    <string name="profile_close_session">Cerrar sesión</string>
+
+    <!-- FragmentProfile -->
+    <string name="profile_account">Mis datos personales</string>
+    <string name="profile_aka">¿Cómo quieres que te digamos?</string>
+    <string name="profile_mail">Correo electrónico</string>
+    <string name="profile_birthday">¿Cuándo es tu cumpleaños?</string>
+    <string name="profile_password_mod">Modificar contraseña *</string>
+    <string name="profile_password_confirmation">Confirma tu contraseña *</string>
+    <string name="profile_button_save">Guardar</string>
+    <string name="profile_map_text1">Aún no tienes direcciones guardadas</string>
+    <string name="profile_map_text2">Agrega tus direcciones para realizar una compra mas rápida</string>
+    <string name="profile_map_button">Agregar dirección</string>
+    <string name="profile_user_addres">Agregar nueva dirección</string>
+    <string name="profile_user_street">Calle</string>
+    <string name="profile_user_number">Número</string>
+    <string name="profile_user_housenumber">Número de casa o departamento</string>
+    <string name="profile_user_favorite_address">Elegir esta dirección como favorita</string>
+    <string name="profile_user_favorites_address_tittle">Mis Direcciones</string>
+    <string name="profile_user_favorites_address_direction">Dirección:</string>
+    <string name="profile_user_favorites_address_direction_hint_1">Zenteno 123. Osorno, Región de los lagos</string>
+    <string name="profile_user_favorites_address_direction_hint_2">Ramirez 123, Temuco, Araucanía</string>
+    <string name="profile_user_cuppons">¿Tienes algún cupón?</string>
+    <string name="profile_user_cuppons_hint">Cupón de descuento</string>
+    <string name="profile_user_cuppons_add">Agregar</string>
+    <string name="profile_user_my_cuppons">Mis cupones vigentes</string>
+    <string name="profile_user_cuppons_shopp">Ir a comprar</string>
+    <string name="profile_user_shopping_history">Historial de compras</string>
+    <string name="profile_user_shopping_online">Compras online</string>
+    <string name="profile_user_shopping_offline">Compras en tienda</string>
+
+
+    <!-- DialogFragment  -->
+    <string name="DialogFragment_tittle_1">Cerrar sesión</string>
+    <string name="DialogFragment_tittle_2">¿Seguro que quieres cerrar sesión?</string>
+    <string name="DialogFragment_button_2">Volver</string>
+    <string name="DialogFragment_denied_icon">No tienes cupones vigentes</string>
+    <string name="DialogFragment_apply_icon">Tu cupon se aplicara al finalizar la compra</string>
+    <string name="DialogFragment_not_notification">Sin notificaciones</string>
+    <string name="DialogFragment_not_notification_2">No hay notificaciones nuevas, pero hay un mundo de productos por descubrir</string>
+    <string name="register_userpassword_first">Contraseña *</string>
+    <string name="register_create_act">Crear Cuenta</string>
+    <string name="home_productos_destacados">Productos destacados</string>
 
 </resources>

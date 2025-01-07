@@ -1,50 +1,81 @@
 package com.cotiledon.mobilApp.ui.fragments
 
+import com.cotiledon.mobilApp.ui.menus.PlantFiltersBottomSheet
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.PopupWindow
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
 import com.cotiledon.mobilApp.ui.adapters.PlantRecyclerViewAdapter
-import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
-import com.cotiledon.mobilApp.ui.dataClasses.Plant
-import com.cotiledon.mobilApp.ui.dataClasses.PlantFilters
-import com.cotiledon.mobilApp.ui.dataClasses.PlantResponse
+import com.cotiledon.mobilApp.ui.dataClasses.cart.CartPlant
+import com.cotiledon.mobilApp.ui.dataClasses.plant.Plant
+import com.cotiledon.mobilApp.ui.dataClasses.plant.PlantResponse
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
-import com.cotiledon.mobilApp.ui.retrofit.GlobalValues
-import com.cotiledon.mobilApp.ui.retrofit.RetrofitCatalogClient
-import com.google.android.material.snackbar.Snackbar
+import com.cotiledon.mobilApp.ui.backend.catalog.RetrofitCatalogClient
+import com.cotiledon.mobilApp.ui.dataClasses.catalog.PlantFilterParams
+import com.cotiledon.mobilApp.ui.fragments.base.SearchableFragment
+import com.cotiledon.mobilApp.ui.helpers.SearchBarHelper
+import com.cotiledon.mobilApp.ui.managers.TokenManager
+import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okio.IOException
+import retrofit2.HttpException
 
 
-class CatalogFragment : Fragment() {
+class CatalogFragment : SearchableFragment(), PlantFiltersBottomSheet.FilterListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PlantRecyclerViewAdapter
     private lateinit var cartManager: CartStorageManager
     private lateinit var backButton: ImageView
     private lateinit var filterButton: Button
-    private lateinit var sortButton: Button
+    private lateinit var sortButton: MaterialButton
+    private lateinit var searchBarHelper: SearchBarHelper
 
     private var currentPage = 1
     private val pageSize = 10
     private var isLoading = false
     private var hasMoreItems = true
+    private var currentSearchQuery: String = ""
+    private var isSearchMode = false
+    // Add a job to track and cancel ongoing searches
+    private var searchJob: Job? = null
 
     //Guardado de filtros a nivel del fragment
-    private var currentFilters = PlantFilters()
+    private var currentFilters: PlantFilterParams? = null
+    private var currentSortParams: PlantFilterParams? = null
     private var currentPlants = mutableListOf<Plant>()
+
+    private sealed class DisplayMode {
+        data object Catalog : DisplayMode()
+        data class Search(val query: String) : DisplayMode()
+    }
+    private var currentMode: DisplayMode = DisplayMode.Catalog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,8 +91,7 @@ class CatalogFragment : Fragment() {
         initializeViews(view)
         setupRecyclerView()
         setupClickListeners()
-        //TODO: Implementar funcionalidad de búsqueda de productos
-        //setupSearch()
+        setupSearch()
 
     }
 
@@ -82,8 +112,19 @@ class CatalogFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        // Inicializar el Cart Manager
-        cartManager = CartStorageManager(requireContext())
+
+        val tokenManager = TokenManager(requireContext())
+
+        cartManager = CartStorageManager(
+            context = requireContext(),
+            tokenManager
+        )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Cancel any ongoing operations
+        searchJob?.cancel()
     }
 
     private fun initializeViews(view: View) {
@@ -96,13 +137,25 @@ class CatalogFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = PlantRecyclerViewAdapter(
-            plants = mutableListOf(),
+            initialPlants = mutableListOf(),
             onItemClick = {   plant -> navigateToProductDetail(plant)},
             onAddToCartClick = { plant -> handleAddToCart(plant) }
         )
 
+        val gridLayoutManager = GridLayoutManager(context, 2).apply {
+            // Tell the layout manager to span the loading indicator across all columns
+            spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return when (adapter.getItemViewType(position)) {
+                        PlantRecyclerViewAdapter.VIEW_TYPE_LOADING -> 2  // Full width for loading
+                        else -> 1  // Normal width for items
+                    }
+                }
+            }
+        }
+
         recyclerView.apply {
-            layoutManager = GridLayoutManager(context, 2)
+            layoutManager = gridLayoutManager
             adapter = this@CatalogFragment.adapter
 
             //Scroll listener para paginación
@@ -132,165 +185,400 @@ class CatalogFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
-        //TODO: Establecer funcionalidad para el botón de filtro (crear bottom drawer para manejo de filtros)
-        /*filterButton.setOnClickListener {
-            showFilterDialog()
-        }*/
-
-        //TODO: Establecer funcionalidad para el botón de ordenamiento
-        /*
-        sortButton.setOnClickListener {
-            showSortDialog()
-        }*/
-    }
-
-    //TODO: Función para manejo de busqueda (asociar al backend, no debe aplicar filtro local necesariamente)
-    /*
-    private fun setupSearch() {
-        val searchEditText = view?.findViewById<EditText>(R.id.search_edit_text)
-
-        searchEditText?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                // Apply search filter
-                val searchQuery = s?.toString() ?: ""
-                filterPlants(searchQuery)
-                    }
-        })
-    }*/
-
-    //TODO: Función para aplicar filtros seleccionados en el Bottom Drawer
-    /*private fun filterPlants(searchQuery: String) {
-        // First apply the search query
-        val searchResults = if (searchQuery.isEmpty()) {
-            currentPlants
-        } else {
-            currentPlants.filter { plant ->
-                plant.nombre.contains(searchQuery, ignoreCase = true) ||
-                        plant.descripcion.contains(searchQuery, ignoreCase = true)
-            }
-        }.toMutableList()
-
-        // Then apply any other active filters
-        adapter.updatePlants(searchResults)
-        adapter.filter(currentFilters)
-    }*/
-
-    //TODO: Función para mostrar el bottom drawer de filtros
-    /*private fun showFilterDialog() {
-        // Create and show your filter dialog
-        // When filters are applied, update currentFilters and refresh the list
-        val filterDialog = PlantFilterDialog(requireContext(), currentFilters)
-        filterDialog.setOnFilterAppliedListener { filters ->
-            currentFilters = filters
-            adapter.filter(filters)
+        filterButton.setOnClickListener {
+            showFilterBottomSheet()
         }
-        filterDialog.show()
-    }*/
 
-    //TODO: Refinar función para muestra de interfaz de ordenamiento y valores dentro de ella (utiliar un Spinner quizás para la selección de opciones)
-    private fun showSortDialog() {
-        // TODO: Implementar opciones con un array de strin para evitar hardcoding
-        //val options = arrayOf("Price: Low to High", "Price: High to Low", "Name: A to Z", "Name: Z to A")
-
-        //TODO: Implementar funcionalidad de ordenamiento con Spinner en vez de AlertDialog
-        /*
-        AlertDialog.Builder(requireContext())
-            .setTitle("Sort By")
-            .setItems(options) { _, which ->
-                when (which) {
-                    0 -> currentPlants.sortBy { it.precio }
-                    1 -> currentPlants.sortByDescending { it.precio }
-                    2 -> currentPlants.sortBy { it.nombre }
-                    3 -> currentPlants.sortByDescending { it.nombre }
-                }
-                adapter.updatePlants(currentPlants)
-            }
-            .show()*/
+        sortButton.setOnClickListener {
+            showSortPopupMenu()
+            animateIconRotation(sortButton, R.drawable.sort_icon_up)
+        }
     }
 
-    //TODO: Integrar carga de datos con filtro de categoría
+    @SuppressLint("Recycle", "ObjectAnimatorBinding")
+    private fun animateIconRotation(button: MaterialButton, newIconResId: Int) {
+        val currentIcon = button.icon
+
+        val rotateOut = ObjectAnimator.ofFloat(currentIcon, "rotationZ",0f, 180f)
+        rotateOut.duration = 100
+
+        rotateOut.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                val newIcon : Drawable? = ContextCompat.getDrawable(button.context, newIconResId)
+                button.icon = newIcon
+            }
+        })
+
+        rotateOut.start()
+    }
+
+    private fun setupSearch() {
+        // Find the root view that contains the search bar components
+        // We'll use the searchbar_section from your layout which is included in the catalog fragment
+        val searchBarView = view?.findViewById<View>(R.id.searchbar_section)
+
+        // Only initialize if we successfully found the search bar view
+        searchBarView?.let { rootView ->
+            // Create new SearchBarHelper instance with:
+            // - rootView: The view containing the search components
+            // - this: The fragment implementing SearchCallback interface
+            searchBarHelper = SearchBarHelper(rootView, this)
+
+            // Set an appropriate hint for the search
+            searchBarHelper.setHint(getString(R.string.search_hint))
+        }
+    }
+
+    // Override search-related methods from SearchableFragment
+    override fun getSearchHint(): String {
+        return getString(R.string.search_catalog_hint)
+    }
+
+    // Modify the search callbacks to handle state transitions
+    override fun onQueryTextSubmit(query: String) {
+        if (query.isNotEmpty()) {
+            // Switch to search mode and refresh the display
+            currentMode = DisplayMode.Search(query)
+            refreshDisplay()
+        }
+    }
+
+    override fun onQueryTextChange(newText: String) {
+        // Cancel any ongoing search
+        searchJob?.cancel()
+
+        if (newText.isEmpty()) {
+            // Reset to catalog mode with current filters
+            currentMode = DisplayMode.Catalog
+
+            // Clear existing plants
+            adapter.clearPlants()
+
+            // Reset pagination
+            currentPage = 1
+            isLoading = false
+            hasMoreItems = true
+
+            // Reload plants with current filters
+            loadPlants()
+        } else {
+            // Start new search
+            searchJob = lifecycleScope.launch(Dispatchers.Main) {
+                try {
+                    delay(300) // Debounce delay
+                    currentMode = DisplayMode.Search(newText)
+
+                    // Clear existing plants
+                    adapter.clearPlants()
+
+                    // Reset pagination
+                    currentPage = 1
+                    isLoading = false
+                    hasMoreItems = true
+
+                    // Load plants with search query
+                    loadPlants()
+                } catch (e: CancellationException) {
+                    // Search was cancelled, do nothing
+                }
+            }
+        }
+    }
+
+    // New method to handle display refresh
+    private fun refreshDisplay() {
+        // Cancel any ongoing search
+        searchJob?.cancel()
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            try {
+                // Clear existing data first
+                adapter.clearPlants()
+                currentPage = 1
+                isLoading = false
+                hasMoreItems = true
+
+                // Then load new data
+                loadPlants()
+            } catch (e: Exception) {
+                handleError(e)
+            }
+        }
+    }
+
+
+
+    override fun onFiltersApplied(filterParams: PlantFilterParams) {
+        // Store the new filters
+        currentFilters = filterParams
+
+        // Switch back to catalog mode if we were in search mode
+        currentMode = DisplayMode.Catalog
+
+        // Clear existing plants and reset adapter
+        adapter.clearPlants()
+
+        // Reset pagination
+        currentPage = 1
+        isLoading = false
+        hasMoreItems = true
+
+        // Load plants with new filters
+        loadPlants()
+    }
+
+    override fun getCurrentFilters(): PlantFilterParams? {
+        return currentFilters
+    }
+
+    private fun showFilterBottomSheet() {
+        val location = IntArray(2)
+        filterButton.getLocationOnScreen(location)
+        val filterButtonY = location[1] + filterButton.height
+
+        val bottomSheet = PlantFiltersBottomSheet.newInstance(filterButtonY)
+
+        val maxPrice = currentPlants.maxOfOrNull { it.precio.toFloat() } ?: 100000f
+        bottomSheet.setMaxProductPrice(maxPrice)
+
+        // Set the target fragment to ensure the listener connection
+        bottomSheet.setTargetFragment(this, 0)
+        bottomSheet.show(parentFragmentManager, "filters")
+
+
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun applyFilters(newFilters: PlantFilterParams) {
+        currentPage = 1
+        isLoading = false
+        hasMoreItems = true
+
+        currentPlants.clear()
+        adapter.notifyDataSetChanged()
+
+        currentFilters = newFilters
+
+        loadPlants()
+    }
+
+    @SuppressLint("InflateParams")
+    private fun showSortPopupMenu() {
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.sort_popup_menu, null)
+
+        val sortPopupWindow = PopupWindow(
+            popupView,
+            205.dpToPx(requireContext()),
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        ).apply {
+            elevation = 16f
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            setOnDismissListener {
+                animateIconRotation(sortButton, R.drawable.sort_icon)
+                dismiss()
+            }
+        }
+
+        popupView.apply {
+            findViewById<TextView>(R.id.popular_products_option).setOnClickListener {
+                applySorting(PlantFilterParams.ORDER_BY_RATING, PlantFilterParams.ORDER_DESC)
+                sortPopupWindow.dismiss()
+            }
+
+            findViewById<TextView>(R.id.most_sold_option).setOnClickListener {
+                applySorting(PlantFilterParams.ORDER_BY_UNITS_SOLD, PlantFilterParams.ORDER_DESC)
+                sortPopupWindow.dismiss()
+            }
+
+            findViewById<TextView>(R.id.price_high_to_low_option).setOnClickListener {
+                applySorting(PlantFilterParams.ORDER_BY_PRICE, PlantFilterParams.ORDER_DESC)
+                sortPopupWindow.dismiss()
+            }
+
+            findViewById<TextView>(R.id.price_low_to_high_option).setOnClickListener {
+                applySorting(PlantFilterParams.ORDER_BY_PRICE, PlantFilterParams.ORDER_ASC)
+                sortPopupWindow.dismiss()
+            }
+        }
+
+        val location = IntArray(2)
+        sortButton.getLocationOnScreen(location)
+
+        sortPopupWindow.showAsDropDown(
+            sortButton,
+            -65,
+            0,
+            Gravity.START
+        )
+
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun applySorting(orderBy: String, order: String) {
+        val newParams = currentFilters?.copy() ?: PlantFilterParams()
+        newParams.apply {
+            this.orderBy = orderBy
+            this.order = order
+        }
+
+        //Resetear y recargar con nuevos parámetros
+        currentFilters = newParams
+
+        adapter.clearPlants()
+
+        currentPage = 1
+        isLoading = false
+        hasMoreItems = true
+
+        //Cargar nueva data con los nuevos parámetros
+        loadPlants()
+    }
+
+
+
+    private fun Int.dpToPx(context: Context): Int {
+        return (this * context.resources.displayMetrics.density).toInt()
+    }
+
+    // Modify loadPlants to use the new state management
     private fun loadPlants() {
         if (isLoading || !hasMoreItems) return
         isLoading = true
         adapter.showLoading()
 
-        val categoryId = arguments?.getString("category_id")?.toIntOrNull()
-
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val retrofitClient = RetrofitCatalogClient.createCatalogClient()
-                val response: PlantResponse<Plant> = retrofitClient.getPlants(
-                    page = currentPage,
-                    pageSize = pageSize
-                )
-
-                hasMoreItems = currentPage * pageSize < response.totalItems
-
-                val newPlants = response.data.filter { plant ->
-                    categoryId == null || plant.idCategoria == categoryId
+                val response: PlantResponse<Plant> = when (val mode = currentMode) {
+                    is DisplayMode.Search -> {
+                        // For search mode, we don't apply filters
+                        retrofitClient.searchPlants(
+                            page = currentPage,
+                            pageSize = pageSize,
+                            searchQuery = mode.query
+                        )
+                    }
+                    DisplayMode.Catalog -> {
+                        // For catalog mode, we apply current filters
+                        retrofitClient.getPlants(
+                            page = currentPage,
+                            pageSize = pageSize,
+                            filterParams = currentFilters
+                        )
+                    }
                 }
 
-                if (newPlants.isNotEmpty()) {
-                    viewLifecycleOwner.lifecycleScope.launch {
+                withContext(Dispatchers.Main) {
+                    hasMoreItems = currentPage * pageSize < response.totalItems
+
+                    if (response.data.isNotEmpty()) {
                         adapter.hideLoading()
-                        adapter.updatePlants(newPlants)
+                        adapter.updatePlants(response.data)
                         currentPage++
+                    } else {
+                        showEmptyState(currentMode)
                     }
                 }
 
             } catch (e: Exception) {
-                Log.e("CatalogFragment", "Error loading plants", e)
-                viewLifecycleOwner.lifecycleScope.launch {
-                    adapter.hideLoading()
-                    showRetryToast()
+                withContext(Dispatchers.Main) {
+                    handleError(e)
                 }
             } finally {
-                isLoading = false
+                withContext(Dispatchers.Main) {
+                    isLoading = false
+                    adapter.hideLoading()
+                }
             }
         }
     }
 
-    private fun handleAddToCart(plant: Plant) {
-        try {
-            if (plant.stock > 0) {
-                val cartPlant = plant.imagenes.firstOrNull()?.ruta?.let {
-                    CartPlant(
-                        plantName = plant.nombre,
-                        plantPrice = plant.precio.toString(),
-                        plantId = plant.id.toString(),
-                        plantStock = plant.stock.toString(),
-                        plantQuantity = 1,
-                        plantImage = it.drop(1)
-                    )
-                }
+    private fun handleError(error: Exception) {
+        Log.e(TAG, "Error loading plants", error)
 
-                if (cartPlant != null) {
-                    cartManager.saveProductToCart(cartPlant)
-                }
+        activity?.runOnUiThread {
+            // Hide loading state
+            adapter.hideLoading()
 
-                Toast.makeText(
-                    requireContext(),
-                    "${plant.nombre} añadido al carrito",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                (activity as? MainContainerActivity)?.updateCartBadge()
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Lo sentimos, ${plant.nombre} no tiene más stock",
-                    Toast.LENGTH_SHORT
-                ).show()
+            // Show error message
+            val errorMessage = when (error) {
+                is IOException -> getString(R.string.error_network)
+                is HttpException -> getString(R.string.error_server)
+                else -> getString(R.string.error_loading_plants)
             }
-        } catch (e: Exception) {
-            Log.e("CatalogFragment", "Error al añadir producto al carrito", e)
-            Toast.makeText(
-                requireContext(),
-                "No se pudo añadir el producto al carrito",
-                Toast.LENGTH_SHORT
-            ).show()
+
+            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // Helper method to show appropriate empty state
+    private fun showEmptyState(mode: DisplayMode) {
+        val message = when (mode) {
+            is DisplayMode.Search -> getString(R.string.no_search_results, mode.query)
+            DisplayMode.Catalog -> getString(R.string.no_catalog_items)
+        }
+
+        activity?.runOnUiThread {
+            // Hide loading state first
+            adapter.hideLoading()
+
+            // Show empty state message
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun handleAddToCart(plant: Plant) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                if (plant.stock > 0) {
+                    val cartPlant = plant.imagenes.firstOrNull()?.ruta?.let {
+                        CartPlant(
+                            plantName = plant.nombre,
+                            plantPrice = plant.precio.toString(),
+                            plantId = plant.id.toString(),
+                            plantStock = plant.stock.toString(),
+                            plantQuantity = 1,
+                            plantImage = it.drop(1)
+                        )
+                    }
+
+                    cartPlant?.let {
+                        cartManager.saveProductToCart(it)
+
+                        activity?.runOnUiThread {
+                            Toast.makeText(
+                                requireContext(),
+                                "${plant.nombre} añadido al carrito",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        (activity as? MainContainerActivity)?.updateCartBadge()
+                    }
+
+                } else {
+                    activity?.runOnUiThread {
+                        Toast.makeText(
+                            requireContext(),
+                            "Lo sentimos, ${plant.nombre} no tiene más stock",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            } catch (e: Exception) {
+                Log.e("CatalogFragment", "Error al añadir producto al carrito", e)
+                activity?.runOnUiThread {
+                    Toast.makeText(
+                        requireContext(),
+                        "No se pudo añadir el producto al carrito",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 
@@ -337,5 +625,6 @@ class CatalogFragment : Fragment() {
                 putString("category_id", categoryId)
             }
         }
+        private const val TAG = "CatalogFragment"
     }
 }

@@ -12,22 +12,26 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
-import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
-import com.cotiledon.mobilApp.ui.dataClasses.Plant
+import com.cotiledon.mobilApp.ui.dataClasses.cart.CartPlant
+import com.cotiledon.mobilApp.ui.dataClasses.plant.Plant
 import com.cotiledon.mobilApp.ui.helpers.LeafRatingView
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
-import com.cotiledon.mobilApp.ui.retrofit.GlobalValues
+import com.cotiledon.mobilApp.ui.backend.GlobalValues
+import com.cotiledon.mobilApp.ui.managers.TokenManager
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Locale
-import kotlin.math.roundToInt
+
 
 class ProductDetailFragment : Fragment() {
 
@@ -80,11 +84,6 @@ class ProductDetailFragment : Fragment() {
         private const val ARG_PRODUCT_IMAGES = "product_images"
         private const val ARG_PRODUCT_STOCK = "product_stock"
         private const val ARG_PRODUCT_RATING = "product_rating"
-        //TODO: Backend y UX a definir uso de dimensiones
-        private const val ARG_PRODUCT_HEIGHT = "product_height"
-        private const val ARG_PRODUCT_WIDTH = "product_width"
-        private const val ARG_PRODUCT_LENGTH = "product_length"
-        private const val ARG_PRODUCT_WEIGHT = "product_weight"
         private const val ARG_PRODUCT_PET_FRIENDLY = "pet_friendly"
         private const val ARG_PRODUCT_CYCLE = "product_cycle"
         private const val ARG_PRODUCT_SPECIES = "product_species"
@@ -145,7 +144,7 @@ class ProductDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initializeViews(view)
-        cartManager = CartStorageManager(requireContext())
+        cartManager = CartStorageManager(requireContext(),TokenManager(requireContext()))
         setupProductDetails()
 
         val rating = arguments?.getFloat(ARG_PRODUCT_RATING, 5.0f) ?: 5.0f
@@ -275,7 +274,6 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun setupQuantityControls() {
-        val maxStock = arguments?.getInt(ARG_PRODUCT_STOCK, 0) ?: 0
 
         decreaseQuantityButton.setOnClickListener {
             if (currentQuantity > 1) {
@@ -283,24 +281,15 @@ class ProductDetailFragment : Fragment() {
                 updateQuantityDisplay()
             }
         }
-
         increaseQuantityButton.setOnClickListener {
-            if (currentQuantity < maxStock) {
                 currentQuantity++
                 updateQuantityDisplay()
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "No hay más stock disponible",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
         }
 
         updateQuantityDisplay()
     }
 
-    private fun setupAddProductToCartButton(){
+    private fun setupAddProductToCartButton() {
         addToCartButton.setOnClickListener {
             arguments?.let { args ->
                 val stock = args.getInt(ARG_PRODUCT_STOCK, 0)
@@ -312,20 +301,37 @@ class ProductDetailFragment : Fragment() {
                         plantId = args.getInt(ARG_PRODUCT_ID).toString(),
                         plantStock = stock.toString(),
                         plantQuantity = currentQuantity,
-                        plantImage = args.getStringArrayList(ARG_PRODUCT_IMAGES)?.firstOrNull()
-                            ?: ""
+                        plantImage = args.getStringArrayList(ARG_PRODUCT_IMAGES)?.firstOrNull() ?: ""
                     )
 
-                    cartManager.saveProductToCart(cartProduct)
+                    // Launch coroutine to handle the suspend function
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        try {
+                            cartManager.saveProductToCart(cartProduct)
 
-                    Toast.makeText(
-                        requireContext(),
-                        "${cartProduct.plantName} añadido al carrito",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                            // Update UI on main thread
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "${cartProduct.plantName} añadido al carrito",
+                                    Toast.LENGTH_SHORT
+                                ).show()
 
-                    // Actualizamos el badge del carrito en la actividad principal
-                    (activity as? MainContainerActivity)?.updateCartBadge()
+                                // Update badge in activity
+                                (activity as? MainContainerActivity)?.updateCartBadge()
+                            }
+                        } catch (e: Exception) {
+                            // Handle errors on main thread
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error al añadir el producto al carrito",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                Log.e("ProductDetailFragment", "Error adding to cart", e)
+                            }
+                        }
+                    }
                 } else {
                     Toast.makeText(
                         requireContext(),
@@ -341,9 +347,7 @@ class ProductDetailFragment : Fragment() {
     private fun updateQuantityDisplay() {
         quantityTextView.text = currentQuantity.toString()
 
-        val maxStock = arguments?.getInt(ARG_PRODUCT_STOCK, 0) ?: 0
         decreaseQuantityButton.isEnabled = currentQuantity > 1
-        increaseQuantityButton.isEnabled = currentQuantity < maxStock
     }
 
     private fun setupTechnicalDetails() {

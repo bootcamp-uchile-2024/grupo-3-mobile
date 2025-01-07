@@ -1,16 +1,12 @@
 package com.cotiledon.mobilApp.ui.managers
 
-import androidx.room.util.copy
-import com.cotiledon.mobilApp.ui.dataClasses.PlantFilters
-import com.cotiledon.mobilApp.ui.enums.GrowthHabit
-import com.cotiledon.mobilApp.ui.enums.IrrigationType
-import com.cotiledon.mobilApp.ui.enums.Lighting
-import com.cotiledon.mobilApp.ui.enums.PlantCycle
+import com.cotiledon.mobilApp.ui.dataClasses.catalog.PlantFilterParams
+
 //TODO: Implementar manager de filtros
 class PlantFilterManager {
-    private var currentFilters = PlantFilters()
+    private var currentFilters = PlantFilterParams()
 
-    fun updatePriceRange(min: Float, max: Float) {
+    /*fun updatePriceRange(min: Float, max: Float) {
         currentFilters = currentFilters.copy(priceRange = min..max)
     }
 
@@ -50,5 +46,5 @@ class PlantFilterManager {
         currentFilters = PlantFilters()
     }
 
-    fun getFilters() = currentFilters
+    fun getFilters() = currentFilters*/
 }

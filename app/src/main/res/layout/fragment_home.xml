@@ -102,14 +102,29 @@
             app:srcCompat="@drawable/banner_up" />
 
         <!-- RecyclerView -->
+
+        <TextView
+            android:id="@+id/home_productos_destacados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="@string/home_productos_destacados"
+            android:textColor="@color/main_app"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_banner_up" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activity_main_recyclerview"
             android:layout_width="335dp"
-            android:layout_height="92dp"
-            android:layout_marginTop="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView_banner_up" />
+            app:layout_constraintTop_toBottomOf="@+id/home_productos_destacados" />
 
         <!-- Lower banner - Made clickable -->
         <ImageView
@@ -131,7 +146,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_main_banner_down">
 
@@ -177,18 +192,18 @@
                 android:id="@+id/app_plant_ai_button"
                 android:layout_width="126dp"
                 android:layout_height="35dp"
-                android:gravity="center"
-                android:textSize="14sp"
-                android:padding="0dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/rectangle_5"
                 android:backgroundTint="@color/primary_color"
                 android:elevation="4dp"
                 android:fontFamily="@font/quicksand"
-
+                android:gravity="center"
+                android:padding="0dp"
                 android:text="@string/activity_main_bottom_button_truck"
+
                 android:textAllCaps="false"
                 android:textColor="@color/white"
+                android:textSize="14sp"
 
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
@@ -222,17 +237,17 @@
                 android:id="@+id/benefits_button"
                 android:layout_width="126dp"
                 android:layout_height="35dp"
-                android:gravity="center"
-                android:textSize="14sp"
-                android:padding="0dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/rectangle_5"
                 android:backgroundTint="@color/primary_color"
                 android:elevation="4dp"
                 android:fontFamily="@font/quicksand"
+                android:gravity="center"
+                android:padding="0dp"
                 android:text="@string/activity_main_bottom_button_stars"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
                 app:layout_constraintTop_toBottomOf="@id/club_plantai_text" />
@@ -265,16 +280,16 @@
                 android:id="@+id/tips_button"
                 android:layout_width="126dp"
                 android:layout_height="35dp"
-                android:gravity="center"
-                android:textSize="14sp"
-                android:padding="0dp"
                 android:background="@drawable/rectangle_5"
                 android:backgroundTint="@color/primary_color"
                 android:elevation="4dp"
                 android:fontFamily="@font/quicksand"
+                android:gravity="center"
+                android:padding="0dp"
                 android:text="@string/activity_main_bottom_button_grass"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
                 app:layout_constraintTop_toBottomOf="@id/tips_text" />

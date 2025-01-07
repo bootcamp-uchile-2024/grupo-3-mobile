@@ -14,16 +14,23 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
-import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
+import com.cotiledon.mobilApp.ui.dataClasses.cart.CartPlant
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
+import com.cotiledon.mobilApp.ui.backend.GlobalValues
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.NumberFormat
 import java.util.Locale
 
 class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
                                private val cartStorageManager: CartStorageManager,
-                               private val onItemRemoved: () -> Unit) :
+                               private val onItemRemoved: () -> Unit,
+                               private val scope: CoroutineScope
+) :
     RecyclerView.Adapter<CartRecyclerViewAdapter.CartViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
@@ -37,10 +44,9 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
         val planta = cartPlants[position]
 
         loadCartItemImage(planta.plantImage, holder.productImage, holder.itemView.context)
-        // TODO: Cargar el resto de los datos (ojo con descuento; revisar lógica del backend para manejo de este dato)
         holder.productName.text = planta.plantName
         holder.productQuantity.text = planta.plantQuantity.toString()
-        holder.productCurrentPrice.text = formatPrice(planta.plantPrice.toDouble() * planta.plantQuantity)
+        holder.productCurrentPrice.text = formatPrice(planta.plantPrice.toDouble())
 
         holder.deleteButton.setOnClickListener {
             showDeleteConfirmationDialog(holder.itemView.context, planta, position)
@@ -49,7 +55,9 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
         holder.decreaseButton.setOnClickListener {
             if (planta.plantQuantity > 1) {
                 planta.plantQuantity--
-                cartStorageManager.updateProductQuantity(planta.plantId,planta.plantQuantity)
+                scope.launch {
+                    cartStorageManager.updateProductQuantity(planta.plantId, planta.plantQuantity)
+                }
 
                 Toast.makeText(
                     holder.itemView.context,
@@ -57,31 +65,31 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
                     Toast.LENGTH_SHORT
                 ).show()
 
-
                 notifyItemChanged(position)
                 onItemRemoved()
                 (holder.itemView.context as? MainContainerActivity)?.updateCartBadge()
-            }
-            else{
+            } else {
                 showDeleteConfirmationDialog(holder.itemView.context, planta, position)
             }
         }
 
         holder.increaseButton.setOnClickListener {
-            if (planta.plantQuantity < planta.plantStock.toInt()) {
-                planta.plantQuantity++
-                cartStorageManager.updateProductQuantity(planta.plantId,planta.plantQuantity)
 
-                Toast.makeText(
-                    holder.itemView.context,
-                    "Cantidad de ${planta.plantName} aumentada a ${planta.plantQuantity}",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                notifyItemChanged(position)
-                onItemRemoved()
-                (holder.itemView.context as? MainContainerActivity)?.updateCartBadge()
+            planta.plantQuantity++
+            scope.launch {
+                cartStorageManager.updateProductQuantity(planta.plantId, planta.plantQuantity)
             }
+
+            Toast.makeText(
+                holder.itemView.context,
+                "Cantidad de ${planta.plantName} aumentada a ${planta.plantQuantity}",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            notifyItemChanged(position)
+            onItemRemoved()
+            (holder.itemView.context as? MainContainerActivity)?.updateCartBadge()
+
         }
     }
 
@@ -90,18 +98,25 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
             .setTitle("Eliminar producto")
             .setMessage("¿Estás seguro de que deseas eliminar este producto del carrito?")
             .setPositiveButton("Eliminar") { dialog, _ ->
-                cartStorageManager.removeProductFromCart(plant.plantId)
-                cartPlants.removeAt(position)
-                notifyItemRemoved(position)
-                onItemRemoved()
+                // Launch coroutine for server delete
+                scope.launch {
+                    cartStorageManager.removeProductFromCart(plant.plantId)
 
-                Toast.makeText(
-                    context,
-                    "${plant.plantName} ha sido eliminado del carrito",
-                    Toast.LENGTH_SHORT
-                ).show()
+                    // These operations should be done on the main thread
+                    withContext(Dispatchers.Main) {
+                        cartPlants.removeAt(position)
+                        notifyItemRemoved(position)
+                        onItemRemoved()
 
-                (context as? MainContainerActivity)?.updateCartBadge()
+                        Toast.makeText(
+                            context,
+                            "${plant.plantName} ha sido eliminado del carrito",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        (context as? MainContainerActivity)?.updateCartBadge()
+                    }
+                }
                 dialog.dismiss()
             }
             .setNegativeButton("Cancelar") { dialog, _ ->
@@ -119,8 +134,14 @@ class CartRecyclerViewAdapter (private val cartPlants: MutableList<CartPlant>,
             return
         }
 
+        val completeUrl = if (imageUrl.startsWith("http")) {
+            imageUrl
+        } else {
+            "${GlobalValues.backEndIP}${imageUrl}".trimEnd('/')
+        }
+
         Picasso.get()
-            .load(imageUrl)
+            .load(completeUrl)
             .apply {
                 // Ajustar el tamaño de la imagen debido a que es solo de carrito
                 resize(400, 400)

@@ -2,21 +2,194 @@ package com.cotiledon.mobilApp.ui.managers
 
 import android.content.Context
 import android.util.Log
-import com.cotiledon.mobilApp.ui.dataClasses.CartPlant
+import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.activities.BaseActivity
+import com.cotiledon.mobilApp.ui.dataClasses.cart.CartPlant
+import com.cotiledon.mobilApp.ui.dataClasses.cart.CartProduct
+import com.cotiledon.mobilApp.ui.dataClasses.cart.QueuedOperation
+import com.cotiledon.mobilApp.ui.enums.CartOperation
+import com.cotiledon.mobilApp.ui.backend.cart.RetrofitCartClient
+import com.cotiledon.mobilApp.ui.backend.user.RetrofitUserClient
+import com.cotiledon.mobilApp.ui.dataClasses.profile.VisitorResponse
+import com.cotiledon.mobilApp.ui.dataClasses.profile.toVisitorResponse
+import com.cotiledon.mobilApp.ui.fragments.SignInFragment
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
 
 //Clase de archivo de guardado de productos en el carrito
-class CartStorageManager (private val context: Context) {
-    //Archivo JSON para guardar los productos del carrito
+class CartStorageManager (private val context: Context, private val tokenManager: TokenManager) {
+    //Archivo JSON para guardar los productos del carrito de manera local
     private val filename = "cart_data.json"
+    //Se agregan variables para la comunicación con el servidor y coordinar con el ambiente local
+    private val cartClient = RetrofitCartClient.createCartClient(tokenManager)
+    private val userClient = RetrofitUserClient.createUserClient(tokenManager)
+    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private val queueKey = "cart_operation_queue"
+    private val gson = Gson()
+
+    //Variable para almacenar el ID del carrito traido desde el servidor
+    private var serverCartId: Int? = null
+
+    suspend fun getCartId(): Int? {
+        // First check cached cart ID
+        if (serverCartId != null) {
+            return serverCartId
+        }
+
+        try {
+            // Check for existing visitor token first
+            if (tokenManager.isVisitor()) {
+                // If we're a visitor but token expired, try to reuse the same visitor ID
+                val userId = tokenManager.getUserId()
+                if (userId != -1) {
+                    try {
+                        // Try to get existing cart for this visitor
+                        val response = cartClient.getUserCart(userId)
+                        if (response.isSuccessful) {
+                            val cart = response.body()
+                            serverCartId = cart?.id
+                            saveCartIdLocally(serverCartId)
+                            return serverCartId
+                        }
+                    } catch (e: Exception) {
+                        Log.e("CartStorageManager", "Error getting existing visitor cart", e)
+                    }
+                }
+            }
+
+            // If we get here, we either don't have a visitor profile or couldn't recover the existing one
+            if (!tokenManager.hasValidToken()) {
+                // Only create new visitor profile if we don't have one
+                if (!tokenManager.isVisitor()) {
+                    val visitorResponse = createVisitorProfile()
+                    visitorResponse?.let {
+                        tokenManager.saveVisitorAuthData(it)
+                    } ?: return null
+                } else {
+                    // We have a visitor profile but invalid token - something went wrong
+                    Log.e("CartStorageManager", "Invalid token for existing visitor")
+                    return null
+                }
+            }
+
+            // Now we should have a valid token (visitor or regular)
+            val userId = tokenManager.getUserId()
+            if (userId != -1) {
+                val response = cartClient.getUserCart(userId)
+
+                return when (response.code()) {
+                    200 -> {
+                        val cart = response.body()
+                        serverCartId = cart?.id
+                        saveCartIdLocally(serverCartId)
+                        serverCartId
+                    }
+                    404 -> {
+                        // Create new cart
+                        val createResponse = cartClient.createCart(userId)
+                        when (createResponse.code()) {
+                            201 -> {
+                                val newCart = createResponse.body()
+                                serverCartId = newCart?.id
+                                saveCartIdLocally(serverCartId)
+                                serverCartId
+                            }
+                            else -> null
+                        }
+                    }
+                    else -> null
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("CartStorageManager", "Error getting cart", e)
+            return null
+        }
+        return null
+    }
+
+    private suspend fun createVisitorProfile(): VisitorResponse? {
+        try {
+            val response = userClient.createVisitorProfile()
+            if (response.isSuccessful) {
+                return response.body()?.toVisitorResponse()
+            }
+        } catch (e: Exception) {
+            Log.e("CartStorageManager", "Error creating visitor profile", e)
+        }
+        return null
+    }
+
+    private fun handleAuthenticationError() {
+
+        //TODO: Add authentication error handling
+        //Navigate back to login
+        //This requires some way to access the activity/navigation
+        //You might want to use a callback or event bus for this
+        (context as? BaseActivity)?.let { activity ->
+            activity.runOnUiThread {
+                activity.supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, SignInFragment())
+                    .commit()
+            }
+        }
+    }
+
+    private fun saveCartIdLocally(cartId: Int?) {
+        context.getSharedPreferences("cart_prefs", Context.MODE_PRIVATE)
+            .edit()
+            .putInt("server_cart_id", cartId ?: -1)
+            .apply()
+    }
 
     //Función para guardar un producto en el carrito
-    fun saveProductToCart(cartPlant: CartPlant) {
+    suspend fun saveProductToCart(cartPlant: CartPlant) {
+        try {
+            //Guardamos localmente al inicio
+            saveProductLocally(cartPlant)
+
+            //Luego, intentamos guardar en el servidor
+            val cartId = getCartId()
+
+            if (cartId != null) {
+                val response = cartClient.addProductToCart(
+                    cartId = cartId,
+                    productId = cartPlant.plantId.toInt(),
+                    quantity = cartPlant.plantQuantity
+                )
+
+                if (!response.isSuccessful) {
+                    //Si el producto no se pudo guardar en el servidor, lo dejamos en espera para volver a intentarlo en el futuro
+                    queueForRetry(cartPlant)
+                }
+
+                else{
+                    Log.d("CartStorageManager", "Producto guardado en el carrito de la API")
+                }
+            }
+
+            else {
+                queueForRetry(cartPlant)
+            }
+
+        } catch (e: Exception) {
+            Log.e("CartStorageManager", "Error guardando el producto en el carrito", e)
+            //De todas formas lo guardamos localmente en caso de que la sincronización falle
+            saveProductLocally(cartPlant)
+        }
+    }
+
+    private fun saveProductLocally(cartPlant: CartPlant){
         try {
             val existingData = readCartData()
             var productExists = false
 
+            //Checkear si el producto existe en el carrito
             for (i in 0 until existingData.length()) {
                 val item = existingData.getJSONObject(i)
                 if (item.getString("plantID") == cartPlant.plantId) {
@@ -51,29 +224,67 @@ class CartStorageManager (private val context: Context) {
                 output.write(existingData.toString().toByteArray())
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e("CartStorageManager", "Error guardando el producto localmente", e)
         }
     }
 
-    fun removeProductFromCart(plantID: String) {
+    suspend fun removeProductFromCart(plantId: String) {
+        try {
+            removeProductLocally(plantId)
+
+            //Intentamos sincronizar con el servidor
+            val cartId = getCartId()
+            if (cartId != null) {
+
+                val cartItems = loadCartItems()
+                val productExists = cartItems.any { it.plantId == plantId }
+
+                if (productExists) {
+                    val response = cartClient.removeProductFromCart(
+                        cartId = cartId,
+                        productId = plantId.toInt()
+                    )
+
+                    if (!response.isSuccessful) {
+                        //Si el producto no se pudo eliminar en el servidor, lo dejamos en espera para volver a intentarlo en el futuro
+                        queueForDeletion(plantId)
+                    }
+                }
+
+                else{
+                    Log.d("CartStorageManager", "Producto eliminado en el carrito de la API")
+                }
+            }
+
+            else {
+                queueForDeletion(plantId)
+            }
+
+        } catch (e: Exception) {
+            Log.e("CartStorageManager", "Error removiendo el producto del carrito", e)
+            //De todas formas lo removemos localmente en caso de que la sincronización falle
+            removeProductLocally(plantId)
+    }
+    }
+
+    //Función para remover el producto localmente
+    private fun removeProductLocally(plantId: String) {
         try {
             val jsonArray = readCartData()
             val updatedArray = JSONArray()
 
-            // Crear un nuevo JSONArray excluyendo el producto a eliminar
             for (i in 0 until jsonArray.length()) {
                 val item = jsonArray.getJSONObject(i)
-                if (item.getString("plantID") != plantID) {
+                if (item.getString("plantID") != plantId) {
                     updatedArray.put(item)
                 }
             }
 
-            // Guardar el array actualizado
             context.openFileOutput(filename, Context.MODE_PRIVATE).use { output ->
                 output.write(updatedArray.toString().toByteArray())
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e("CartStorageManager", "Error removiendo el producto localmente", e)
         }
     }
 
@@ -116,6 +327,7 @@ class CartStorageManager (private val context: Context) {
                     )
                 )
             }
+            Log.i("CartStorageManager", "Productos cargados: $cartItems")
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -131,13 +343,51 @@ class CartStorageManager (private val context: Context) {
         context.deleteFile(filename)
     }
 
-    fun updateProductQuantity(plantId: String, newQuantity: Int) {
+    //Función para actualizar el carrito con el servidor
+    suspend fun updateProductQuantity(plantId: String, newQuantity: Int) {
         try {
+            updateQuantityLocally(plantId, newQuantity)
+
+            val cartId = getCartId()
+            if (cartId != null) {
+                val cartProduct = CartProduct(
+                    productoId = plantId.toInt(),
+                    cantidadProducto = newQuantity
+                )
+
+                val response = cartClient.updateProductQuantity(
+                    cartId = cartId,
+                    cartProduct.productoId,
+                    cartProduct.cantidadProducto
+                )
+
+                if (!response.isSuccessful) {
+                    queueForUpdate(plantId, newQuantity)
+                }
+
+                else{
+                    Log.d("CartStorageManager", "Producto actualizado en el carrito de la API")
+                }
+            }
+
+            else {
+                queueForUpdate(plantId, newQuantity)
+            }
+
+        } catch (e: Exception) {
+            Log.e("CartStorageManager", "Error actualizando la cantidad", e)
+            updateQuantityLocally(plantId, newQuantity)
+        }
+    }
+
+    //Función para actualizar el carrito localmente
+    private fun updateQuantityLocally(plantId: String, newQuantity: Int) {
+        try{
             val jsonArray = readCartData()
 
-            for (i in 0 until jsonArray.length()) {
+            for(i in 0 until jsonArray.length()){
                 val item = jsonArray.getJSONObject(i)
-                if (item.getString("plantID") == plantId) {
+                if(item.getString("plantID") == plantId){
                     item.put("plantQuantity", newQuantity)
                     break
                 }
@@ -147,7 +397,7 @@ class CartStorageManager (private val context: Context) {
                 output.write(jsonArray.toString().toByteArray())
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e("CartStorageManager", "Error actualizando la cantidad localmente", e)
         }
     }
 
@@ -174,6 +424,120 @@ class CartStorageManager (private val context: Context) {
     //Función para obtener el precio total de los productos en el carrito
     fun getTotalCartPrice(): Double {
         return getCartPrices().sum()
+    }
+
+    private fun saveQueuedOperation(operation: QueuedOperation) {
+        val prefs = context.getSharedPreferences("cart_prefs", Context.MODE_PRIVATE)
+        val queueJson = prefs.getString(queueKey, "[]")
+        val queueType = object : TypeToken<MutableList<QueuedOperation>>() {}.type
+        val queue = gson.fromJson<MutableList<QueuedOperation>>(queueJson, queueType)
+
+        // Add new operation
+        queue.add(operation)
+
+        // Save updated queue
+        prefs.edit().putString(queueKey, gson.toJson(queue)).apply()
+
+        // Process queue
+        processQueue()
+    }
+
+    private fun processQueue() {
+        scope.launch {
+            try {
+                val prefs = context.getSharedPreferences("cart_prefs", Context.MODE_PRIVATE)
+                val queueJson = prefs.getString(queueKey, "[]")
+                val queueType = object : TypeToken<MutableList<QueuedOperation>>() {}.type
+                val queue = gson.fromJson<MutableList<QueuedOperation>>(queueJson, queueType)
+
+                if (queue.isEmpty()) return@launch
+
+                val tokenManager = TokenManager(context)
+                val cartClient = RetrofitCartClient.createCartClient(tokenManager)
+                val serverCartId = prefs.getInt("server_cart_id", -1)
+                if (serverCartId == -1) return@launch
+
+                val iterator = queue.iterator()
+                while (iterator.hasNext()) {
+                    val operation = iterator.next()
+                    val success = try {
+                        when (operation.operationType) {
+                            CartOperation.ADD -> {
+                                operation.cartPlant?.let { plant ->
+                                    val response = cartClient.addProductToCart(
+                                        cartId = serverCartId,
+                                        productId = plant.plantId.toInt(),
+                                        quantity = plant.plantQuantity
+                                    )
+                                    response.isSuccessful
+                                } ?: false
+                            }
+
+                            CartOperation.UPDATE -> {
+                                operation.quantity?.let { qty ->
+                                    val response = cartClient.updateProductQuantity(
+                                        cartId = serverCartId,
+                                        productId = operation.plantId.toInt(),
+                                        quantity = qty
+                                    )
+                                    response.isSuccessful
+                                } ?: false
+                            }
+
+                            CartOperation.DELETE -> {
+                                val response = cartClient.removeProductFromCart(
+                                    cartId = serverCartId,
+                                    productId = operation.plantId.toInt()
+                                )
+                                response.isSuccessful
+                            }
+                        }
+                    } catch (e: Exception) {
+                        Log.e("CartStorageManager", "Error processing queued operation", e)
+                        false
+                    }
+
+                    if (success) {
+                        iterator.remove()
+                    }
+                }
+
+                // Save updated queue
+                prefs.edit().putString(queueKey, gson.toJson(queue)).apply()
+
+            } catch (e: Exception) {
+                Log.e("CartStorageManager", "Error processing queue", e)
+            }
+        }
+    }
+
+    private fun queueForRetry(cartPlant: CartPlant) {
+        saveQueuedOperation(
+            QueuedOperation(
+                operationType = CartOperation.ADD,
+                plantId = cartPlant.plantId,
+                cartPlant = cartPlant
+            )
+        )
+    }
+
+    private fun queueForDeletion(plantId: String) {
+        saveQueuedOperation(
+            QueuedOperation(
+                operationType = CartOperation.DELETE,
+                plantId = plantId
+            )
+        )
+    }
+
+    private fun queueForUpdate(plantId: String, quantity: Int) {
+        saveQueuedOperation(
+            QueuedOperation(
+                operationType = CartOperation.UPDATE,
+                plantId = plantId,
+                quantity = quantity
+            )
+        )
     }
 
 }

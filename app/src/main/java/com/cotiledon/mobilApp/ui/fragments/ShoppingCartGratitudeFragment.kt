@@ -38,7 +38,7 @@ class ShoppingCartGratitudeFragment : Fragment() {
                 //Limpiar el backstack completo
                 parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
-                //Iral fragmento de Home
+                //Ir al fragmento de Home
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, HomeFragment())
                     .commit()

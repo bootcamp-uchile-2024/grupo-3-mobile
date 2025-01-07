@@ -1,18 +1,18 @@
 package com.cotiledon.mobilApp.ui.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.activities.UserRegistrationActivity
+
 
 class SignInPreviousFragment : Fragment() {
-
-    private lateinit var registerBtn: TextView
+    private lateinit var signInButton: Button
+    private lateinit var registerButton: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,12 +25,37 @@ class SignInPreviousFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        registerBtn = view.findViewById(R.id.signin_register_btn)
+        initializeViews(view)
+        setupClickListeners()
+    }
 
-        registerBtn.setOnClickListener {
-            val intent = Intent(requireContext(), UserRegistrationActivity::class.java)
-            startActivity(intent)
+    private fun initializeViews(view: View) {
+        signInButton = view.findViewById(R.id.signin_btn)
+        registerButton = view.findViewById(R.id.signin_register_btn)
+    }
+
+    private fun setupClickListeners() {
+        signInButton.setOnClickListener {
+            navigateToSignIn()
         }
+
+        registerButton.setOnClickListener {
+            navigateToRegister()
+        }
+    }
+
+    private fun navigateToSignIn() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, SignInFragment())
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun navigateToRegister() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, UserRegisterFragment.newInstance())
+            .addToBackStack(null)
+            .commit()
     }
 }
 

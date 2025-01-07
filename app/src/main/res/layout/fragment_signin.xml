@@ -9,11 +9,12 @@
 
     <ImageView
         android:id="@+id/imageView_singin_background"
-        android:layout_width="406dp"
+        android:layout_width="0dp"
         android:layout_height="839dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/singin_background" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -130,8 +131,8 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:textAlignment="gravity"
-                    android:textColor="@color/quaternary_grey"
-                    android:textSize="12sp"
+                    android:textColor="@color/main_app"
+                    android:textSize="16sp"
                     app:layout_constraintTop_toBottomOf="@+id/register_phone" />
 
 
@@ -160,24 +161,23 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:textAlignment="gravity"
-                    android:textColor="@color/quaternary_grey"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/main_app"
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/button_singin"
-                    android:layout_width="118dp"
-                    android:layout_height="34dp"
+                    android:layout_width="110dp"
+                    android:layout_height="35dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/round_standar"
                     android:fontFamily="@font/quicksand_medium"
                     android:onClick="onSignInButtonClick"
+                    android:padding="0dp"
                     android:text="@string/login_singin"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@color/white"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -199,10 +199,11 @@
                     android:textSize="13sp" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/register_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
+                    android:clickable="true"
                     android:onClick="onRegisterTextClick"
                     android:text="@string/question2_singin"
                     android:textColor="@color/main_app"
