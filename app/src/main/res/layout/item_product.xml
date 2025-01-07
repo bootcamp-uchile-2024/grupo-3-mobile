@@ -92,7 +92,7 @@
                 android:layout_gravity="end|bottom"
                 android:layout_margin="8dp"
                 android:layout_weight="0.01"
-                android:background="@drawable/circular_button_background"
+                android:background="@drawable/rounded_image_background"
                 android:backgroundTint="@color/white"
                 android:src="@drawable/add_shopping_cart" />
         </LinearLayout>

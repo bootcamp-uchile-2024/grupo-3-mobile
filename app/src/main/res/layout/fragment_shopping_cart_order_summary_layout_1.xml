@@ -69,7 +69,7 @@
                     android:editable="false"
                     android:fontFamily="@font/quicksand"
                     android:text="Correo"
-                    android:textColor="@color/primary_color"
+                    android:textColor="@color/deep_green"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -93,7 +93,7 @@
                     android:editable="false"
                     android:fontFamily="@font/quicksand"
                     android:text="Nombre"
-                    android:textColor="@color/primary_color"
+                    android:textColor="@color/deep_green"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -117,7 +117,7 @@
                     android:editable="false"
                     android:fontFamily="@font/quicksand"
                     android:text="Apellido"
-                    android:textColor="@color/primary_color"
+                    android:textColor="@color/deep_green"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -142,7 +142,7 @@
                     android:editable="false"
                     android:fontFamily="@font/quicksand"
                     android:text="RUT"
-                    android:textColor="@color/primary_color"
+                    android:textColor="@color/deep_green"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -179,7 +179,7 @@
                     android:editable="true"
                     android:focusable="auto"
                     android:fontFamily="@font/quicksand"
-                    android:hint="912345678"
+                    android:hint="+56912345678"
                     android:padding="10dp" />
 
             </LinearLayout>
@@ -207,6 +207,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/rounded_shopping_button"
+                android:elevation="0dp"
                 android:fontFamily="@font/quicksand"
                 android:gravity="center|center_horizontal"
                 android:padding="0dp"

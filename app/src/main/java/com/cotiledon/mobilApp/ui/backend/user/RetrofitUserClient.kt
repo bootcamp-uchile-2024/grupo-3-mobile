@@ -2,6 +2,7 @@ package com.cotiledon.mobilApp.ui.backend.user
 
 import com.cotiledon.mobilApp.ui.backend.AuthInterceptor
 import com.cotiledon.mobilApp.ui.backend.GlobalValues
+import com.cotiledon.mobilApp.ui.dataClasses.profile.UserAddressCreation
 import com.cotiledon.mobilApp.ui.dataClasses.profile.UserProfileUpdate
 import com.cotiledon.mobilApp.ui.dataClasses.profile.UserRegistrationData
 import com.cotiledon.mobilApp.ui.managers.TokenManager
@@ -25,6 +26,7 @@ class RetrofitUserClient (private val baseUrl: String, private val tokenManager:
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
             .addInterceptor(authInterceptor)
+            .retryOnConnectionFailure(true)
             .build()
 
 
@@ -49,6 +51,8 @@ class RetrofitUserClient (private val baseUrl: String, private val tokenManager:
     suspend fun updateUserProfile(userId: Int, userProfile: UserProfileUpdate) = userApiService.updateUserProfile(userId, userProfile)
 
     suspend fun getUserProfile() = userApiService.getUserProfile()
+
+    suspend fun createAddress(address: UserAddressCreation) = userApiService.createAddress(address)
 
     companion object {
         fun createUserClient(tokenManager: TokenManager) =

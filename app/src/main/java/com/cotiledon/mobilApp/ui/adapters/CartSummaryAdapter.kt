@@ -2,6 +2,7 @@ package com.cotiledon.mobilApp.ui.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cotiledon.mobilApp.R
+import com.cotiledon.mobilApp.ui.backend.GlobalValues
 import com.cotiledon.mobilApp.ui.dataClasses.cart.CartPlant
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.text.NumberFormat
 import java.util.Locale
@@ -36,7 +39,7 @@ class CartSummaryAdapter(
         val plant = cartPlants[position]
 
         holder.productName.text = plant.plantName
-        holder.productQuantity.text = plant.plantQuantity.toString()
+        holder.productQuantity.text = "Cantidad: ${plant.plantQuantity.toString()}"
         holder.productCurrentPrice.text = formatPrice(plant.plantPrice.toDouble() * plant.plantQuantity)
 
         loadCartItemImage(plant.plantImage, holder.productImage, holder.itemView.context)
@@ -57,12 +60,28 @@ class CartSummaryAdapter(
             return
         }
 
+        val completeUrl = if (imageUrl.startsWith("http")) {
+            imageUrl
+        } else {
+            "${GlobalValues.backEndIP}${imageUrl}".trimEnd('/')
+        }
+
         Picasso.get()
-            .load(imageUrl)
-            .placeholder(R.drawable.user_24)
-            .error(R.drawable.suculenta)
-            .resize(400, 400)
-            .centerInside()
-            .into(imageView)
+            .load(completeUrl)
+            .apply {
+                // Ajustar el tamaño de la imagen debido a que es solo de carrito
+                resize(400, 400)
+                centerInside()
+                placeholder(R.drawable.user_24)
+                error(R.drawable.suculenta)
+            }
+            .into(imageView, object : Callback {
+                override fun onSuccess() {
+                }
+
+                override fun onError(e: Exception) {
+                    Log.e("Error al cargar la imagen", e.message, e)
+                }
+            })
     }
 }

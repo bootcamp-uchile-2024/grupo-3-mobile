@@ -133,7 +133,7 @@
     <string name="question2_singin">Registrate aqui</string>
     <string name="catalog_filter">Filtros</string>
     <string-array name="gender_items">
-        <item>Selecciona tu Género</item>
+        <item>Selecciona tu Género (Opcional)</item>
         <item>Masculino</item>
         <item>Femenino</item>
         <item>Prefiero no decir</item>
@@ -157,6 +157,14 @@
     <string name="sort_most_sold">Más vendidos</string>
     <string name="sort_price_high_to_low">Precio mayor a menor</string>
     <string name="sort_price_low_to_high">Precio menor a mayor</string>
+    <string name="search_catalog_hint">Buscar plantas...</string>
+    <string name="search_no_results">No se encontraron resultados para: %1$s</string>
+    <string name="search_error">Error al realizar la búsqueda</string>
+    <string name="no_search_results">No se encontraron plantas que coincidan con: "%1$s"</string>
+    <string name="no_catalog_items">No hay plantas disponibles en este momento</string>
+    <string name="error_loading_plants">Hubo un error al cargar las plantas. Por favor, intente nuevamente</string>
+    <string name="error_network">Error de conexión. Por favor, verifique su conexión a internet</string>
+    <string name="error_server">Error en el servidor. Por favor, intente más tarde</string>
 
     <!-- MainCategoriesActivity -->
     <string name="activity_categories_main">Categorías</string>
@@ -195,17 +203,17 @@
     <string name="register_data">Mis Datos</string>
     <string name="register_name">Nombre *</string>
     <string name="register_lastname">Apellido *</string>
-    <string name="register_name1_hint">Nombre</string>
-    <string name="register_lastname1_hint">Apellido</string>
+    <string name="register_name1_hint">Juan</string>
+    <string name="register_lastname1_hint">Perez</string>
     <string name="register_username">Nombre usuario *</string>
     <string name="register_usermail">Correo *</string>
     <string name="register_userpassword">Confirmar contraseña *</string>
-    <string name="register_username_hint1">Nombre usuario</string>
-    <string name="register_usermail_hint">Correo</string>
+    <string name="register_username_hint1">juan_perez</string>
+    <string name="register_usermail_hint">juan.perez.123@gmail.com</string>
     <string name="register_userrut">RUT *</string>
     <string name="register_userphone">Teléfono *</string>
-    <string name="register_userrut_hint">RUT</string>
-    <string name="register_userphone_hint">Teléfono</string>
+    <string name="register_userrut_hint">11111111-1</string>
+    <string name="register_userphone_hint">+56912345678</string>
     <string name="register_usergender">Género</string>
     <string name="register_userbirthday">Fecha de nacimiento *</string>">
     <string name="register_userbirthday_hint">Fecha de nacimiento</string>
@@ -275,5 +283,6 @@
     <string name="DialogFragment_not_notification_2">No hay notificaciones nuevas, pero hay un mundo de productos por descubrir</string>
     <string name="register_userpassword_first">Contraseña *</string>
     <string name="register_create_act">Crear Cuenta</string>
+    <string name="home_productos_destacados">Productos destacados</string>
 
 </resources>

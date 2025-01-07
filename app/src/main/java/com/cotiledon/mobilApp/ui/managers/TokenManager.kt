@@ -53,19 +53,24 @@ class TokenManager (private val context: Context) {
         }
     }
 
-    fun saveVisitorAuthData(visitorResponse: VisitorResponse) {
-        editor.apply {
-            putString(KEY_TOKEN, visitorResponse.access_token)
-            putInt(KEY_USER_ID, visitorResponse.id)
-            putString(KEY_USER_ROLE, visitorResponse.rol)
-            putLong(KEY_TOKEN_EXPIRATION, visitorResponse.expToken)
-            apply()
-        }
-        startTokenExpirationTimer(visitorResponse.expToken)
+    fun isVisitor(): Boolean {
+        val role = prefs.getString(KEY_USER_ROLE, null)
+        val userId = prefs.getInt(KEY_USER_ID, -1)
+        return role == ROLE_VISITOR && userId != -1
     }
 
-    fun isVisitor(): Boolean {
-        return prefs.getString(KEY_USER_ROLE, null) == ROLE_VISITOR
+    fun saveVisitorAuthData(visitorResponse: VisitorResponse) {
+        // Don't overwrite existing visitor data if we already have it
+        if (!isVisitor()) {
+            editor.apply {
+                putString(KEY_TOKEN, visitorResponse.access_token)
+                putInt(KEY_USER_ID, visitorResponse.id)
+                putString(KEY_USER_ROLE, visitorResponse.rol)
+                putLong(KEY_TOKEN_EXPIRATION, visitorResponse.expToken)
+                commit()  // Use commit() instead of apply() for immediate write
+            }
+            startTokenExpirationTimer(visitorResponse.expToken)
+        }
     }
 
     fun hasValidToken(): Boolean {

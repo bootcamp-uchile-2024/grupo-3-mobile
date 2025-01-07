@@ -84,11 +84,6 @@ class ProductDetailFragment : Fragment() {
         private const val ARG_PRODUCT_IMAGES = "product_images"
         private const val ARG_PRODUCT_STOCK = "product_stock"
         private const val ARG_PRODUCT_RATING = "product_rating"
-        //TODO: Backend y UX a definir uso de dimensiones
-        private const val ARG_PRODUCT_HEIGHT = "product_height"
-        private const val ARG_PRODUCT_WIDTH = "product_width"
-        private const val ARG_PRODUCT_LENGTH = "product_length"
-        private const val ARG_PRODUCT_WEIGHT = "product_weight"
         private const val ARG_PRODUCT_PET_FRIENDLY = "pet_friendly"
         private const val ARG_PRODUCT_CYCLE = "product_cycle"
         private const val ARG_PRODUCT_SPECIES = "product_species"
@@ -279,7 +274,6 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun setupQuantityControls() {
-        val maxStock = arguments?.getInt(ARG_PRODUCT_STOCK, 0) ?: 0
 
         decreaseQuantityButton.setOnClickListener {
             if (currentQuantity > 1) {
@@ -287,18 +281,9 @@ class ProductDetailFragment : Fragment() {
                 updateQuantityDisplay()
             }
         }
-
         increaseQuantityButton.setOnClickListener {
-            if (currentQuantity < maxStock) {
                 currentQuantity++
                 updateQuantityDisplay()
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "No hay más stock disponible",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
         }
 
         updateQuantityDisplay()
@@ -362,9 +347,7 @@ class ProductDetailFragment : Fragment() {
     private fun updateQuantityDisplay() {
         quantityTextView.text = currentQuantity.toString()
 
-        val maxStock = arguments?.getInt(ARG_PRODUCT_STOCK, 0) ?: 0
         decreaseQuantityButton.isEnabled = currentQuantity > 1
-        increaseQuantityButton.isEnabled = currentQuantity < maxStock
     }
 
     private fun setupTechnicalDetails() {

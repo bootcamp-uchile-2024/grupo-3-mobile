@@ -1,74 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/categories"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <!-- Comienzo de Header -->
-    <View
-        android:id="@+id/app_upper_banner"
+
+    <!-- Fin de Header -->
+
+    <include
+        android:id="@+id/include3"
+        layout="@layout/layout_searchbar_no_back_btn"
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:background="#1A4756"
+        android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/searchbar_section"
-        android:layout_width="match_parent"
-        android:layout_height="33dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/button_butt"
-        android:elevation="10dp"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_upper_banner">
-
-        <EditText
-            android:id="@+id/search_edit_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/personal_magnifying"
-            android:fontFamily="@font/quicksand_medium"
-            android:hint="@string/search_hint"
-            android:textColor="@color/quaternary_grey"
-            android:textSize="18sp"
-            android:inputType="text"/>
-
-        <ImageView
-            android:id="@+id/camera_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="12dp"
-            android:src="@drawable/camera"
-            android:contentDescription="@string/camara"/>
-
-    </LinearLayout>
-
-    <!-- Fin de Header -->
 
     <TextView
         android:id="@+id/subcategory_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
         android:fontFamily="@font/quicksand_medium"
         android:text="@string/activity_categories_main"
         android:textColor="@color/main_app"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchbar_section" />
+        app:layout_constraintTop_toBottomOf="@+id/include3" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.cotiledon.mobilApp.R
@@ -141,12 +140,6 @@ class UserRegisterFragment : Fragment() {
             isValid = false
         }
 
-        // Gender validation
-        if (genderSpinner.selectedItemPosition == 0) {
-            (genderSpinner.selectedView as? TextView)?.error = "Debe seleccionar un género"
-            isValid = false
-        }
-
         return isValid
     }
 
@@ -246,7 +239,9 @@ class UserRegisterFragment : Fragment() {
             nombreUsuario = usernameEditText.text.toString()
             email = emailEditText.text.toString()
             telefono = phoneEditText.text.toString()
-            genero = genderSpinner.selectedItem.toString()
+            if (genderSpinner.selectedItemPosition != 0){
+                genero = genderSpinner.selectedItem.toString()
+            }
             rut = rutEditText.text.toString()
             fechaNacimiento = birthdayEditText.text.toString()
             contrasena = passwordEditText.text.toString()

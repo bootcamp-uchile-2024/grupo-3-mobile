@@ -1,52 +1,76 @@
 package com.cotiledon.mobilApp.ui.helpers
 
-import android.app.Activity
+
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import android.widget.ImageButton
 import com.cotiledon.mobilApp.R
-//Todo: Terminar de implenmentar lógica de búsqueda
+import android.view.View
+import android.widget.ImageView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+/**
+ * Helper class to manage search functionality across fragments.
+ * This class handles the search bar UI interactions and delegates search actions
+ * to the implementing fragment through callbacks.
+ */
 class SearchBarHelper(
-    private val activity: Activity,
+    private val rootView: View,
     private val searchCallback: SearchCallback
 ) {
     private var searchEditText: EditText? = null
-    private var cameraButton: ImageButton? = null
+    private var cameraButton: ImageView? = null
+    private var debounceJob: Job? = null
+    private val DEBOUNCE_DELAY = 300L // Milliseconds
 
-    //Interface para manejo de acciones del searchbar
+    // Interface for search-related callbacks
     interface SearchCallback {
         fun onQueryTextSubmit(query: String)
         fun onQueryTextChange(newText: String)
         fun onCameraButtonClick()
     }
 
+    // Get the CoroutineScope from the root view's context
+    private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+
     init {
-        setupSearchView()
+        initializeViews()
+        setupSearchListeners()
     }
 
-    private fun setupSearchView() {
-
-        searchEditText = activity.findViewById(R.id.search_edit_text)
-        cameraButton = activity.findViewById(R.id.camera_button)
-
-        //Listner para cambios en el texto
+    private fun initializeViews() {
+        // Initialize views using the provided root view
+        searchEditText = rootView.findViewById(R.id.search_edit_text)
+        cameraButton = rootView.findViewById(R.id.camera_button)
+    }
+    private fun setupSearchListeners() {
         searchEditText?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                s?.toString()?.let { searchCallback.onQueryTextChange(it) }
+                // Cancel previous debounce job if it exists
+                debounceJob?.cancel()
+
+                // Create new debounce job
+                debounceJob = scope.launch {
+                    delay(DEBOUNCE_DELAY)
+                    s?.toString()?.let { searchCallback.onQueryTextChange(it) }
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        //Listener para envío de texto
-        searchEditText?.setOnEditorActionListener { _, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
-                (event?.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN)) {
+        // Set up search action listener
+        searchEditText?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 searchEditText?.text?.toString()?.let {
                     searchCallback.onQueryTextSubmit(it)
                 }
@@ -56,13 +80,19 @@ class SearchBarHelper(
             }
         }
 
-        //Listener para botón de cámara
+        // Set up camera button listener
         cameraButton?.setOnClickListener {
             searchCallback.onCameraButtonClick()
         }
     }
 
-    //Limpiar búsqueda
+    fun cleanup() {
+        scope.cancel()
+    }
+
+    /**
+     * Clears the current search text and resets the search state
+     */
     fun clearSearch() {
         searchEditText?.apply {
             setText("")
@@ -70,14 +100,27 @@ class SearchBarHelper(
         }
     }
 
-    //Establecer hint
+    /**
+     * Sets the hint text for the search EditText
+     */
     fun setHint(hint: String) {
         searchEditText?.hint = hint
     }
 
-    //Posibilidad de activar o desactivar botón de cámara
+    /**
+     * Enables or disables the camera button
+     */
     fun setCameraButtonEnabled(enabled: Boolean) {
-        cameraButton?.isEnabled = enabled
-        cameraButton?.alpha = if (enabled) 1.0f else 0.5f
+        cameraButton?.apply {
+            isEnabled = enabled
+            alpha = if (enabled) 1.0f else 0.5f
+        }
+    }
+
+    /**
+     * Returns the current search text
+     */
+    fun getCurrentSearchText(): String {
+        return searchEditText?.text?.toString() ?: ""
     }
 }

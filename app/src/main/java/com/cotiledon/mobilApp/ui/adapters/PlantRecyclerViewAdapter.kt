@@ -29,7 +29,7 @@ class PlantRecyclerViewAdapter(
 
     companion object {
         private const val VIEW_TYPE_ITEM = 0
-        private const val VIEW_TYPE_LOADING = 1
+        const val VIEW_TYPE_LOADING = 1
     }
 
     private var isLoadingVisible = false
@@ -41,11 +41,16 @@ class PlantRecyclerViewAdapter(
         private val productDescription: TextView = itemView.findViewById(R.id.tv_product_description)
         private val productPrice: TextView = itemView.findViewById(R.id.tv_product_price)
         private val addToCartButton: ImageButton = itemView.findViewById(R.id.btn_add_to_cart)
+        private val petfriendlyIcon: ImageView = itemView.findViewById(R.id.pet_friendly_sign)
 
         @SuppressLint("SetTextI18n", "DefaultLocale")
         fun bind(plant: Plant) {
             productName.text = plant.nombre
             productDescription.text = plant.descripcion
+
+            if (plant.planta?.petFriendly == false) {
+                petfriendlyIcon.visibility = View.INVISIBLE
+            }
 
             addToCartButton.setOnClickListener {
             onAddToCartClick(plant)
@@ -82,7 +87,7 @@ class PlantRecyclerViewAdapter(
                     }
 
                     override fun onError(e: Exception) {
-                        Log.e("PlantAdapter", "Error loading image: $imageUrl", e)
+                        Log.e("PlantAdapter", "Error cargando la imagen: $imageUrl", e)
                         failedImageLoads.add(imageUrl)
 
                         imageView.postDelayed({
@@ -158,11 +163,14 @@ class PlantRecyclerViewAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
             VIEW_TYPE_ITEM -> {
-                val plantHolder = holder as PlantViewHolder
-                val plant = filteredItems[position]
-                plantHolder.bind(plant)
-                holder.itemView.setOnClickListener {
-                    onItemClick(plant)
+                //Solo hacer binding si el item esta en la lista
+                if (position < filteredItems.size) {
+                    val plantHolder = holder as PlantViewHolder
+                    val plant = filteredItems[position]
+                    plantHolder.bind(plant)
+                    holder.itemView.setOnClickListener {
+                        onItemClick(plant)
+                    }
                 }
             }
             VIEW_TYPE_LOADING -> {
@@ -172,11 +180,7 @@ class PlantRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (isLoadingVisible) {
-            filteredItems.size + 1
-        } else {
-            filteredItems.size
-        }
+        return filteredItems.size + if (isLoadingVisible) 1 else 0
     }
 
     fun clearPlants() {
@@ -185,7 +189,7 @@ class PlantRecyclerViewAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == filteredItems.size && isLoadingVisible) {
+        return if (isLoadingVisible && position == filteredItems.size) {
             VIEW_TYPE_LOADING
         } else {
             VIEW_TYPE_ITEM
@@ -194,7 +198,9 @@ class PlantRecyclerViewAdapter(
 
 
     fun updatePlants(newPlants: List<Plant>) {
-        updateItems(newPlants)
+        val startPosition = filteredItems.size
+        filteredItems.addAll(newPlants)
+        notifyItemRangeInserted(startPosition, newPlants.size)
         if (isLoadingVisible) {
             hideLoading()
         }

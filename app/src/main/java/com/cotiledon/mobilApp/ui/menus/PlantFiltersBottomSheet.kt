@@ -108,18 +108,41 @@ class PlantFiltersBottomSheet : BottomSheetDialogFragment() {
 
     private fun setupBudgetSlider() {
         budgetSlider.apply {
-            // Set the value range
-            valueFrom = minAllowedPrice
-            valueTo = maxOf(maxProductPrice, minMaxPrice)
+            // Set the value range (in raw integers, not formatted)
+            valueFrom = minAllowedPrice  // 0
+            valueTo = maxOf(maxProductPrice, minMaxPrice)  // Max price from products or minimum allowed max
 
-            // Set initial values - start at 0 and max at the higher value
-            values = listOf(minAllowedPrice, valueTo)
+            // Set initial values
+            values = listOf(valueFrom, valueTo)
+
+            // Set step size for price increments
+            stepSize = 1000f  // Steps of 1000 pesos
+
+            // Add label formatter to show formatted currency
+            setLabelFormatter { value ->
+                NumberFormat.getCurrencyInstance(Locale("es", "CL"))
+                    .format(value.toDouble())
+            }
 
             // Update the text display
-            updateBudgetText(minAllowedPrice, valueTo)
+            updateBudgetText(valueFrom, valueTo)
+        }
 
-            // Set step size - optional, depends on your needs
-            stepSize = 1000f  // Steps of 1000 pesos
+        // Add slider change listener
+        budgetSlider.addOnChangeListener { slider, _, _ ->
+            val values = slider.values
+            // Allow minimum value to change - no longer force it to 0
+            val minValue = values[0]
+            val maxValue = values[1]
+
+            // Update the filter values with raw integer values
+            currentFilters.apply {
+                minPrice = minValue.toInt()
+                maxPrice = maxValue.toInt()
+            }
+
+            // Update the display text
+            updateBudgetText(minValue, maxValue)
         }
     }
 
@@ -194,6 +217,82 @@ class PlantFiltersBottomSheet : BottomSheetDialogFragment() {
             currentFilters.apply {
                 minPrice = minValue.toInt()
                 maxPrice = maxValue.toInt()
+            }
+
+            // Add apply button listener
+            applyButton.setOnClickListener {
+                // Create a new filter params object with all current selections
+                val appliedFilters = PlantFilterParams().apply {
+                    // Price range (only include if slider was moved)
+                    if (budgetSlider.values[0] > minAllowedPrice ||
+                        budgetSlider.values[1] < budgetSlider.valueTo) {
+                        minPrice = budgetSlider.values[0].toInt()
+                        maxPrice = budgetSlider.values[1].toInt()
+                    }
+
+                    // Size selection
+                    size = when (sizeGroup.checkedRadioButtonId) {
+                        R.id.sizeS -> PlantFilterParams.SIZE_S
+                        R.id.sizeM -> PlantFilterParams.SIZE_M
+                        R.id.sizeL -> PlantFilterParams.SIZE_L
+                        R.id.sizeXL -> PlantFilterParams.SIZE_XL
+                        else -> null
+                    }
+
+                    // Pet friendly selection
+                    petFriendly = if (petFriendlyCheckbox.isChecked) true else null
+
+                    // Light selection
+                    lighting = when (lightGroup.checkedRadioButtonId) {
+                        R.id.lightDirect -> 1
+                        R.id.lightPartial -> 2
+                        R.id.lightShade -> 3
+                        else -> null
+                    }
+
+                    // Temperature selection
+                    temperatureTolerance = when (temperatureGroup.checkedRadioButtonId) {
+                        R.id.tempWarm -> 1
+                        R.id.tempMild -> 2
+                        R.id.tempCold -> 3
+                        else -> null
+                    }
+
+                    // Irrigation selection
+                    irrigationType = when (irrigationGroup.checkedRadioButtonId) {
+                        R.id.irrigationManual -> 1
+                        R.id.irrigationDrip -> 2
+                        R.id.irrigationCapillary -> 3
+                        R.id.irrigationSubmersion -> 4
+                        R.id.irrigationSelfWatering -> 5
+                        R.id.irrigationMisting -> 6
+                        R.id.irrigationAutomatic -> 7
+                        else -> null
+                    }
+
+                    // Preserve any existing sort parameters
+                    orderBy = currentFilters.orderBy
+                    order = currentFilters.order
+                }
+
+                // Pass the filters back to the fragment
+                filterListener?.onFiltersApplied(appliedFilters)
+                dismiss()
+            }
+
+            clearButton.setOnClickListener {
+                // Reset all UI elements
+                resetFilters()
+
+                // Create empty filter params (preserving sort)
+                val emptyFilters = PlantFilterParams().apply {
+                    orderBy = currentFilters.orderBy
+                    order = currentFilters.order
+                }
+
+                // Apply empty filters
+                filterListener?.onFiltersApplied(emptyFilters)
+                dismiss()
             }
 
             // Update the display text
@@ -336,6 +435,7 @@ class PlantFiltersBottomSheet : BottomSheetDialogFragment() {
 
     @SuppressLint("SetTextI18n")
     private fun updateBudgetText(min: Float, max: Float) {
+        // Format the values as currency for display
         val formatter = NumberFormat.getCurrencyInstance(Locale("es", "CL"))
         budgetValueText.text = "${formatter.format(min.toDouble())} - ${formatter.format(max.toDouble())}"
     }

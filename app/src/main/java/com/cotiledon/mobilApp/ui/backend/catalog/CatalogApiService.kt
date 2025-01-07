@@ -22,4 +22,11 @@ interface CatalogApiService {
         @Query("orden") order: String? = null,
         @Query("sizePlant") size: String? = null
     ): PlantResponse<Plant>
+
+    @GET("catalogo/search")
+    suspend fun searchPlants(
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int,
+        @Query("search") searchQuery: String
+    ): PlantResponse<Plant>
 }

@@ -1,6 +1,7 @@
 package com.cotiledon.mobilApp.ui.backend.user
 
 import com.cotiledon.mobilApp.ui.dataClasses.profile.ProfileResponse
+import com.cotiledon.mobilApp.ui.dataClasses.profile.UserAddressCreation
 import com.cotiledon.mobilApp.ui.dataClasses.profile.UserProfileUpdate
 import com.cotiledon.mobilApp.ui.dataClasses.profile.UserRegistrationData
 import retrofit2.Response
@@ -25,4 +26,9 @@ interface UserApiService {
         @Path("userId") userId: Int,
         @Body userProfile: UserProfileUpdate
     ): Response<ProfileResponse>
+
+    @POST("usuarios/direcciones")
+    suspend fun createAddress(
+        @Body address: UserAddressCreation
+    ): Response<String>
 }

@@ -73,7 +73,7 @@
             android:hint="@string/search_hint"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:textColor="@color/quaternary_grey"
+            android:textColor="@color/main_app"
             android:textSize="14sp" />
 
         <ImageView

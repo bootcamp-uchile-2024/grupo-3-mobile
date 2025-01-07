@@ -29,6 +29,9 @@ class UserRegisterNextFragment : Fragment() {
     private lateinit var regionSpinner: Spinner
     private lateinit var comunaSpinner: Spinner
     private lateinit var addressEditText: EditText
+    private lateinit var numberEditText: EditText
+    private lateinit var departmentEditText: EditText
+    private lateinit var referenceEditText: EditText
     private lateinit var termsCheckBox: CheckBox
     private lateinit var registerButton: Button
 
@@ -63,7 +66,10 @@ class UserRegisterNextFragment : Fragment() {
     private fun initializeViews(view: View) {
         regionSpinner = view.findViewById(R.id.spinner_region)
         comunaSpinner = view.findViewById(R.id.spinner_comuna)
-        addressEditText = view.findViewById(R.id.edittext_adress)
+        addressEditText = view.findViewById(R.id.street_name)
+        numberEditText = view.findViewById(R.id.street_number)
+        departmentEditText = view.findViewById(R.id.department)
+        referenceEditText = view.findViewById(R.id.reference)
         termsCheckBox = view.findViewById(R.id.checkbox_terms)
         registerButton = view.findViewById(R.id.button_register_next)
     }
@@ -155,10 +161,10 @@ class UserRegisterNextFragment : Fragment() {
         val addressRegex = Regex("^[^,]+,[^,]+(,[^,]+)?$")
         val address = addressEditText.text.toString().trim()
 
-        if (!addressRegex.matches(address)) {
+        /*if (!addressRegex.matches(address)) {
             addressEditText.error = "La dirección debe tener el formato: 'texto, texto[, texto]'"
             return false
-        }
+        }*/
 
         if (!termsCheckBox.isChecked) {
             termsCheckBox.error = "Debes aceptar los términos y condiciones"
@@ -221,6 +227,7 @@ class UserRegisterNextFragment : Fragment() {
             }
         }
     }
+
 
     private fun handleError(errorMessage: String) {
         // We use viewLifecycleOwner.lifecycleScope to ensure we're respecting the Fragment's lifecycle

@@ -10,7 +10,3 @@ data class UserProfileUpdate(
     val rut: String? = null,
     val fechaNacimiento: String? = null
 )
-{companion object {
-    const val DATE_FORMAT = "yyyy-MM-dd"
-    }
-}

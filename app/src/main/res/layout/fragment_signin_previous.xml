@@ -40,9 +40,10 @@
     <Button
         android:id="@+id/signin_btn"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@drawable/round_standar"
         android:fontFamily="@font/quicksand_medium"
+        android:padding="0dp"
         android:scrollbarStyle="insideInset"
         android:text="@string/login"
         android:textAllCaps="false"

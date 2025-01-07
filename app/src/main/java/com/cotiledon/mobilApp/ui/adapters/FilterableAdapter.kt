@@ -14,7 +14,8 @@ abstract class FilterableAdapter<T: Any, VH: RecyclerView.ViewHolder>(
     @SuppressLint("NotifyDataSetChanged")
     open fun filter(filters: PlantFilterParams) {
         currentFilters = filters
-        filteredItems = items.toMutableList()
+        // We don't need to filter here anymore since filtering happens server-side
+        // Just update the current filters
         notifyDataSetChanged()
     }
 
@@ -26,9 +27,11 @@ abstract class FilterableAdapter<T: Any, VH: RecyclerView.ViewHolder>(
         notifyDataSetChanged()
     }
 
+    // Modify updateItems to consider current filters
     fun updateItems(newItems: List<T>) {
         val startPosition = items.size
         items.addAll(newItems)
+        // Since filtering happens server-side, filtered items are the same as new items
         filteredItems.addAll(newItems)
         notifyItemRangeInserted(startPosition, newItems.size)
     }

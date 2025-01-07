@@ -102,14 +102,29 @@
             app:srcCompat="@drawable/banner_up" />
 
         <!-- RecyclerView -->
+
+        <TextView
+            android:id="@+id/home_productos_destacados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="@string/home_productos_destacados"
+            android:textColor="@color/main_app"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_banner_up" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activity_main_recyclerview"
             android:layout_width="335dp"
-            android:layout_height="92dp"
-            android:layout_marginTop="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView_banner_up" />
+            app:layout_constraintTop_toBottomOf="@+id/home_productos_destacados" />
 
         <!-- Lower banner - Made clickable -->
         <ImageView

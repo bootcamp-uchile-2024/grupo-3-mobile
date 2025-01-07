@@ -44,7 +44,7 @@
             android:layout_marginBottom="25dp"
             android:fontFamily="@font/quicksand"
             android:text="@string/register_data"
-            android:textColor="@color/primary_color"
+            android:textColor="@color/deep_green"
             android:textSize="30sp" />
 
         <LinearLayout
@@ -62,7 +62,7 @@
                 android:layout_marginEnd="98dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/register_name"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/deep_green"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -73,7 +73,7 @@
                 android:layout_marginStart="2dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/register_lastname"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/deep_green"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -129,7 +129,7 @@
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/register_username"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/deep_green"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -163,7 +163,7 @@
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/register_usermail"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/deep_green"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -197,7 +197,7 @@
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/register_userpassword_first"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/deep_green"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -231,7 +231,7 @@
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/register_userpassword"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/deep_green"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -262,9 +262,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:layout_marginEnd="98dp"
+                android:layout_weight="1"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/register_userrut"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/deep_green"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -273,11 +274,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
+                android:layout_weight="1"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/register_userphone"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/deep_green"
                 android:textSize="22sp"
                 android:textStyle="bold" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -314,15 +321,16 @@
                 android:inputType="textPersonName"
                 android:paddingStart="12dp"
                 tools:ignore="RtlSymmetry" />
+
         </LinearLayout>
 
         <Spinner
             android:id="@+id/spinner_gender"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_border_spinner"
-            android:padding="12dp"
+            android:padding="0dp"
             android:scrollbarSize="22dp"
             android:textAlignment="center" />
 
@@ -341,7 +349,7 @@
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="@string/register_userbirthday"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/deep_green"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -359,6 +367,7 @@
                 android:inputType="textEmailAddress"
                 android:paddingStart="12dp"
                 tools:ignore="RtlSymmetry" />
+
         </LinearLayout>
 
         <Button

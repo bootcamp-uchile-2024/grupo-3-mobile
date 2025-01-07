@@ -20,6 +20,7 @@ class RetrofitCatalogClient(private val baseUrl: String) {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
+            .retryOnConnectionFailure(true)
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -50,6 +51,18 @@ class RetrofitCatalogClient(private val baseUrl: String) {
             orderBy = filterParams?.orderBy,
             order = filterParams?.order,
             size = filterParams?.size
+        )
+    }
+
+    suspend fun searchPlants(
+        page: Int,
+        pageSize: Int,
+        searchQuery: String
+    ): PlantResponse<Plant> {
+        return catalogApiService.searchPlants(
+            page = page,
+            pageSize = pageSize,
+            searchQuery = searchQuery
         )
     }
 

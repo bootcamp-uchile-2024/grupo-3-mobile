@@ -10,7 +10,6 @@ import com.cotiledon.mobilApp.ui.dataClasses.cart.QueuedOperation
 import com.cotiledon.mobilApp.ui.enums.CartOperation
 import com.cotiledon.mobilApp.ui.backend.cart.RetrofitCartClient
 import com.cotiledon.mobilApp.ui.backend.user.RetrofitUserClient
-import com.cotiledon.mobilApp.ui.dataClasses.profile.ProfileResponse
 import com.cotiledon.mobilApp.ui.dataClasses.profile.VisitorResponse
 import com.cotiledon.mobilApp.ui.dataClasses.profile.toVisitorResponse
 import com.cotiledon.mobilApp.ui.fragments.SignInFragment
@@ -38,20 +37,48 @@ class CartStorageManager (private val context: Context, private val tokenManager
     private var serverCartId: Int? = null
 
     suspend fun getCartId(): Int? {
+        // First check cached cart ID
         if (serverCartId != null) {
             return serverCartId
         }
 
         try {
-            // Check if we need to create a visitor profile
-            if (!tokenManager.hasValidToken()) {
-                val visitorResponse = createVisitorProfile()
-                visitorResponse?.let {
-                    tokenManager.saveVisitorAuthData(it)
-                } ?: return null
+            // Check for existing visitor token first
+            if (tokenManager.isVisitor()) {
+                // If we're a visitor but token expired, try to reuse the same visitor ID
+                val userId = tokenManager.getUserId()
+                if (userId != -1) {
+                    try {
+                        // Try to get existing cart for this visitor
+                        val response = cartClient.getUserCart(userId)
+                        if (response.isSuccessful) {
+                            val cart = response.body()
+                            serverCartId = cart?.id
+                            saveCartIdLocally(serverCartId)
+                            return serverCartId
+                        }
+                    } catch (e: Exception) {
+                        Log.e("CartStorageManager", "Error getting existing visitor cart", e)
+                    }
+                }
             }
 
-            // Now that we have a valid token (visitor or regular), get/create cart
+            // If we get here, we either don't have a visitor profile or couldn't recover the existing one
+            if (!tokenManager.hasValidToken()) {
+                // Only create new visitor profile if we don't have one
+                if (!tokenManager.isVisitor()) {
+                    val visitorResponse = createVisitorProfile()
+                    visitorResponse?.let {
+                        tokenManager.saveVisitorAuthData(it)
+                    } ?: return null
+                } else {
+                    // We have a visitor profile but invalid token - something went wrong
+                    Log.e("CartStorageManager", "Invalid token for existing visitor")
+                    return null
+                }
+            }
+
+            // Now we should have a valid token (visitor or regular)
             val userId = tokenManager.getUserId()
             if (userId != -1) {
                 val response = cartClient.getUserCart(userId)
@@ -300,6 +327,7 @@ class CartStorageManager (private val context: Context, private val tokenManager
                     )
                 )
             }
+            Log.i("CartStorageManager", "Productos cargados: $cartItems")
         } catch (e: Exception) {
             e.printStackTrace()
         }

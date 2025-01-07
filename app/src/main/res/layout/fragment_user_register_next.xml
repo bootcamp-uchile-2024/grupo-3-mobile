@@ -58,9 +58,10 @@
 
             <Spinner
                 android:id="@+id/spinner_region"
-                android:layout_width="170dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/rounded_border_spinner"
                 android:gravity="center_horizontal"
@@ -70,9 +71,10 @@
 
             <Spinner
                 android:id="@+id/spinner_comuna"
-                android:layout_width="170dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/rounded_border_spinner"
                 android:gravity="center_horizontal"
@@ -90,57 +92,114 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/TextView_register_username"
-                android:layout_width="wrap_content"
+                android:id="@+id/TextView_register_user_address"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:text="@string/register_next_address"
-                android:textColor="@color/primary_color"
-                android:textSize="22sp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/quicksand"
+                android:text="Dirección *"
+                android:textColor="@color/deep_green"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/edittext_adress"
+                android:id="@+id/street_name"
                 android:layout_width="match_parent"
-                android:layout_height="39dp"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/rounded_shopping_edittext"
-                android:fontFamily="@font/quicksand_medium"
-                android:hint="@string/register_next_address_hint"
-                android:inputType="textPersonName"
-                android:paddingStart="12dp"
-                tools:ignore="RtlSymmetry" />
+                android:fontFamily="@font/quicksand"
+                android:hint="Avenida siempreviva"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/TextView_register_user_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/quicksand"
+                android:text="Numero *"
+                android:textColor="@color/deep_green"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/street_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:fontFamily="@font/quicksand"
+                android:hint="123"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/TextView_register_user_departemento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/quicksand"
+                android:text="Departamento/Casa/Oficina"
+                android:textColor="@color/deep_green"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/department"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:fontFamily="@font/quicksand"
+                android:hint="Opcional"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/TextView_register_user_referemce"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/quicksand"
+                android:text="Referencia"
+                android:textColor="@color/deep_green"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/reference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_shopping_edittext"
+                android:fontFamily="@font/quicksand"
+                android:hint="Opcional"
+                android:padding="10dp" />
         </LinearLayout>
 
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginBottom="30dp"
-            android:gravity="left">
+            android:gravity="center|left"
+            android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/checkbox_terms"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity=""
                 android:layout_marginEnd="8dp"
                 android:buttonTint="@color/checkbox_color"
-                android:checked="false"
-                android:layout_gravity=""/>
+                android:checked="false" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/register_terms_n_conditions"
-                android:textSize="16sp"
                 android:fontFamily="@font/quicksand"
-                android:textColor="@color/primary_color"/>
+                android:text="@string/register_terms_n_conditions"
+                android:textColor="@color/primary_color"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -150,6 +209,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|center_vertical"
             android:background="@drawable/round_standar"
+            android:clickable="true"
             android:fontFamily="@font/quicksand"
             android:paddingStart="90dp"
             android:paddingTop="5dp"

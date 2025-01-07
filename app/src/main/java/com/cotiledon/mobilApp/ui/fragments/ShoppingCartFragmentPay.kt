@@ -19,7 +19,6 @@ import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
 import com.cotiledon.mobilApp.ui.adapters.CartSummaryAdapter
 import com.cotiledon.mobilApp.ui.backend.order.RetrofitOrderClient
 import com.cotiledon.mobilApp.ui.backend.user.RetrofitUserClient
-import com.cotiledon.mobilApp.ui.backend.user.UserApiService
 import com.cotiledon.mobilApp.ui.dataClasses.profile.UserProfileUpdate
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.cotiledon.mobilApp.ui.managers.OrderManager
@@ -30,9 +29,14 @@ import java.util.Locale
 
 class ShoppingCartFragmentPay : Fragment(){
     private lateinit var recyclerView: RecyclerView
-    private lateinit var cartManager: CartStorageManager
-    private lateinit var tokenManager: TokenManager
-    private lateinit var userClient: UserApiService
+
+    private val tokenManager: TokenManager by lazy {
+        context?.let { TokenManager(it) } ?: throw IllegalStateException("Contexto no disponible")
+    }
+
+    private val cartManager: CartStorageManager by lazy {
+        CartStorageManager(requireContext(), tokenManager)
+    }
 
     private lateinit var productPriceText: TextView
     private lateinit var discountValueText: TextView
@@ -61,8 +65,8 @@ class ShoppingCartFragmentPay : Fragment(){
 
         initializeViews(view)
         setupRecyclerView()
-        setupClickListeners()
         updatePrices()
+        setupClickListeners()
     }
 
     private fun initializeViews(view: View) {
@@ -74,11 +78,6 @@ class ShoppingCartFragmentPay : Fragment(){
         discountInput = view.findViewById(R.id.edittext_shopping_discount)
         applyDiscountButton = view.findViewById(R.id.button_shopping_apl)
         checkoutButton = view.findViewById(R.id.btn_ir_a_pagar)
-
-        tokenManager = TokenManager(requireContext())
-        cartManager = CartStorageManager(requireContext(), tokenManager)
-
-        val userRetrofitClient = RetrofitUserClient.createUserClient(tokenManager)
     }
 
     private fun setupRecyclerView() {
@@ -96,10 +95,6 @@ class ShoppingCartFragmentPay : Fragment(){
 
         checkoutButton.setOnClickListener {
             handlePayment()
-        }
-
-        applyDiscountButton.setOnClickListener {
-            handleDiscountCode()
         }
     }
 
@@ -144,36 +139,49 @@ class ShoppingCartFragmentPay : Fragment(){
     }
 
     private fun handlePayment() {
+
+        if (!isAdded || activity == null) {
+            Log.e("ShoppingCartFragmentPay", "Fragment no está agregado o actividad es nula")
+            showError("Error interno. Por favor, reinicia la aplicación.")
+            return
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val userId = tokenManager.getUserId()
 
                 // Handle visitor profile update if necessary
-                /*if (tokenManager.isVisitor()) {
-                    val visitorDetails = OrderManager.getVisitorDetails()
-                    if (visitorDetails != null) {
-                        try {
-                            val updateResponse = RetrofitUserClient.createUserClient(tokenManager).updateUserProfile(
-                                userId = userId,
-                                userProfile = UserProfileUpdate(
-                                    nombre = visitorDetails.name,
-                                    apellido = visitorDetails.lastName,
-                                    email = visitorDetails.email,
-                                    telefono = visitorDetails.phone,
-                                    rut = visitorDetails.rut
-                                )
-                            )
+                /*viewLifecycleOwner.lifecycleScope.launch {
+                    try {
+                        val userId = tokenManager.getUserId()
 
-                            if (!updateResponse.isSuccessful) {
-                                Log.e("ShoppingCartFragmentPay", "Failed to update visitor profile")
-                                showError("Error updating profile information")
-                                return@launch
+                        if (tokenManager.isVisitor()) {
+                            val visitorDetails = OrderManager.getVisitorDetails()
+                            visitorDetails?.let {
+                                val updateResponse = RetrofitUserClient.createUserClient(tokenManager).updateUserProfile(
+                                    userId = userId,
+                                    userProfile = UserProfileUpdate(
+                                        nombre = it.name,
+                                        apellido = it.lastName,
+                                        email = it.email,
+                                        telefono = it.phone,
+                                        rut = it.rut
+                                    )
+                                )
+
+                                if (!updateResponse.isSuccessful) {
+                                    Log.e("ShoppingCartFragmentPay", "Failed to update visitor profile")
+                                    showError("Error updating profile information")
+                                    return@launch
+                                }
                             }
-                        } catch (e: Exception) {
-                            Log.e("ShoppingCartFragmentPay", "Error updating visitor profile", e)
-                            showError("Error updating profile information")
-                            return@launch
                         }
+
+                        processOrder(userId)
+
+                    } catch (e: Exception) {
+                        Log.e("ShoppingCartFragmentPay", "Error en handlePayment", e)
+                        showError("Error processing payment")
                     }
                 }*/
 

@@ -74,6 +74,7 @@ class ShoppingCartOrderSummaryFragment1 : Fragment() {
         lastNameEditText.setText(details.lastName)
         emailEditText.setText(details.email)
         phoneEditText.setText(details.phone)
+        rutEditText.setText(details.rut)
     }
 
     private fun clearFields() {
@@ -120,26 +121,70 @@ class ShoppingCartOrderSummaryFragment1 : Fragment() {
         var isValid = true
 
         // Validación de email
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        val emailPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$"
         if (!emailEditText.text.toString().matches(emailPattern.toRegex())) {
             emailEditText.error = "Ingrese un email válido"
             isValid = false
         }
 
-        // Validación de telefono
-        val phonePattern = "^\\+?569\\d{8}$"
-        if (!phoneEditText.text.toString().matches(phonePattern.toRegex())) {
-            phoneEditText.error = "Ingrese un número válido (formato: +569XXXXXXXX)"
+        // Validación de Nombre
+        if (!isValidName(nameEditText.text.toString())) {
+            nameEditText.error = "El nombre solo puede contener letras y guiones"
             isValid = false
         }
 
-        // Validación de Nombre
-        if (nameEditText.text.toString().length < 3) {
-            nameEditText.error = "El nombre debe tener al menos 3 caracteres"
+        // Validación de Apellido
+        if (!isValidName(lastNameEditText.text.toString())) {
+            lastNameEditText.error = "El apellido solo puede contener letras y guiones"
+            isValid = false
+        }
+
+        // Validacion de Rut
+        if (!isValidRut(rutEditText.text.toString())) {
+            rutEditText.error = "El RUT no es válido"
             isValid = false
         }
 
         return isValid
+    }
+
+    private fun isValidName(name: String): Boolean {
+        // Only letters and hyphens allowed
+        val nameRegex = "^[A-Za-zÁ-ÿ-]+$"
+        return name.matches(nameRegex.toRegex())
+    }
+
+    private fun isValidRut(rut: String): Boolean {
+        val cleanRut = rut.replace(".", "").replace("-", "")
+
+        // Format validation
+        val rutRegex = "^\\d{7,8}[0-9K]$".toRegex()
+        if (!cleanRut.matches(rutRegex)) return false
+
+        // Split between main number and verification digit
+        val body = cleanRut.substring(0, cleanRut.length - 1)
+        val verificationDigit = cleanRut.last()
+
+        // Calculate verification digit
+        val calculatedVerificationDigit = calculateRutVerificationDigit(body)
+
+        return verificationDigit.toString() == calculatedVerificationDigit
+    }
+
+    private fun calculateRutVerificationDigit(rut: String): String {
+        var total = 0
+        var multiplier = 2
+
+        for (i in rut.length - 1 downTo 0) {
+            total += rut[i].toString().toInt() * multiplier
+            multiplier = if (multiplier == 7) 2 else multiplier + 1
+        }
+
+        return when (val remainder = 11 - (total % 11)) {
+            10 -> "K"
+            11 -> "0"
+            else -> remainder.toString()
+        }
     }
 
     private fun saveShippingDetails() {

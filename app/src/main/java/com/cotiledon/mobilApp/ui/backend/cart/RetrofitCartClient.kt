@@ -25,6 +25,7 @@ class RetrofitCartClient(private val baseUrl: String, private val tokenManager: 
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
             .addInterceptor(authInterceptor)
+            .retryOnConnectionFailure(true)
             .build()
 
         val retrofit = Retrofit.Builder()

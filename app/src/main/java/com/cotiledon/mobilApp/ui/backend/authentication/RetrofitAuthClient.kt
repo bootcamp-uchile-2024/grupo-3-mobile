@@ -19,6 +19,7 @@ class RetrofitAuthClient(private val baseUrl: String, private val token: String)
 
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .retryOnConnectionFailure(true)
             .build()
 
         val retrofit = Retrofit.Builder()
