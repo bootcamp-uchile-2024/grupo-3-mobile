@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:width="249dp"
+    android:height="107dp"
+    android:viewportWidth="249"
+    android:viewportHeight="107"
+    >
+    <group>
+        <!-- Modified clip-path to include rounded corners -->
+        <clip-path
+            android:pathData="M8 0H241C245.418 0 249 3.58172 249 8V99C249 103.418 245.418 107 241 107H8C3.58172 107 0 103.418 0 99V8C0 3.58172 3.58172 0 8 0Z"
+            />
+
+        <!-- Background fill with rounded corners -->
+        <path
+            android:pathData="M8 0H241C245.418 0 249 3.58172 249 8V99C249 103.418 245.418 107 241 107H8C3.58172 107 0 103.418 0 99V8C0 3.58172 3.58172 0 8 0Z"
+            android:fillColor="#FFFFFF"
+            />
+
+        <!-- Border stroke with rounded corners -->
+        <path
+            android:pathData="M8 0H241C245.418 0 249 3.58172 249 8V99C249 103.418 245.418 107 241 107H8C3.58172 107 0 103.418 0 99V8C0 3.58172 3.58172 0 8 0Z"
+            android:strokeWidth="2"
+            android:strokeColor="#C7CCC7"
+            />
+    </group>
+</vector>

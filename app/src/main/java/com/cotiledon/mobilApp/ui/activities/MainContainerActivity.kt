@@ -5,7 +5,9 @@ import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.cotiledon.mobilApp.R
 import androidx.lifecycle.lifecycleScope
 import com.cotiledon.mobilApp.ui.backend.user.RetrofitUserClient
@@ -26,9 +28,36 @@ class MainContainerActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         enableEdgeToEdge()
         setContentView(R.layout.activity_main_container)
+
         supportActionBar?.hide()
+
+        // Get our window controller to manage system bars
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+
+        // Hide ONLY navigation bars (bottom buttons), keep status bar
+        windowInsetsController.apply {
+            // Hide only navigation bars, not status bar
+            hide(WindowInsetsCompat.Type.navigationBars())
+            // Allow showing bars with a swipe
+            systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { view, windowInsets ->
+            val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(0, systemBars.top, 0, 0)  // Only apply top padding
+            windowInsets
+        }
+
+        // Ensure consistent window decoration handling
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        val controller = WindowInsetsControllerCompat(window, findViewById(R.id.main))
+        controller.hide(WindowInsetsCompat.Type.navigationBars())
+        controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 
         //Inicialiar el cart manager
         cartManager = CartStorageManager(this, TokenManager(this))
@@ -36,14 +65,17 @@ class MainContainerActivity : BaseActivity() {
         //Inicializar el botom navigation
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
+        bottomNavigationView.apply {
+            // Force the height to be exactly what we want
+            layoutParams = layoutParams.apply {
+                height = resources.getDimensionPixelSize(R.dimen.bottom_nav_height)
+            }
+            // Ensure proper elevation and layering
+            elevation = 8f
+        }
+
         //Inicializar el cart badge
         updateCartBadge()
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         //Inicializar siempre la vista con el HomeFragment
         if (savedInstanceState == null) {

@@ -67,6 +67,7 @@ class HomeFragment : Fragment() {
         }
 
         cameraButton.setOnClickListener {
+            navigateToIA()
         }
     }
 
@@ -202,6 +203,14 @@ class HomeFragment : Fragment() {
                 ).show()
             }
         }
+    }
+
+    private fun navigateToIA(){
+        val iaMainFragment = IAMainFragment()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, iaMainFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun navigateToProductDetail(plant: Plant) {
