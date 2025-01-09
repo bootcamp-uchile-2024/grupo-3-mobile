@@ -29,50 +29,38 @@ class MainContainerActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Set up edge-to-edge
         WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        // Change the color of the navigation bar to trasnparent
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.isAppearanceLightNavigationBars = true
 
         enableEdgeToEdge()
+
         setContentView(R.layout.activity_main_container)
 
+        // Hide action bar if needed
         supportActionBar?.hide()
 
-        // Get our window controller to manage system bars
-        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        // Initialize views
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        // Hide ONLY navigation bars (bottom buttons), keep status bar
-        windowInsetsController.apply {
-            // Hide only navigation bars, not status bar
-            hide(WindowInsetsCompat.Type.navigationBars())
-            // Allow showing bars with a swipe
-            systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
-
+        // Set up window insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { view, windowInsets ->
-            val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.setPadding(0, systemBars.top, 0, 0)  // Only apply top padding
+            val statusBars = windowInsets.getInsets(WindowInsetsCompat.Type.statusBars())
+
+            // Apply padding only to status bar
+            view.setPadding(0, statusBars.top, 0, 0)
+
             windowInsets
         }
-
-        // Ensure consistent window decoration handling
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        val controller = WindowInsetsControllerCompat(window, findViewById(R.id.main))
-        controller.hide(WindowInsetsCompat.Type.navigationBars())
-        controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 
         //Inicialiar el cart manager
         cartManager = CartStorageManager(this, TokenManager(this))
 
         //Inicializar el botom navigation
         bottomNavigationView = findViewById(R.id.bottom_navigation)
-
-        bottomNavigationView.apply {
-            // Force the height to be exactly what we want
-            layoutParams = layoutParams.apply {
-                height = resources.getDimensionPixelSize(R.dimen.bottom_nav_height)
-            }
-            // Ensure proper elevation and layering
-            elevation = 8f
-        }
 
         //Inicializar el cart badge
         updateCartBadge()

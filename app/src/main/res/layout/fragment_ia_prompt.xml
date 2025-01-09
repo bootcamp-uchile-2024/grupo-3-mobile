@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/newbg1">
 
     <View
         android:id="@+id/ia_upper_banner"
@@ -14,10 +15,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/back_btn_ia"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:clickable="true"
+        app:tint="@color/main_app"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ia_upper_banner"
+        app:srcCompat="@drawable/back_arrow_white" />
+
+    <ImageView
+        android:id="@+id/plant_ia_logo"
+        android:layout_width="63dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ia_upper_banner"
+        app:srcCompat="@drawable/logo_plant_ai" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
-        android:layout_height="360dp"
+        android:layout_height="400dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         app:cardCornerRadius="16dp"
@@ -46,6 +69,7 @@
                 android:gravity="center_horizontal"
                 android:text="Para mejorar tu experiencia, puedes darnos más detalles para encontrar las plantas que buscas"
                 android:textColor="@color/main_app"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <Space
@@ -63,15 +87,19 @@
                     android:id="@+id/ia_prompt_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_margin="8dp"
                     android:background="@null"
                     android:ems="10"
+                    android:fadeScrollbars="true"
                     android:fontFamily="@font/quicksand_medium"
-                    android:gravity="center"
-                    android:inputType="text"
+                    android:gravity="center_horizontal|top"
+                    android:inputType="text|textMultiLine"
                     android:maxLength="2000"
+                    android:overScrollMode="never"
+                    android:scrollbars="vertical"
                     android:textColor="@color/deep_green"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
             </FrameLayout>
 
             <Space

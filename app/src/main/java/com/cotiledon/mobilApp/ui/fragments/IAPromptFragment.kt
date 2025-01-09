@@ -9,9 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.backend.ia.RetrofitIAClient
@@ -24,13 +25,39 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
+import java.io.File
 
 class IAPromptFragment : Fragment() {
     private var photoPath: String? = null
     private lateinit var iaPrompt: EditText
     private lateinit var nextButton: Button
+    private lateinit var backButton: ImageView
     private val coroutineScope = CoroutineScope(Dispatchers.Main + Job())
     private val iaClient = RetrofitIAClient.createIAClient()
+    private lateinit var backPressedCallback: OnBackPressedCallback
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Initialize the callback
+        backPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                handleBackNavigation()
+            }
+        }
+
+        // Add the callback to the activity
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this, // LifecycleOwner
+            backPressedCallback
+        )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Remove the callback when the view is destroyed
+        backPressedCallback.remove()
+    }
 
     companion object {
         private const val MAX_IMAGE_DIMENSION = 800  // Maximum width or height in pixels
@@ -46,10 +73,16 @@ class IAPromptFragment : Fragment() {
         iaPrompt = view.findViewById(R.id.ia_prompt_edit_text)
         nextButton = view.findViewById(R.id.ia_prompt_continue_button)
         photoPath = arguments?.getString("photo_path")
+        backButton = view.findViewById(R.id.back_btn_ia)
         nextButton.setOnClickListener {
             processImageAndSend()
         }
+        backButton.setOnClickListener {
+            handleBackNavigation()
+        }
+
         return view
+
     }
 
     private fun processImageAndSend() {
@@ -79,6 +112,23 @@ class IAPromptFragment : Fragment() {
         }
     }
 
+    private fun handleBackNavigation() {
+        photoPath?.let { path ->
+            try {
+                val file = File(path)
+                if (file.exists()) {
+                    file.delete()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        coroutineScope.cancel()
+
+        parentFragmentManager.popBackStack()
+    }
+
     private suspend fun convertImageToBase64(): String {
         return withContext(Dispatchers.IO) {
             var byteArrayOutputStream: ByteArrayOutputStream? = null
@@ -103,7 +153,7 @@ class IAPromptFragment : Fragment() {
                     inSampleSize = scaleFactor
                 }.let { scaledOptions ->
                     BitmapFactory.decodeFile(photoPath, scaledOptions)
-                } ?: throw IllegalStateException("Failed to load image")
+                } ?: throw IllegalStateException("Error cargando la imagen")
 
                 // Resize the bitmap if it's still too large
                 val resizedBitmap = resizeBitmapIfNeeded(bitmap, MAX_IMAGE_DIMENSION)
@@ -190,8 +240,8 @@ class IAPromptFragment : Fragment() {
 
     private fun handleError(error: Exception) {
         val errorMessage = when (error) {
-            is IllegalStateException -> "Error loading image: ${error.message}"
-            else -> "Image too large to process. Please try a smaller image."
+            is IllegalStateException -> "Error cargando la imagen: ${error.message}"
+            else -> "La imagen es demasiado grande, intenta con una más pequeña."
         }
 
         Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()

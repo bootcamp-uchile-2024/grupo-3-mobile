@@ -16,23 +16,30 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Recomendación de IA"
-            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="Recomendación de la IA"
+            android:textColor="@color/main_app"
             android:textSize="18sp"
-            android:layout_marginBottom="8dp"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/ai_explanation_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:textColor="@color/deep_green" />
 
         <Button
             android:id="@+id/dismiss_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="Entendido"/>
+            android:fontFamily="@font/quicksand_medium"
+            android:text="Entendido"
+            android:textAllCaps="false"
+            app:cornerRadius="8dp" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

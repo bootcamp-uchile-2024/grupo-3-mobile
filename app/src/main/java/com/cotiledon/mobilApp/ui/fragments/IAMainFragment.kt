@@ -1,6 +1,7 @@
 package com.cotiledon.mobilApp.ui.fragments
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
@@ -57,7 +58,7 @@ class IAMainFragment : Fragment() {
             if (checkBox.isChecked) {
                 checkCameraPermissionAndOpen()
             } else {
-                Toast.makeText(requireContext(), "Please accept the permission first", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Por favor, danos permiso primero", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -101,6 +102,7 @@ class IAMainFragment : Fragment() {
     }
 
     // Function to open camera
+    @SuppressLint("QueryPermissionsNeeded")
     private fun openCamera() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent
@@ -110,7 +112,7 @@ class IAMainFragment : Fragment() {
                     createImageFile()
                 } catch (ex: IOException) {
                     // Error occurred while creating the File
-                    Toast.makeText(requireContext(), "Error creating image file", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Error creando el archivo de imagen", Toast.LENGTH_SHORT).show()
                     null
                 }
 
@@ -143,19 +145,19 @@ class IAMainFragment : Fragment() {
                     if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
                         // Show dialog explaining why we need camera permission
                         AlertDialog.Builder(requireContext())
-                            .setTitle("Camera Permission Needed")
-                            .setMessage("We need camera access to take pictures of plants for identification.")
-                            .setPositiveButton("Grant Permission") { _, _ ->
+                            .setTitle("Se necesita permiso de la camara")
+                            .setMessage("Necesitamos acceso a la camara para usar esta funcionalidad")
+                            .setPositiveButton("Dar Permiso") { _, _ ->
                                 requestPermissions(
                                     arrayOf(Manifest.permission.CAMERA),
                                     CAMERA_PERMISSION_CODE
                                 )
                             }
-                            .setNegativeButton("Cancel") { dialog, _ ->
+                            .setNegativeButton("Cancelar") { dialog, _ ->
                                 dialog.dismiss()
                                 Toast.makeText(
                                     requireContext(),
-                                    "Camera permission is required to use this feature",
+                                    "Se necesita permiso de la camara para usar esta funcionalidad",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -164,15 +166,15 @@ class IAMainFragment : Fragment() {
                     } else {
                         // Permission permanently denied, direct user to settings
                         AlertDialog.Builder(requireContext())
-                            .setTitle("Permission Required")
-                            .setMessage("Camera permission has been denied. Please enable it in app settings to use this feature.")
-                            .setPositiveButton("Go to Settings") { _, _ ->
+                            .setTitle("Se necesita permiso de la camara")
+                            .setMessage("Se ha denegaddo el permiso de la cámara. Por favor, vaya a los ajustes y permita el acceso a la cámara.")
+                            .setPositiveButton("Ir a Ajustes") { _, _ ->
                                 // Open app settings
                                 startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                                     data = Uri.fromParts("package", requireActivity().packageName, null)
                                 })
                             }
-                            .setNegativeButton("Cancel") { dialog, _ ->
+                            .setNegativeButton("Cancelar") { dialog, _ ->
                                 dialog.dismiss()
                             }
                             .create()
@@ -199,16 +201,16 @@ class IAMainFragment : Fragment() {
         val fileSizeMB = bytesToMB(fileSize)
 
         // Log the file size
-        Log.d("ImageCapture", "Image size: ${String.format("%.2f", fileSizeMB)} MB")
+        Log.d("Captura de imagen", "Tamaño de la foto: ${String.format("%.2f", fileSizeMB)} MB")
 
         AlertDialog.Builder(requireContext())
-            .setTitle("Photo Captured")
-            .setMessage("Photo size: ${String.format("%.2f", fileSizeMB)} MB\n\nWould you like to use this photo or take another one?")
-            .setPositiveButton("Use Photo") { dialog, _ ->
+            .setTitle("Foto capturada")
+            .setMessage("Tamaño de la foto: ${String.format("%.2f", fileSizeMB)} MB\n\n¿Quieres utilizar esta foto o tomar otra?")
+            .setPositiveButton("Utilizar") { dialog, _ ->
                 dialog.dismiss()
                 navigateToPromptFragment()
             }
-            .setNegativeButton("Retake") { dialog, _ ->
+            .setNegativeButton("Volver a intentar") { dialog, _ ->
                 dialog.dismiss()
                 openCamera()
             }
