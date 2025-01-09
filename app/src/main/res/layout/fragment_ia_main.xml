@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Root LinearLayout - Using vertical orientation to stack elements from top to bottom -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Top logo - Centered with margin at the top -->
+
+    <!-- Main plant image - Takes up remaining vertical space using layout_weight -->
+    <View
+        android:id="@+id/ia_upper_banner"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#1A4756"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Main plant image wrapped in CardView -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ia_main_image_card"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:layout_weight="1"
+        android:foregroundGravity="center_horizontal"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp">
+
+        <ImageView
+            android:id="@+id/ia_main_image_iv"
+            android:layout_width="320dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:foregroundGravity="center_horizontal"
+            android:scaleType="centerCrop"
+            android:src="@drawable/main_ia_image" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- Grid of sample images - 3 columns, 1 row -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:columnCount="3"
+        android:rowCount="1">
+
+        <!-- First sample image in CardView -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ia_first_image_card"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp">
+
+            <ImageView
+                android:id="@+id/ia_first_image_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/first_support_ia_image" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Second sample image in CardView -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ia_second_image_card"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp">
+
+            <ImageView
+                android:id="@+id/ia_second_image_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/second_support_ia_image" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Third sample image in CardView -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ia_third_image_card"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp">
+
+            <ImageView
+                android:id="@+id/ia_third_image_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/third_support_ia_image" />
+        </androidx.cardview.widget.CardView>
+    </GridLayout>
+
+    <!-- Main title text -->
+    <TextView
+        android:id="@+id/ia_context_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:gravity="center"
+        android:text="Usa tu camara para buscar"
+        android:textColor="@color/ia_color"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Subtitle text -->
+    <CheckBox
+        android:id="@+id/ia_checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="26dp"
+        android:buttonTint="@color/ia_color"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="Con tu permiso, puedes buscar la planta de tus sueños"
+        android:textAlignment="center"
+        android:textColor="@color/secondary_grey" />
+
+    <!-- Continue button at the bottom -->
+    <Button
+        android:id="@+id/ia_continue_button"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:padding="0dp"
+        android:text="Continuar"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+
+</LinearLayout>

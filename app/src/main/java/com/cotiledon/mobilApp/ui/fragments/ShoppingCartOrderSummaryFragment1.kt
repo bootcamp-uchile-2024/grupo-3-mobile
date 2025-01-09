@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.dataClasses.order.ShippingDetails
 import com.cotiledon.mobilApp.ui.managers.OrderManager
@@ -23,6 +26,7 @@ class ShoppingCartOrderSummaryFragment1 : Fragment() {
     private lateinit var nextButton: Button
     private lateinit var modifyInfoText: TextView
     private lateinit var tokenManager: TokenManager
+    private lateinit var backButton: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +39,11 @@ class ShoppingCartOrderSummaryFragment1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize the back button from the included layout
+        backButton = view.findViewById(R.id.btn_back)
+
+        // Set up back button click listener
+        setupBackNavigation()
 
         tokenManager = TokenManager(requireContext())
 
@@ -47,6 +56,23 @@ class ShoppingCartOrderSummaryFragment1 : Fragment() {
         } else {
             handleRegisteredUserFlow()
         }
+    }
+    private fun setupBackNavigation() {
+        backButton.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    parentFragmentManager.popBackStack()
+                }
+            }
+        )
     }
 
     private fun handleVisitorFlow() {

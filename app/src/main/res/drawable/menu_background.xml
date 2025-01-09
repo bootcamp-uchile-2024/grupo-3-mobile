@@ -1,8 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#234A5E" /> <!-- Color del fondo -->
+    <solid android:color="@color/main_app" /> <!-- Color del fondo -->
     <corners
-        android:topLeftRadius="10dp"
-        android:topRightRadius="10dp"
+        android:topLeftRadius="16dp"
+        android:topRightRadius="16dp"
         android:bottomLeftRadius="0dp"
-        android:bottomRightRadius="0dp" /> <!-- Bordes redondeados solo arriba -->
+        android:bottomRightRadius="0dp" />
 </shape>
+

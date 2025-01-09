@@ -71,6 +71,42 @@ class CatalogFragment : SearchableFragment(), PlantFiltersBottomSheet.FilterList
     private var currentSortParams: PlantFilterParams? = null
     private var currentPlants = mutableListOf<Plant>()
 
+    private var popupWindow: PopupWindow? = null
+
+    // Add this method to show the AI explanation popup
+    private fun showAIExplanationPopup(explanation: String) {
+        val inflater = LayoutInflater.from(requireContext())
+        val popupView = inflater.inflate(R.layout.ai_explanation_popup, null)
+
+        // Initialize the popup window
+        popupWindow = PopupWindow(
+            popupView,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        ).apply {
+            elevation = 16f
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+
+        // Set the explanation text
+        popupView.findViewById<TextView>(R.id.ai_explanation_text).text = explanation
+
+        // Set up dismiss button
+        popupView.findViewById<Button>(R.id.dismiss_button).setOnClickListener {
+            popupWindow?.dismiss()
+        }
+
+        // Show the popup centered in the screen
+        val rootView = requireActivity().window.decorView.findViewById<View>(android.R.id.content)
+        popupWindow?.showAtLocation(rootView, Gravity.CENTER, 0, 0)
+
+        // Add dim background
+        val dimBackground = ColorDrawable(Color.BLACK)
+        dimBackground.alpha = 120 // Value between 0-255
+        popupWindow?.setBackgroundDrawable(dimBackground)
+    }
+
     private sealed class DisplayMode {
         data object Catalog : DisplayMode()
         data class Search(val query: String) : DisplayMode()
@@ -82,8 +118,33 @@ class CatalogFragment : SearchableFragment(), PlantFiltersBottomSheet.FilterList
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_catalog, container, false)
+        val view = inflater.inflate(R.layout.fragment_catalog, container, false)
+
+        // Construct PlantFilterParams from individual arguments
+        arguments?.let { args ->
+            if (args.containsKey("environment")) {  // Check if we have AI-provided filters
+                currentFilters = PlantFilterParams(
+                    environment = args.getInt("environment"),
+                    petFriendly = args.getBoolean("pet_friendly"),
+                    lighting = args.getInt("lighting"),
+                    temperatureTolerance = args.getInt("temperature"),
+                    irrigationType = args.getInt("irrigation"),
+                    size = args.getString("size")
+
+                )
+
+                // Show AI explanation if available
+                args.getString("ai_explanation")?.let { explanation ->
+                    view.post {
+                        showAIExplanationPopup(explanation)
+                    }
+                }
+            }
+        }
+
+        return view
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -125,6 +186,8 @@ class CatalogFragment : SearchableFragment(), PlantFiltersBottomSheet.FilterList
         super.onDestroy()
         // Cancel any ongoing operations
         searchJob?.cancel()
+        popupWindow?.dismiss()
+        popupWindow = null
     }
 
     private fun initializeViews(view: View) {

@@ -2,7 +2,6 @@ package com.cotiledon.mobilApp.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +9,14 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.cotiledon.mobilApp.R
-import com.cotiledon.mobilApp.ui.backend.user.RetrofitUserClient
-import com.cotiledon.mobilApp.ui.dataClasses.profile.UserAddressCreation
 import com.cotiledon.mobilApp.ui.managers.OrderManager
 import com.cotiledon.mobilApp.ui.managers.TokenManager
-import kotlinx.coroutines.launch
 
 class ShoppingCartOrderSummaryFragment2 : Fragment() {
     private lateinit var regionSpinner: Spinner
@@ -32,6 +29,7 @@ class ShoppingCartOrderSummaryFragment2 : Fragment() {
     private lateinit var receiverNameEditText: EditText
     private lateinit var finalizeButton: Button
     private lateinit var modifyInfoText: TextView
+    private lateinit var backButton: ImageButton
 
     private val tokenManager: TokenManager by lazy {
         context?.let { TokenManager(it) } ?: throw IllegalStateException("Contexto no disponible")
@@ -91,6 +89,7 @@ class ShoppingCartOrderSummaryFragment2 : Fragment() {
         setupSpinners()
         setupClickListeners()
         loadExistingDetails()
+        setupBackNavigation()
     }
 
     private fun initializeViews(view: View) {
@@ -103,6 +102,25 @@ class ShoppingCartOrderSummaryFragment2 : Fragment() {
         receiverNameEditText = view.findViewById(R.id.receiver_name_edit_text)
         finalizeButton = view.findViewById(R.id.btn_siguiente)
         modifyInfoText = view.findViewById(R.id.TextViewInformation)
+        backButton = view.findViewById(R.id.btn_back)
+    }
+
+    private fun setupBackNavigation() {
+        backButton.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    parentFragmentManager.popBackStack()
+                }
+            }
+        )
     }
 
     private fun setupSpinners() {

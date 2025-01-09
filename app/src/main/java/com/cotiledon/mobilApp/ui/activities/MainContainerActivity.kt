@@ -5,7 +5,9 @@ import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.cotiledon.mobilApp.R
 import androidx.lifecycle.lifecycleScope
 import com.cotiledon.mobilApp.ui.backend.user.RetrofitUserClient
@@ -26,9 +28,33 @@ class MainContainerActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Set up edge-to-edge
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        // Change the color of the navigation bar to trasnparent
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.isAppearanceLightNavigationBars = true
+
         enableEdgeToEdge()
+
         setContentView(R.layout.activity_main_container)
+
+        // Hide action bar if needed
         supportActionBar?.hide()
+
+        // Initialize views
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        // Set up window insets
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { view, windowInsets ->
+            val statusBars = windowInsets.getInsets(WindowInsetsCompat.Type.statusBars())
+
+            // Apply padding only to status bar
+            view.setPadding(0, statusBars.top, 0, 0)
+
+            windowInsets
+        }
 
         //Inicialiar el cart manager
         cartManager = CartStorageManager(this, TokenManager(this))
@@ -38,12 +64,6 @@ class MainContainerActivity : BaseActivity() {
 
         //Inicializar el cart badge
         updateCartBadge()
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         //Inicializar siempre la vista con el HomeFragment
         if (savedInstanceState == null) {

@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,8 +20,6 @@ import com.cotiledon.mobilApp.R
 import com.cotiledon.mobilApp.ui.activities.MainContainerActivity
 import com.cotiledon.mobilApp.ui.adapters.CartSummaryAdapter
 import com.cotiledon.mobilApp.ui.backend.order.RetrofitOrderClient
-import com.cotiledon.mobilApp.ui.backend.user.RetrofitUserClient
-import com.cotiledon.mobilApp.ui.dataClasses.profile.UserProfileUpdate
 import com.cotiledon.mobilApp.ui.managers.CartStorageManager
 import com.cotiledon.mobilApp.ui.managers.OrderManager
 import com.cotiledon.mobilApp.ui.managers.TokenManager
@@ -45,6 +45,7 @@ class ShoppingCartFragmentPay : Fragment(){
     private lateinit var discountInput: EditText
     private lateinit var applyDiscountButton: Button
     private lateinit var checkoutButton: Button
+    private lateinit var backButton: ImageButton
 
 
     private val SHIPPING_COST = 5000.0
@@ -67,6 +68,7 @@ class ShoppingCartFragmentPay : Fragment(){
         setupRecyclerView()
         updatePrices()
         setupClickListeners()
+        setupBackNavigation()
     }
 
     private fun initializeViews(view: View) {
@@ -78,6 +80,25 @@ class ShoppingCartFragmentPay : Fragment(){
         discountInput = view.findViewById(R.id.edittext_shopping_discount)
         applyDiscountButton = view.findViewById(R.id.button_shopping_apl)
         checkoutButton = view.findViewById(R.id.btn_ir_a_pagar)
+        backButton = view.findViewById(R.id.btn_back)
+    }
+
+    private fun setupBackNavigation() {
+        backButton.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    parentFragmentManager.popBackStack()
+                }
+            }
+        )
     }
 
     private fun setupRecyclerView() {
